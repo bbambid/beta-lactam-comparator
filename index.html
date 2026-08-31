@@ -717,6 +717,11 @@ Q 381.3 306.3, 383.9 306.3
 <h2 data-edit-key="auto_029">使用ツール・計算方法</h2>
 <div class="tool-grid">
 <div class="tool-item"><b>RDKit</b><br/><span class="small" data-edit-key="auto_030">本ツールでは分子構造の描画、R1/R2フラグメント処理、MCS可視化、および原著未掲載ペアのR1・セフェムR2のMorgan fingerprint補助比較に使用。Picard published Similarity score自体の計算には使用していない。</span></div>
+<div class="tool-item"><b>Morgan fingerprintとは</b><br/><span class="small" data-edit-key="morgan_fingerprint_explanation">分子中の<strong>各原子を中心として、その周囲にどのような原子・結合が存在するかという局所的な化学構造</strong>を特徴量として表現する方法です。<br/><br/>
+本ツールの補助解析では、R1側鎖（およびセフェム同士のR2側鎖）について<strong>radius=2、2048 bit、chirality ON</strong>のMorgan fingerprintを作成し、2つのfingerprintに共通する特徴と固有の特徴を<strong>Tanimoto係数（0～1）</strong>で比較します。<strong>1に近いほどfingerprint上の構造特徴がよく一致し、0に近いほど異なる</strong>ことを示します。<br/><br/>
+Morgan fingerprintは、原子の<strong>「周囲の局所構造」</strong>を捉えるため、置換基が1つ変わるだけでもその周辺の複数の特徴が変化し、見た目の共通部分が大きくてもTanimoto similarityが低くなることがあります。<br/><br/>
+※Morgan/Tanimoto値は<strong>構造特徴の類似度</strong>であり、「構造が○％同じ」という意味でも、患者個人の交差反応率を示す値でもありません。<br/>
+※このPicard版では、<strong>Picard 2019の原著値がある組み合わせを最優先</strong>し、原著未掲載のR1ペアおよびセフェムR2の比較にMorgan fingerprintを補助指標として使用します。</span></div>
 <div class="tool-item"><b>Picard 2019：Atom-Pair / Tanimoto</b><br/><span class="small" data-edit-key="auto_031">原著ではChemMine ToolsのSimilarity Workbenchを用い、Atom-Pair molecular descriptorsとTanimoto coefficientでR1 side-chain similarityを算出。本ツールではそのFigure 2A掲載値を直接収載する。</span></div>
 <div class="tool-item"><b>Atom-Pair molecular descriptorsとは</b><br/><span class="small" data-edit-key="atom_pair_explanation">分子内の<strong>原子どうしの組み合わせ（Atom Pair）と、その原子間の距離・結合経路など</strong>を構造上の特徴として捉える方法です。<br/><br/>
 2つの側鎖について、共通するAtom Pairと、それぞれに固有のAtom Pairを比較し、<strong>Tanimoto係数（0～1）</strong>で類似性を数値化します。<strong>1に近いほど構造的な特徴が似ており、0に近いほど異なる</strong>ことを示します。<br/><br/>
