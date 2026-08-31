@@ -728,6 +728,28 @@ Morgan fingerprintは、原子の<strong>「周囲の局所構造」</strong>を
 Picardら（2019）は、βラクタム系抗菌薬の<strong>R1側鎖</strong>についてChemMine ToolsのAtom-Pair molecular descriptorsとTanimoto係数を用いて類似性を評価しています。<br/><br/>
 ※この値は構造上の類似性を示す指標であり、患者個人の交差反応率そのものを示す値ではありません。<br/>
 ※本ツールでChemMine Toolsを実行して再計算しているのではなく、<strong>PicardらがChemMine Toolsで算出した既報値を収載</strong>しています。</span></div>
+
+<div class="tool-item"><b>Morgan fingerprint（radius=2, 2048 bit, chirality ON）</b><br/><span class="small" data-edit-key="morgan_fingerprint_detailed_explanation"><strong>■ どのような解析か</strong><br/>
+Morgan fingerprintは、分子中の<strong>各原子を中心に、その周囲の原子・結合の並び方を「局所的な構造特徴」としてfingerprint化</strong>する方法です。2つの側鎖から得られたfingerprintをTanimoto係数（0～1）で比較し、1に近いほどfingerprint上の構造特徴がよく一致していることを示します。<br/><br/>
+
+<strong>■ なぜ radius=2 なのか</strong><br/>
+radius=2では、各原子を中心として<strong>結合2本先までの局所環境</strong>を特徴として取り込みます。これは一般にECFP4相当の情報量にあたり、官能基や置換基、その周辺構造の違いを捉えながら、分子全体が少し変わっただけで過度に複雑になりすぎない、実用的で再現性の高い設定です。本ツールではβラクタム側鎖の<strong>局所的な化学構造の違いを比較する</strong>目的でこの条件を採用しています。<br/><br/>
+
+<strong>■ なぜ 2048 bit なのか</strong><br/>
+Morgan fingerprintで得られた多数の構造特徴を<strong>2048個のbitに圧縮して表現</strong>します。bit数が少なすぎると異なる特徴が同じ場所に割り当てられる「bit collision」が増えやすく、逆に非常に大きくするとデータ量が増えます。2048 bitは、<strong>情報量と計算効率のバランスがよく、化学情報学で広く用いられる標準的な設定</strong>のため採用しています。<br/><br/>
+
+<strong>■ なぜ chirality ON なのか</strong><br/>
+側鎖には不斉中心を持つものがあり、同じ原子のつながりでも<strong>立体配置が異なれば分子認識が変わる可能性</strong>があります。そのため本ツールではchiralityをONにして、立体化学の違いもfingerprintに反映する設定としています。<br/><br/>
+
+<strong>■ Atom-Pairとの違い</strong><br/>
+Morgan fingerprintが各原子の<strong>「周囲の局所構造」</strong>を中心に見るのに対し、Atom-Pair descriptorは<strong>「どの原子とどの原子が、分子内でどの程度離れているか」という原子ペアと距離・結合経路の関係</strong>を特徴として捉えます。<br/>
+そのため、同じTanimoto係数を使っていても、MorganとAtom-Pairでは<strong>分子を数値化する前段階のdescriptorが異なる</strong>ため、同じ2つの側鎖でもsimilarity scoreは一致しないことがあります。例えば置換基が1つ追加された場合、Morganではその原子だけでなく周囲の複数の局所環境も変化するため、見た目以上にsimilarityが低下することがあります。<br/><br/>
+
+<strong>■ 本ツールでの位置づけ</strong><br/>
+Picardら（2019）のpublished similarity scoreは<strong>ChemMine ToolsのAtom-Pair molecular descriptors＋Tanimoto coefficient</strong>で算出された既報値です。一方、本ツールのMorgan fingerprint（radius=2, 2048 bit, chirality ON）は、<strong>原著に値がない組み合わせを同一条件で補助的に比較するための別解析</strong>です。Morgan/Tanimoto値をPicard scoreとして扱うことはありません。<br/><br/>
+
+※Morgan/Tanimotoは<strong>構造特徴の類似度</strong>であり、「構造が○％同じ」という意味でも、患者個人の交差反応率を示す値でもありません。</span></div>
+
 <div class="tool-item"><b>Tanimoto coefficient</b><br/><span class="small" data-edit-key="auto_032">PicardではAtom-Pair descriptor同士の比較に使用。Tanimoto(X,Y)=z/(x+y−z)。0は類似なし、1は同一側鎖。Similarity scoreは交差反応率そのものではない。</span></div>
 <div class="tool-item"><b>MCS（Maximum Common Substructure）</b><br/><span class="small" data-edit-key="auto_033">最大共通部分構造のこと。このツールでは化合物に共通する最大部分構造を抽出した上で、蛍光赤色で共通部分を示し、蛍光黄色で差分表示を行う。</span></div>
 </div>
