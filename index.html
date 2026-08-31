@@ -717,7 +717,8 @@ Q 381.3 306.3, 383.9 306.3
 <h2 data-edit-key="auto_029">使用ツール・計算方法</h2>
 <div class="tool-grid">
 <div class="tool-item"><b>RDKit</b><br/><span class="small" data-edit-key="auto_030">本ツールでは分子構造の描画、R1/R2フラグメント処理、MCS可視化、および原著未掲載ペアのR1・セフェムR2のMorgan fingerprint補助比較に使用。Picard published Similarity score自体の計算には使用していない。</span></div>
-<div class="tool-item"><b>Picard 2019：Atom-Pair / Tanimoto</b><br/><span class="small" data-edit-key="auto_031">分子内の<strong>原子どうしの組み合わせ（Atom Pair）と、その原子間の距離・結合経路など</strong>を構造上の特徴として捉える方法です。<br/><br/>
+<div class="tool-item"><b>Picard 2019：Atom-Pair / Tanimoto</b><br/><span class="small" data-edit-key="auto_031">原著ではChemMine ToolsのSimilarity Workbenchを用い、Atom-Pair molecular descriptorsとTanimoto coefficientでR1 side-chain similarityを算出。本ツールではそのFigure 2A掲載値を直接収載する。</span></div>
+<div class="tool-item"><b>Atom-Pair molecular descriptorsとは</b><br/><span class="small" data-edit-key="atom_pair_explanation">分子内の<strong>原子どうしの組み合わせ（Atom Pair）と、その原子間の距離・結合経路など</strong>を構造上の特徴として捉える方法です。<br/><br/>
 2つの側鎖について、共通するAtom Pairと、それぞれに固有のAtom Pairを比較し、<strong>Tanimoto係数（0～1）</strong>で類似性を数値化します。<strong>1に近いほど構造的な特徴が似ており、0に近いほど異なる</strong>ことを示します。<br/><br/>
 Picardら（2019）は、βラクタム系抗菌薬の<strong>R1側鎖</strong>についてChemMine ToolsのAtom-Pair molecular descriptorsとTanimoto係数を用いて類似性を評価しています。<br/><br/>
 ※この値は構造上の類似性を示す指標であり、患者個人の交差反応率そのものを示す値ではありません。<br/>
