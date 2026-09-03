@@ -238,7 +238,7 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 
     <div class="allergy-section">
       <h3>2. アレルギー歴は時間とともに変化する</h3>
-      <p>即時型ペニシリンアレルギーの既往があっても、感作が永久に続くとは限りません。追加曝露がなければ、時間の経過とともに反応性を失う患者が多いとされています。</p>
+      <p>即時型ペニシリンアレルギーの既往がある患者のうち、<b>80%までが、それ以上の曝露がなければ10年後には忍容性を獲得する</b>と推定されています。また、<b>20年後も感受性を維持している患者は1%以下</b>といわれています。</p>
       <p>特に成人で、<b>5年以上前の軽い皮膚反応だけ</b>が既往として残っている場合には、適切な環境下でアモキシシリン直接負荷試験が検討されることがあります。アナフィラキシー歴や最近のIgE介在性反応が疑われる場合は、より慎重な評価が必要です。</p>
     </div>
 
@@ -1121,7 +1121,7 @@ A.addEventListener('change',render);B.addEventListener('change',render);render()
 <div class="edit-modal" id="editModal" aria-hidden="true">
   <div class="edit-box">
     <h2 style="margin-top:0">管理者用・文章編集</h2>
-    <p class="small">薬剤データ、構造式、類似度の数値、判定閾値、計算ロジックは変更しない。表示文章だけを編集する。</p>
+    <p class="small">薬剤データ、構造式、類似度の数値、判定閾値、計算ロジックなどの機能部分は変更せず、ページ内の説明文・見出し・参考文献などの文章を編集できます。今回追加したβラクタムアレルギー解説も編集対象です。</p>
     <p class="edit-login-note">この管理者ロックは静的HTML上の簡易保護。公開サイトの改ざん防止そのものはGitHub側のアカウント認証で担保される。</p>
     <div id="editFields"></div>
     <div class="edit-actions">
@@ -1168,7 +1168,24 @@ A.addEventListener('change',render);B.addEventListener('change',render);render()
  const modal=document.getElementById('editModal'), fields=document.getElementById('editFields'), status=document.getElementById('editStatus');
  const legacyLabels={intro_main:'冒頭説明',guide_title:'骨格図 見出し',guide_intro:'骨格図 説明',guide_cross:'骨格図 中央コメント',clinical_1:'① 反応型',clinical_2:'② 重症遅発型',clinical_3:'③ 軽い皮疹',ref_note:'参考文献 注記',morgan_reason:'Morgan設定の理由',morgan_caution:'Morgan/Tanimoto 注意書き',footer_note:'最終注意書き'};
  const dynamicLabels={cat_vhigh_label:'カテゴリー：非常に高い一致',cat_vhigh_desc:'カテゴリー説明：非常に高い一致',cat_high_label:'カテゴリー：高い一致',cat_high_desc:'カテゴリー説明：高い一致',cat_mid_label:'カテゴリー：中等度の一致',cat_mid_desc:'カテゴリー説明：中等度の一致',cat_low_label:'カテゴリー：低い一致',cat_low_desc:'カテゴリー説明：低い一致',clinical_same_title:'臨床表示：非常に高い一致 見出し',clinical_same_desc:'臨床表示：非常に高い一致 説明',clinical_mid_title:'臨床表示：高い一致 見出し',clinical_mid_desc:'臨床表示：高い一致 説明',clinical_low_title:'臨床表示：低い一致 見出し',clinical_low_desc:'臨床表示：低い一致 説明',special_title:'セフタジジム–アズトレオナム 見出し',special_desc:'セフタジジム–アズトレオナム 説明',r3_desc:'R3動的説明',paper_found:'Picard値ありの説明',paper_missing:'Picard値なしの説明'};
- function targets(){return [...document.querySelectorAll('[data-edit-key]')]}
+ function ensureEditableKeys(){
+   const selector=[
+     'header>div>div:first-child',
+     'h1','h2','h3','h4','p','li','summary',
+     '.skeleton-name','.scaffold-caption','.note',
+     '.allergy-caution','.allergy-source','.tool-item'
+   ].join(',');
+   let n=1;
+   document.querySelectorAll(selector).forEach(el=>{
+     if(el.closest('.edit-modal') || el.closest('script') || el.closest('style'))return;
+     if(el.id && !el.hasAttribute('data-edit-key'))return;
+     if(!el.hasAttribute('data-edit-key')){
+       el.setAttribute('data-edit-key','page_text_'+String(n).padStart(3,'0'));
+     }
+     n++;
+   });
+ }
+ function targets(){ensureEditableKeys();return [...document.querySelectorAll('[data-edit-key]')]}
  function publishedEdits(){return window.BL_PUBLISHED_EDITS||{}}
  function load(){
    const pub=publishedEdits();
@@ -1183,7 +1200,7 @@ A.addEventListener('change',render);B.addEventListener('change',render);render()
  }
  function build(){
    fields.innerHTML='';
-   const st=document.createElement('div');st.className='edit-section-title';st.textContent='ページ内の固定文章';fields.append(st);
+   const st=document.createElement('div');st.className='edit-section-title';st.textContent='ページ内の文章（見出し・解説・参考文献を含む）';fields.append(st);
    targets().forEach(el=>addRichRow(labelFor(el),el.dataset.editKey,el.innerHTML,'static'));
    const dt=document.createElement('div');dt.className='edit-section-title';dt.textContent='比較結果に応じて切り替わる文章';fields.append(dt);
    Object.keys(dynamicLabels).forEach(k=>addRichRow(dynamicLabels[k],k,DYNAMIC_TEXTS[k]||'','dynamic'));
