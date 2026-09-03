@@ -397,6 +397,45 @@ h1,h2,h3,h4,h5,h6,
 }
 
 
+
+/* βラクタム比較表：薬剤ごとのゼブラストライプ */
+.spectrum-matrix tbody tr:nth-child(even) > th,
+.spectrum-matrix tbody tr:nth-child(even) > td {
+  background: #f3f5f7;
+}
+.spectrum-matrix tbody tr:nth-child(odd) > th,
+.spectrum-matrix tbody tr:nth-child(odd) > td {
+  background: #ffffff;
+}
+
+
+/* ゼブラ行に合わせて「適応菌種」系セルの背景も統一 */
+.spectrum-matrix tbody tr:nth-child(odd) > th,
+.spectrum-matrix tbody tr:nth-child(odd) > td,
+.spectrum-matrix tbody tr:nth-child(odd) > td[class],
+.spectrum-matrix tbody tr:nth-child(odd) > th[class] {
+  background-color: #ffffff;
+}
+.spectrum-matrix tbody tr:nth-child(even) > th,
+.spectrum-matrix tbody tr:nth-child(even) > td,
+.spectrum-matrix tbody tr:nth-child(even) > td[class],
+.spectrum-matrix tbody tr:nth-child(even) > th[class] {
+  background-color: #f3f5f7;
+}
+
+
+/* FIX: 適応菌種欄の内側 .approval-half に固定背景 #fafbfd が残っていたため、
+   親行のゼブラ色を継承させる */
+.spectrum-matrix tbody td.split-cell .approval-half {
+  background: inherit;
+}
+.spectrum-matrix tbody tr:nth-child(odd) td.split-cell .approval-half {
+  background: #ffffff;
+}
+.spectrum-matrix tbody tr:nth-child(even) td.split-cell .approval-half {
+  background: #f3f5f7;
+}
+
 </style>
 
 
