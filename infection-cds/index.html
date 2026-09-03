@@ -390,6 +390,53 @@ h1,h2,h3,h4,h5,h6,
   .approval-source-list.compact{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 
+
+/* v0.10.3 — Layer 2: TRUE two-column layout on iPhone.
+   This section is user-locked: do not redesign without explicit instruction. */
+.approval-source-list.compact{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:5px !important;
+}
+.approval-source-list.compact > div,
+.approval-source-list.compact > a,
+.approval-source-list.compact .approval-source-chip{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto !important;
+  gap:1px 4px !important;
+  min-width:0 !important;
+  width:auto !important;
+  margin:0 !important;
+  padding:5px 6px !important;
+  border:1px solid #dce3eb !important;
+  border-radius:7px !important;
+  background:#fff !important;
+  box-sizing:border-box !important;
+}
+.approval-source-list.compact .approval-source-chip b{
+  min-width:0 !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  font-size:10px !important;
+}
+.approval-source-list.compact .approval-source-chip span{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  font-size:7.5px !important;
+}
+.approval-source-list.compact .approval-source-chip small{
+  grid-column:1/-1 !important;
+  min-width:0 !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  font-size:7.5px !important;
+}
+@media(min-width:760px){
+  .approval-source-list.compact{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+}
+
 </style>
 
 <style id="clinical-reference-skin">
@@ -481,7 +528,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <footer>
-    Clinical Reference UI v0.10.2 / Editable
+    Clinical Reference UI v0.10.3 / Editable
   </footer>
 </main>
 
