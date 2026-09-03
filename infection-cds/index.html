@@ -718,6 +718,45 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 }
 </style>
 
+
+<style id="module-link-style">
+.module-nav-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:38px;padding:8px 12px;border:1px solid rgba(255,255,255,.42);
+  border-radius:5px;color:#fff;text-decoration:none;font-size:12px;font-weight:700;
+  background:rgba(255,255,255,.08)
+}
+.module-nav-btn:hover{background:rgba(255,255,255,.16)}
+.structure-launch{
+  margin:0 0 14px;padding:14px 15px;border:1px solid #cfd7dc;border-radius:5px;
+  background:#f8fafb
+}
+.structure-launch-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.structure-launch-head b{color:#183247;font-size:14px}
+.structure-launch-head small{display:block;color:#687784;margin-top:3px;line-height:1.5}
+.structure-launch-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) auto;
+  gap:8px;align-items:center
+}
+.structure-launch select{
+  width:100%;min-width:0;padding:9px 10px;border:1px solid #bcc8d0;border-radius:4px;
+  background:#fff;color:#263d4c;font:inherit;font-size:12px
+}
+.structure-launch-arrow{text-align:center;color:#71808b;font-weight:800}
+.structure-launch-btn{
+  appearance:none;border:0;border-radius:4px;padding:10px 13px;
+  background:#183247;color:#fff;font-weight:800;font-size:12px;cursor:pointer;
+  white-space:nowrap
+}
+.structure-launch-btn:hover{background:#23455d}
+.structure-launch-btn:disabled{opacity:.45;cursor:not-allowed}
+.structure-launch-note{margin-top:8px;color:#74818c;font-size:10.5px;line-height:1.5}
+@media(max-width:720px){
+  .structure-launch-grid{grid-template-columns:1fr 24px 1fr}
+  .structure-launch-btn{grid-column:1/-1;width:100%}
+}
+</style>
+
 </head>
 <body>
 <header class="topbar">
@@ -727,6 +766,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       <h1>感染症から読み解く</h1>
     </div>
     <div class="top-actions">
+      <a class="module-nav-btn" href="../structure-bridge/index.html">構造解析 ↗</a>
       <button id="editBtn" class="edit-btn" aria-label="編集モードを開く">編集</button>
       <button id="aboutBtn" class="icon-btn" aria-label="このツールについて">?</button>
     </div>
@@ -2011,6 +2051,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       hidden.forEach(r=>r.classList.toggle("hidden",!opening));
       moreBtn.textContent=opening?"− 追加薬を閉じる":"＋ その他のβラクタムを表示";
     };
+    setupStructureBridge();
     setupStickyMatrixHeader();
     renderAllergy();
   }
@@ -2495,6 +2536,47 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     return {text:String(value),cls:"verified"};
   }
 
+
+  const STRUCTURE_DRUG_MAP={
+    PCG:["benzyl","PCG ベンジルペニシリン"],
+    ABPC:["ampi","ABPC アンピシリン"],
+    AMPC:["amox","AMPC アモキシシリン"],
+    PIPC:["pip","PIPC ピペラシリン"],
+    MCIPC:["clox","MCIPC／クロキサシリン"],
+    CCL:["cefaclor","CCL セファクロル"],
+    CEX:["cephalexin","CEX セファレキシン"],
+    CEZ:["cefazolin","CEZ セファゾリン"],
+    CXM:["cefuroxime","CXM セフロキシム"],
+    CTM:["cefotiam","CTM セフォチアム"],
+    CTRX:["ceftriaxone","CTRX セフトリアキソン"],
+    CFDN:["cefdinir","CFDN セフジニル"],
+    CDTR:["cefditoren","CDTR セフジトレン"],
+    CFPN:["cefcapene","CFPN セフカペン"],
+    CPDX:["cefpodoxime","CPDX セフポドキシム"],
+    CFIX:["cefixime","CFIX セフィキシム"],
+    CFTM:["cefteram","CFTM セフテラム"],
+    CTX:["cefotaxime","CTX セフォタキシム"],
+    CMX:["cefmenoxime","CMX セフメノキシム"],
+    CFPM:["cefepime","CFPM セフェピム"],
+    CAZ:["ceftazidime","CAZ セフタジジム"],
+    AZT:["aztreonam","AZT アズトレオナム"]
+  };
+  function structureDrugOptions(selected){
+    return Object.entries(STRUCTURE_DRUG_MAP).map(([code,v])=>
+      `<option value="${esc(code)}"${code===selected?" selected":""}>${esc(v[1])}</option>`
+    ).join("");
+  }
+  function setupStructureBridge(){
+    const a=$("structureDrugA"),b=$("structureDrugB"),btn=$("openStructureBtn");
+    if(!a||!b||!btn) return;
+    btn.onclick=()=>{
+      const av=STRUCTURE_DRUG_MAP[a.value],bv=STRUCTURE_DRUG_MAP[b.value];
+      if(!av||!bv) return;
+      const url=`../structure-bridge/index.html?drug1=${encodeURIComponent(av[0])}&drug2=${encodeURIComponent(bv[0])}`;
+      location.href=url;
+    };
+  }
+
   function renderSpectrumMatrix(x){
     const main=mainDrugs(x);
     const more=EXTRA_DRUGS.filter(d=>!main.includes(d));
@@ -2529,6 +2611,21 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     }).join("");
 
     return `
+      <div class="structure-launch">
+        <div class="structure-launch-head">
+          <div>
+            <b>構造解析で2剤を比較</b>
+            <small>比較する2剤を選ぶと、その組み合わせを引き継いで構造解析モジュールへ移動します。</small>
+          </div>
+        </div>
+        <div class="structure-launch-grid">
+          <select id="structureDrugA" aria-label="構造解析 薬剤A">${structureDrugOptions(main[0]&&STRUCTURE_DRUG_MAP[main[0]]?main[0]:"AMPC")}</select>
+          <div class="structure-launch-arrow">↔</div>
+          <select id="structureDrugB" aria-label="構造解析 薬剤B">${structureDrugOptions(main[1]&&STRUCTURE_DRUG_MAP[main[1]]?main[1]:"CEX")}</select>
+          <button type="button" class="structure-launch-btn" id="openStructureBtn">構造解析へ →</button>
+        </div>
+        <div class="structure-launch-note">疾患モジュールと構造解析は独立したまま、薬剤名だけをURLで受け渡します。</div>
+      </div>
       <div class="matrix-intro">
         <b>この疾患で、βラクタムを横並び比較</b>
         <p>横は主な標的菌、縦は比較する意味のあるβラクタム。各菌セルのスペクトル欄を<b>上＝Kyoto 2024、下＝Sanford</b>に分け、その下に電子添文の適応菌種を表示します。右端で適応症と疾患GLも確認できます。</p>
