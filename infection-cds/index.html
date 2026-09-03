@@ -1,1 +1,1612 @@
-keep
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f2742">
+<title>β-Lactam Clinical Reference｜感染症CDS</title>
+<style>:root{
+  --navy:#0f2742;--navy2:#173a60;--blue:#2563eb;--cyan:#eaf4ff;--ink:#172033;
+  --muted:#667085;--line:#dce4ee;--bg:#f4f7fb;--card:#fff;--green:#08755b;
+  --amber:#a85b08;--amber-bg:#fff7e6;--red:#b42318;--red-bg:#fff1f0;--violet:#6d3fc0;
+  --radius:18px;--shadow:0 8px 28px rgba(15,39,66,.07)
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased}
+button,select{font:inherit}
+.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:max(13px,env(safe-area-inset-top)) 0 13px;box-shadow:0 3px 14px #0f274233}
+.topbar-inner{max-width:980px;margin:auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.eyebrow{font-size:10px;letter-spacing:.14em;font-weight:900;opacity:.78}.topbar h1{font-size:21px;margin:3px 0 0;line-height:1.2}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid #ffffff55;background:#ffffff12;color:#fff;font-weight:900;cursor:pointer}
+.shell{max-width:980px;margin:auto;padding:14px 14px 40px}
+.intro-card,.wide-card,.deep-card,.step-card,.selector-block,.summary-hero{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.intro-card{padding:16px 17px;margin-bottom:12px}.intro-badge{display:inline-flex;background:#e8f0ff;color:#174ea6;font-size:11px;font-weight:900;border-radius:999px;padding:6px 9px}.intro-card p{margin:10px 0 9px;line-height:1.7;font-size:14px}.principle{font-size:12px;line-height:1.6;color:var(--muted);border-top:1px dashed var(--line);padding-top:9px}
+.selector-block{padding:14px;margin-bottom:12px}.field-label{display:block;font-size:11px;color:var(--muted);font-weight:900;letter-spacing:.03em;margin:0 0 7px}.syndrome-select{width:100%;appearance:none;border:1px solid #cbd7e5;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 20 20'%3E%3Cpath fill='%23667085' d='M5 7l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center;border-radius:12px;padding:12px 38px 12px 12px;font-weight:850;color:var(--ink)}.syndrome-select.compact{margin-bottom:10px}
+.quick-tabs{display:flex;gap:7px;overflow:auto;padding-top:10px;scrollbar-width:none}.quick-tabs::-webkit-scrollbar{display:none}.quick-tab{flex:0 0 auto;border:1px solid #d7e0ea;background:#fff;color:#475467;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer}.quick-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.summary-hero{padding:16px 17px;margin-bottom:12px;background:linear-gradient(145deg,#fff 0,#f7fbff 100%)}.summary-kicker{font-size:11px;color:var(--blue);font-weight:900;letter-spacing:.08em}.summary-hero h2{font-size:22px;margin:5px 0 7px}.summary-line{font-size:14px;line-height:1.65;color:#344054}.summary-chiprow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.chip{display:inline-flex;align-items:center;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:850;background:#eef4fb;color:#29445f}.chip.good{background:#eaf8f3;color:#086b53}.chip.warn{background:#fff2dc;color:#8c4b05}
+.step-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}.step-card{padding:16px}.step-head{display:flex;gap:10px;align-items:center;margin-bottom:11px}.step-num{width:29px;height:29px;border-radius:9px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:900}.step-title{font-size:13px;font-weight:900}.step-sub{font-size:11px;color:var(--muted);margin-top:1px}.organism-list,.drug-list{display:grid;gap:8px}.organism,.drug-item{border:1px solid #e6ebf1;border-radius:12px;padding:10px 11px;background:#fbfdff}.organism b,.drug-item b{font-size:14px}.organism small,.drug-item small{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.45}.drug-status{display:inline-flex;font-size:10px;border-radius:999px;padding:3px 6px;margin-left:5px;font-weight:900;background:#e8f3ff;color:#165fa7}.drug-status.alt{background:#f3edff;color:#6b42b5}.drug-note{margin-top:9px;font-size:12px;line-height:1.6;color:#475467}
+.wide-card{padding:15px 16px;margin-bottom:12px}.section-label{font-size:11px;color:var(--muted);font-weight:900;letter-spacing:.04em;margin-bottom:8px}.nonbeta-title{font-size:15px;font-weight:900;margin-bottom:5px}.nonbeta-body{font-size:13px;line-height:1.65;color:#475467}.nonbeta-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.pill{border:1px solid #ddd6fe;background:#faf8ff;color:#6941c6;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:850}
+.warning-card{border-left:5px solid #d27b14;background:var(--amber-bg);box-shadow:none}.warning-card.critical{border-left-color:var(--red);background:var(--red-bg)}.warning-title{font-weight:900;color:#7a4207;font-size:13px;margin-bottom:4px}.critical .warning-title{color:var(--red)}.warning-text{font-size:13px;line-height:1.65;color:#5f4930}.critical .warning-text{color:#7a271a}
+.deep-card{margin-bottom:12px;overflow:hidden}.deep-card summary{list-style:none;cursor:pointer;padding:15px 16px;font-weight:900;display:flex;justify-content:space-between;align-items:center;gap:12px}.deep-card summary::-webkit-details-marker{display:none}.deep-card summary::after{content:'＋';font-size:21px;font-weight:500;color:#7a8a9a}.deep-card[open] summary::after{content:'−'}.deep-card summary small{font-size:10px;color:var(--muted);font-weight:700;margin-left:auto}.details-body{border-top:1px solid var(--line);padding:14px 16px}.spectrum-note{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:10px}.spectrum-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.spectrum-row{border:1px solid #e5eaf0;border-radius:12px;padding:10px}.spectrum-row strong{display:block;font-size:13px}.spectrum-row small{color:var(--muted);font-size:10px;line-height:1.4}.layer-badge{display:inline-flex;border-radius:999px;padding:3px 6px;font-size:9px;font-weight:900;margin-top:5px}.l1{background:#e8f3ff;color:#1665ad}.l2{background:#ecfdf3;color:#067647}.l3{background:#f3edff;color:#6941c6}
+.allergy-message{border-radius:12px;padding:11px;font-size:12px;line-height:1.65;background:#f8fafc;border:1px solid #e3e8ef}.compare-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.action-btn{border:1px solid #cbd7e5;background:#fff;color:#29445f;border-radius:11px;padding:9px 11px;font-size:12px;font-weight:900;cursor:pointer;text-decoration:none}.action-btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.evidence-list{display:grid;gap:9px}.evidence-item{border:1px solid #e4eaf0;border-radius:12px;padding:11px}.evidence-id{font-size:10px;color:var(--blue);font-weight:900}.evidence-title{font-size:13px;font-weight:900;margin:3px 0}.evidence-meta{font-size:11px;color:var(--muted);line-height:1.5}.evidence-summary{font-size:12px;line-height:1.55;color:#475467;margin-top:5px}.source-link{display:inline-flex;margin-top:8px;color:var(--blue);font-size:11px;font-weight:900;text-decoration:none}.source-link::after{content:' ↗'}
+footer{text-align:center;color:#98a2b3;font-size:10px;padding:14px 0}
+.modal-backdrop{position:fixed;inset:0;z-index:100;background:#0c1b2c99;padding:18px;display:grid;place-items:center}.modal-backdrop[hidden]{display:none}.modal{position:relative;width:min(520px,100%);background:#fff;border-radius:20px;padding:20px;box-shadow:0 24px 80px #0005}.modal h2{margin:0 35px 10px 0;font-size:19px}.modal p{font-size:13px;line-height:1.75;color:#475467}.modal-close{position:absolute;right:12px;top:12px;width:34px;height:34px;border:0;border-radius:50%;background:#eef2f6;color:#344054;font-size:20px;cursor:pointer}
+@media(max-width:700px){.shell{padding:11px 11px 34px}.intro-card{padding:14px}.step-grid{grid-template-columns:1fr}.summary-hero h2{font-size:20px}.spectrum-grid{grid-template-columns:1fr}.topbar-inner{padding:0 13px}.topbar h1{font-size:19px}.deep-card summary small{display:none}}
+
+/* v0.3 spectrum clarity */
+.spectrum-intro{background:#f7f9fc;border:1px solid #e1e7ef;border-radius:14px;padding:14px 15px;margin-bottom:12px;line-height:1.65}
+.spectrum-intro b{font-size:15px}
+.spectrum-intro p{margin:5px 0 0;color:#48576a;font-size:13px}
+.layer-explain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:10px 0 14px}
+.layer-explain>div{border:1px solid #e7ebf0;border-radius:13px;padding:11px;background:#fff}
+.layer-explain b{display:block;margin:7px 0 3px;font-size:13px}
+.layer-explain small{display:block;color:#637083;line-height:1.45}
+.spectrum-legend{display:flex;justify-content:space-between;gap:10px;align-items:end;margin:5px 2px 9px}
+.spectrum-legend b{font-size:14px}
+.spectrum-legend span{font-size:11px;color:#7a8594}
+.spectrum-main{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.spectrum-conclusion{font-size:11px;font-weight:800;border-radius:999px;padding:4px 8px;white-space:nowrap}
+.spectrum-conclusion.yes{background:#eaf7ef;color:#1f7041}
+.spectrum-conclusion.no{background:#fff0f0;color:#a23b3b}
+.spectrum-conclusion.hold{background:#fff7df;color:#8a6500}
+.spectrum-conclusion.ref{background:#eef2f7;color:#556274}
+@media(max-width:720px){.layer-explain{grid-template-columns:1fr}.spectrum-legend{display:block}.spectrum-legend span{display:block;margin-top:2px}}
+
+/* v0.4 disease-adaptive spectrum matrix */
+.matrix-intro{background:#f7f9fc;border:1px solid #e2e8f0;border-radius:14px;padding:14px 15px;margin-bottom:10px}
+.matrix-intro p{margin:5px 0 0;font-size:13px;color:#536174;line-height:1.6}
+.matrix-legend{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0}
+.matrix-legend small{color:#748094;margin-left:4px}
+.matrix-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #e2e7ed;border-radius:14px;background:#fff}
+.spectrum-matrix{border-collapse:separate;border-spacing:0;width:100%;min-width:720px;font-size:12px}
+.spectrum-matrix th,.spectrum-matrix td{padding:11px 9px;border-right:1px solid #edf0f4;border-bottom:1px solid #edf0f4;text-align:center;vertical-align:middle}
+.spectrum-matrix thead th{position:sticky;top:0;background:#f6f8fb;z-index:2;font-size:11px;color:#536174}
+.spectrum-matrix thead th:first-child,.spectrum-matrix tbody th{position:sticky;left:0;z-index:3;background:#fff;text-align:left;min-width:105px}
+.spectrum-matrix thead th:first-child{background:#f6f8fb;z-index:4}
+.spectrum-matrix tbody th small{display:block;color:#8893a2;font-weight:400;margin-top:2px}
+.spectrum-matrix td small{display:block;color:#7b8796;margin-top:4px;line-height:1.25}
+.matrix-status{display:inline-block;border-radius:999px;padding:4px 7px;font-weight:800;white-space:nowrap;font-size:10.5px}
+.matrix-status.first{background:#e8f6ee;color:#176b3b}
+.matrix-status.active{background:#edf6ff;color:#226399}
+.matrix-status.conditional{background:#fff5d9;color:#806000}
+.matrix-status.no{background:#fff0f0;color:#a23b3b}
+.matrix-status.none{background:#f1f3f5;color:#68727f}
+.matrix-status.ref{background:#f1effb;color:#6556a3}
+.extra-spectrum-row.hidden{display:none}
+.more-spectrum-btn{width:100%;margin-top:9px;border:1px dashed #cbd4df;background:#fff;border-radius:11px;padding:10px;font-weight:700;color:#506176}
+.matrix-method{margin-top:12px}
+.matrix-method summary{display:flex;justify-content:space-between;gap:10px;cursor:pointer;padding:10px 2px}
+.matrix-method summary small{color:#7d8997}
+.method-note{font-size:12px;color:#667487;line-height:1.55}
+.source-card{margin-top:12px;border-left:3px solid #62778f;background:#f7f9fb;padding:11px 13px;border-radius:8px;font-size:12px;line-height:1.55}
+.source-card small{display:block;color:#6d7887;margin:2px 0 5px}
+.source-card a{font-weight:700}
+@media(max-width:720px){
+  .spectrum-matrix{min-width:650px}
+  .spectrum-matrix th,.spectrum-matrix td{padding:9px 7px}
+}
+
+/* v0.5 evidence/source architecture */
+.matrix-sources{margin-top:14px;border-top:1px solid #e5eaf0;padding-top:13px}
+.matrix-sources-head{display:flex;justify-content:space-between;gap:10px;align-items:end;margin-bottom:9px}
+.matrix-sources-head small{color:#748092}
+.evidence-card{border:1px solid #e1e6ec;border-radius:12px;padding:11px 12px;margin:8px 0;background:#fff}
+.evidence-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.evidence-kind{font-size:10px;font-weight:800;padding:3px 7px;border-radius:999px;background:#eef2f7;color:#536174}
+.evidence-meta{font-size:11px;color:#6d7887;margin-top:5px}
+.evidence-why{font-size:12px;color:#46566a;margin:5px 0;line-height:1.5}
+.evidence-card a{font-size:12px;font-weight:800}
+.drug-source-block{background:#f7f9fb;border:1px solid #e2e7ed;border-radius:12px;padding:12px;margin-top:10px}
+.drug-source-block>p{font-size:12px;color:#536174;line-height:1.55}
+.drug-source-pills{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.drug-source-pills span{border:1px solid #dce3eb;background:#fff;border-radius:999px;padding:5px 8px;font-weight:800;font-size:11px}
+.drug-source-pills small{font-weight:500;color:#738093}
+.pending-note{display:block;color:#758194;line-height:1.5}
+@media(max-width:720px){.matrix-sources-head{display:block}.matrix-sources-head small{display:block;margin-top:2px}}
+
+.matrix-status.approved{background:#e8f6ee;color:#176b3b}
+.matrix-status.pending{background:#fff4dc;color:#866000}
+.approval-source-list{display:grid;gap:7px;margin:8px 0}
+.approval-source-list>div{display:grid;grid-template-columns:minmax(150px,1fr) auto;gap:3px 10px;border-top:1px solid #e6eaf0;padding-top:7px}
+.approval-source-list a{font-size:11px;grid-column:1/-1}
+.approval-source-list span{font-size:10px;color:#6f7c8c}
+.approval-source-list small{grid-column:1/-1;color:#7a8491;line-height:1.4}
+
+.spectrum-matrix td.split-cell{padding:0;min-width:118px}
+.activity-half{padding:10px 7px 8px;min-height:52px}
+.approval-half{border-top:1px dashed #dfe5ec;background:#fafbfd;padding:6px 7px;display:flex;justify-content:center;align-items:center;gap:6px}
+.approval-half small{margin:0!important;font-size:9.5px!important;color:#748092}
+.approval-half b{font-size:13px}.approval-half b.ok{color:#167043}.approval-half b.ng{color:#7a8490}.approval-half b.pending{color:#9a6d00;font-size:10px}
+.drug-group-row th{background:#eef3f8!important;color:#31465a!important;text-align:left!important;font-size:12px!important;letter-spacing:.02em;padding:8px 10px!important;border-top:2px solid #d8e1ea!important}
+</style>
+
+<style id="clinical-reference-skin">
+:root{--navy:#183247;--navy2:#183247;--blue:#315f7d;--cyan:#f2f6f8;--ink:#18252f;--muted:#64727d;--line:#d8dee3;--bg:#f4f5f3;--card:#fff;--green:#2f6b52;--amber:#8a641d;--amber-bg:#fffaf0;--red:#9b3d38;--red-bg:#fff6f5;--violet:#596b78;--radius:7px;--shadow:none}
+body{background:#f4f5f3;color:#18252f;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
+.topbar{background:#fff;color:#183247;border-bottom:3px solid #183247;box-shadow:none;padding:max(11px,env(safe-area-inset-top)) 0 10px}
+.topbar-inner{max-width:1080px}.eyebrow{color:#64727d;opacity:1;font-size:9px;letter-spacing:.18em}.topbar h1{font-family:Georgia,"Yu Mincho","Hiragino Mincho ProN",serif;font-size:22px;letter-spacing:.02em}.icon-btn{border-radius:4px;border:1px solid #b9c3ca;background:#fff;color:#183247}
+.shell{max-width:1080px;padding-top:18px}.intro-card,.wide-card,.deep-card,.step-card,.selector-block,.summary-hero{border-radius:7px;box-shadow:none;border-color:#d8dee3}
+.intro-card{border-left:4px solid #315f7d;background:#fff}.intro-badge{border-radius:3px;background:#eef3f6;color:#315f7d;letter-spacing:.02em}.principle{border-top:1px solid #d8dee3}
+.selector-block{background:#fafbfa}.field-label{color:#52616c;letter-spacing:.08em}.syndrome-select{border-radius:4px;border-color:#bfc8ce;background-color:#fff}.quick-tab{border-radius:4px;background:#fff}.quick-tab.active{background:#183247;border-color:#183247}
+.summary-hero{background:#fff;border-top:4px solid #315f7d}.summary-kicker{color:#596b78}.summary-hero h2{font-family:Georgia,"Yu Mincho","Hiragino Mincho ProN",serif;font-weight:700}.chip,.chip.good,.chip.warn{border-radius:3px;background:#f1f4f5;color:#354955;border:1px solid #dde3e6}
+.step-card{border-top:3px solid #7a8d99}.step-num{border-radius:3px;background:#183247}.organism,.drug-item{border-radius:4px;background:#fff}.drug-status,.drug-status.alt,.pill,.layer-badge,.spectrum-conclusion,.matrix-status,.evidence-kind{border-radius:3px}
+.wide-card{background:#fff}.warning-card{border-left-width:4px}.deep-card summary{padding:14px 16px;background:#fbfbfa}.deep-card[open] summary{border-bottom:1px solid #d8dee3}.details-body{border-top:0}
+.action-btn{border-radius:4px}.action-btn.primary{background:#183247;border-color:#183247}.modal{border-radius:7px}.modal-close{border-radius:4px}
+.matrix-intro,.spectrum-intro,.layer-explain>div,.spectrum-row,.matrix-scroll,.evidence-card,.drug-source-block{border-radius:5px}.matrix-scroll{border-color:#cfd7dc}.spectrum-matrix thead th{background:#e9eef1;color:#263d4c;border-bottom:2px solid #b9c6ce}.spectrum-matrix thead th:first-child{background:#e9eef1}.spectrum-matrix tbody th{background:#fff}.drug-group-row th{background:#e3e9ed!important;color:#183247!important;border-top:2px solid #aebcc5!important}.more-spectrum-btn{border-radius:4px;background:#f8f9f8}.approval-half{background:#f7f8f7}.source-card{border-radius:4px}
+.evidence-card{border-left:3px solid #9aa9b2}.source-link{color:#315f7d}
+footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
+@media(max-width:700px){.shell{padding-top:12px}.topbar h1{font-size:20px}.summary-hero h2{font-size:21px}.intro-card{border-left-width:3px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <div class="eyebrow">β-LACTAM CLINICAL REFERENCE</div>
+      <h1>感染症から考える</h1>
+    </div>
+    <button id="aboutBtn" class="icon-btn" aria-label="このツールについて">?</button>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="intro-card">
+    <div class="intro-badge">薬局で処方理由を読み解く</div>
+    <p>感染部位・症候から、<b>主な標的菌 → βラクタムの位置づけ → 主要な非βラクタム選択肢 → アレルギー時の考え方</b>を順番に確認します。</p>
+    <div class="principle">診断ツールではありません。分からない情報は補完せず、ガイドライン上の位置づけを表示します。</div>
+  </section>
+
+  <section class="selector-block">
+    <label class="field-label" for="syndromeSelect">感染症候を選択</label>
+    <select id="syndromeSelect" class="syndrome-select"></select>
+    <div id="quickTabs" class="quick-tabs" aria-label="感染症候のクイック選択"></div>
+  </section>
+
+  <section id="summaryHero" class="summary-hero" aria-live="polite"></section>
+
+  <section class="step-grid">
+    <article class="step-card" id="pathogenCard"></article>
+    <article class="step-card" id="betaCard"></article>
+  </section>
+
+  <section id="nonBetaCard" class="wide-card"></section>
+  <section id="warningCard" class="wide-card warning-card"></section>
+
+  <details class="deep-card" id="spectrumDetails">
+    <summary><span>βラクタム比較表</span><small>標的菌 × ガイドライン</small></summary>
+    <div id="spectrumBody" class="details-body"></div>
+  </details>
+
+  <details class="deep-card" id="allergyDetails">
+    <summary><span>アレルギー時の考え方</span><small>構造比較へつなぐ</small></summary>
+    <div class="details-body">
+      <label class="field-label" for="allergySelect">過去の反応型</label>
+      <select id="allergySelect" class="syndrome-select compact">
+        <option value="unknown">不明</option>
+        <option value="immediate">即時型／アナフィラキシー</option>
+        <option value="mild">軽症の遅発疹</option>
+        <option value="scar">SCAR（SJS/TEN/DRESS等）</option>
+      </select>
+      <div id="allergyMessage" class="allergy-message"></div>
+      <div id="compareActions" class="compare-actions"></div>
+    </div>
+  </details>
+
+  <details class="deep-card evidence-card" id="evidenceDetails">
+    <summary><span>📖 疾患全体の出典元</span><small>該当ページへ</small></summary>
+    <div id="evidenceBody" class="details-body"></div>
+  </details>
+
+  <footer>
+    Clinical Reference UI preview v0.9 / β-lactam focused
+  </footer>
+</main>
+
+<div class="modal-backdrop" id="aboutModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <button id="closeAbout" class="modal-close" aria-label="閉じる">×</button>
+    <h2 id="aboutTitle">このモジュールの役割</h2>
+    <p>本モジュールは、抗菌薬全般を網羅する選択ツールではなく、<b>βラクタム系抗菌薬を主役として深く理解する</b>ための感染症CDSです。</p>
+    <p>非βラクタム薬は、その疾患でβラクタムの位置づけを理解するために重要な場合のみ、参考選択肢として表示します。構造比較・側鎖類似性は既存Comparatorの別モジュールへ渡します。</p>
+  </div>
+</div>
+
+<script>window.CDS_DATA = {
+  comparatorUrl: "../picard_release_v3_6_morgan_detailed/index.html",
+  syndromes: [
+    {
+      id:"sinus", short:"鼻副鼻腔炎", name:"急性鼻副鼻腔炎",
+      lead:"抗菌薬が必要な病型かをまず確認し、必要時にAMPCを軸として考える。",
+      chips:["抗菌薬不要の分岐が重要","小児：遷延/重症でAMPC"],
+      pathogens:[
+        ["肺炎球菌（S. pneumoniae）","感染部位・症候から想定される主な標的菌"],
+        ["インフルエンザ菌（H. influenzae）","BLNARを含む耐性機序に注意"],
+        ["モラクセラ（M. catarrhalis）","主な標的菌の一つ"]
+      ],
+      beta:[
+        {name:"AMPC",status:"軸",note:"小児では遷延性または重症で30–50 mg/kg/日 分3、7–10日。"}
+      ],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"現行の主根拠から無理に標準薬を補完しない。必要な場合のみ別ガイドラインで追加する。",pills:[]},
+      warning:{title:"最初に確認",text:"症状だけから原因菌を確定しない。鼻汁の色だけで細菌性とは判断しない。"},
+      spectrum:[
+        ["AMPC × S. pneumoniae","Layer 1","第一選択薬","l1"],
+        ["AMPC × H. influenzae","Layer 1","第一選択薬","l1"],
+        ["H. influenzae BLNAR","Historical","2007耳鼻科MICは照合用。現在の感受性率として扱わない。","l2"]
+      ],
+      compare:["AMPC","CCL","CDTR"],
+      evidence:[
+        ["SINUS-MHLW4-PED-01","厚労省 抗微生物薬適正使用の手引き 第四版","p.60 / PDF p.60","小児急性鼻副鼻腔炎：抗菌薬を投与しない分岐。","https://www.mhlw.go.jp/content/10906000/001575216.pdf#page=60"],
+        ["SINUS-MHLW4-PED-02","厚労省 抗微生物薬適正使用の手引き 第四版","p.61 / PDF p.61","遷延性または重症でAMPC 30–50 mg/kg/日 分3、7–10日。","https://www.mhlw.go.jp/content/10906000/001575216.pdf#page=61"],
+        ["SINUS-JRS2010-SURV2007-01","急性鼻副鼻腔炎診療ガイドライン2010年版","p.59","2007年全国サーベイランス。現在の感受性率とは分離して保存。","https://minds.jcqhc.or.jp/"]
+      ]
+    },
+    {
+      id:"pharynx", short:"咽頭炎", name:"急性咽頭炎・扁桃炎",
+      lead:"GASが確認された場合にAMPCを考える。ウイルス性が多く、検査陰性なら抗菌薬を使わない。",
+      chips:["GASが主な細菌標的","AMPC 10日"],
+      pathogens:[["A群溶血性レンサ球菌（GAS）","S. pyogenes。細菌性で最も重要な標的。"]],
+      beta:[{name:"AMPC",status:"推奨",note:"GAS検出時の治療軸。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"CLDMは旧版で重度ペニシリンアレルギー時の代替として扱われた。第四版のページは最終監査時に再確認。",pills:["CLDM（旧版根拠）"]},
+      warning:{title:"アレルギー代替で注意",text:"CEXを単純な代替にしない。AMPC/ABPCとアミノ側鎖が近く、反応型を確認して構造Comparatorへ。"},
+      spectrum:[["AMPC × GAS","Layer 3","GAS検出時の治療軸","l3"]],
+      compare:["AMPC","CEX","CCL"],
+      evidence:[["PHARYNX-MHLW4","厚労省 抗微生物薬適正使用の手引き 第四版","ページ最終監査待ち","GAS検出時のAMPC治療。","https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000120172.html"]]
+    },
+    {
+      id:"aom", short:"小児中耳炎", name:"小児急性中耳炎",
+      lead:"重症度と前治療を踏まえ、AMPCを軸にCVA/AMPC、CDTR-PIなどへ展開する。",
+      chips:["重症度で分岐","TFLXは後方選択肢"],
+      pathogens:[["インフルエンザ菌（H. influenzae）","主要標的"],["肺炎球菌（S. pneumoniae）","主要標的"],["モラクセラ（M. catarrhalis）","主要標的"]],
+      beta:[{name:"AMPC",status:"軸",note:"軽症〜重症の重症度アルゴリズムで位置づけ。"},{name:"CVA/AMPC",status:"状況依存",note:"重症度・前治療等で選択。"},{name:"CDTR-PI",status:"代替",note:"重症度・治療経過に応じた選択肢。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"βラクタム治療の経過や重症度に応じ、TFLXが後方選択肢となる。",pills:["TFLX"]},
+      warning:{title:"小児での注意",text:"ピボキシル基を持つ薬剤では低カルニチン血症に注意。キノロンも安易な第一選択にはしない。"},
+      spectrum:[["AMPC × H. influenzae","Layer 3","治療の軸","l3"],["CDTR × H. influenzae","Layer 2/3","薬剤特性と臨床位置づけを分けて表示","l2"]],
+      compare:["AMPC","CDTR","CCL"],
+      evidence:[["AOM2024","小児急性中耳炎診療ガイドライン2024","p.94–97","軽症・中等症・重症の治療アルゴリズム。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf#page=94"]]
+    },
+    {
+      id:"cap", short:"市中肺炎", name:"成人市中肺炎（CAP）",
+      lead:"細菌性・非定型・レジオネラ・基礎疾患を見分け、βラクタムと非βラクタムの役割を整理する。",
+      chips:["CDTR高用量：BLNAR注釈","レスピラトリーキノロンが重要"],
+      pathogens:[["肺炎球菌（S. pneumoniae）","βラクタムで重要な標的"],["インフルエンザ菌（H. influenzae）","BLNARを考慮する場面あり"],["肺炎マイコプラズマ（M. pneumoniae）","βラクタム無効：非定型"],["レジオネラ（Legionella spp.）","βラクタム単独では対応しない"]],
+      beta:[{name:"CVA/AMPC + 高用量AMPC",status:"推奨",note:"細菌性肺炎を疑う外来CAPの選択肢。"},{name:"高用量CDTR-PI",status:"推奨",note:"H. influenzae のBLNARを考慮する必要がある場合、という図4注釈を保持。"},{name:"CTRX",status:"状況依存",note:"外来注射など、図4の条件に応じる。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"細菌性肺炎が疑われる／非定型肺炎が疑われる／両者の鑑別が困難／レジオネラ肺炎が疑われる／慢性呼吸器疾患がある場合に重要な選択肢。",pills:["LVFX","LSFX","GRNX","MFLX","STFX","TFLX","AZM","CAM","MINO"]},
+      warning:{title:"βラクタムだけでは完結しない",text:"M. pneumoniae、C. pneumoniae、Legionellaなどを考慮する分岐では、非βラクタム薬の位置づけを必ず確認する。"},
+      spectrum:[["CDTR × H. influenzae","Layer 3","BLNARを考慮する場合の高用量注釈","l3"],["CTRX × S. pneumoniae","Layer 1","感受性あり","l1"],["βラクタム × Mycoplasma","Class principle","細胞壁を持たずβラクタムの標的外","l2"]],
+      compare:["CDTR","AMPC","CTRX"],
+      evidence:[
+        ["CAP-JRS2024-TX-02","成人肺炎診療ガイドライン2024","誌面 p.35 / PDF p.60","図4：CAPのエンピリック治療。CDTR高用量のBLNAR注釈、レスピラトリーキノロン等。","https://www.jrs.or.jp/publication/file/adult_pneumonia_2024v5.pdf#page=60"],
+        ["CAP-JRS2024-TARGET-01","成人肺炎診療ガイドライン2024","誌面 p.37–39 / PDF p.62–64","原因微生物別抗菌薬選択 表8–17。","https://www.jrs.or.jp/publication/file/adult_pneumonia_2024v5.pdf#page=62"],
+        ["CAP-JRS2024-SR02-01","成人肺炎診療ガイドライン2024","誌面 p.187–188 / PDF p.212–213","CAPで検出される微生物のSR。","https://www.jrs.or.jp/publication/file/adult_pneumonia_2024v5.pdf#page=212"]
+      ]
+    },
+    {
+      id:"cystitis", short:"膀胱炎", name:"急性単純性膀胱炎",
+      lead:"E. coliを主標的として、地域・年代の耐性情報を現在の患者にそのまま当てはめない。",
+      chips:["E. coliが中心","2015 GLはhistoricalとして扱う"],
+      pathogens:[["大腸菌（E. coli）","主な標的菌"],["腐生ブドウ球菌（S. saprophyticus）","若年女性などで考慮"],["ミラビリス変形菌（P. mirabilis）","その他の尿路病原菌"]],
+      beta:[{name:"CCL / CFDN / CFPN / CPDX",status:"状況依存",note:"2015公開ガイドラインの位置づけ。現在の耐性状況とは分離。"},{name:"CVA/AMPC",status:"状況依存",note:"同上。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"2015公開ガイドラインではFQが重要な選択肢。ESBLを疑う/検出する場合にFOMの位置づけもある。",pills:["LVFX","CPFX","TFLX","FOM"]},
+      warning:{title:"上部尿路感染を見逃さない",text:"発熱・悪寒・側腹部痛・背部痛・CVA叩打痛があれば単純性膀胱炎として流さず腎盂腎炎を考慮。"},
+      spectrum:[["CCL × E. coli","Historical AUC","2009–2010実測データは照合用","l2"],["JANIS × E. coli","Current surveillance","現在の耐性背景を別レイヤーで確認","l2"]],
+      compare:["CPDX","CFDN","CCL"],
+      evidence:[["CYSTITIS-JAID2015","JAID/JSC感染症治療ガイドライン2015 尿路感染症","PDF p.4–6","急性単純性膀胱炎の治療。年代が古いため現在の耐性率と分離。","https://www.chemotherapy.or.jp/uploads/files/guideline/jaidjsc-kansenshochiryo_nyouro.pdf#page=4"]]
+    },
+    {
+      id:"pyelo", short:"腎盂腎炎", name:"急性単純性腎盂腎炎",
+      lead:"軽症・中等症と重症を分け、経口治療・初回注射・入院治療の位置づけを確認する。",
+      chips:["CTRX単回注射","FQ耐性20%注釈"],
+      pathogens:[["大腸菌（E. coli）","主要標的"],["その他の腸内細菌目","患者背景・培養結果で考慮"]],
+      beta:[{name:"CDTR / CFPN / CPDX",status:"代替",note:"軽症・中等症で第二選択。"},{name:"CTRX",status:"状況依存",note:"初回one-time IVの選択肢。"},{name:"CTM / CTRX / CAZ",status:"状況依存",note:"重症時の選択肢。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"2015公開ガイドラインでは軽症・中等症の第一選択としてFQ。地域E. coliのFQ耐性率≥20%または6か月以内のFQ使用歴では第二選択を考慮。",pills:["LVFX","CPFX","TFLX","STFX","AMK","PZFX"]},
+      warning:{title:"耐性背景を必ず併記",text:"2015年の推奨順位を現在の地域耐性率なしにそのまま適用しない。"},
+      spectrum:[["CTRX × E. coli","Layer 1","感受性あり","l1"],["FQ × E. coli","Layer 3 historical","地域耐性率≥20%の注釈あり","l3"]],
+      compare:["CTRX","CPDX","CAZ"],
+      evidence:[["PYELONEPHRITIS-JAID2015-02","JAID/JSC感染症治療ガイドライン2015 尿路感染症","PDF p.9","軽症・中等症、初回注射、重症治療。FQ耐性率の注釈。","https://www.chemotherapy.or.jp/uploads/files/guideline/jaidjsc-kansenshochiryo_nyouro.pdf#page=9"]]
+    },
+    {
+      id:"cellulitis", short:"蜂窩織炎", name:"蜂窩織炎・丹毒",
+      lead:"非膿性ではGAS/MSSAを主に考え、MRSAカバーを全例に広げない。",
+      chips:["GAS/MSSA中心","MRSAは状況依存"],
+      pathogens:[["A群溶血性レンサ球菌（GAS）","非膿性で重要"],["黄色ブドウ球菌（S. aureus）","MSSAを主に考慮"]],
+      beta:[{name:"CEX / CVA-AMPC / CEZ",status:"推奨",note:"重症度・経口/注射で使い分け。"},{name:"CTRX",status:"代替",note:"中等症等で選択肢。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"MRSA感染が疑われる場合にST合剤、MRSAで感受性が確認される場合にCLDMを考慮。通常の非膿性蜂窩織炎の第一選択としては表示しない。",pills:["ST","CLDM"]},
+      warning:{title:"MRSA薬の広げすぎに注意",text:"非膿性蜂窩織炎でMRSAを自動的に主標的にしない。膿瘍がある場合は別カードでsource controlを優先。"},
+      spectrum:[["CEX × MSSA","Layer 3","標準的な位置づけ","l3"],["CEX × GAS","Layer 3","標準的な位置づけ","l3"]],
+      compare:["CEX","CEZ","CTRX"],
+      evidence:[["CELLULITIS-JPS2021-02","形成外科診療ガイドライン3 2021年版―創傷疾患","誌面 p.94 / PDF p.110","蜂窩織炎・丹毒の治療アルゴリズム。","https://jsprs.or.jp/member/committee/wp-content/uploads/2023/04/guideline3.pdf#page=110"]]
+    },
+    {
+      id:"odonto", short:"歯性感染", name:"歯性感染症",
+      lead:"Streptococciと口腔内嫌気性菌を意識し、感染源除去・ドレナージを抗菌薬だけで置き換えない。",
+      chips:["source control重要","AMPCが軸"],
+      pathogens:[["口腔レンサ球菌群（Streptococcus spp.）","主要標的"],["Prevotella spp.","嫌気性菌。βラクタマーゼ産生に注意"],["Peptostreptococcus spp.","嫌気性グラム陽性球菌"]],
+      beta:[{name:"AMPC",status:"推奨",note:"Group 1/2の治療軸。"},{name:"CVA/AMPC",status:"状況依存",note:"重症化・βラクタマーゼ産生菌を考慮する場面。"},{name:"CTRX",status:"状況依存",note:"重症時の注射選択肢。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"成人のペニシリンアレルギー時にCLDM/CAMが主要候補。AZMは海外推奨紹介として国内標準と区別する。",pills:["CLDM","CAM","AZM（海外推奨紹介）"]},
+      warning:{title:"処方だけで完結しない",text:"排膿・感染源除去などのsource controlが治療の中心。抗菌薬選択はその補助として見る。"},
+      spectrum:[["AMPC × Streptococci","Layer 3","第一選択","l3"],["CDTR × Prevotella","Layer 2 historical","MICデータは薬剤特性の照合用","l2"]],
+      compare:["AMPC","CCL","CTRX"],
+      evidence:[["ODONTO-JAID2016-01","JAID/JSC感染症治療ガイドライン2016 歯性感染症","PDF p.2–4","菌種、source control、AMPC等の位置づけ。","https://www.kansensho.or.jp/uploads/files/guidelines/guideline_JAID-JSC_2016_tooth-infection.pdf#page=2"],["ODONTO-MHLW4-NONBETA-01","厚労省 抗微生物薬適正使用の手引き 第四版 歯科編","p.21","ペニシリンアレルギー時のCLDM/CAM等。","https://www.mhlw.go.jp/content/10906000/001582923.pdf#page=21"]]
+    },
+    {
+      id:"aspiration", short:"誤嚥性肺炎", name:"誤嚥性肺炎",
+      lead:"『誤嚥だから嫌気性菌カバー』と短絡せず、通常の肺炎治療と患者背景の中で考える。",
+      chips:["嫌気性菌カバー：中立","誤嚥だけで薬を決めない"],
+      pathogens:[["原因菌は症候だけでは確定しない","誤嚥という情報だけから嫌気性菌を主標的に固定しない。"]],
+      beta:[{name:"特定薬を自動推奨しない",status:"中立",note:"JRS2024 CQ18では嫌気性菌カバーの推奨は決定不能。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"誤嚥という情報だけを理由に特定の非βラクタム薬を標準化しない。CAP/HAPなど肺炎カテゴリーと患者背景に応じて考える。",pills:[]},
+      warning:{title:"重要",text:"化学性肺臓炎と細菌性肺炎を混同しない。誤嚥＝抗菌薬必須、誤嚥＝嫌気性菌カバー必須ではない。"},
+      spectrum:[["嫌気性菌カバー","Layer 3","JRS2024 CQ18：推奨度決定不能（中立）","l3"]],
+      compare:["CVA/AMPC","CTRX"],
+      evidence:[["ASP-JRS2024-01","成人肺炎診療ガイドライン2024 CQ18","誌面 p.164 / PDF p.189","誤嚥性肺炎における嫌気性菌カバーの推奨は決定不能。","https://www.jrs.or.jp/publication/file/adult_pneumonia_2024v5.pdf#page=189"]]
+    },
+    {
+      id:"abscess", short:"皮膚膿瘍", name:"皮膚膿瘍・創部感染",
+      lead:"抗菌薬より先にsource control。排膿・培養・創開放の要否を確認し、MRSA/MSSAを再評価する。",
+      chips:["切開排膿が中心","培養で再評価"],
+      pathogens:[["黄色ブドウ球菌（S. aureus）","MRSA/MSSAの鑑別を培養・臨床経過で評価"],["その他","創部・背景により多菌種感染もあり得る。症候だけで補完しない。"]],
+      beta:[{name:"MSSAが確認/強く疑われる場合",status:"状況依存",note:"βラクタムの位置づけを検討。膿瘍そのもののsource controlを置き換えない。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"MRSA感染が疑われる場合にST合剤、感受性が確認される場合にCLDMが主要候補。",pills:["ST","CLDM"]},
+      warning:{title:"最優先はsource control",text:"膿瘍は切開・排膿が中心。単なる保菌と感染原因菌を区別し、抗MRSA薬を全例に自動付与しない。"},
+      spectrum:[["MRSA × βラクタム","Clinical principle","通常の抗MSSAβラクタムをMRSA治療として扱わない","l3"]],
+      compare:["CEZ","CEX","CTRX"],
+      evidence:[["ABSCESS-MRSA2024-01","MRSA感染症の治療ガイドライン2024","誌面 p.288 / PDF p.38","膿瘍は切開・排膿。MRSAの保菌と感染を区別。","https://www.chemotherapy.or.jp/uploads/files/guideline/mrsa_guideline_2024.pdf#page=38"],["WOUND-MRSA2024-01","MRSA感染症の治療ガイドライン2024","誌面 p.289 / PDF p.39","創部感染で排膿・創開放・培養を重視。","https://www.chemotherapy.or.jp/uploads/files/guideline/mrsa_guideline_2024.pdf#page=39"]]
+    }
+  ]
+};
+</script>
+<script>window.APPROVAL_DATA = {
+  "PCG": {
+    "name": "ベンジルペニシリン",
+    "source": "PMDA 注射用ペニシリンGカリウム",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6111400D2039_1?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "腸球菌属",
+      "淋菌",
+      "髄膜炎菌",
+      "ジフテリア菌",
+      "炭疽菌",
+      "放線菌",
+      "破傷風菌",
+      "ガス壊疽菌群",
+      "回帰熱ボレリア",
+      "ワイル病レプトスピラ",
+      "鼠咬症スピリルム",
+      "梅毒トレポネーマ"
+    ],
+    "diseases": [
+      "敗血症",
+      "感染性心内膜炎",
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "乳腺炎",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "肺膿瘍",
+      "膿胸",
+      "慢性呼吸器病変の二次感染",
+      "淋菌感染症",
+      "化膿性髄膜炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "猩紅熱",
+      "炭疽",
+      "ジフテリア",
+      "鼠咬症",
+      "破傷風",
+      "ガス壊疽",
+      "放線菌症",
+      "回帰熱",
+      "ワイル病",
+      "梅毒"
+    ],
+    "verified": true
+  },
+  "ABPC": {
+    "name": "アンピシリン",
+    "source": "PMDA ビクシリン（アンピシリン）",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6131002M1147_1?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "腸球菌属",
+      "淋菌",
+      "髄膜炎菌",
+      "炭疽菌",
+      "放線菌",
+      "大腸菌",
+      "赤痢菌",
+      "プロテウス・ミラビリス",
+      "インフルエンザ菌",
+      "リステリア・モノサイトゲネス"
+    ],
+    "diseases": [
+      "敗血症",
+      "感染性心内膜炎",
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "乳腺炎",
+      "骨髄炎",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "肺膿瘍",
+      "膿胸",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "淋菌感染症",
+      "腹膜炎",
+      "肝膿瘍",
+      "感染性腸炎",
+      "子宮内感染",
+      "化膿性髄膜炎",
+      "眼瞼膿瘍",
+      "角膜炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "歯周組織炎",
+      "歯冠周囲炎",
+      "顎炎",
+      "抜歯創・口腔手術創の二次感染",
+      "猩紅熱",
+      "炭疽",
+      "放線菌症"
+    ],
+    "verified": true
+  },
+  "AMPC": {
+    "name": "アモキシシリン",
+    "source": "PMDA サワシリン",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6131001C1210_2?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "腸球菌属",
+      "淋菌",
+      "大腸菌",
+      "プロテウス・ミラビリス",
+      "インフルエンザ菌",
+      "ヘリコバクター・ピロリ",
+      "梅毒トレポネーマ"
+    ],
+    "diseases": [
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "びらん・潰瘍の二次感染",
+      "乳腺炎",
+      "骨髄炎",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "前立腺炎",
+      "精巣上体炎",
+      "淋菌感染症",
+      "梅毒",
+      "子宮内感染",
+      "子宮付属器炎",
+      "子宮旁結合織炎",
+      "涙嚢炎",
+      "麦粒腫",
+      "中耳炎",
+      "歯周組織炎",
+      "歯冠周囲炎",
+      "顎炎",
+      "猩紅熱",
+      "胃潰瘍",
+      "十二指腸潰瘍",
+      "胃MALTリンパ腫",
+      "免疫性血小板減少症",
+      "早期胃癌に対する内視鏡的治療後胃",
+      "ヘリコバクター・ピロリ感染胃炎"
+    ],
+    "verified": true
+  },
+  "PIPC": {
+    "name": "ピペラシリン",
+    "source": "PMDA ピペラシリンNa注射用",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6131403D1276_1?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "腸球菌属",
+      "大腸菌",
+      "シトロバクター属",
+      "肺炎桿菌",
+      "エンテロバクター属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "緑膿菌",
+      "バクテロイデス属",
+      "プレボテラ属"
+    ],
+    "diseases": [
+      "敗血症",
+      "急性気管支炎",
+      "肺炎",
+      "肺膿瘍",
+      "膿胸",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "胆嚢炎",
+      "胆管炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "子宮旁結合織炎",
+      "化膿性髄膜炎"
+    ],
+    "verified": true
+  },
+  "MCIPC": {
+    "name": "クロキサシリン",
+    "source": "PMDA ビクシリンS配合錠",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6191001F1036_1?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "腸球菌属",
+      "大腸菌",
+      "プロテウス・ミラビリス",
+      "インフルエンザ菌"
+    ],
+    "diseases": [
+      "肺炎",
+      "肺膿瘍",
+      "慢性呼吸器病変の二次感染"
+    ],
+    "verified": true,
+    "note": "国内ではクロキサシリン単剤ではなくアンピシリン/クロキサシリン配合剤の承認情報。単剤の国内適応として扱わない。"
+  },
+  "CEX": {
+    "name": "セファレキシン",
+    "source": "PMDA ケフレックスカプセル250mg",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132002M2183_3?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "腸球菌属",
+      "淋菌",
+      "大腸菌",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌"
+    ],
+    "diseases": [
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "乳腺炎",
+      "骨髄炎",
+      "筋炎",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "前立腺炎",
+      "精巣上体炎",
+      "淋菌感染症",
+      "子宮頸管炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "涙嚢炎",
+      "麦粒腫",
+      "角膜炎",
+      "外耳炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "化膿性唾液腺炎",
+      "歯周組織炎",
+      "顎骨周囲炎",
+      "上顎洞炎",
+      "顎炎",
+      "抜歯創・口腔手術創の二次感染"
+    ],
+    "verified": true
+  },
+  "CCL": {
+    "name": "セファクロル",
+    "source": "PMDA ケフラールカプセル250mg",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132005M1059_3?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "大腸菌",
+      "クレブシエラ属",
+      "プロテウス・ミラビリス",
+      "インフルエンザ菌"
+    ],
+    "diseases": [
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "乳腺炎",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "麦粒腫",
+      "中耳炎",
+      "歯周組織炎",
+      "歯冠周囲炎",
+      "顎炎",
+      "猩紅熱"
+    ],
+    "verified": true
+  },
+  "CEZ": {
+    "name": "セファゾリン",
+    "source": "PMDA セファメジンα",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132401D1045_4?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "大腸菌",
+      "肺炎桿菌",
+      "プロテウス・ミラビリス",
+      "プロビデンシア属"
+    ],
+    "diseases": [
+      "敗血症",
+      "感染性心内膜炎",
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "びらん・潰瘍の二次感染",
+      "乳腺炎",
+      "骨髄炎",
+      "関節炎",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "肺膿瘍",
+      "膿胸",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "腹膜炎",
+      "胆嚢炎",
+      "胆管炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "子宮旁結合織炎",
+      "眼炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "化膿性唾液腺炎"
+    ],
+    "verified": true
+  },
+  "CXM": {
+    "name": "セフロキシム アキセチル",
+    "source": "PMDA オラセフ錠250mg",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132010F1034_4?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "腸球菌属",
+      "淋菌",
+      "モラクセラ・カタラーリス",
+      "大腸菌",
+      "クレブシエラ属",
+      "プロテウス・ミラビリス",
+      "インフルエンザ菌",
+      "ペプトストレプトコッカス属",
+      "アクネ菌"
+    ],
+    "diseases": [
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "ざ瘡",
+      "乳腺炎",
+      "肛門周囲膿瘍",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "前立腺炎",
+      "精巣上体炎",
+      "尿道炎",
+      "麦粒腫",
+      "瞼板腺炎",
+      "外耳炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "化膿性唾液腺炎",
+      "歯周組織炎",
+      "歯冠周囲炎",
+      "顎炎"
+    ],
+    "verified": true
+  },
+  "CTM": {
+    "name": "セフォチアム",
+    "source": "PMDA パンスポリン静注用",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132400F1033_2?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア・レットゲリ",
+      "インフルエンザ菌"
+    ],
+    "diseases": [
+      "敗血症",
+      "深在性皮膚感染症",
+      "慢性膿皮症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "骨髄炎",
+      "関節炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "肺膿瘍",
+      "膿胸",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "前立腺炎",
+      "腹膜炎",
+      "胆嚢炎",
+      "胆管炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "子宮旁結合織炎",
+      "化膿性髄膜炎",
+      "中耳炎",
+      "副鼻腔炎"
+    ],
+    "verified": true
+  },
+  "CTRX": {
+    "name": "セフトリアキソン",
+    "source": "PMDA ロセフィン静注用",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132419F1021_3?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "淋菌",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "ペプトストレプトコッカス属",
+      "バクテロイデス属",
+      "プレボテラ属"
+    ],
+    "diseases": [
+      "敗血症",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "肺膿瘍",
+      "膿胸",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "精巣上体炎",
+      "尿道炎",
+      "子宮頸管炎",
+      "骨盤内炎症性疾患",
+      "直腸炎",
+      "腹膜炎",
+      "腹腔内膿瘍",
+      "胆嚢炎",
+      "胆管炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "子宮旁結合織炎",
+      "化膿性髄膜炎",
+      "角膜炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "顎骨周辺の蜂巣炎",
+      "顎炎"
+    ],
+    "verified": true
+  },
+  "CFDN": {
+    "name": "セフジニル",
+    "source": "PMDA セフゾンカプセル",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132013M1029_4?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "淋菌",
+      "モラクセラ・カタラーリス",
+      "大腸菌",
+      "クレブシエラ属",
+      "プロテウス・ミラビリス",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "ペプトストレプトコッカス属",
+      "アクネ菌"
+    ],
+    "diseases": [
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "乳腺炎",
+      "肛門周囲膿瘍",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "膀胱炎",
+      "腎盂腎炎",
+      "尿道炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "麦粒腫",
+      "瞼板腺炎",
+      "外耳炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "歯周組織炎",
+      "歯冠周囲炎",
+      "顎炎"
+    ],
+    "verified": true
+  },
+  "CDTR": {
+    "name": "セフジトレン ピボキシル",
+    "source": "PMDA メイアクトMS錠100mg",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132015F1037_1?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "モラクセラ・カタラーリス",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "ペプトストレプトコッカス属",
+      "バクテロイデス属",
+      "フソバクテリウム属",
+      "アクネ菌"
+    ],
+    "diseases": [
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "乳腺炎",
+      "肛門周囲膿瘍",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "肺膿瘍",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "胆嚢炎",
+      "胆管炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "眼瞼膿瘍",
+      "涙嚢炎",
+      "麦粒腫",
+      "瞼板腺炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "歯周組織炎",
+      "歯冠周囲炎",
+      "顎炎"
+    ],
+    "verified": true
+  },
+  "CFPN": {
+    "name": "セフカペン ピボキシル",
+    "source": "PMDA フロモックス錠",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132016F1023_1?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "淋菌",
+      "モラクセラ・カタラーリス",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "ペプトストレプトコッカス属",
+      "バクテロイデス属",
+      "プレボテラ属",
+      "アクネ菌"
+    ],
+    "diseases": [
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "乳腺炎",
+      "肛門周囲膿瘍",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "尿道炎",
+      "子宮頸管炎",
+      "胆嚢炎",
+      "胆管炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "涙嚢炎",
+      "麦粒腫",
+      "瞼板腺炎",
+      "外耳炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "歯周組織炎",
+      "歯冠周囲炎",
+      "顎炎"
+    ],
+    "verified": true
+  },
+  "CPDX": {
+    "name": "セフポドキシム プロキセチル",
+    "source": "PMDA バナン錠100mg",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132011F1080_1?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "淋菌",
+      "モラクセラ・カタラーリス",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "プロテウス属",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "ペプトストレプトコッカス属"
+    ],
+    "diseases": [
+      "表在性皮膚感染症",
+      "深在性皮膚感染症",
+      "リンパ管・リンパ節炎",
+      "慢性膿皮症",
+      "乳腺炎",
+      "肛門周囲膿瘍",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "尿道炎",
+      "バルトリン腺炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "歯周組織炎",
+      "歯冠周囲炎",
+      "顎炎",
+      "猩紅熱"
+    ],
+    "verified": true
+  },
+  "CFIX": {
+    "name": "セフィキシム",
+    "source": "PMDA セフスパン",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132008C1022_5?user=1",
+    "organisms": [
+      "レンサ球菌属",
+      "肺炎球菌",
+      "淋菌",
+      "モラクセラ・カタラーリス",
+      "大腸菌",
+      "クレブシエラ属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌"
+    ],
+    "diseases": [
+      "急性気管支炎",
+      "肺炎",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "尿道炎",
+      "胆嚢炎",
+      "胆管炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "猩紅熱"
+    ],
+    "verified": true
+  },
+  "CFTM": {
+    "name": "セフテラム ピボキシル",
+    "source": "PMDA トミロン錠",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132009F1023_2?user=1",
+    "organisms": [
+      "レンサ球菌属",
+      "肺炎球菌",
+      "淋菌",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "ペプトストレプトコッカス属"
+    ],
+    "diseases": [
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "尿道炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "歯周組織炎",
+      "歯冠周囲炎",
+      "顎炎"
+    ],
+    "verified": true
+  },
+  "CTX": {
+    "name": "セフォタキシム",
+    "source": "PMDA クラフォラン注射用",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132409D1050_1?user=1",
+    "organisms": [
+      "レンサ球菌属",
+      "肺炎球菌",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "ペプトストレプトコッカス属",
+      "バクテロイデス属"
+    ],
+    "diseases": [
+      "敗血症",
+      "感染性心内膜炎",
+      "外傷・熱傷及び手術創等の二次感染",
+      "急性気管支炎",
+      "肺炎",
+      "肺膿瘍",
+      "膿胸",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "腹膜炎",
+      "胆嚢炎",
+      "胆管炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "子宮旁結合織炎",
+      "化膿性髄膜炎"
+    ],
+    "verified": true
+  },
+  "CMX": {
+    "name": "セフメノキシム",
+    "source": "PMDA ベストロン耳鼻科用1% / 点眼用0.5%",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/1325702Q1040_2?user=1",
+    "organisms": [],
+    "diseases": [
+      "外耳炎",
+      "中耳炎",
+      "副鼻腔炎"
+    ],
+    "verified": true,
+    "note": "2026年時点で全身投与製剤ではなく局所製剤。全身Spectrum比較から除外。"
+  },
+  "CFPM": {
+    "name": "セフェピム",
+    "source": "PMDA セフェピム塩酸塩静注用",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132425D1032_1?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "モラクセラ・カタラーリス",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "シュードモナス属",
+      "緑膿菌",
+      "バークホルデリア・セパシア",
+      "ステノトロホモナス・マルトフィリア",
+      "アシネトバクター属",
+      "ペプトストレプトコッカス属",
+      "バクテロイデス属",
+      "プレボテラ属"
+    ],
+    "diseases": [
+      "敗血症",
+      "深在性皮膚感染症",
+      "外傷・熱傷及び手術創等の二次感染",
+      "肛門周囲膿瘍",
+      "扁桃炎",
+      "肺炎",
+      "肺膿瘍",
+      "慢性呼吸器病変の二次感染",
+      "複雑性膀胱炎",
+      "腎盂腎炎",
+      "前立腺炎",
+      "腹膜炎",
+      "腹腔内膿瘍",
+      "胆嚢炎",
+      "胆管炎",
+      "子宮内感染",
+      "子宮旁結合織炎",
+      "中耳炎",
+      "副鼻腔炎",
+      "発熱性好中球減少症"
+    ],
+    "verified": true
+  },
+  "CAZ": {
+    "name": "セフタジジム",
+    "source": "PMDA セフタジジム静注用",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132418F1114_1?user=1",
+    "organisms": [
+      "ブドウ球菌属",
+      "レンサ球菌属",
+      "肺炎球菌",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "シュードモナス属",
+      "緑膿菌",
+      "バークホルデリア・セパシア",
+      "ステノトロホモナス・マルトフィリア",
+      "アシネトバクター属",
+      "ペプトストレプトコッカス属",
+      "バクテロイデス属",
+      "プレボテラ属"
+    ],
+    "diseases": [
+      "敗血症",
+      "感染性心内膜炎",
+      "外傷・熱傷及び手術創等の二次感染",
+      "咽頭・喉頭炎",
+      "扁桃炎",
+      "急性気管支炎",
+      "肺炎",
+      "肺膿瘍",
+      "膿胸",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "前立腺炎",
+      "腹膜炎",
+      "胆嚢炎",
+      "胆管炎",
+      "肝膿瘍",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "子宮旁結合織炎",
+      "化膿性髄膜炎",
+      "中耳炎",
+      "副鼻腔炎"
+    ],
+    "verified": true
+  },
+  "AZT": {
+    "name": "アズトレオナム",
+    "source": "PMDA アザクタム注射用",
+    "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6122400D1028_2?user=1",
+    "organisms": [
+      "淋菌",
+      "髄膜炎菌",
+      "大腸菌",
+      "シトロバクター属",
+      "クレブシエラ属",
+      "エンテロバクター属",
+      "セラチア属",
+      "プロテウス属",
+      "モルガネラ・モルガニー",
+      "プロビデンシア属",
+      "インフルエンザ菌",
+      "緑膿菌"
+    ],
+    "diseases": [
+      "敗血症",
+      "肺炎",
+      "肺膿瘍",
+      "慢性呼吸器病変の二次感染",
+      "膀胱炎",
+      "腎盂腎炎",
+      "前立腺炎",
+      "尿道炎",
+      "子宮頸管炎",
+      "腹膜炎",
+      "腹腔内膿瘍",
+      "胆嚢炎",
+      "胆管炎",
+      "バルトリン腺炎",
+      "子宮内感染",
+      "子宮付属器炎",
+      "子宮旁結合織炎",
+      "化膿性髄膜炎",
+      "角膜炎",
+      "中耳炎",
+      "副鼻腔炎"
+    ],
+    "verified": true
+  },
+  "CVA/AMPC": {
+    "name": "クラブラン酸/アモキシシリン",
+    "source": "PMDA オーグメンチン等",
+    "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+    "organisms": [],
+    "diseases": [],
+    "verified": false,
+    "note": "CDSで使用するため追加。22剤Comparator本体とは別。"
+  }
+};
+</script>
+<script>(() => {
+  const D = window.CDS_DATA;
+  const $ = (id) => document.getElementById(id);
+  const select = $("syndromeSelect"), tabs = $("quickTabs");
+  const allergyText = {
+    unknown:"反応型が不明な場合は、構造類似性だけで安全と判断しない。可能なら発症時期・症状・処置歴を確認する。",
+    immediate:"即時型／アナフィラキシーでは、側鎖構造は重要でも投与可否を構造だけで決めない。必要に応じ専門的評価を優先する。",
+    mild:"軽症の遅発疹では、反応歴と必要性を確認しつつ、異なる側鎖のβラクタムが候補になり得る。構造Comparatorを補助に使う。",
+    scar:"SCAR（SJS/TEN/DRESS等）では、構造類似度を根拠に再投与や同系統投与を正当化しない。専門的評価を優先する。"
+  };
+
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
+  const statusClass = s => s === "代替" ? " alt" : "";
+
+  function init(){
+    D.syndromes.forEach((x,i)=>{
+      const o=document.createElement("option");o.value=x.id;o.textContent=x.name;select.appendChild(o);
+      const b=document.createElement("button");b.className="quick-tab";b.type="button";b.dataset.id=x.id;b.textContent=x.short;b.onclick=()=>{select.value=x.id;render(x.id)};tabs.appendChild(b);
+    });
+    select.onchange=()=>render(select.value);
+    $("allergySelect").onchange=renderAllergy;
+    $("aboutBtn").onclick=()=>$("aboutModal").hidden=false;
+    $("closeAbout").onclick=()=>$("aboutModal").hidden=true;
+    $("aboutModal").onclick=e=>{if(e.target===$("aboutModal"))$("aboutModal").hidden=true};
+    render(D.syndromes[0].id);
+  }
+
+  function render(id){
+    const x=D.syndromes.find(s=>s.id===id)||D.syndromes[0];
+    document.querySelectorAll('.quick-tab').forEach(b=>b.classList.toggle('active',b.dataset.id===x.id));
+    $("summaryHero").innerHTML=`<div class="summary-kicker">CURRENT SYNDROME</div><h2>${esc(x.name)}</h2><div class="summary-line">${esc(x.lead)}</div><div class="summary-chiprow">${x.chips.map((c,i)=>`<span class="chip ${i===0?'good':'warn'}">${esc(c)}</span>`).join('')}</div>`;
+    $("pathogenCard").innerHTML=`<div class="step-head"><div class="step-num">1</div><div><div class="step-title">主な標的菌</div><div class="step-sub">感染部位・症候から想定</div></div></div><div class="organism-list">${x.pathogens.map(p=>`<div class="organism"><b>${esc(p[0])}</b><small>${esc(p[1])}</small></div>`).join('')}</div>`;
+    $("betaCard").innerHTML=`<div class="step-head"><div class="step-num">2</div><div><div class="step-title">βラクタムの位置づけ</div><div class="step-sub">疾患GL上の役割</div></div></div><div class="drug-list">${x.beta.map(d=>`<div class="drug-item"><b>${esc(d.name)}</b><span class="drug-status${statusClass(d.status)}">${esc(d.status)}</span><small>${esc(d.note)}</small></div>`).join('')}</div>`;
+    $("nonBetaCard").innerHTML=`<div class="section-label">REFERENCE / NON-β-LACTAM</div><div class="nonbeta-title">${esc(x.nonbeta.title)}</div><div class="nonbeta-body">${esc(x.nonbeta.body)}</div>${x.nonbeta.pills.length?`<div class="nonbeta-pills">${x.nonbeta.pills.map(p=>`<span class="pill">${esc(p)}</span>`).join('')}</div>`:''}`;
+    $("warningCard").className="wide-card warning-card"+(x.id==='aspiration'||x.id==='abscess'?" critical":"");
+    $("warningCard").innerHTML=`<div class="warning-title">${esc(x.warning.title)}</div><div class="warning-text">${esc(x.warning.text)}</div>`;
+    $("spectrumBody").innerHTML=renderSpectrumMatrix(x);
+    $("evidenceBody").innerHTML=renderSourceList(x,[...new Set([...mainDrugs(x),...EXTRA_DRUGS])]);
+    const moreBtn=$("moreSpectrumBtn");
+    if(moreBtn) moreBtn.onclick=()=>{
+      const hidden=[...document.querySelectorAll(".extra-spectrum-row")];
+      const opening=hidden.some(r=>r.classList.contains("hidden"));
+      hidden.forEach(r=>r.classList.toggle("hidden",!opening));
+      moreBtn.textContent=opening?"− 追加薬を閉じる":"＋ その他のβラクタムを表示";
+    };
+    renderAllergy();
+  }
+
+  const KYOTO_SOURCE={
+    title:"京都大学医学部附属病院「抗菌薬適正使用マニュアル 2024年版」",
+    section:"Ⅳ 抗菌薬感受性表",
+    page:"誌面 p.9 / PDF p.14",
+    url:"https://www.khosp.or.jp/system/wp-content/themes/khosp/assets/img/document/pdf/koukinyaku-manual.pdf#page=14"
+  };
+
+  const KYOTO={
+    AMPC:{"肺炎球菌（S. pneumoniae）":"第一選択","インフルエンザ菌（H. influenzae）":"第一選択","大腸菌（E. coli）":"感受性あり","上気道嫌気性菌":"感受性あり"},
+    ABPC:{"肺炎球菌（S. pneumoniae）":"第一選択","インフルエンザ菌（H. influenzae）":"第一選択","大腸菌（E. coli）":"感受性あり","A群溶血性レンサ球菌（GAS）":"第一選択"},
+    PCG:{"肺炎球菌（S. pneumoniae）":"第一選択","A群溶血性レンサ球菌（GAS）":"第一選択"},
+    PIPC:{"肺炎球菌（S. pneumoniae）":"感受性あり","インフルエンザ菌（H. influenzae）":"感受性あり","大腸菌（E. coli）":"感受性あり"},
+    CEX:{"肺炎球菌（S. pneumoniae）":"感受性あり","大腸菌（E. coli）":"第一選択","黄色ブドウ球菌（S. aureus）":"第一選択","A群溶血性レンサ球菌（GAS）":"感受性あり"},
+    CCL:{"大腸菌（E. coli）":"感受性あり","肺炎球菌（S. pneumoniae）":"感受性あり","モラクセラ（M. catarrhalis）":"第一選択","A群溶血性レンサ球菌（GAS）":"感受性あり"},
+    CEZ:{"大腸菌（E. coli）":"第一選択","肺炎球菌（S. pneumoniae）":"感受性あり","黄色ブドウ球菌（S. aureus）":"第一選択","A群溶血性レンサ球菌（GAS）":"感受性あり"},
+    CTX:{"肺炎球菌（S. pneumoniae）":"感受性あり","インフルエンザ菌（H. influenzae）":"第一選択","大腸菌（E. coli）":"感受性あり","モラクセラ（M. catarrhalis）":"感受性あり","黄色ブドウ球菌（S. aureus）":"感受性あり","A群溶血性レンサ球菌（GAS）":"感受性あり"},
+    CTRX:{"肺炎球菌（S. pneumoniae）":"感受性あり","インフルエンザ菌（H. influenzae）":"第一選択","大腸菌（E. coli）":"感受性あり","モラクセラ（M. catarrhalis）":"感受性あり","黄色ブドウ球菌（S. aureus）":"感受性あり","A群溶血性レンサ球菌（GAS）":"感受性あり"},
+    CAZ:{"大腸菌（E. coli）":"感受性あり","モラクセラ（M. catarrhalis）":"感受性あり"},
+    CFPM:{"肺炎球菌（S. pneumoniae）":"感受性あり","大腸菌（E. coli）":"感受性あり","モラクセラ（M. catarrhalis）":"感受性あり","黄色ブドウ球菌（S. aureus）":"感受性あり","A群溶血性レンサ球菌（GAS）":"感受性あり"}
+  };
+
+  const DRUG_GROUPS=[
+    ["ペニシリン系",["PCG","ABPC","AMPC","PIPC","MCIPC","CVA/AMPC"]],
+    ["第1世代セフェム",["CEX","CEZ"]],
+    ["第2世代セフェム",["CCL","CXM","CTM"]],
+    ["第3世代セフェム",["CTRX","CFDN","CDTR","CFPN","CPDX","CFIX","CFTM","CTX","CMX","CAZ"]],
+    ["第4世代セフェム",["CFPM"]],
+    ["モノバクタム",["AZT"]]
+  ];
+  const EXTRA_DRUGS=DRUG_GROUPS.flatMap(g=>g[1]);
+  function normDrug(n){
+    if(n.includes("CDTR")) return "CDTR";
+    if(n.includes("CVA/AMPC")) return "CVA/AMPC";
+    if(n.includes("AMPC")) return "AMPC";
+    return n.replace(/高用量/g,"").trim();
+  }
+  function mainDrugs(x){
+    const arr=x.beta.map(b=>normDrug(b.name));
+    x.compare.forEach(d=>arr.push(normDrug(d)));
+    return [...new Set(arr)].filter(Boolean);
+  }
+  function pathogenLabel(p){return p[0].replace("肺炎マイコプラズマ","マイコプラズマ").replace("A群溶血性レンサ球菌","GAS");}
+  function guidelineStatus(x,d){
+    const b=x.beta.find(v=>normDrug(v.name)===d);
+    if(!b) return {text:"記載なし",cls:"none",note:"この疾患カードの主要βラクタムとしては未登録。"};
+    let cls=b.status==="推奨"||b.status==="軸"?"first":b.status==="代替"?"active":"conditional";
+    return {text:b.status,cls,note:b.note};
+  }
+  function cellFor(x,d,p){
+    const pname=p[0];
+    if(/Mycoplasma|マイコプラズマ|Legionella|レジオネラ/.test(pname))
+      return {text:"標的外",cls:"no",sub:"βラクタムでは対応しない"};
+    const k=KYOTO[d]&&KYOTO[d][pname];
+    if(k==="第一選択") return {text:"第一選択",cls:"first",sub:"Kyoto 2024"};
+    if(k==="感受性あり") return {text:"感受性あり",cls:"active",sub:"Kyoto 2024"};
+    const sp=x.spectrum.find(r=>r[0].includes(d)&&r[0].includes(pname.split("（")[0]));
+    if(sp) return {text:/軸|推奨/.test(sp[2])?"臨床的に有力":"参考あり",cls:/軸|推奨/.test(sp[2])?"first":"ref",sub:sp[1]};
+    return {text:"記載なし",cls:"none",sub:"≠ 無効"};
+  }
+  function sourceTypeLabel(e){
+    const t=(e[1]||"");
+    if(/PMDA|添付文書|インタビューフォーム|IF/.test(t)) return "薬剤情報";
+    if(/ガイドライン|手引き/.test(t)) return "疾患GL";
+    if(/サーベイ|MIC/.test(t)) return "参考データ";
+    return "出典";
+  }
+  function renderSourceList(x,drugs){
+    const ev=[...x.evidence];
+    const hasKyoto=drugs.some(d=>KYOTO[d]);
+    let cards="";
+    if(hasKyoto){
+      cards+=`<div class="evidence-card">
+        <div class="evidence-top"><span class="evidence-kind">基本スペクトル</span><b>${esc(KYOTO_SOURCE.title)}</b></div>
+        <div class="evidence-meta">${esc(KYOTO_SOURCE.section)} ・ ${esc(KYOTO_SOURCE.page)}</div>
+        <div class="evidence-why">表中の「第一選択」「感受性あり」のLayer 1根拠。</div>
+        <a href="${KYOTO_SOURCE.url}" target="_blank" rel="noopener">該当ページを開く ↗</a>
+      </div>`;
+    }
+    ev.forEach(e=>{
+      cards+=`<div class="evidence-card">
+        <div class="evidence-top"><span class="evidence-kind">${esc(sourceTypeLabel(e))}</span><b>${esc(e[1])}</b></div>
+        <div class="evidence-meta">${esc(e[0])} ・ ${esc(e[2])}</div>
+        <div class="evidence-why">${esc(e[3])}</div>
+        <a href="${e[4]}" target="_blank" rel="noopener">該当ページ / 公式資料を開く ↗</a>
+      </div>`;
+    });
+    const A=window.APPROVAL_DATA||{};
+    cards+=`<div class="drug-source-block"><b>国内承認情報（Layer 2B）</b>
+      <p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。抗菌活性（Layer 2A）とは混ぜません。</p>
+      <div class="approval-source-list">${drugs.map(d=>{const a=A[d];return a?`<div><b>${esc(d)}｜${esc(a.name)}</b><span>${a.verified?"抽出済み":"ページ監査中"}</span><a href="${a.url}" target="_blank" rel="noopener">${esc(a.source)} ↗</a>${a.note?`<small>${esc(a.note)}</small>`:""}</div>`:`<div><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div>
+      <small class="pending-note">「該当記載なし」は、電子添文上の承認範囲の話であり、抗菌活性がないことを意味しません。「要確認」は未監査であり、適応外という意味ではありません。</small>
+    </div>`;
+    // Drug-specific Layer2A status.
+    cards+=`<div class="drug-source-block"><b>選択中βラクタムの薬剤別データ（Layer 2A）</b>
+      <p>添付文書・インタビューフォーム・審査報告書などのLayer 2を薬剤ごとに紐付けます。PMDAでは電子添文に加えてIF等の関連文書が公開されています。</p>
+      <div class="drug-source-pills">${drugs.map(d=>`<span>${esc(d)} <small>PMDA/IF：${["CDTR","CTRX","CEX","CCL","AMPC","CEZ","CFPN","CPDX","CFIX","CFTM","CXM","CTM","CFDN","AZT"].includes(d)?"マスター参照":"未紐付け"}</small></span>`).join("")}</div>
+      <small class="pending-note">※ v0.5では既存マスターのLayer 2を「参照あり」と表示。次段階で各薬剤の具体的な文書名・節・PDF page・直リンクまでカード化します。ページ未確認のものは推測せず「要確認」のまま保持します。</small>
+    </div>`;
+    return cards;
+  }
+
+  function diseaseTerms(x){
+    const map={
+      sinus:["副鼻腔炎"], pharynx:["咽頭・喉頭炎","扁桃炎"], aom:["中耳炎"],
+      cap:["肺炎"], cystitis:["膀胱炎"], pyelo:["腎盂腎炎"],
+      cellulitis:["表在性皮膚感染症","深在性皮膚感染症","リンパ管・リンパ節炎","顎骨周辺の蜂巣炎"],
+      abscess:["肛門周囲膿瘍","深在性皮膚感染症","外傷・熱傷及び手術創等の二次感染"],
+      odonto:["歯周組織炎","歯冠周囲炎","顎炎","顎骨周囲炎"],
+      aspiration:["肺炎"]
+    }; return map[x.id]||[];
+  }
+  function organismApproval(d,pname){
+    const a=(window.APPROVAL_DATA||{})[d];
+    if(!a || !a.verified) return {ok:null,text:"要確認"};
+    if(d==="MCIPC") return {ok:null,text:"配合剤"};
+    const aliases={
+      "肺炎球菌（S. pneumoniae）":["肺炎球菌"],"インフルエンザ菌（H. influenzae）":["インフルエンザ菌"],
+      "モラクセラ（M. catarrhalis）":["モラクセラ"],"大腸菌（E. coli）":["大腸菌"],
+      "黄色ブドウ球菌（S. aureus）":["ブドウ球菌属"],"A群溶血性レンサ球菌（GAS）":["レンサ球菌属"],
+      "肺炎マイコプラズマ（M. pneumoniae）":["マイコプラズマ"],"マイコプラズマ（M. pneumoniae）":["マイコプラズマ"],
+      "レジオネラ（Legionella spp.）":["レジオネラ"],"緑膿菌（P. aeruginosa）":["緑膿菌"]
+    };
+    const qs=aliases[pname]||[pname.split("（")[0]];
+    const ok=qs.some(q=>a.organisms.some(o=>o.includes(q)||q.includes(o)));
+    return {ok,text:ok?"✓":"—"};
+  }
+
+  function approvalFor(x,d){
+    const a=(window.APPROVAL_DATA||{})[d];
+    if(!a) return {org:"未確認",dis:"未確認",cls:"pending",a:null};
+    if(a.note && (d==="MCIPC"||d==="CMX")) return {org:"特殊",dis:"特殊",cls:"conditional",a};
+    if(!a.verified) return {org:"要確認",dis:"要確認",cls:"pending",a};
+    const orgNames=x.pathogens.map(p=>p[0]);
+    const aliases={"肺炎球菌（S. pneumoniae）":"肺炎球菌","インフルエンザ菌（H. influenzae）":"インフルエンザ菌","モラクセラ（M. catarrhalis）":"モラクセラ","大腸菌（E. coli）":"大腸菌","黄色ブドウ球菌（S. aureus）":"ブドウ球菌属","A群溶血性レンサ球菌（GAS）":"レンサ球菌属"};
+    const relevant=orgNames.filter(n=>aliases[n]).map(n=>aliases[n]);
+    const orgOK=relevant.length ? relevant.some(q=>a.organisms.some(o=>o.includes(q)||q.includes(o))) : false;
+    const terms=diseaseTerms(x);
+    const disOK=terms.some(q=>a.diseases.some(v=>v.includes(q)||q.includes(v)));
+    return {org:orgOK?"適応菌種あり":"該当記載なし",dis:disOK?"適応記載あり":"記載なし",cls:(orgOK&&disOK)?"approved":"none",a};
+  }
+
+  function renderSpectrumMatrix(x){
+    const main=mainDrugs(x);
+    const more=EXTRA_DRUGS.filter(d=>!main.includes(d));
+    const rows=(drugs,extra)=>drugs.map(d=>{
+      const g=guidelineStatus(x,d);
+      const ap=approvalFor(x,d);
+      return `<tr class="${extra?"extra-spectrum-row hidden":""}">
+        <th scope="row"><b>${esc(d)}</b>${extra?'<small>追加薬</small>':""}</th>
+        ${x.pathogens.map(p=>{const c=cellFor(x,d,p),oa=organismApproval(d,p[0]);return `<td class="split-cell">
+          <div class="activity-half"><span class="matrix-status ${c.cls}">${esc(c.text)}</span><small>${esc(c.sub)}</small></div>
+          <div class="approval-half"><small>適応菌種</small><b class="${oa.ok===true?"ok":oa.ok===false?"ng":"pending"}">${esc(oa.text)}</b></div>
+        </td>`}).join("")}
+        <td><span class="matrix-status ${ap.cls}">${esc(ap.dis)}</span><small>国内承認：適応症</small></td>
+        <td><span class="matrix-status ${g.cls}">${esc(g.text)}</span><small>${esc(g.note)}</small></td>
+      </tr>`}).join("");
+    return `
+      <div class="matrix-intro">
+        <b>この疾患で、βラクタムを横並び比較</b>
+        <p>横は主な標的菌、縦は比較する意味のあるβラクタム。各菌セルは<b>上段＝スペクトル、下段＝電子添文の適応菌種</b>。右端で適応症と疾患GLも確認できます。</p>
+      </div>
+      <div class="matrix-legend">
+        <span class="matrix-status first">第一選択</span>
+        <span class="matrix-status active">感受性あり</span>
+        <span class="matrix-status conditional">状況依存</span>
+        <span class="matrix-status no">標的外</span>
+        <span class="matrix-status none">記載なし</span><span class="matrix-status approved">国内承認あり</span><span class="matrix-status pending">要確認</span>
+        <small>セル下段「適応菌種 ✓」＝電子添文に記載あり。「—」＝適応菌種として記載なし。スペクトルとは別判定です。</small>
+      </div>
+      <div class="matrix-scroll">
+        <table class="spectrum-matrix">
+          <thead><tr><th>βラクタム</th>${x.pathogens.map(p=>`<th>${esc(pathogenLabel(p))}</th>`).join("")}<th>適応症</th><th>疾患GL</th></tr></thead>
+          <tbody>${rows(main,false)}${groupedMore}</tbody>
+        </table>
+      </div>
+      <button type="button" class="more-spectrum-btn" id="moreSpectrumBtn">＋ その他のβラクタムを表示</button>
+      <div class="matrix-method">
+        <details>
+          <summary><b>この表の判定はどう作っている？</b><small>3 Layerは裏側で保持</small></summary>
+          <div class="layer-explain">
+            <div><span class="layer-badge l1">Layer 1</span><b>基本スペクトル</b><small>Kyoto 2024の「第一選択薬 / 感受性あり / 空欄」をそのまま保持。</small></div>
+            <div><span class="layer-badge l2">Layer 2</span><b>薬剤そのものの根拠</b><small>PMDA・IF・MIC。in vitro活性や薬剤特性。</small></div>
+            <div><span class="layer-badge l3">Layer 3</span><b>疾患での位置づけ</b><small>感染症ガイドラインの推奨 / 代替 / 状況依存。</small></div>
+          </div>
+          <p class="method-note">最終的な強さの○△×化はSanford検証後に調整します。現段階では根拠がないセルを推測で埋めません。</p>
+        </details>
+      </div>
+      `;
+  }
+
+  function renderAllergy(){
+    const x=D.syndromes.find(s=>s.id===select.value)||D.syndromes[0];
+    const val=$("allergySelect").value;
+    $("allergyMessage").textContent=allergyText[val];
+    const actions=x.compare.map((d,i)=>`<a class="action-btn ${i===0?'primary':''}" href="${esc(D.comparatorUrl)}?drugA=${encodeURIComponent(d)}" target="_blank" rel="noopener">${esc(d)}を構造比較へ</a>`).join('');
+    $("compareActions").innerHTML=actions;
+  }
+  init();
+})();
+</script>
+</body>
+</html>
