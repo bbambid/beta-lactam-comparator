@@ -399,6 +399,102 @@ h1,h2,h3,h4,h5,h6,
 
 </style>
 
+
+<style id="sanford-spectrum-style">
+.sanford-spectrum-grid{display:grid;gap:5px;margin:10px 0}
+.sanford-drug-row{display:grid;grid-template-columns:70px repeat(3,minmax(0,1fr));gap:5px;align-items:center;padding:7px 8px;border:1px solid #e1e5ea;border-radius:6px;background:#fff;font-size:10px}
+.sanford-drug-row>b{font-size:11px;color:#263d4c}.sanford-drug-row span{color:#5f6d78}.sanford-drug-row strong{color:#183247;font-size:12px}.sanford-pending{grid-column:2/-1;color:#8a641d!important;font-weight:700}
+@media(max-width:700px){.sanford-drug-row{grid-template-columns:58px repeat(3,minmax(0,1fr));padding:6px 5px;font-size:8.5px}.sanford-drug-row>b{font-size:10px}.sanford-drug-row strong{font-size:11px}}
+</style>
+
+<style id="sanford-kyoto-spectrum-style">
+/* Sanford × Kyoto side-by-side spectrum view */
+.activity-half{
+  padding:0;
+  min-height:58px;
+}
+.activity-source-split{
+  display:grid;
+  grid-template-columns:1fr;
+  grid-template-rows:auto auto;
+  min-height:70px;
+}
+.activity-source{
+  min-width:0;
+  padding:6px 4px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:2px;
+}
+.activity-source + .activity-source{
+  border-left:0;
+  border-top:0;
+}
+.activity-sanford{
+  position:relative;
+  margin-top:7px;
+  padding-top:10px;
+}
+.activity-sanford::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:7%;
+  right:7%;
+  border-top:2px dotted #aebbc8;
+}
+.activity-source .matrix-status{
+  max-width:100%;
+  white-space:normal;
+  line-height:1.15;
+  text-align:center;
+  padding:4px 5px;
+}
+.activity-source small{
+  margin:0!important;
+  font-size:8.5px!important;
+  line-height:1.15!important;
+  color:#7b8796!important;
+}
+.sanford-value{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:48px;
+  min-height:25px;
+  padding:4px 6px;
+  border-radius:4px;
+  background:#f1eef8;
+  color:#574b78;
+  font-size:13px;
+  font-weight:800;
+  line-height:1;
+}
+.sanford-value.pending{
+  min-width:0;
+  font-size:8.5px;
+  font-weight:700;
+  background:#fff4dc;
+  color:#866000;
+}
+.sanford-value.unregistered{
+  min-width:0;
+  font-size:8.5px;
+  font-weight:700;
+  background:#f1f3f5;
+  color:#68727f;
+}
+@media(max-width:720px){
+  .activity-source{padding:7px 3px 6px}
+  .activity-source .matrix-status{font-size:9px}
+  .activity-source small{font-size:7.5px!important}
+  .sanford-value{font-size:10px;min-width:46px}
+  .sanford-value.pending,.sanford-value.unregistered{font-size:7.5px}
+}
+</style>
+
 <style id="clinical-reference-skin">
 :root{--navy:#183247;--navy2:#183247;--blue:#315f7d;--cyan:#f2f6f8;--ink:#18252f;--muted:#64727d;--line:#d8dee3;--bg:#f4f5f3;--card:#fff;--green:#2f6b52;--amber:#8a641d;--amber-bg:#fffaf0;--red:#9b3d38;--red-bg:#fff6f5;--violet:#596b78;--radius:7px;--shadow:none}
 body{background:#f4f5f3;color:#18252f;font-family:"Noto Sans JP","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -536,6 +632,53 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 }
 
 </style>
+
+
+<style id="sticky-spectrum-header-style-v2">
+.matrix-sticky-head{
+  position:fixed;
+  left:0;
+  right:0;
+  z-index:19;
+  display:none;
+  pointer-events:none;
+}
+.matrix-sticky-head.show{display:block}
+.matrix-sticky-head-inner{
+  overflow:hidden;
+  background:#e9eef1;
+  border-bottom:2px solid #b9c6ce;
+  box-shadow:0 3px 8px rgba(15,39,66,.12);
+  pointer-events:none;
+}
+.matrix-sticky-head table{
+  border-collapse:separate;
+  border-spacing:0;
+  table-layout:fixed;
+  margin:0;
+  font-size:12px;
+}
+.matrix-sticky-head th{
+  padding:11px 9px;
+  border-right:1px solid #edf0f4;
+  text-align:center;
+  vertical-align:middle;
+  background:#e9eef1;
+  color:#263d4c;
+  font-size:11px;
+}
+.matrix-sticky-head th:first-child{
+  position:sticky;
+  left:0;
+  z-index:2;
+  background:#e9eef1;
+  text-align:left;
+}
+@media(max-width:720px){
+  .matrix-sticky-head th{padding:9px 7px}
+}
+</style>
+
 </head>
 <body>
 <header class="topbar">
@@ -1829,6 +1972,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       hidden.forEach(r=>r.classList.toggle("hidden",!opening));
       moreBtn.textContent=opening?"− 追加薬を閉じる":"＋ その他のβラクタムを表示";
     };
+    setupStickyMatrixHeader();
     renderAllergy();
   }
 
@@ -1851,6 +1995,275 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     CTRX:{"肺炎球菌（S. pneumoniae）":"感受性あり","インフルエンザ菌（H. influenzae）":"第一選択","大腸菌（E. coli）":"感受性あり","モラクセラ（M. catarrhalis）":"感受性あり","黄色ブドウ球菌（S. aureus）":"感受性あり","A群溶血性レンサ球菌（GAS）":"感受性あり"},
     CAZ:{"大腸菌（E. coli）":"感受性あり","モラクセラ（M. catarrhalis）":"感受性あり"},
     CFPM:{"肺炎球菌（S. pneumoniae）":"感受性あり","大腸菌（E. coli）":"感受性あり","モラクセラ（M. catarrhalis）":"感受性あり","黄色ブドウ球菌（S. aureus）":"感受性あり","A群溶血性レンサ球菌（GAS）":"感受性あり"}
+  };
+
+  // Sanford Guide 日本語版「抗菌活性スペクトラム表」（2020/09/15更新）
+  // 既存Layer 1/2/3とは独立した検証マスタ。0 / ± / + / ++ は原表記をそのまま保持する。
+  // pending は今回確認したSanford表画像では値を確認できていない薬剤。後日再確認する。
+  const SANFORD_SOURCE=window.SANFORD_SOURCE=window.SANFORD_SOURCE||{
+    title:"Sanford Guide 日本語版「抗菌活性スペクトラム表」",
+    updated:"2020/09/15",
+    role:"既存Layerを上書きしない独立検証データ"
+  };
+  const SANFORD_SPECTRUM=window.SANFORD_SPECTRUM=window.SANFORD_SPECTRUM||{
+    sinus:{
+      organisms:["肺炎球菌（S. pneumoniae）","インフルエンザ菌（H. influenzae）","モラクセラ（M. catarrhalis）"],
+      drugs:{
+        PCG:{sp:"++",hi:"0",mc:"0",status:"verified",label:"PCG"},
+        ABPC:{sp:"+",hi:"±",mc:"0",status:"verified",label:"ABPC"},
+        AMPC:{sp:"+",hi:"±",mc:"0",status:"verified",label:"AMPC"},
+        PIPC:{sp:null,hi:null,mc:null,status:"pending",label:"PIPC"},
+        MCIPC:{sp:"+",hi:"0",mc:"0",status:"verified",label:"Cloxacillin"},
+        "CVA/AMPC":{sp:"+",hi:"++",mc:"++",status:"verified",label:"AMPC/CVA"},
+        CEX:{sp:"+",hi:"0",mc:"0",status:"verified",label:"CEX"},
+        CEZ:{sp:"+",hi:"0",mc:"0",status:"verified",label:"CEZ"},
+        CCL:{sp:"+",hi:"±",mc:"±",status:"verified",label:"CCL"},
+        CXM:{sp:"+",hi:"+",mc:"+",status:"verified",label:"Cefuroxime / CXM-AX"},
+        CTM:{sp:null,hi:null,mc:null,status:"pending",label:"CTM"},
+        CTRX:{sp:"+",hi:"++",mc:"+",status:"verified",label:"CTRX"},
+        CFDN:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CFDN"},
+        CDTR:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CDTR-PI"},
+        CFPN:{sp:null,hi:null,mc:null,status:"pending",label:"CFPN"},
+        CPDX:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CPDX-PR"},
+        CFIX:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CFIX"},
+        CFTM:{sp:null,hi:null,mc:null,status:"pending",label:"CFTM"},
+        CTX:{sp:"+",hi:"++",mc:"+",status:"verified",label:"CTX"},
+        CMX:{sp:null,hi:null,mc:null,status:"pending",label:"CMX（局所製剤）"},
+        CAZ:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CAZ"},
+        CFPM:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CFPM"}
+      },
+      note:"Sanford表に見当たらない／今回の画像で確認できない薬剤は pending として保持し、後日確認する。"
+    },
+    pharynx:{
+      organisms:["A群溶血性レンサ球菌（GAS）"],
+      drugs:{
+        PCG:{gas:"++",status:"verified",label:"PCG"},
+        ABPC:{gas:"+",status:"verified",label:"ABPC"},
+        AMPC:{gas:"+",status:"verified",label:"AMPC"},
+        PIPC:{gas:null,status:"pending",label:"PIPC"},
+        MCIPC:{gas:"+",status:"verified",label:"Cloxacillin"},
+        "CVA/AMPC":{gas:"+",status:"verified",label:"AMPC/CVA"},
+        CEX:{gas:"+",status:"verified",label:"CEX"},
+        CEZ:{gas:"+",status:"verified",label:"CEZ"},
+        CCL:{gas:"+",status:"verified",label:"CCL"},
+        CXM:{gas:"+",status:"verified",label:"Cefuroxime / CXM-AX"},
+        CTM:{gas:null,status:"pending",label:"CTM"},
+        CTRX:{gas:"+",status:"verified",label:"CTRX"},
+        CFDN:{gas:"+",status:"verified",label:"CFDN"},
+        CDTR:{gas:"+",status:"verified",label:"CDTR-PI"},
+        CFPN:{gas:null,status:"pending",label:"CFPN"},
+        CPDX:{gas:"+",status:"verified",label:"CPDX-PR"},
+        CFIX:{gas:"+",status:"verified",label:"CFIX"},
+        CFTM:{gas:null,status:"pending",label:"CFTM"},
+        CTX:{gas:"+",status:"verified",label:"CTX"},
+        CMX:{gas:null,status:"pending",label:"CMX（局所製剤）"},
+        CAZ:{gas:"+",status:"verified",label:"CAZ"},
+        CFPM:{gas:"+",status:"verified",label:"CFPM"}
+      },
+      note:"GAS（S. pyogenes）のSanford原表値。未確認薬は pending として保持し、後日確認する。"
+    },
+    aom:{
+      organisms:["インフルエンザ菌（H. influenzae）","肺炎球菌（S. pneumoniae）","モラクセラ（M. catarrhalis）"],
+      drugs:{
+        PCG:{sp:"++",hi:"0",mc:"0",status:"verified",label:"PCG"},
+        ABPC:{sp:"+",hi:"±",mc:"0",status:"verified",label:"ABPC"},
+        AMPC:{sp:"+",hi:"±",mc:"0",status:"verified",label:"AMPC"},
+        PIPC:{sp:null,hi:null,mc:null,status:"pending",label:"PIPC"},
+        MCIPC:{sp:"+",hi:"0",mc:"0",status:"verified",label:"Cloxacillin"},
+        "CVA/AMPC":{sp:"+",hi:"++",mc:"++",status:"verified",label:"AMPC/CVA"},
+        CEX:{sp:"+",hi:"0",mc:"0",status:"verified",label:"CEX"},
+        CEZ:{sp:"+",hi:"0",mc:"0",status:"verified",label:"CEZ"},
+        CCL:{sp:"+",hi:"±",mc:"±",status:"verified",label:"CCL"},
+        CXM:{sp:"+",hi:"+",mc:"+",status:"verified",label:"Cefuroxime / CXM-AX"},
+        CTM:{sp:null,hi:null,mc:null,status:"pending",label:"CTM"},
+        CTRX:{sp:"+",hi:"++",mc:"+",status:"verified",label:"CTRX"},
+        CFDN:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CFDN"},
+        CDTR:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CDTR-PI"},
+        CFPN:{sp:null,hi:null,mc:null,status:"pending",label:"CFPN"},
+        CPDX:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CPDX-PR"},
+        CFIX:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CFIX"},
+        CFTM:{sp:null,hi:null,mc:null,status:"pending",label:"CFTM"},
+        CTX:{sp:"+",hi:"++",mc:"+",status:"verified",label:"CTX"},
+        CMX:{sp:null,hi:null,mc:null,status:"pending",label:"CMX（局所製剤）"},
+        CAZ:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CAZ"},
+        CFPM:{sp:"+",hi:"+",mc:"+",status:"verified",label:"CFPM"}
+      },
+      note:"小児急性中耳炎の主な標的菌3菌について、Sanford原表値を独立検証値として保持。未確認薬は pending として後日確認する。"
+    },
+    cap:{
+      organisms:["肺炎球菌（S. pneumoniae）","インフルエンザ菌（H. influenzae）","肺炎マイコプラズマ（M. pneumoniae）","レジオネラ（Legionella spp.）"],
+      drugs:{
+        PCG:{sp:"++",hi:"0",mp:"0",leg:"0",status:"verified",label:"PCG"},
+        ABPC:{sp:"+",hi:"±",mp:"0",leg:"0",status:"verified",label:"ABPC"},
+        AMPC:{sp:"+",hi:"±",mp:"0",leg:"0",status:"verified",label:"AMPC"},
+        PIPC:{sp:null,hi:null,mp:null,leg:null,status:"pending",label:"PIPC"},
+        MCIPC:{sp:"+",hi:"0",mp:"0",leg:"0",status:"verified",label:"Cloxacillin"},
+        "CVA/AMPC":{sp:"+",hi:"++",mp:"0",leg:"0",status:"verified",label:"AMPC/CVA"},
+        CEX:{sp:"+",hi:"0",mp:"0",leg:"0",status:"verified",label:"CEX"},
+        CEZ:{sp:"+",hi:"0",mp:"0",leg:"0",status:"verified",label:"CEZ"},
+        CCL:{sp:"+",hi:"±",mp:"0",leg:"0",status:"verified",label:"CCL"},
+        CXM:{sp:"+",hi:"+",mp:"0",leg:"0",status:"verified",label:"Cefuroxime / CXM-AX"},
+        CTM:{sp:null,hi:null,mp:null,leg:null,status:"pending",label:"CTM"},
+        CTRX:{sp:"+",hi:"++",mp:"0",leg:"0",status:"verified",label:"CTRX"},
+        CFDN:{sp:"+",hi:"+",mp:"0",leg:"0",status:"verified",label:"CFDN"},
+        CDTR:{sp:"+",hi:"+",mp:"0",leg:"0",status:"verified",label:"CDTR-PI"},
+        CFPN:{sp:null,hi:null,mp:null,leg:null,status:"pending",label:"CFPN"},
+        CPDX:{sp:"+",hi:"+",mp:"0",leg:"0",status:"verified",label:"CPDX-PR"},
+        CFIX:{sp:"+",hi:"+",mp:"0",leg:"0",status:"verified",label:"CFIX"},
+        CFTM:{sp:null,hi:null,mp:null,leg:null,status:"pending",label:"CFTM"},
+        CTX:{sp:"+",hi:"++",mp:"0",leg:"0",status:"verified",label:"CTX"},
+        CMX:{sp:null,hi:null,mp:null,leg:null,status:"pending",label:"CMX（局所製剤）"},
+        CAZ:{sp:"+",hi:"+",mp:"0",leg:"0",status:"verified",label:"CAZ"},
+        CFPM:{sp:"+",hi:"+",mp:"0",leg:"0",status:"verified",label:"CFPM"}
+      },
+      note:"成人市中肺炎の主な標的菌についてSanford原表値を独立検証値として保持。M. pneumoniae / Legionella は確認できたβラクタムで0。未確認薬は pending として後日確認する。"
+    },
+    cystitis:{
+      organisms:["大腸菌（E. coli）","腐生ブドウ球菌（S. saprophyticus）","ミラビリス変形菌（P. mirabilis）"],
+      drugs:{
+        PCG:{ec:"0",ss:"±",pm:"0",status:"verified",label:"PCG"},
+        ABPC:{ec:"±",ss:"±",pm:"+",status:"verified",label:"ABPC"},
+        AMPC:{ec:"±",ss:"±",pm:"+",status:"verified",label:"AMPC"},
+        PIPC:{ec:null,ss:null,pm:null,status:"pending",label:"PIPC"},
+        MCIPC:{ec:"0",ss:"+",pm:"0",status:"verified",label:"Cloxacillin"},
+        "CVA/AMPC":{ec:"+",ss:"++",pm:"+",status:"verified",label:"AMPC/CVA"},
+        CEX:{ec:"±",ss:"++",pm:"+",status:"verified",label:"CEX"},
+        CEZ:{ec:"+",ss:"++",pm:"+",status:"verified",label:"CEZ"},
+        CCL:{ec:"±",ss:"++",pm:"+",status:"verified",label:"CCL"},
+        CXM:{ec:"+",ss:"+",pm:"+",status:"verified",label:"Cefuroxime / CXM-AX"},
+        CTM:{ec:null,ss:null,pm:null,status:"pending",label:"CTM"},
+        CTRX:{ec:"+",ss:"+",pm:"+",status:"verified",label:"CTRX"},
+        CFDN:{ec:"+",ss:"+",pm:"+",status:"verified",label:"CFDN"},
+        CDTR:{ec:"0",ss:"+",pm:"0",status:"verified",label:"CDTR-PI"},
+        CFPN:{ec:null,ss:null,pm:null,status:"pending",label:"CFPN"},
+        CPDX:{ec:"+",ss:"+",pm:"+",status:"verified",label:"CPDX-PR"},
+        CFIX:{ec:"+",ss:"0",pm:"+",status:"verified",label:"CFIX"},
+        CFTM:{ec:null,ss:null,pm:null,status:"pending",label:"CFTM"},
+        CTX:{ec:"+",ss:"+",pm:"+",status:"verified",label:"CTX"},
+        CMX:{ec:null,ss:null,pm:null,status:"pending",label:"CMX（局所製剤）"},
+        CAZ:{ec:"+",ss:"0",pm:"+",status:"verified",label:"CAZ"},
+        CFPM:{ec:"+",ss:"+",pm:"+",status:"verified",label:"CFPM"}
+      },
+      note:"急性単純性膀胱炎の主な標的菌3菌についてSanford原表値を独立検証値として保持。未確認薬は pending として後日確認する。"
+    },
+    pyelo:{
+      organisms:["大腸菌（E. coli）","その他の腸内細菌目"],
+      drugs:{
+        PCG:{ec:"0",status:"verified",label:"PCG"},
+        ABPC:{ec:"±",status:"verified",label:"ABPC"},
+        AMPC:{ec:"±",status:"verified",label:"AMPC"},
+        PIPC:{ec:null,status:"pending",label:"PIPC"},
+        MCIPC:{ec:"0",status:"verified",label:"Cloxacillin"},
+        "CVA/AMPC":{ec:"+",status:"verified",label:"AMPC/CVA"},
+        CEX:{ec:"±",status:"verified",label:"CEX"},
+        CEZ:{ec:"+",status:"verified",label:"CEZ"},
+        CCL:{ec:"±",status:"verified",label:"CCL"},
+        CXM:{ec:"+",status:"verified",label:"Cefuroxime / CXM-AX"},
+        CTM:{ec:null,status:"pending",label:"CTM"},
+        CTRX:{ec:"+",status:"verified",label:"CTRX"},
+        CFDN:{ec:"+",status:"verified",label:"CFDN"},
+        CDTR:{ec:"0",status:"verified",label:"CDTR-PI"},
+        CFPN:{ec:null,status:"pending",label:"CFPN"},
+        CPDX:{ec:"+",status:"verified",label:"CPDX-PR"},
+        CFIX:{ec:"+",status:"verified",label:"CFIX"},
+        CFTM:{ec:null,status:"pending",label:"CFTM"},
+        CTX:{ec:"+",status:"verified",label:"CTX"},
+        CMX:{ec:null,status:"pending",label:"CMX（局所製剤）"},
+        CAZ:{ec:"+",status:"verified",label:"CAZ"},
+        CFPM:{ec:"+",status:"verified",label:"CFPM"}
+      },
+      note:"急性単純性腎盂腎炎。E. coliはSanford原表値を保持。「その他の腸内細菌目」は複数菌種をまとめた疾患カード上のカテゴリであり、Sanford表に単一の対応行がないため一括評価せず未登録のままとする。未確認薬は pending として後日確認する。"
+    },
+    cellulitis:{
+      organisms:["A群溶血性レンサ球菌（GAS）","黄色ブドウ球菌（S. aureus）"],
+      drugs:{
+        PCG:{gas:"++",sa:"±",status:"verified",label:"PCG"},
+        ABPC:{gas:"+",sa:"±",status:"verified",label:"ABPC"},
+        AMPC:{gas:"+",sa:"±",status:"verified",label:"AMPC"},
+        PIPC:{gas:null,sa:null,status:"pending",label:"PIPC"},
+        MCIPC:{gas:"+",sa:"++",status:"verified",label:"Cloxacillin"},
+        "CVA/AMPC":{gas:"+",sa:"+",status:"verified",label:"AMPC/CVA"},
+        CEX:{gas:"+",sa:"+",status:"verified",label:"CEX"},
+        CEZ:{gas:"+",sa:"+",status:"verified",label:"CEZ"},
+        CCL:{gas:"+",sa:"+",status:"verified",label:"CCL"},
+        CXM:{gas:"+",sa:"+",status:"verified",label:"Cefuroxime / CXM-AX"},
+        CTM:{gas:null,sa:null,status:"pending",label:"CTM"},
+        CTRX:{gas:"+",sa:"+",status:"verified",label:"CTRX"},
+        CFDN:{gas:"+",sa:"+",status:"verified",label:"CFDN"},
+        CDTR:{gas:"+",sa:"+",status:"verified",label:"CDTR-PI"},
+        CFPN:{gas:null,sa:null,status:"pending",label:"CFPN"},
+        CPDX:{gas:"+",sa:"+",status:"verified",label:"CPDX-PR"},
+        CFIX:{gas:"+",sa:"0",status:"verified",label:"CFIX"},
+        CFTM:{gas:null,sa:null,status:"pending",label:"CFTM"},
+        CTX:{gas:"+",sa:"+",status:"verified",label:"CTX"},
+        CMX:{gas:null,sa:null,status:"pending",label:"CMX（局所製剤）"},
+        CAZ:{gas:"+",sa:"±",status:"verified",label:"CAZ"},
+        CFPM:{gas:"+",sa:"+",status:"verified",label:"CFPM"}
+      },
+      note:"蜂窩織炎・丹毒の主な標的であるGASとS. aureus（Sanford表のMSSA行）について原表値を保持。MRSA行の値はこの疾患カードのS. aureus値として代用しない。未確認薬は pending として後日確認する。"
+    },
+    odonto:{
+      organisms:["口腔レンサ球菌群（Streptococcus spp.）","Prevotella spp.","Peptostreptococcus spp."],
+      drugs:{
+        PCG:{oralstrep:"±",prev:null,pepto:null,status:"partial",label:"PCG"},
+        ABPC:{oralstrep:"±",prev:null,pepto:null,status:"partial",label:"ABPC"},
+        AMPC:{oralstrep:"±",prev:null,pepto:null,status:"partial",label:"AMPC"},
+        PIPC:{oralstrep:null,prev:null,pepto:null,status:"pending",label:"PIPC"},
+        MCIPC:{oralstrep:"±",prev:null,pepto:null,status:"partial",label:"Cloxacillin"},
+        "CVA/AMPC":{oralstrep:"±",prev:null,pepto:null,status:"partial",label:"AMPC/CVA"},
+        CEX:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CEX"},
+        CEZ:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CEZ"},
+        CCL:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CCL"},
+        CXM:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"Cefuroxime / CXM-AX"},
+        CTM:{oralstrep:null,prev:null,pepto:null,status:"pending",label:"CTM"},
+        CTRX:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CTRX"},
+        CFDN:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CFDN"},
+        CDTR:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CDTR-PI"},
+        CFPN:{oralstrep:null,prev:null,pepto:null,status:"pending",label:"CFPN"},
+        CPDX:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CPDX-PR"},
+        CFIX:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CFIX"},
+        CFTM:{oralstrep:null,prev:null,pepto:null,status:"pending",label:"CFTM"},
+        CTX:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CTX"},
+        CMX:{oralstrep:null,prev:null,pepto:null,status:"pending",label:"CMX（局所製剤）"},
+        CAZ:{oralstrep:"±",prev:null,pepto:null,status:"partial",label:"CAZ"},
+        CFPM:{oralstrep:"+",prev:null,pepto:null,status:"partial",label:"CFPM"}
+      },
+      note:"口腔レンサ球菌群は今回のSanford画像で確認できる Viridans streptococci 行を照合用に使用。Prevotella / Peptostreptococcus は今回の画像では該当行を確認できないため未確認のまま保持し、後日Sanford原表で確認する。"
+    },
+    aspiration:{
+      mode:"no_fixed_pathogen",
+      organisms:["原因菌は症候だけでは確定しない"],
+      drugs:{},
+      note:"誤嚥性肺炎カードは、誤嚥という情報だけから特定菌（とくに嫌気性菌）を主標的として固定しない設計。したがってSanfordの菌種別スペクトラム記号を単一セルへ割り当てず、『菌種未固定』として保持する。既存Layer 1・2・3は変更しない。"
+    },
+    abscess:{
+      organisms:["黄色ブドウ球菌（S. aureus）","その他"],
+      drugs:{
+        PCG:{sa:"±",status:"verified",label:"PCG"},
+        ABPC:{sa:"±",status:"verified",label:"ABPC"},
+        AMPC:{sa:"±",status:"verified",label:"AMPC"},
+        PIPC:{sa:null,status:"pending",label:"PIPC"},
+        MCIPC:{sa:"++",status:"verified",label:"Cloxacillin"},
+        "CVA/AMPC":{sa:"+",status:"verified",label:"AMPC/CVA"},
+        CEX:{sa:"+",status:"verified",label:"CEX"},
+        CEZ:{sa:"+",status:"verified",label:"CEZ"},
+        CCL:{sa:"+",status:"verified",label:"CCL"},
+        CXM:{sa:"+",status:"verified",label:"Cefuroxime / CXM-AX"},
+        CTM:{sa:null,status:"pending",label:"CTM"},
+        CTRX:{sa:"+",status:"verified",label:"CTRX"},
+        CFDN:{sa:"+",status:"verified",label:"CFDN"},
+        CDTR:{sa:"+",status:"verified",label:"CDTR-PI"},
+        CFPN:{sa:null,status:"pending",label:"CFPN"},
+        CPDX:{sa:"+",status:"verified",label:"CPDX-PR"},
+        CFIX:{sa:"0",status:"verified",label:"CFIX"},
+        CFTM:{sa:null,status:"pending",label:"CFTM"},
+        CTX:{sa:"+",status:"verified",label:"CTX"},
+        CMX:{sa:null,status:"pending",label:"CMX（局所製剤）"},
+        CAZ:{sa:"±",status:"verified",label:"CAZ"},
+        CFPM:{sa:"+",status:"verified",label:"CFPM"}
+      },
+      note:"皮膚膿瘍・創部感染のS. aureusはSanford表のMSSA行を照合用に使用。MRSA行をMSSAの代わりに使わない。「その他」は創部・背景により菌種が変わるためSanford値を一括付与せず未登録のままとする。未確認薬は pending として後日確認する。"
+    }
   };
 
   const DRUG_GROUPS=[
@@ -1946,11 +2359,29 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
         <small class="pending-note">「該当記載なし」は承認範囲の話で、抗菌活性がないことを意味しません。「要確認」は未監査です。</small>
       </div>
     </details>`;
-    cards+=`<div class="sanford-source-block">
-      <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜最終照合</span><b>Sanford Guide</b></div>
-      <div class="evidence-why">疾患ごとの臨床的位置づけ・推奨強度の最終照合に追加予定。現段階では未入力のため、Sanfordを根拠に判定を上書きしません。</div>
-      <small class="pending-note">Sanfordデータ追加後に、各判定との対応箇所を明示します。</small>
-    </div>`;
+    const sf=(window.SANFORD_SPECTRUM||{})[x.id];
+    if(sf){
+      const sfRows=drugs.map(d=>{
+        const v=sf.drugs[d];
+        if(!v) return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未登録</span></div>`;
+        if(v.status!=="verified") return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未確認・後日確認</span></div>`;
+        const labels={sp:"S. pneumoniae",hi:"H. influenzae",mc:"M. catarrhalis",gas:"GAS",mp:"M. pneumoniae",leg:"Legionella",ec:"E. coli",ss:"S. saprophyticus",pm:"P. mirabilis",sa:"S. aureus (MSSA)",oralstrep:"Viridans streptococci",prev:"Prevotella",pepto:"Peptostreptococcus"};
+        const vals=["sp","hi","mc","gas","mp","leg","ec","ss","pm","sa","oralstrep","prev","pepto"].filter(k=>v[k]!==undefined&&v[k]!==null).map(k=>`<span>${labels[k]} <strong>${esc(v[k])}</strong></span>`).join("");
+        return `<div class="sanford-drug-row"><b>${esc(d)}</b>${vals}</div>`;
+      }).join("");
+      cards+=`<div class="sanford-source-block">
+        <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜独立検証</span><b>${esc(SANFORD_SOURCE.title)}</b></div>
+        <div class="evidence-meta">更新 ${esc(SANFORD_SOURCE.updated)}</div>
+        <div class="evidence-why">${x.id==="aspiration"?"誤嚥性肺炎は症候だけで原因菌を固定しないため、Sanfordの菌種別 0 / ± / + / ++ を単一の標的菌セルへ割り当てません。":(x.id==="sinus"?"副鼻腔炎の主な標的菌3菌":"この疾患の主な標的菌")+"について、Sanford原表の 0 / ± / + / ++ をそのまま保持。"}Layer 1・2・3の判定は変更・上書きしません。</div>
+        <div class="sanford-spectrum-grid">${sfRows}</div>
+        <small class="pending-note">${esc(sf.note)}</small>
+      </div>`;
+    }else{
+      cards+=`<div class="sanford-source-block">
+        <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜独立検証</span><b>Sanford Guide</b></div>
+        <div class="evidence-why">この疾患のSanfordスペクトラムはまだマスタ未登録です。既存Layerは変更しません。</div>
+      </div>`;
+    }
     return cards;
   }
 
@@ -1994,6 +2425,37 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     return {org:orgOK?"適応菌種あり":"該当記載なし",dis:disOK?"適応記載あり":"記載なし",cls:(orgOK&&disOK)?"approved":"none",a};
   }
 
+  function sanfordCell(x,d,pname){
+    const sf=(window.SANFORD_SPECTRUM||{})[x.id];
+    if(!sf) return {text:"未登録",cls:"unregistered"};
+    if(sf.mode==="no_fixed_pathogen") return {text:"菌種未固定",cls:"unregistered"};
+    const v=sf.drugs&&sf.drugs[d];
+    if(!v) return {text:"未登録",cls:"unregistered"};
+    if(v.status==="pending") return {text:"未確認",cls:"pending"};
+
+    const keys={
+      "肺炎球菌（S. pneumoniae）":"sp",
+      "インフルエンザ菌（H. influenzae）":"hi",
+      "モラクセラ（M. catarrhalis）":"mc",
+      "A群溶血性レンサ球菌（GAS）":"gas",
+      "肺炎マイコプラズマ（M. pneumoniae）":"mp",
+      "マイコプラズマ（M. pneumoniae）":"mp",
+      "レジオネラ（Legionella spp.）":"leg",
+      "大腸菌（E. coli）":"ec",
+      "腐生ブドウ球菌（S. saprophyticus）":"ss",
+      "ミラビリス変形菌（P. mirabilis）":"pm",
+      "黄色ブドウ球菌（S. aureus）":"sa",
+      "口腔レンサ球菌群（Streptococcus spp.）":"oralstrep",
+      "Prevotella spp.":"prev",
+      "Peptostreptococcus spp.":"pepto"
+    };
+    const key=keys[pname];
+    if(!key) return {text:"未登録",cls:"unregistered"};
+    const value=v[key];
+    if(value===null || value===undefined || value==="") return {text:"未確認",cls:"pending"};
+    return {text:String(value),cls:"verified"};
+  }
+
   function renderSpectrumMatrix(x){
     const main=mainDrugs(x);
     const more=EXTRA_DRUGS.filter(d=>!main.includes(d));
@@ -2002,17 +2464,35 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       const ap=approvalFor(x,d);
       return `<tr class="${extra?"extra-spectrum-row hidden":""}">
         <th scope="row"><b>${esc(d)}</b>${extra?'<small>追加薬</small>':""}</th>
-        ${x.pathogens.map(p=>{const c=cellFor(x,d,p),oa=organismApproval(d,p[0]);return `<td class="split-cell">
-          <div class="activity-half"><span class="matrix-status ${c.cls}">${esc(c.text)}</span><small>${esc(c.sub)}</small></div>
+        ${x.pathogens.map(p=>{const c=cellFor(x,d,p),sf=sanfordCell(x,d,p[0]),oa=organismApproval(d,p[0]);return `<td class="split-cell">
+          <div class="activity-half">
+            <div class="activity-source-split">
+              <div class="activity-source activity-kyoto">
+                <span class="matrix-status ${c.cls}">${esc(c.text)}</span>
+                <small>Kyoto</small>
+              </div>
+              <div class="activity-source activity-sanford">
+                <span class="sanford-value ${sf.cls}">${sf.cls==="verified" ? `感受性 ${esc(sf.text)}` : esc(sf.text)}</span>
+                <small>Sanford</small>
+              </div>
+            </div>
+          </div>
           <div class="approval-half"><small>適応菌種</small><b class="${oa.ok===true?"ok":oa.ok===false?"ng":"pending"}">${esc(oa.text)}</b></div>
         </td>`}).join("")}
         <td><span class="matrix-status ${ap.cls}">${esc(ap.dis)}</span><small>国内承認：適応症</small></td>
         <td><span class="matrix-status ${g.cls}">${esc(g.text)}</span><small>${esc(g.note)}</small></td>
       </tr>`}).join("");
+
+    const groupedMore = DRUG_GROUPS.map(([group,drugs])=>{
+      const groupDrugs = drugs.filter(d=>more.includes(d));
+      if(!groupDrugs.length) return "";
+      return `<tr class="drug-group-row extra-spectrum-row hidden"><th colspan="${x.pathogens.length+3}">${esc(group)}</th></tr>${rows(groupDrugs,true)}`;
+    }).join("");
+
     return `
       <div class="matrix-intro">
         <b>この疾患で、βラクタムを横並び比較</b>
-        <p>横は主な標的菌、縦は比較する意味のあるβラクタム。各菌セルは<b>上段＝スペクトル、下段＝電子添文の適応菌種</b>。右端で適応症と疾患GLも確認できます。</p>
+        <p>横は主な標的菌、縦は比較する意味のあるβラクタム。各菌セルのスペクトル欄を<b>上＝Kyoto 2024、下＝Sanford</b>に分け、その下に電子添文の適応菌種を表示します。右端で適応症と疾患GLも確認できます。</p>
       </div>
       <div class="matrix-legend">
         <span class="matrix-status first">第一選択</span>
@@ -2020,9 +2500,12 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
         <span class="matrix-status conditional">状況依存</span>
         <span class="matrix-status no">標的外</span>
         <span class="matrix-status none">記載なし</span><span class="matrix-status approved">国内承認あり</span><span class="matrix-status pending">要確認</span>
-        <small>セル下段「適応菌種 ✓」＝電子添文に記載あり。「—」＝適応菌種として記載なし。スペクトルとは別判定です。</small>
+        <small>各菌セルのスペクトル欄：上＝Kyoto 2024、下＝Sanford（0 / ± / + / ++）。「未確認」は後日確認対象、「未登録」はその疾患のSanfordマスタがまだ未作成。下段の適応菌種は電子添文情報で、スペクトルとは別判定です。</small>
       </div>
-      <div class="matrix-scroll">
+      <div class="matrix-sticky-head" id="matrixStickyHead" aria-hidden="true">
+        <div class="matrix-sticky-head-inner" id="matrixStickyHeadInner"></div>
+      </div>
+      <div class="matrix-scroll" id="matrixScroll">
         <table class="spectrum-matrix">
           <thead><tr><th>βラクタム</th>${x.pathogens.map(p=>`<th>${esc(pathogenLabel(p))}</th>`).join("")}<th>適応症</th><th>疾患GL</th></tr></thead>
           <tbody>${rows(main,false)}${groupedMore}</tbody>
@@ -2037,10 +2520,82 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
             <div><span class="layer-badge l2">Layer 2</span><b>薬剤そのものの根拠</b><small>PMDA・IF・MIC。in vitro活性や薬剤特性。</small></div>
             <div><span class="layer-badge l3">Layer 3</span><b>疾患での位置づけ</b><small>感染症ガイドラインの推奨 / 代替 / 状況依存。</small></div>
           </div>
-          <p class="method-note">最終的な強さの○△×化はSanford検証後に調整します。現段階では根拠がないセルを推測で埋めません。</p>
+          <p class="method-note">KyotoとSanfordは別尺度のため、記号を機械的に変換・統合しません。Sanford未確認セルも推測で埋めず、そのまま表示します。</p>
         </details>
       </div>
       `;
+  }
+
+
+  function setupStickyMatrixHeader(){
+    const scroll=$("matrixScroll");
+    const table=scroll && scroll.querySelector(".spectrum-matrix");
+    const floating=$("matrixStickyHead");
+    const inner=$("matrixStickyHeadInner");
+    if(!scroll || !table || !floating || !inner) return;
+
+    const thead=table.querySelector("thead");
+    if(!thead) return;
+
+    // Clone only the heading row. It lives outside .matrix-scroll so Safari/iOS
+    // cannot cancel vertical sticking because of the horizontal overflow ancestor.
+    inner.innerHTML="";
+    const cloneTable=document.createElement("table");
+    cloneTable.className="spectrum-matrix";
+    cloneTable.appendChild(thead.cloneNode(true));
+    inner.appendChild(cloneTable);
+
+    const syncSize=()=>{
+      const tableRect=table.getBoundingClientRect();
+      const scrollRect=scroll.getBoundingClientRect();
+      const headCells=[...thead.querySelectorAll("th")];
+      const cloneCells=[...cloneTable.querySelectorAll("th")];
+
+      floating.style.left=scrollRect.left+"px";
+      floating.style.right="auto";
+      floating.style.width=scrollRect.width+"px";
+
+      cloneTable.style.width=table.scrollWidth+"px";
+      cloneTable.style.minWidth=table.scrollWidth+"px";
+
+      headCells.forEach((th,i)=>{
+        if(cloneCells[i]){
+          const w=th.getBoundingClientRect().width;
+          cloneCells[i].style.width=w+"px";
+          cloneCells[i].style.minWidth=w+"px";
+          cloneCells[i].style.maxWidth=w+"px";
+        }
+      });
+
+      inner.scrollLeft=scroll.scrollLeft;
+    };
+
+    const syncTop=()=>{
+      const topbar=document.querySelector(".topbar");
+      const topOffset=topbar ? topbar.getBoundingClientRect().bottom : 0;
+      floating.style.top=Math.max(0,topOffset)+"px";
+
+      const tableRect=table.getBoundingClientRect();
+      const headRect=thead.getBoundingClientRect();
+      const floatingH=floating.offsetHeight || headRect.height;
+
+      const shouldShow =
+        headRect.top < topOffset &&
+        tableRect.bottom > topOffset + floatingH;
+
+      floating.classList.toggle("show",shouldShow);
+    };
+
+    const syncAll=()=>{syncSize();syncTop();};
+
+    scroll.addEventListener("scroll",()=>{
+      inner.scrollLeft=scroll.scrollLeft;
+    },{passive:true});
+
+    window.addEventListener("scroll",syncTop,{passive:true});
+    window.addEventListener("resize",syncAll,{passive:true});
+    requestAnimationFrame(syncAll);
+    setTimeout(syncAll,80);
   }
 
   function renderAllergy(){
