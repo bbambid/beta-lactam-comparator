@@ -357,6 +357,39 @@ h1,h2,h3,h4,h5,h6,
   .approval-source-list.compact .approval-source-chip{padding:6px 7px}
 }
 
+
+/* v0.10.2 Layer 2 compact grid — locked unless explicitly requested */
+.approval-source-list.compact{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:5px;
+  margin:7px 0 8px;
+}
+.approval-source-list.compact .approval-source-chip{
+  min-width:0;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:1px 5px;
+  align-items:center;
+  padding:5px 6px;
+  border:1px solid #dce3eb;
+  border-radius:7px;
+  background:#fff;
+  color:inherit;
+  text-decoration:none;
+}
+.approval-source-list.compact .approval-source-chip b{font-size:10px;line-height:1.15}
+.approval-source-list.compact .approval-source-chip span{
+  justify-self:end;font-size:8px;line-height:1.1;color:#667788;white-space:nowrap
+}
+.approval-source-list.compact .approval-source-chip small{
+  grid-column:1/-1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  color:#7b8793;font-size:8px;line-height:1.15
+}
+@media(min-width:760px){
+  .approval-source-list.compact{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
 </style>
 
 <style id="clinical-reference-skin">
@@ -448,7 +481,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <footer>
-    Clinical Reference UI v0.10.1 / Editable
+    Clinical Reference UI v0.10.2 / Editable
   </footer>
 </main>
 
@@ -1775,16 +1808,10 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       </div>`;
     });
     const A=window.APPROVAL_DATA||{};
-    cards+=`<div class="drug-source-block layer2-block"><b>Layer 2B｜国内承認情報</b>
+    cards+=`<div class="drug-source-block layer2-block"><b>Layer 2｜国内承認情報 添付文書・IF</b>
       <p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。抗菌活性（Layer 2A）とは混ぜません。</p>
       <div class="approval-source-list compact">${drugs.map(d=>{const a=A[d];return a?`<a class="approval-source-chip" href="${a.url}" target="_blank" rel="noopener" title="${esc(a.note||a.source)}"><b>${esc(d)}</b><span>${a.verified?"電子添文 ✓":"要確認"}</span><small>${esc(a.source)}</small></a>`:`<div class="approval-source-chip muted"><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div>
       <small class="pending-note">「該当記載なし」は、電子添文上の承認範囲の話であり、抗菌活性がないことを意味しません。「要確認」は未監査であり、適応外という意味ではありません。</small>
-    </div>`;
-    // Drug-specific Layer2A status.
-    cards+=`<div class="drug-source-block layer2-block"><b>Layer 2A｜選択中βラクタムの薬剤別データ</b>
-      <p>添付文書・インタビューフォーム・審査報告書などのLayer 2を薬剤ごとに紐付けます。PMDAでは電子添文に加えてIF等の関連文書が公開されています。</p>
-      <div class="drug-source-pills">${drugs.map(d=>`<span>${esc(d)} <small>PMDA/IF：${["CDTR","CTRX","CEX","CCL","AMPC","CEZ","CFPN","CPDX","CFIX","CFTM","CXM","CTM","CFDN","AZT"].includes(d)?"マスター参照":"未紐付け"}</small></span>`).join("")}</div>
-      <small class="pending-note">※ 既存マスターのLayer 2を参照。各薬剤の具体的な文書名・節・PDF page・直リンクは、確認済みのものから順次カード化します。ページ未確認のものは推測せず「要確認」のまま保持します。</small>
     </div>`;
     cards+=`<div class="sanford-source-block">
       <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜最終照合</span><b>Sanford Guide</b></div>
