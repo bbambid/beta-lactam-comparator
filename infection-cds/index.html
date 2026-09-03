@@ -13,7 +13,7 @@
 }
 *{box-sizing:border-box}
 html{background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 button,select{font:inherit}
 .topbar{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:max(13px,env(safe-area-inset-top)) 0 13px;box-shadow:0 3px 14px #0f274233}
 .topbar-inner{max-width:980px;margin:auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -134,6 +134,54 @@ footer{text-align:center;color:#98a2b3;font-size:10px;padding:14px 0}
 .disease-ref-why{font-size:12px;line-height:1.55;color:#475467;margin-top:5px}
 .disease-ref-item a{display:inline-flex;margin-top:8px;color:var(--blue);font-size:11px;font-weight:900;text-decoration:none}
 
+
+/* v0.9.4 visual separation + typography */
+body{
+  font-family:"Noto Sans JP","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f3f6f9;
+}
+.intro-card{background:#fbfdff;border-color:#dbe5ef}
+.selector-block{background:#f7faff;border-color:#d9e4f2}
+.summary-hero{background:#eef5ff;border-color:#cfdff2}
+#pathogenCard{background:#f3f8ff;border-color:#d4e2f0}
+#betaCard{background:#f1faf7;border-color:#cfe5dd}
+#nonBetaCard{background:#f8f5fc;border-color:#e0d7ec}
+#warningCard{background:#fff9ec;border-color:#ead9ad}
+#spectrumDetails{background:#f5f8fb;border-color:#d5e0e9}
+#allergyDetails{background:#f7f5fb;border-color:#ddd6ea}
+#evidenceDetails{background:#f1f5f9;border-color:#cfdbe6}
+
+.intro-card,.wide-card,.deep-card,.step-card,.selector-block,.summary-hero{
+  box-shadow:0 4px 14px rgba(31,55,78,.06);
+}
+.evidence-fixed-head{
+  border-bottom:1px solid #ced9e3;
+  padding-bottom:12px;
+  margin-bottom:6px;
+}
+#evidenceBody{display:grid;gap:10px}
+#evidenceBody .evidence-card,
+#evidenceBody .drug-source-block,
+#evidenceBody .sanford-source-block{
+  background:#fff;
+  border:1px solid #d6e0e8;
+  border-radius:12px;
+  padding:13px 14px;
+  box-shadow:0 2px 8px rgba(31,55,78,.04);
+}
+#evidenceBody .drug-source-block{background:#f8fbff}
+#evidenceBody .sanford-source-block{
+  background:#f8f7fb;
+  border-style:dashed;
+}
+.evidence-kind{
+  border-radius:999px;
+  padding:4px 7px;
+  background:#eef2f6;
+}
+.layer1-kind{background:#e9f3ff}
+.sanford-kind{background:#f0edf7}
+
 </style>
 
 <style id="clinical-reference-skin">
@@ -212,8 +260,8 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="evidence-fixed-head">
       <div>
         <div class="section-label">EVIDENCE / REFERENCES</div>
-        <h3 id="evidenceTitle">📖 疾患全体の出典元</h3>
-        <p>この疾患カードの内容を作成する際に参照した主なガイドライン・公的資料です。</p>
+        <h3 id="evidenceTitle">📖 Evidence / References</h3>
+        <p>この画面の判断に使用している根拠を、Layer 1 → Layer 2 → Layer 3 → Historical → Sanford の順に確認できます。</p>
       </div>
     </div>
     <div id="evidenceBody" class="details-body">
@@ -222,7 +270,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <footer>
-    Clinical Reference UI v0.9.2 / β-lactam focused
+    Clinical Reference UI v0.9.4 / β-lactam focused
   </footer>
 </main>
 
@@ -261,7 +309,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       evidence:[
         ["SINUS-MHLW4-PED-01","厚労省 抗微生物薬適正使用の手引き 第四版","p.60 / PDF p.60","小児急性鼻副鼻腔炎：抗菌薬を投与しない分岐。","https://www.mhlw.go.jp/content/10906000/001575216.pdf#page=60"],
         ["SINUS-MHLW4-PED-02","厚労省 抗微生物薬適正使用の手引き 第四版","p.61 / PDF p.61","遷延性または重症でAMPC 30–50 mg/kg/日 分3、7–10日。","https://www.mhlw.go.jp/content/10906000/001575216.pdf#page=61"],
-        ["SINUS-JRS2010-SURV2007-01","急性鼻副鼻腔炎診療ガイドライン2010年版","p.59","2007年全国サーベイランス。現在の感受性率とは分離して保存。","https://minds.jcqhc.or.jp/"]
+        ["SINUS-JRS2010-SURV2007-01","急性鼻副鼻腔炎診療ガイドライン2010年版","紙面 p.59 / PDF p.61","2007年全国サーベイランス（検出菌・薬剤感受性／MIC）のHistorical evidence。現在の感受性率・治療推奨としては使用しない。","https://minds.jcqhc.or.jp/common/wp-content/plugins/pdfjs-viewer-shortcode/pdfjs/web/viewer.php?file=https://minds.jcqhc.or.jp/common/summary/pdf/c00181.pdf&dButton=false&pButton=false&oButton=false&sButton=true#page=61&zoom=auto&pagemode=none"]
       ]
     },
     {
@@ -1421,7 +1469,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 
     // 疾患全体の出典は、比較表など他の描画に失敗しても必ず表示する
     try{
-      $("evidenceBody").innerHTML=renderDiseaseReferences(x);
+      $("evidenceBody").innerHTML=renderSourceList(x,[...new Set([...mainDrugs(x),...EXTRA_DRUGS])]);
     }catch(err){
       console.error("Evidence render error:",err);
       $("evidenceBody").innerHTML=`<div class="evidence-empty">出典の表示でエラーが発生しました。</div>`;
@@ -1503,10 +1551,10 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     return {text:"記載なし",cls:"none",sub:"≠ 無効"};
   }
   function sourceTypeLabel(e){
-    const t=(e[1]||"");
-    if(/PMDA|添付文書|インタビューフォーム|IF/.test(t)) return "薬剤情報";
-    if(/ガイドライン|手引き/.test(t)) return "疾患GL";
-    if(/サーベイ|MIC/.test(t)) return "参考データ";
+    const t=[e[0],e[1],e[3]].filter(Boolean).join(" ");
+    if(/Historical|historical|サーベイ|MIC/.test(t)) return "Historical";
+    if(/PMDA|添付文書|インタビューフォーム|IF|審査報告/.test(t)) return "Layer 2｜薬剤情報";
+    if(/ガイドライン|手引き/.test(t)) return "Layer 3｜疾患GL";
     return "出典";
   }
 
@@ -1531,7 +1579,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     let cards="";
     if(hasKyoto){
       cards+=`<div class="evidence-card">
-        <div class="evidence-top"><span class="evidence-kind">基本スペクトル</span><b>${esc(KYOTO_SOURCE.title)}</b></div>
+        <div class="evidence-top"><span class="evidence-kind layer1-kind">Layer 1｜基本スペクトル</span><b>${esc(KYOTO_SOURCE.title)}</b></div>
         <div class="evidence-meta">${esc(KYOTO_SOURCE.section)} ・ ${esc(KYOTO_SOURCE.page)}</div>
         <div class="evidence-why">表中の「第一選択」「感受性あり」のLayer 1根拠。</div>
         <a href="${KYOTO_SOURCE.url}" target="_blank" rel="noopener">該当ページを開く ↗</a>
@@ -1546,16 +1594,21 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       </div>`;
     });
     const A=window.APPROVAL_DATA||{};
-    cards+=`<div class="drug-source-block"><b>国内承認情報（Layer 2B）</b>
+    cards+=`<div class="drug-source-block layer2-block"><b>Layer 2B｜国内承認情報</b>
       <p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。抗菌活性（Layer 2A）とは混ぜません。</p>
       <div class="approval-source-list">${drugs.map(d=>{const a=A[d];return a?`<div><b>${esc(d)}｜${esc(a.name)}</b><span>${a.verified?"抽出済み":"ページ監査中"}</span><a href="${a.url}" target="_blank" rel="noopener">${esc(a.source)} ↗</a>${a.note?`<small>${esc(a.note)}</small>`:""}</div>`:`<div><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div>
       <small class="pending-note">「該当記載なし」は、電子添文上の承認範囲の話であり、抗菌活性がないことを意味しません。「要確認」は未監査であり、適応外という意味ではありません。</small>
     </div>`;
     // Drug-specific Layer2A status.
-    cards+=`<div class="drug-source-block"><b>選択中βラクタムの薬剤別データ（Layer 2A）</b>
+    cards+=`<div class="drug-source-block layer2-block"><b>Layer 2A｜選択中βラクタムの薬剤別データ</b>
       <p>添付文書・インタビューフォーム・審査報告書などのLayer 2を薬剤ごとに紐付けます。PMDAでは電子添文に加えてIF等の関連文書が公開されています。</p>
       <div class="drug-source-pills">${drugs.map(d=>`<span>${esc(d)} <small>PMDA/IF：${["CDTR","CTRX","CEX","CCL","AMPC","CEZ","CFPN","CPDX","CFIX","CFTM","CXM","CTM","CFDN","AZT"].includes(d)?"マスター参照":"未紐付け"}</small></span>`).join("")}</div>
-      <small class="pending-note">※ v0.5では既存マスターのLayer 2を「参照あり」と表示。次段階で各薬剤の具体的な文書名・節・PDF page・直リンクまでカード化します。ページ未確認のものは推測せず「要確認」のまま保持します。</small>
+      <small class="pending-note">※ 既存マスターのLayer 2を参照。各薬剤の具体的な文書名・節・PDF page・直リンクは、確認済みのものから順次カード化します。ページ未確認のものは推測せず「要確認」のまま保持します。</small>
+    </div>`;
+    cards+=`<div class="sanford-source-block">
+      <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜最終照合</span><b>Sanford Guide</b></div>
+      <div class="evidence-why">疾患ごとの臨床的位置づけ・推奨強度の最終照合に追加予定。現段階では未入力のため、Sanfordを根拠に判定を上書きしません。</div>
+      <small class="pending-note">Sanfordデータ追加後に、各判定との対応箇所を明示します。</small>
     </div>`;
     return cards;
   }
