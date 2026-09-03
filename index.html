@@ -107,6 +107,115 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 }
 </style>
 
+<style id="allergy-knowledge-style">
+.allergy-knowledge{
+  margin:14px 0 16px;
+  border:1px solid #cbd5e1;
+  border-radius:14px;
+  background:#fbfdff;
+  overflow:hidden
+}
+.allergy-knowledge>summary{
+  cursor:pointer;
+  list-style:none;
+  padding:14px 16px;
+  font-weight:900;
+  color:#173b63;
+  background:#f3f7fc;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  user-select:none
+}
+.allergy-knowledge>summary::-webkit-details-marker{display:none}
+.allergy-knowledge>summary::after{
+  content:"＋";
+  flex:0 0 auto;
+  width:28px;height:28px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  border:1px solid #cbd5e1;
+  font-size:18px;
+  line-height:1
+}
+.allergy-knowledge[open]>summary::after{content:"−"}
+.allergy-body{padding:15px 16px 17px}
+.allergy-lead{
+  margin:0 0 14px;
+  padding:12px 13px;
+  border-left:4px solid #2563eb;
+  border-radius:9px;
+  background:#eff6ff;
+  line-height:1.75
+}
+.allergy-section{
+  padding:13px 0;
+  border-top:1px solid #e2e8f0
+}
+.allergy-section:first-of-type{border-top:0;padding-top:0}
+.allergy-section h3{margin:0 0 7px;font-size:16px;color:#172033}
+.allergy-section p{margin:6px 0;line-height:1.78}
+.allergy-key{
+  display:inline-block;
+  font-size:12px;
+  font-weight:900;
+  padding:3px 8px;
+  margin:0 4px 3px 0;
+  border-radius:999px;
+  background:#e8eef7;
+  color:#29435c
+}
+.allergy-flow{
+  margin:9px 0 0;
+  display:grid;
+  gap:7px
+}
+.allergy-flow div{
+  position:relative;
+  padding:10px 12px;
+  border:1px solid #d8e0ea;
+  border-radius:10px;
+  background:#fff;
+  line-height:1.65
+}
+.allergy-flow div:not(:last-child)::after{
+  content:"↓";
+  display:block;
+  text-align:center;
+  position:absolute;
+  left:0;right:0;
+  bottom:-18px;
+  color:#64748b;
+  font-weight:900;
+  z-index:2
+}
+.allergy-flow div:not(:last-child){margin-bottom:10px}
+.allergy-caution{
+  margin-top:11px;
+  padding:11px 12px;
+  border:1px solid #fed7aa;
+  background:#fff7ed;
+  border-radius:10px;
+  line-height:1.7
+}
+.allergy-source{
+  margin-top:14px;
+  padding-top:11px;
+  border-top:1px dashed #cbd5e1;
+  color:#667085;
+  font-size:12px;
+  line-height:1.65
+}
+@media(max-width:800px){
+  .allergy-knowledge>summary{padding:13px 14px}
+  .allergy-body{padding:14px}
+}
+</style>
+
 </head><body>
 <header><div><div style="font-size:12px;font-weight:800;letter-spacing:.08em;opacity:.85;margin-bottom:4px">PICARD 2019 PUBLISHED-DATA MODE</div><h1 data-edit-key="auto_001">βラクタム Side-chain Comparator｜Picard 2019 Published-score</h1></div></header><main>
 <section class="card" style="border-left:6px solid #2563eb">
@@ -114,6 +223,80 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 <p class="explain" data-edit-key="auto_003"><span data-edit-key="intro_main"><b>「βラクタム系抗菌薬のアレルギー ＝ βラクタム系をすべて避ける」ではない。</b>
   交差反応はβラクタム環そのものより、<b>側鎖、とくにR1側鎖</b>の一致・類似性に強く左右される。
   ただし、構造類似度だけで投与可否を決めず、まず過去の反応型と重症度を確認する。</span></p>
+
+<details class="allergy-knowledge">
+  <summary>📖 βラクタムアレルギーを詳しく理解する</summary>
+  <div class="allergy-body">
+    <p class="allergy-lead"><b>構造比較は「投与可否」を単独で決めるものではありません。</b><br>
+    まず原因薬、反応が起きた時期、投与から発症までの時間、症状、重症度を確認し、そのうえで側鎖構造を判断材料の1つとして使います。</p>
+
+    <div class="allergy-section">
+      <h3>1. 「ペニシリンアレルギー」の記録は、そのまま真のアレルギーを意味しない</h3>
+      <p>ペニシリンアレルギーは医療記録上よくみられますが、申告・記録された患者の多くは評価すると皮膚テスト陰性とされています。過去の発疹が感染症によるものだった、薬との因果関係が不明だった、時間の経過とともに感作が失われた、などが含まれます。</p>
+      <p>一方、ペニシリンは薬剤誘発性アナフィラキシーの重要な原因でもあります。したがって、単に「アレルギーあり／なし」で分けず、<b>どのような反応だったか</b>を確認することが重要です。</p>
+    </div>
+
+    <div class="allergy-section">
+      <h3>2. アレルギー歴は時間とともに変化する</h3>
+      <p>即時型ペニシリンアレルギーの既往があっても、感作が永久に続くとは限りません。追加曝露がなければ、時間の経過とともに反応性を失う患者が多いとされています。</p>
+      <p>特に成人で、<b>5年以上前の軽い皮膚反応だけ</b>が既往として残っている場合には、適切な環境下でアモキシシリン直接負荷試験が検討されることがあります。アナフィラキシー歴や最近のIgE介在性反応が疑われる場合は、より慎重な評価が必要です。</p>
+    </div>
+
+    <div class="allergy-section">
+      <h3>3. なぜR1側鎖を見るのか</h3>
+      <p><span class="allergy-key">R1が重要</span> βラクタム薬の交差反応は、βラクタム環だけでなく側鎖構造に左右されます。特に<b>R1側鎖</b>はアレルギー反応の特異性に重要で、同一またはよく似たR1側鎖を持つ薬剤では交差反応に注意が必要です。</p>
+      <p><span class="allergy-key">R2は補助的</span> セファロスポリン間ではR2側鎖の一致も関与する可能性がありますが、一般にはR1側鎖ほど重要ではないと考えられています。</p>
+      <p><b>このツールの類似度スコアは、実際のアレルギー発症確率を表す数字ではありません。</b></p>
+    </div>
+
+    <div class="allergy-section">
+      <h3>4. ペニシリンアレルギー患者でセファロスポリンを使うとき</h3>
+      <p><span class="allergy-key">非アナフィラキシー</span> 確定していない非アナフィラキシー性のペニシリンアレルギー歴だけを理由に、セファロスポリンを一律に避ける必要はありません。</p>
+      <p><span class="allergy-key">アナフィラキシー歴</span> ペニシリンによるアナフィラキシー歴があっても、<b>原因薬と構造的に異なるR1側鎖を持つセファロスポリン</b>は選択肢になり得ます。構造だけでなく、既往歴・投与経路・臨床状況を合わせて判断します。</p>
+    </div>
+
+    <div class="allergy-section">
+      <h3>5. セファロスポリンアレルギー患者でペニシリンを使うとき</h3>
+      <p><span class="allergy-key">非アナフィラキシー</span> 確定していない、または評価済みの非アナフィラキシー性セファロスポリンアレルギーでは、ペニシリンを一律に避ける必要はありません。</p>
+      <p><span class="allergy-key">アナフィラキシー歴</span> セファロスポリンによるアナフィラキシー歴がある場合は、ペニシリン治療前に<b>ペニシリン皮膚テストや薬物負荷試験</b>など、より慎重な評価が必要です。</p>
+    </div>
+
+    <div class="allergy-section">
+      <h3>6. セファロスポリン同士を切り替えるとき</h3>
+      <p>非アナフィラキシー性のセファロスポリンアレルギー歴では、<b>異なる側鎖を持つ別のセファロスポリン</b>について、直接負荷試験で忍容性を評価する方法が検討されます。</p>
+      <p>一方、セファロスポリンによるアナフィラキシー歴がある場合は、R1側鎖が異なる薬剤であっても、非経口投与前にはより慎重な評価が必要です。</p>
+    </div>
+
+    <div class="allergy-section">
+      <h3>7. アズトレオナム（AZT）は例外に注意</h3>
+      <p>モノバクタム系のアズトレオナムは、通常はペニシリン・セファロスポリンアレルギー患者でも交差反応を起こしにくいと考えられています。</p>
+      <p>ただし、<b>セフタジジム（CAZ）アレルギー歴</b>がある場合は別です。CAZとAZTは関連する側鎖構造を持つため、単純に「AZTなら安全」と判断しないよう注意します。</p>
+    </div>
+
+    <div class="allergy-section">
+      <h3>8. 「アレルギーラベル」を再評価する意味</h3>
+      <p>不正確なペニシリンアレルギー歴が残っていると、本来使えるβラクタム薬を避け、より広域な薬剤や、効果・安全性・費用の面で不利な代替薬が選ばれることがあります。</p>
+      <p>詳細な病歴確認や、必要に応じた皮膚テスト・薬物負荷試験によって<b>本当に避けるべき薬剤を整理すること</b>は、抗菌薬適正使用の一部です。</p>
+    </div>
+
+    <div class="allergy-section">
+      <h3>このツールを使う順番</h3>
+      <div class="allergy-flow">
+        <div><b>① 過去の反応を確認</b><br>原因薬／発症時期／投与から症状までの時間／症状／アナフィラキシーや重症皮膚障害の有無</div>
+        <div><b>② 反応型と重症度を評価</b><br>「アレルギー」という記録だけで判断しない</div>
+        <div><b>③ R1側鎖を中心に構造比較</b><br>セファロスポリン同士ではR2側鎖も補助的に確認</div>
+        <div><b>④ 臨床情報と合わせて判断</b><br>構造類似度だけで投与可否を決めない</div>
+        <div><b>⑤ 必要なら専門的評価</b><br>皮膚テスト、薬物負荷試験、アレルギー専門医への相談などを検討</div>
+      </div>
+      <div class="allergy-caution"><b>注意：</b>本ツールは臨床判断を支援する参考情報です。重篤な即時型反応や重症皮膚障害などが疑われる場合は、単純な側鎖比較による薬剤選択は行わないでください。</div>
+    </div>
+
+    <div class="allergy-source">
+      参考：Sanford Guide 日本語版「薬物アレルギー：ペニシリン、セファロスポリン、概説」（2025/07/01更新）の内容を、本ツール向けに要約・再構成。βラクタムアレルギー管理の考え方は同項が参照する2022年 Drug Allergy Practice Parameter Update に基づく。
+    </div>
+  </div>
+</details>
+
 <section aria-label="βラクタム骨格と側鎖位置" class="skeleton-guide scaffold-rdkit">
 <h3 data-edit-key="guide_title">どこを比べる？</h3>
 <p class="small" data-edit-key="guide_intro" style="margin-top:0">
