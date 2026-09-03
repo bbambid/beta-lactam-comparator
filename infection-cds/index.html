@@ -437,6 +437,29 @@ h1,h2,h3,h4,h5,h6,
   .approval-source-list.compact{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
 }
 
+
+/* v0.10.4 top title + visible edit control */
+.top-actions{display:flex!important;align-items:center!important;gap:8px!important}
+.edit-btn{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:54px!important;
+  min-height:36px!important;
+  padding:0 12px!important;
+  border:1px solid #aebac4!important;
+  border-radius:6px!important;
+  background:#fff!important;
+  color:#183247!important;
+  font-size:11px!important;
+  font-weight:900!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+@media(max-width:700px){
+  .edit-btn{min-width:50px!important;min-height:34px!important;padding:0 9px!important}
+}
+
 </style>
 
 <style id="clinical-reference-skin">
@@ -462,7 +485,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   <div class="topbar-inner">
     <div>
       <div class="eyebrow">β-LACTAM CLINICAL REFERENCE</div>
-      <h1>感染症から考える</h1>
+      <h1>感染症から読み解く</h1>
     </div>
     <div class="top-actions">
       <button id="editBtn" class="edit-btn" aria-label="編集モードを開く">編集</button>
@@ -528,7 +551,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <footer>
-    Clinical Reference UI v0.10.3 / Editable
+    Clinical Reference UI v0.10.4 / Editable
   </footer>
 </main>
 
