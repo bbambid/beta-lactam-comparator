@@ -108,11 +108,6 @@ footer{text-align:center;color:#98a2b3;font-size:10px;padding:14px 0}
 
 .matrix-status.approved{background:#e8f6ee;color:#176b3b}
 .matrix-status.pending{background:#fff4dc;color:#866000}
-.approval-source-list{display:grid;gap:7px;margin:8px 0}
-.approval-source-list>div{display:grid;grid-template-columns:minmax(150px,1fr) auto;gap:3px 10px;border-top:1px solid #e6eaf0;padding-top:7px}
-.approval-source-list a{font-size:11px;grid-column:1/-1}
-.approval-source-list span{font-size:10px;color:#6f7c8c}
-.approval-source-list small{grid-column:1/-1;color:#7a8491;line-height:1.4}
 
 .spectrum-matrix td.split-cell{padding:0;min-width:118px}
 .activity-half{padding:10px 7px 8px;min-height:52px}
@@ -315,127 +310,7 @@ h1,h2,h3,h4,h5,h6,
 }
 
 
-/* v0.10.1 compact Layer 2B */
-.approval-source-list.compact{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:6px;
-  margin:8px 0 9px;
-}
-.approval-source-list.compact .approval-source-chip{
-  min-width:0;
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:2px 7px;
-  align-items:center;
-  padding:7px 8px;
-  border:1px solid #dce3eb;
-  border-radius:9px;
-  background:#fff;
-  color:inherit;
-  text-decoration:none;
-}
-.approval-source-list.compact .approval-source-chip b{font-size:11px}
-.approval-source-list.compact .approval-source-chip span{
-  justify-self:end;
-  font-size:9px;
-  color:#667788;
-  white-space:nowrap;
-}
-.approval-source-list.compact .approval-source-chip small{
-  grid-column:1/-1;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  color:#7b8793;
-  font-size:9px;
-  line-height:1.25;
-}
-.approval-source-list.compact .approval-source-chip.muted{opacity:.72}
-@media(max-width:520px){
-  .approval-source-list.compact{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .approval-source-list.compact .approval-source-chip{padding:6px 7px}
-}
 
-
-/* v0.10.2 Layer 2 compact grid — locked unless explicitly requested */
-.approval-source-list.compact{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:5px;
-  margin:7px 0 8px;
-}
-.approval-source-list.compact .approval-source-chip{
-  min-width:0;
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:1px 5px;
-  align-items:center;
-  padding:5px 6px;
-  border:1px solid #dce3eb;
-  border-radius:7px;
-  background:#fff;
-  color:inherit;
-  text-decoration:none;
-}
-.approval-source-list.compact .approval-source-chip b{font-size:10px;line-height:1.15}
-.approval-source-list.compact .approval-source-chip span{
-  justify-self:end;font-size:8px;line-height:1.1;color:#667788;white-space:nowrap
-}
-.approval-source-list.compact .approval-source-chip small{
-  grid-column:1/-1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  color:#7b8793;font-size:8px;line-height:1.15
-}
-@media(min-width:760px){
-  .approval-source-list.compact{grid-template-columns:repeat(4,minmax(0,1fr))}
-}
-
-
-/* v0.10.3 — Layer 2: TRUE two-column layout on iPhone.
-   This section is user-locked: do not redesign without explicit instruction. */
-.approval-source-list.compact{
-  display:grid !important;
-  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-  gap:5px !important;
-}
-.approval-source-list.compact > div,
-.approval-source-list.compact > a,
-.approval-source-list.compact .approval-source-chip{
-  display:grid !important;
-  grid-template-columns:minmax(0,1fr) auto !important;
-  gap:1px 4px !important;
-  min-width:0 !important;
-  width:auto !important;
-  margin:0 !important;
-  padding:5px 6px !important;
-  border:1px solid #dce3eb !important;
-  border-radius:7px !important;
-  background:#fff !important;
-  box-sizing:border-box !important;
-}
-.approval-source-list.compact .approval-source-chip b{
-  min-width:0 !important;
-  overflow:hidden !important;
-  text-overflow:ellipsis !important;
-  white-space:nowrap !important;
-  font-size:10px !important;
-}
-.approval-source-list.compact .approval-source-chip span{
-  grid-column:2 !important;
-  grid-row:1 !important;
-  font-size:7.5px !important;
-}
-.approval-source-list.compact .approval-source-chip small{
-  grid-column:1/-1 !important;
-  min-width:0 !important;
-  overflow:hidden !important;
-  text-overflow:ellipsis !important;
-  white-space:nowrap !important;
-  font-size:7.5px !important;
-}
-@media(min-width:760px){
-  .approval-source-list.compact{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
-}
 
 
 /* v0.10.4 top title + visible edit control */
@@ -460,6 +335,68 @@ h1,h2,h3,h4,h5,h6,
   .edit-btn{min-width:50px!important;min-height:34px!important;padding:0 9px!important}
 }
 
+
+/* v0.10.5 Layer 2 accordion — user-approved design */
+.layer2-collapsible{
+  padding:0 !important;
+  overflow:hidden;
+}
+.layer2-collapsible > summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  cursor:pointer;
+  padding:11px 12px;
+  background:#f7fafc;
+  border-radius:9px;
+}
+.layer2-collapsible > summary::-webkit-details-marker{display:none}
+.layer2-collapsible > summary span{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+.layer2-collapsible > summary b{
+  font-size:12px;
+  line-height:1.25;
+}
+.layer2-collapsible > summary small{
+  flex:0 0 auto;
+  font-size:9px;
+  color:#6f7d89;
+  background:#eaf0f4;
+  border-radius:999px;
+  padding:3px 6px;
+}
+.layer2-collapsible > summary em{
+  flex:0 0 auto;
+  font-style:normal;
+  font-size:9px;
+  color:#607789;
+}
+.layer2-collapsible[open] > summary{
+  border-bottom:1px solid #dce4ea;
+  border-radius:9px 9px 0 0;
+}
+.layer2-collapsible[open] > summary em::after{content:"中"}
+.layer2-collapsible[open] > summary em{font-size:0}
+.layer2-collapsible[open] > summary em::before{content:"展開";font-size:9px}
+.layer2-content{padding:9px 10px 10px}
+.layer2-content > p{
+  margin:0 0 7px;
+  font-size:10px;
+  line-height:1.45;
+  color:#647281;
+}
+.layer2-content .pending-note{
+  font-size:9px;
+  line-height:1.35;
+}
+
+
 </style>
 
 <style id="clinical-reference-skin">
@@ -478,6 +415,126 @@ body{background:#f4f5f3;color:#18252f;font-family:"Noto Sans JP","Hiragino Sans"
 .evidence-card{border-left:3px solid #9aa9b2}.source-link{color:#315f7d}
 footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 @media(max-width:700px){.shell{padding-top:12px}.topbar h1{font-size:20px}.summary-hero h2{font-size:21px}.intro-card{border-left-width:3px}}
+
+/* =========================================================
+   Layer 2 canonical layout v0.10.6
+   Intentionally namespaced. No legacy approval-source-* CSS.
+   User-locked section: change only on explicit instruction.
+   ========================================================= */
+.layer2-collapsible{
+  padding:0 !important;
+  overflow:hidden;
+}
+.layer2-collapsible > summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  cursor:pointer;
+  padding:11px 12px;
+  background:#f7fafc;
+  border-radius:9px;
+}
+.layer2-collapsible > summary::-webkit-details-marker{display:none}
+.layer2-collapsible > summary span{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+.layer2-collapsible > summary b{
+  font-size:12px;
+  line-height:1.25;
+}
+.layer2-collapsible > summary small{
+  flex:0 0 auto;
+  font-size:9px;
+  color:#6f7d89;
+  background:#eaf0f4;
+  border-radius:999px;
+  padding:3px 6px;
+}
+.layer2-collapsible > summary em{
+  flex:0 0 auto;
+  font-style:normal;
+  font-size:9px;
+  color:#607789;
+}
+.layer2-collapsible[open] > summary{
+  border-bottom:1px solid #dce4ea;
+  border-radius:9px 9px 0 0;
+}
+.layer2-content{padding:9px 10px 10px}
+.layer2-content > p{
+  margin:0 0 7px;
+  font-size:10px;
+  line-height:1.45;
+  color:#647281;
+}
+.layer2-content .pending-note{
+  font-size:9px;
+  line-height:1.35;
+}
+
+/* Exactly 2 drug cards per row on phones/tablets; 4 only on wide screens. */
+.layer2-drug-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:5px;
+  width:100%;
+  margin:7px 0 8px;
+}
+.layer2-drug-card{
+  min-width:0;
+  width:100%;
+  box-sizing:border-box;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-rows:auto auto;
+  gap:1px 4px;
+  align-items:center;
+  margin:0;
+  padding:5px 6px;
+  border:1px solid #dce3eb;
+  border-radius:7px;
+  background:#fff;
+  color:inherit;
+  text-decoration:none;
+}
+.layer2-drug-card b{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:10px;
+  line-height:1.15;
+}
+.layer2-drug-card span{
+  grid-column:2;
+  grid-row:1;
+  justify-self:end;
+  white-space:nowrap;
+  color:#667788;
+  font-size:7.5px;
+  line-height:1.1;
+}
+.layer2-drug-card small{
+  grid-column:1/-1;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#7b8793;
+  font-size:7.5px;
+  line-height:1.15;
+}
+.layer2-drug-card.muted{opacity:.72}
+
+@media(min-width:900px){
+  .layer2-drug-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
 </style>
 </head>
 <body>
@@ -551,7 +608,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <footer>
-    Clinical Reference UI v0.10.4 / Editable
+    Clinical Reference UI v0.10.6 / Editable
   </footer>
 </main>
 
@@ -1878,11 +1935,17 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       </div>`;
     });
     const A=window.APPROVAL_DATA||{};
-    cards+=`<div class="drug-source-block layer2-block"><b>Layer 2｜国内承認情報 添付文書・IF</b>
-      <p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。抗菌活性（Layer 2A）とは混ぜません。</p>
-      <div class="approval-source-list compact">${drugs.map(d=>{const a=A[d];return a?`<a class="approval-source-chip" href="${a.url}" target="_blank" rel="noopener" title="${esc(a.note||a.source)}"><b>${esc(d)}</b><span>${a.verified?"電子添文 ✓":"要確認"}</span><small>${esc(a.source)}</small></a>`:`<div class="approval-source-chip muted"><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div>
-      <small class="pending-note">「該当記載なし」は、電子添文上の承認範囲の話であり、抗菌活性がないことを意味しません。「要確認」は未監査であり、適応外という意味ではありません。</small>
-    </div>`;
+    cards+=`<details class="drug-source-block layer2-block layer2-collapsible">
+      <summary>
+        <span><b>Layer 2｜国内承認情報 添付文書・IF</b><small>${drugs.length}薬剤</small></span>
+        <em>タップして展開</em>
+      </summary>
+      <div class="layer2-content">
+        <p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。</p>
+        <div class="layer2-drug-grid">${drugs.map(d=>{const a=A[d];return a?`<a class="layer2-drug-card" href="${a.url}" target="_blank" rel="noopener" title="${esc(a.note||a.source)}"><b>${esc(d)}</b><span>${a.verified?"電子添文 ✓":"要確認"}</span><small>${esc(a.source)}</small></a>`:`<div class="layer2-drug-card muted"><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div>
+        <small class="pending-note">「該当記載なし」は承認範囲の話で、抗菌活性がないことを意味しません。「要確認」は未監査です。</small>
+      </div>
+    </details>`;
     cards+=`<div class="sanford-source-block">
       <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜最終照合</span><b>Sanford Guide</b></div>
       <div class="evidence-why">疾患ごとの臨床的位置づけ・推奨強度の最終照合に追加予定。現段階では未入力のため、Sanfordを根拠に判定を上書きしません。</div>
