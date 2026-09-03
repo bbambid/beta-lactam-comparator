@@ -182,17 +182,192 @@ body{
 .layer1-kind{background:#e9f3ff}
 .sanford-kind{background:#f0edf7}
 
+
+/* v0.9.5 unified typography */
+html,body,button,input,select,textarea,
+h1,h2,h3,h4,h5,h6,
+.topbar h1,.summary-hero h2,.summary-kicker,
+.step-title,.section-label,.evidence-fixed-head h3,
+.evidence-card,.drug-source-block,.sanford-source-block,
+.organism,.drug-item,.matrix-wrap,.allergy-message,.modal {
+  font-family:"Noto Sans JP","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif !important;
+}
+
+
+/* ===== Non-programmer editor mode v0.10 ===== */
+.top-actions{display:flex;align-items:center;gap:7px}
+.edit-btn{
+  min-height:36px;padding:0 12px;border-radius:999px;border:1px solid #ffffff55;
+  background:#ffffff12;color:#fff;font:inherit;font-size:11px;font-weight:900;cursor:pointer
+}
+.editor-backdrop{
+  position:fixed;inset:0;z-index:100;background:rgba(15,23,42,.52);
+  backdrop-filter:blur(3px);padding:18px;overflow:auto
+}
+.editor-backdrop[hidden]{display:none}
+.editor-panel{
+  width:min(900px,100%);margin:0 auto;background:#f7f9fc;color:#17202a;
+  border:1px solid #cbd7e5;border-radius:16px;box-shadow:0 24px 70px rgba(15,23,42,.28);
+  overflow:hidden;font-family:"Noto Sans JP","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important
+}
+.editor-head{
+  display:flex;justify-content:space-between;gap:18px;align-items:flex-start;
+  padding:18px 20px;background:#fff;border-bottom:1px solid #dce5ed
+}
+.editor-kicker{font-size:9px;letter-spacing:.13em;font-weight:900;color:#54718a}
+.editor-head h2{margin:3px 0 4px;font-size:20px}
+.editor-head p{margin:0;color:#667085;font-size:11px}
+.editor-close{
+  flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid #ccd8e3;
+  background:#fff;color:#344054;font-size:20px;cursor:pointer
+}
+.editor-tabs{
+  display:flex;gap:0;overflow:auto;background:#eef3f8;border-bottom:1px solid #d6e1ea;
+  scrollbar-width:none
+}
+.editor-tabs::-webkit-scrollbar{display:none}
+.editor-tab{
+  flex:0 0 auto;border:0;border-right:1px solid #d6e1ea;background:transparent;
+  color:#657583;padding:11px 15px;font:inherit;font-size:11px;font-weight:800;cursor:pointer
+}
+.editor-tab.active{background:#fff;color:#183247;box-shadow:inset 0 -3px 0 #315f7d}
+.editor-body{padding:18px 20px;max-height:65vh;overflow:auto}
+.editor-pane{display:none}
+.editor-pane.active{display:block}
+.editor-pane label{display:grid;gap:6px;margin:0 0 13px;font-size:11px;font-weight:850;color:#435467}
+.editor-pane label small,.editor-section-head small{font-weight:500;color:#8a98a5}
+.editor-pane input[type="text"],.editor-pane input[type="url"],.editor-pane textarea,.editor-pane select{
+  width:100%;box-sizing:border-box;border:1px solid #c9d6e1;border-radius:9px;background:#fff;color:#17202a;
+  padding:10px 11px;font:inherit;font-size:12px;outline:none
+}
+.editor-pane textarea{resize:vertical;line-height:1.55}
+.editor-pane input:focus,.editor-pane textarea:focus,.editor-pane select:focus{
+  border-color:#6b93af;box-shadow:0 0 0 3px rgba(80,128,160,.1)
+}
+.editor-grid{display:grid;gap:12px}
+.editor-grid.two{grid-template-columns:1fr 1fr}
+.editor-note{
+  margin-bottom:15px;padding:10px 12px;border:1px solid #d6e4ee;border-radius:9px;
+  background:#f2f7fb;color:#526b7e;font-size:11px;line-height:1.55
+}
+.editor-section-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:18px 0 8px;padding-top:12px;border-top:1px solid #dbe4eb
+}
+.editor-section-head b{display:block;font-size:12px}.editor-section-head small{display:block;font-size:10px;margin-top:2px}
+.repeat-list{display:grid;gap:8px}
+.repeat-row{
+  display:grid;grid-template-columns:1fr 1.5fr auto;gap:8px;align-items:end;
+  padding:10px;border:1px solid #d9e3eb;border-radius:10px;background:#fff
+}
+.repeat-row.beta-row{grid-template-columns:.8fr .7fr 1.7fr auto}
+.repeat-row.evidence-row{grid-template-columns:1fr;gap:7px}
+.repeat-row.kyoto-row{grid-template-columns:1.5fr 1fr auto}
+.repeat-row label{margin:0}
+.row-remove{
+  height:38px;min-width:38px;border:1px solid #e0caca;border-radius:8px;background:#fff7f7;color:#9f4545;
+  font:inherit;font-weight:900;cursor:pointer
+}
+.mini-add{
+  border:1px solid #b8cad8;border-radius:8px;background:#fff;color:#315f7d;padding:7px 10px;
+  font:inherit;font-size:10px;font-weight:900;cursor:pointer
+}
+.editor-side-action{display:flex;align-items:end;justify-content:flex-end;padding-bottom:13px}
+.editor-actions.inline{display:flex;justify-content:flex-end;margin-top:16px}
+.editor-primary,.editor-secondary,.editor-ghost,.editor-export{
+  border-radius:9px;padding:10px 13px;font:inherit;font-size:11px;font-weight:900;cursor:pointer
+}
+.editor-primary,.editor-export{border:1px solid #183247;background:#183247;color:#fff}
+.editor-secondary{border:1px solid #9fb3c2;background:#fff;color:#31536a}
+.editor-ghost{border:1px solid transparent;background:transparent;color:#7a8792}
+.editor-export{background:#136b56;border-color:#136b56;padding:11px 16px}
+.editor-footer{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:13px 20px;background:#fff;border-top:1px solid #d8e2ea
+}
+.editor-save-group{display:flex;gap:6px;align-items:center}
+.editor-details{margin-bottom:14px;border:1px solid #d8e3eb;border-radius:9px;background:#fff}
+.editor-details summary{padding:10px 12px;font-size:11px;font-weight:900;cursor:pointer}
+.editor-detail-body{padding:4px 12px 12px}
+.check-label{display:flex!important;grid-template-columns:auto 1fr!important;align-items:center;justify-content:start!important}
+.check-label input{width:auto!important}
+.editor-toast{
+  position:absolute;left:50%;bottom:18px;transform:translateX(-50%) translateY(12px);
+  background:#172b3a;color:#fff;border-radius:999px;padding:8px 12px;font-size:10px;font-weight:800;
+  opacity:0;pointer-events:none;transition:.18s
+}
+.editor-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:700px){
+  .edit-btn{min-height:34px;padding:0 10px}
+  .editor-backdrop{padding:0;background:#f7f9fc}
+  .editor-panel{min-height:100%;border:0;border-radius:0;box-shadow:none}
+  .editor-head{padding:14px 14px 12px;position:sticky;top:0;z-index:3}
+  .editor-tabs{position:sticky;top:72px;z-index:2}
+  .editor-body{padding:14px;max-height:none;padding-bottom:92px}
+  .editor-footer{
+    position:fixed;left:0;right:0;bottom:0;z-index:4;padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    box-shadow:0 -5px 20px rgba(15,23,42,.08)
+  }
+  .editor-save-group .editor-ghost{display:none}
+  .editor-grid.two{grid-template-columns:1fr}
+  .repeat-row,.repeat-row.beta-row,.repeat-row.kyoto-row{grid-template-columns:1fr}
+  .row-remove{width:100%}
+}
+
+
+/* v0.10.1 compact Layer 2B */
+.approval-source-list.compact{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:6px;
+  margin:8px 0 9px;
+}
+.approval-source-list.compact .approval-source-chip{
+  min-width:0;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:2px 7px;
+  align-items:center;
+  padding:7px 8px;
+  border:1px solid #dce3eb;
+  border-radius:9px;
+  background:#fff;
+  color:inherit;
+  text-decoration:none;
+}
+.approval-source-list.compact .approval-source-chip b{font-size:11px}
+.approval-source-list.compact .approval-source-chip span{
+  justify-self:end;
+  font-size:9px;
+  color:#667788;
+  white-space:nowrap;
+}
+.approval-source-list.compact .approval-source-chip small{
+  grid-column:1/-1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#7b8793;
+  font-size:9px;
+  line-height:1.25;
+}
+.approval-source-list.compact .approval-source-chip.muted{opacity:.72}
+@media(max-width:520px){
+  .approval-source-list.compact{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .approval-source-list.compact .approval-source-chip{padding:6px 7px}
+}
+
 </style>
 
 <style id="clinical-reference-skin">
 :root{--navy:#183247;--navy2:#183247;--blue:#315f7d;--cyan:#f2f6f8;--ink:#18252f;--muted:#64727d;--line:#d8dee3;--bg:#f4f5f3;--card:#fff;--green:#2f6b52;--amber:#8a641d;--amber-bg:#fffaf0;--red:#9b3d38;--red-bg:#fff6f5;--violet:#596b78;--radius:7px;--shadow:none}
-body{background:#f4f5f3;color:#18252f;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
+body{background:#f4f5f3;color:#18252f;font-family:"Noto Sans JP","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 .topbar{background:#fff;color:#183247;border-bottom:3px solid #183247;box-shadow:none;padding:max(11px,env(safe-area-inset-top)) 0 10px}
-.topbar-inner{max-width:1080px}.eyebrow{color:#64727d;opacity:1;font-size:9px;letter-spacing:.18em}.topbar h1{font-family:Georgia,"Yu Mincho","Hiragino Mincho ProN",serif;font-size:22px;letter-spacing:.02em}.icon-btn{border-radius:4px;border:1px solid #b9c3ca;background:#fff;color:#183247}
+.topbar-inner{max-width:1080px}.eyebrow{color:#64727d;opacity:1;font-size:9px;letter-spacing:.18em}.topbar h1{font-family:"Noto Sans JP","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:22px;letter-spacing:.02em}.icon-btn{border-radius:4px;border:1px solid #b9c3ca;background:#fff;color:#183247}
 .shell{max-width:1080px;padding-top:18px}.intro-card,.wide-card,.deep-card,.step-card,.selector-block,.summary-hero{border-radius:7px;box-shadow:none;border-color:#d8dee3}
 .intro-card{border-left:4px solid #315f7d;background:#fff}.intro-badge{border-radius:3px;background:#eef3f6;color:#315f7d;letter-spacing:.02em}.principle{border-top:1px solid #d8dee3}
 .selector-block{background:#fafbfa}.field-label{color:#52616c;letter-spacing:.08em}.syndrome-select{border-radius:4px;border-color:#bfc8ce;background-color:#fff}.quick-tab{border-radius:4px;background:#fff}.quick-tab.active{background:#183247;border-color:#183247}
-.summary-hero{background:#fff;border-top:4px solid #315f7d}.summary-kicker{color:#596b78}.summary-hero h2{font-family:Georgia,"Yu Mincho","Hiragino Mincho ProN",serif;font-weight:700}.chip,.chip.good,.chip.warn{border-radius:3px;background:#f1f4f5;color:#354955;border:1px solid #dde3e6}
+.summary-hero{background:#fff;border-top:4px solid #315f7d}.summary-kicker{color:#596b78}.summary-hero h2{font-family:"Noto Sans JP","Hiragino Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:700}.chip,.chip.good,.chip.warn{border-radius:3px;background:#f1f4f5;color:#354955;border:1px solid #dde3e6}
 .step-card{border-top:3px solid #7a8d99}.step-num{border-radius:3px;background:#183247}.organism,.drug-item{border-radius:4px;background:#fff}.drug-status,.drug-status.alt,.pill,.layer-badge,.spectrum-conclusion,.matrix-status,.evidence-kind{border-radius:3px}
 .wide-card{background:#fff}.warning-card{border-left-width:4px}.deep-card summary{padding:14px 16px;background:#fbfbfa}.deep-card[open] summary{border-bottom:1px solid #d8dee3}.details-body{border-top:0}
 .action-btn{border-radius:4px}.action-btn.primary{background:#183247;border-color:#183247}.modal{border-radius:7px}.modal-close{border-radius:4px}
@@ -209,7 +384,10 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       <div class="eyebrow">β-LACTAM CLINICAL REFERENCE</div>
       <h1>感染症から考える</h1>
     </div>
-    <button id="aboutBtn" class="icon-btn" aria-label="このツールについて">?</button>
+    <div class="top-actions">
+      <button id="editBtn" class="edit-btn" aria-label="編集モードを開く">編集</button>
+      <button id="aboutBtn" class="icon-btn" aria-label="このツールについて">?</button>
+    </div>
   </div>
 </header>
 
@@ -270,7 +448,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <footer>
-    Clinical Reference UI v0.9.4 / β-lactam focused
+    Clinical Reference UI v0.10.1 / Editable
   </footer>
 </main>
 
@@ -1430,6 +1608,9 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   }
 };
 </script>
+<script id="editorDataOverride">
+/* 編集モードから書き出したデータはここに保存されます。初期状態では空です。 */
+</script>
 <script>(() => {
   const D = window.CDS_DATA;
   const $ = (id) => document.getElementById(id);
@@ -1491,14 +1672,14 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     renderAllergy();
   }
 
-  const KYOTO_SOURCE={
+  const KYOTO_SOURCE=window.KYOTO_SOURCE=window.KYOTO_SOURCE||{
     title:"京都大学医学部附属病院「抗菌薬適正使用マニュアル 2024年版」",
     section:"Ⅳ 抗菌薬感受性表",
     page:"誌面 p.9 / PDF p.14",
     url:"https://www.khosp.or.jp/system/wp-content/themes/khosp/assets/img/document/pdf/koukinyaku-manual.pdf#page=14"
   };
 
-  const KYOTO={
+  const KYOTO=window.KYOTO=window.KYOTO||{
     AMPC:{"肺炎球菌（S. pneumoniae）":"第一選択","インフルエンザ菌（H. influenzae）":"第一選択","大腸菌（E. coli）":"感受性あり","上気道嫌気性菌":"感受性あり"},
     ABPC:{"肺炎球菌（S. pneumoniae）":"第一選択","インフルエンザ菌（H. influenzae）":"第一選択","大腸菌（E. coli）":"感受性あり","A群溶血性レンサ球菌（GAS）":"第一選択"},
     PCG:{"肺炎球菌（S. pneumoniae）":"第一選択","A群溶血性レンサ球菌（GAS）":"第一選択"},
@@ -1596,7 +1777,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     const A=window.APPROVAL_DATA||{};
     cards+=`<div class="drug-source-block layer2-block"><b>Layer 2B｜国内承認情報</b>
       <p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。抗菌活性（Layer 2A）とは混ぜません。</p>
-      <div class="approval-source-list">${drugs.map(d=>{const a=A[d];return a?`<div><b>${esc(d)}｜${esc(a.name)}</b><span>${a.verified?"抽出済み":"ページ監査中"}</span><a href="${a.url}" target="_blank" rel="noopener">${esc(a.source)} ↗</a>${a.note?`<small>${esc(a.note)}</small>`:""}</div>`:`<div><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div>
+      <div class="approval-source-list compact">${drugs.map(d=>{const a=A[d];return a?`<a class="approval-source-chip" href="${a.url}" target="_blank" rel="noopener" title="${esc(a.note||a.source)}"><b>${esc(d)}</b><span>${a.verified?"電子添文 ✓":"要確認"}</span><small>${esc(a.source)}</small></a>`:`<div class="approval-source-chip muted"><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div>
       <small class="pending-note">「該当記載なし」は、電子添文上の承認範囲の話であり、抗菌活性がないことを意味しません。「要確認」は未監査であり、適応外という意味ではありません。</small>
     </div>`;
     // Drug-specific Layer2A status.
@@ -1712,5 +1893,373 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   init();
 })();
 </script>
+
+<div class="editor-backdrop" id="editorModal" hidden>
+  <section class="editor-panel" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+    <header class="editor-head">
+      <div>
+        <div class="editor-kicker">NON-PROGRAMMER EDIT MODE</div>
+        <h2 id="editorTitle">編集モード</h2>
+        <p>コードを触らず、画面の文章・疾患データ・出典を編集できます。</p>
+      </div>
+      <button id="closeEditor" class="editor-close" aria-label="編集モードを閉じる">×</button>
+    </header>
+
+    <nav class="editor-tabs" aria-label="編集項目">
+      <button class="editor-tab active" data-editor-tab="syndrome">疾患カード</button>
+      <button class="editor-tab" data-editor-tab="evidence">出典</button>
+      <button class="editor-tab" data-editor-tab="approval">薬剤情報</button>
+      <button class="editor-tab" data-editor-tab="kyoto">京都表</button>
+      <button class="editor-tab" data-editor-tab="static">画面文言</button>
+    </nav>
+
+    <div class="editor-body">
+      <section class="editor-pane active" data-editor-pane="syndrome">
+        <div class="editor-note">まず編集する疾患を選びます。「画面に反映」を押すまで元データは変わりません。</div>
+        <div class="editor-grid two">
+          <label>編集する疾患<select id="edSyndromeSelect"></select></label>
+          <label>短い表示名<input id="edShort" type="text"></label>
+        </div>
+        <label>疾患名<input id="edName" type="text"></label>
+        <label>要約・リード<textarea id="edLead" rows="3"></textarea></label>
+        <label>チップ <small>1行に1つ</small><textarea id="edChips" rows="3"></textarea></label>
+
+        <div class="editor-section-head"><div><b>主な標的菌</b><small>菌名と説明を編集</small></div><button type="button" class="mini-add" id="addPathogen">＋追加</button></div>
+        <div id="edPathogens" class="repeat-list"></div>
+
+        <div class="editor-section-head"><div><b>βラクタムの位置づけ</b><small>薬剤名・位置づけ・説明</small></div><button type="button" class="mini-add" id="addBeta">＋追加</button></div>
+        <div id="edBeta" class="repeat-list"></div>
+
+        <div class="editor-grid two">
+          <label>非βラクタム欄タイトル<input id="edNonbetaTitle" type="text"></label>
+          <label>非βラクタムの薬剤 <small>1行に1つ</small><textarea id="edNonbetaPills" rows="3"></textarea></label>
+        </div>
+        <label>非βラクタム説明<textarea id="edNonbetaBody" rows="3"></textarea></label>
+
+        <div class="editor-grid two">
+          <label>注意欄タイトル<input id="edWarningTitle" type="text"></label>
+          <label>構造比較へ渡す薬剤 <small>1行に1つ</small><textarea id="edCompare" rows="3"></textarea></label>
+        </div>
+        <label>注意文<textarea id="edWarningText" rows="3"></textarea></label>
+
+        <div class="editor-actions inline">
+          <button type="button" class="editor-primary" id="applySyndrome">この疾患を画面に反映</button>
+        </div>
+      </section>
+
+      <section class="editor-pane" data-editor-pane="evidence">
+        <div class="editor-note">Layer 3・Historical など、疾患に紐づく出典を編集します。URLやページもここから変更できます。</div>
+        <div class="editor-grid two">
+          <label>編集する疾患<select id="edEvidenceSyndrome"></select></label>
+          <div class="editor-side-action"><button type="button" class="mini-add" id="addEvidence">＋ 出典を追加</button></div>
+        </div>
+        <div id="edEvidenceList" class="repeat-list evidence-edit-list"></div>
+        <div class="editor-actions inline">
+          <button type="button" class="editor-primary" id="applyEvidence">出典を画面に反映</button>
+        </div>
+      </section>
+
+      <section class="editor-pane" data-editor-pane="approval">
+        <div class="editor-note">電子添文・PMDA等の薬剤別情報を編集します。未確認の内容を推測で埋めない運用はそのまま維持してください。</div>
+        <label>薬剤<select id="edApprovalDrug"></select></label>
+        <div class="editor-grid two">
+          <label>一般名<input id="edApprovalName" type="text"></label>
+          <label>情報源名<input id="edApprovalSource" type="text"></label>
+        </div>
+        <label>URL<input id="edApprovalUrl" type="url"></label>
+        <label>適応菌種 <small>1行に1つ</small><textarea id="edApprovalOrganisms" rows="7"></textarea></label>
+        <label>適応症 <small>1行に1つ</small><textarea id="edApprovalDiseases" rows="7"></textarea></label>
+        <label>注記<textarea id="edApprovalNote" rows="3"></textarea></label>
+        <label class="check-label"><input id="edApprovalVerified" type="checkbox"> 確認済みとして扱う</label>
+        <div class="editor-actions inline">
+          <button type="button" class="editor-primary" id="applyApproval">薬剤情報を画面に反映</button>
+        </div>
+      </section>
+
+      <section class="editor-pane" data-editor-pane="kyoto">
+        <div class="editor-note">Layer 1の京都大学「抗菌薬感受性表」を編集します。薬剤ごとに菌と位置づけを追加・削除できます。</div>
+        <details class="editor-details">
+          <summary>京都大学の出典情報を編集</summary>
+          <div class="editor-detail-body">
+            <label>資料名<input id="edKyotoTitle" type="text"></label>
+            <div class="editor-grid two">
+              <label>節<input id="edKyotoSection" type="text"></label>
+              <label>ページ<input id="edKyotoPage" type="text"></label>
+            </div>
+            <label>URL<input id="edKyotoUrl" type="url"></label>
+          </div>
+        </details>
+        <div class="editor-grid two">
+          <label>薬剤<select id="edKyotoDrug"></select></label>
+          <div class="editor-side-action"><button type="button" class="mini-add" id="addKyotoRow">＋ 菌を追加</button></div>
+        </div>
+        <div id="edKyotoRows" class="repeat-list"></div>
+        <div class="editor-actions inline">
+          <button type="button" class="editor-primary" id="applyKyoto">京都表を画面に反映</button>
+        </div>
+      </section>
+
+      <section class="editor-pane" data-editor-pane="static">
+        <div class="editor-note">疾患によらず常に表示される、ツール全体の固定文言を編集します。</div>
+        <label>上部の小見出し<input id="edStaticEyebrow" type="text"></label>
+        <label>ツールタイトル<input id="edStaticTitle" type="text"></label>
+        <label>導入バッジ<input id="edStaticBadge" type="text"></label>
+        <label>導入文<textarea id="edStaticIntro" rows="4"></textarea></label>
+        <label>注意書き<textarea id="edStaticPrinciple" rows="3"></textarea></label>
+        <label>Evidence見出し<input id="edStaticEvidenceTitle" type="text"></label>
+        <label>Evidence説明<textarea id="edStaticEvidenceDesc" rows="3"></textarea></label>
+        <div class="editor-actions inline">
+          <button type="button" class="editor-primary" id="applyStatic">画面文言を反映</button>
+        </div>
+      </section>
+    </div>
+
+    <footer class="editor-footer">
+      <div class="editor-save-group">
+        <button type="button" id="saveLocal" class="editor-secondary">この端末に保存</button>
+        <button type="button" id="clearLocal" class="editor-ghost">端末保存を消去</button>
+      </div>
+      <button type="button" id="exportIndex" class="editor-export">更新済み index.html を作成</button>
+    </footer>
+    <div id="editorToast" class="editor-toast" aria-live="polite"></div>
+  </section>
+</div>
+
+
+<script id="nonProgrammerEditor">
+(() => {
+  const $ = id => document.getElementById(id);
+  const qsa = (sel, root=document) => [...root.querySelectorAll(sel)];
+  const clone = x => JSON.parse(JSON.stringify(x));
+  const D = window.CDS_DATA;
+  const A = window.APPROVAL_DATA || (window.APPROVAL_DATA={});
+  const K = window.KYOTO || (window.KYOTO={});
+  const KS = window.KYOTO_SOURCE || (window.KYOTO_SOURCE={});
+  const STORAGE_KEY = "infection-cds-editor-v010";
+
+  const toast = (msg) => {
+    const el=$("editorToast"); el.textContent=msg; el.classList.add("show");
+    clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove("show"),1800);
+  };
+  const lines = v => String(v||"").split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  const setLines = (id, arr) => { $(id).value=(arr||[]).join("\n"); };
+  const safe = v => String(v??"");
+  const replaceObject = (target, source) => {
+    Object.keys(target).forEach(k=>delete target[k]);
+    Object.assign(target, clone(source));
+  };
+  const refreshMain = (syndromeId) => {
+    const s=$("syndromeSelect");
+    if(syndromeId && [...s.options].some(o=>o.value===syndromeId)) s.value=syndromeId;
+    s.dispatchEvent(new Event("change",{bubbles:true}));
+  };
+  const rebuildMainSyndromeControls = (selectedId) => {
+    const s=$("syndromeSelect");
+    const old=selectedId||s.value||D.syndromes[0]?.id;
+    s.innerHTML=D.syndromes.map(x=>`<option value="${safe(x.id).replace(/"/g,"&quot;")}">${safe(x.name)}</option>`).join("");
+    $("quickTabs").innerHTML=D.syndromes.map(x=>`<button class="quick-tab${x.id===old?" active":""}" data-id="${safe(x.id).replace(/"/g,"&quot;")}">${safe(x.short||x.name)}</button>`).join("");
+    qsa(".quick-tab",$("quickTabs")).forEach(b=>b.onclick=()=>{s.value=b.dataset.id;s.dispatchEvent(new Event("change",{bubbles:true}))});
+    s.value=[...s.options].some(o=>o.value===old)?old:D.syndromes[0]?.id;
+  };
+
+  // ---- Repeatable rows ----
+  const addPathogenRow=(v=["",""])=>{
+    const row=document.createElement("div"); row.className="repeat-row pathogen-row";
+    row.innerHTML=`<label>菌名<input data-k="name" type="text"></label><label>説明<input data-k="note" type="text"></label><button class="row-remove" type="button">削除</button>`;
+    row.querySelector('[data-k="name"]').value=safe(v[0]); row.querySelector('[data-k="note"]').value=safe(v[1]);
+    row.querySelector(".row-remove").onclick=()=>row.remove(); $("edPathogens").appendChild(row);
+  };
+  const addBetaRow=(v={name:"",status:"",note:""})=>{
+    const row=document.createElement("div"); row.className="repeat-row beta-row";
+    row.innerHTML=`<label>薬剤名<input data-k="name" type="text"></label><label>位置づけ<input data-k="status" type="text"></label><label>説明<input data-k="note" type="text"></label><button class="row-remove" type="button">削除</button>`;
+    ["name","status","note"].forEach(k=>row.querySelector(`[data-k="${k}"]`).value=safe(v[k]));
+    row.querySelector(".row-remove").onclick=()=>row.remove(); $("edBeta").appendChild(row);
+  };
+  const addEvidenceRow=(v=["","","","",""])=>{
+    const row=document.createElement("div"); row.className="repeat-row evidence-row";
+    row.innerHTML=`
+      <div class="editor-grid two"><label>Evidence ID<input data-k="id" type="text"></label><label>資料名<input data-k="title" type="text"></label></div>
+      <div class="editor-grid two"><label>ページ<input data-k="page" type="text"></label><label>URL<input data-k="url" type="url"></label></div>
+      <label>この資料を使う理由・用途<textarea data-k="why" rows="2"></textarea></label>
+      <button class="row-remove" type="button">この出典を削除</button>`;
+    const vals={id:v[0],title:v[1],page:v[2],why:v[3],url:v[4]};
+    Object.entries(vals).forEach(([k,val])=>row.querySelector(`[data-k="${k}"]`).value=safe(val));
+    row.querySelector(".row-remove").onclick=()=>row.remove(); $("edEvidenceList").appendChild(row);
+  };
+  const addKyotoRow=(organism="",status="")=>{
+    const row=document.createElement("div"); row.className="repeat-row kyoto-row";
+    row.innerHTML=`<label>菌<input data-k="organism" type="text"></label><label>位置づけ<input data-k="status" type="text" placeholder="第一選択 / 感受性あり"></label><button class="row-remove" type="button">削除</button>`;
+    row.querySelector('[data-k="organism"]').value=safe(organism); row.querySelector('[data-k="status"]').value=safe(status);
+    row.querySelector(".row-remove").onclick=()=>row.remove(); $("edKyotoRows").appendChild(row);
+  };
+
+  // ---- Syndrome editor ----
+  const fillSyndromeSelects=()=>{
+    ["edSyndromeSelect","edEvidenceSyndrome"].forEach(id=>{
+      const el=$(id), old=el.value;
+      el.innerHTML=D.syndromes.map(x=>`<option value="${safe(x.id).replace(/"/g,"&quot;")}">${safe(x.name)}</option>`).join("");
+      if([...el.options].some(o=>o.value===old)) el.value=old;
+    });
+  };
+  const loadSyndrome=()=>{
+    const x=D.syndromes.find(s=>s.id===$("edSyndromeSelect").value)||D.syndromes[0]; if(!x)return;
+    $("edShort").value=safe(x.short); $("edName").value=safe(x.name); $("edLead").value=safe(x.lead);
+    setLines("edChips",x.chips);
+    $("edPathogens").innerHTML=""; (x.pathogens||[]).forEach(addPathogenRow);
+    $("edBeta").innerHTML=""; (x.beta||[]).forEach(addBetaRow);
+    $("edNonbetaTitle").value=safe(x.nonbeta?.title); $("edNonbetaBody").value=safe(x.nonbeta?.body); setLines("edNonbetaPills",x.nonbeta?.pills);
+    $("edWarningTitle").value=safe(x.warning?.title); $("edWarningText").value=safe(x.warning?.text); setLines("edCompare",x.compare);
+  };
+  const applySyndrome=()=>{
+    const x=D.syndromes.find(s=>s.id===$("edSyndromeSelect").value); if(!x)return;
+    x.short=$("edShort").value.trim(); x.name=$("edName").value.trim(); x.lead=$("edLead").value.trim(); x.chips=lines($("edChips").value);
+    x.pathogens=qsa(".pathogen-row",$("edPathogens")).map(r=>[r.querySelector('[data-k="name"]').value.trim(),r.querySelector('[data-k="note"]').value.trim()]).filter(v=>v[0]);
+    x.beta=qsa(".beta-row",$("edBeta")).map(r=>({name:r.querySelector('[data-k="name"]').value.trim(),status:r.querySelector('[data-k="status"]').value.trim(),note:r.querySelector('[data-k="note"]').value.trim()})).filter(v=>v.name);
+    x.nonbeta=x.nonbeta||{}; x.nonbeta.title=$("edNonbetaTitle").value.trim(); x.nonbeta.body=$("edNonbetaBody").value.trim(); x.nonbeta.pills=lines($("edNonbetaPills").value);
+    x.warning=x.warning||{}; x.warning.title=$("edWarningTitle").value.trim(); x.warning.text=$("edWarningText").value.trim();
+    x.compare=lines($("edCompare").value);
+    rebuildMainSyndromeControls(x.id); fillSyndromeSelects(); $("edSyndromeSelect").value=x.id; $("edEvidenceSyndrome").value=x.id; refreshMain(x.id);
+    toast("疾患カードを反映しました");
+  };
+
+  // ---- Evidence ----
+  const loadEvidence=()=>{
+    const x=D.syndromes.find(s=>s.id===$("edEvidenceSyndrome").value)||D.syndromes[0];
+    $("edEvidenceList").innerHTML=""; (x?.evidence||[]).forEach(addEvidenceRow);
+  };
+  const applyEvidence=()=>{
+    const x=D.syndromes.find(s=>s.id===$("edEvidenceSyndrome").value); if(!x)return;
+    x.evidence=qsa(".evidence-row",$("edEvidenceList")).map(r=>[
+      r.querySelector('[data-k="id"]').value.trim(),r.querySelector('[data-k="title"]').value.trim(),
+      r.querySelector('[data-k="page"]').value.trim(),r.querySelector('[data-k="why"]').value.trim(),
+      r.querySelector('[data-k="url"]').value.trim()
+    ]).filter(v=>v[1]);
+    refreshMain(x.id); toast("出典を反映しました");
+  };
+
+  // ---- Approval ----
+  const approvalKeys=()=>Object.keys(A).sort();
+  const fillApprovalDrugs=()=>{
+    const el=$("edApprovalDrug"),old=el.value; el.innerHTML=approvalKeys().map(k=>`<option value="${safe(k)}">${safe(k)}｜${safe(A[k]?.name||"")}</option>`).join("");
+    if([...el.options].some(o=>o.value===old))el.value=old;
+  };
+  const loadApproval=()=>{
+    const a=A[$("edApprovalDrug").value]||{};
+    $("edApprovalName").value=safe(a.name);$("edApprovalSource").value=safe(a.source);$("edApprovalUrl").value=safe(a.url);
+    setLines("edApprovalOrganisms",a.organisms);setLines("edApprovalDiseases",a.diseases);$("edApprovalNote").value=safe(a.note);
+    $("edApprovalVerified").checked=!!a.verified;
+  };
+  const applyApproval=()=>{
+    const k=$("edApprovalDrug").value;if(!k)return; const a=A[k]||(A[k]={});
+    a.name=$("edApprovalName").value.trim();a.source=$("edApprovalSource").value.trim();a.url=$("edApprovalUrl").value.trim();
+    a.organisms=lines($("edApprovalOrganisms").value);a.diseases=lines($("edApprovalDiseases").value);
+    a.note=$("edApprovalNote").value.trim();a.verified=$("edApprovalVerified").checked;
+    fillApprovalDrugs();$("edApprovalDrug").value=k;refreshMain();toast("薬剤情報を反映しました");
+  };
+
+  // ---- Kyoto ----
+  const kyotoKeys=()=>Object.keys(K).sort();
+  const fillKyotoDrugs=()=>{
+    const el=$("edKyotoDrug"),old=el.value;el.innerHTML=kyotoKeys().map(k=>`<option value="${safe(k)}">${safe(k)}</option>`).join("");
+    if([...el.options].some(o=>o.value===old))el.value=old;
+  };
+  const loadKyoto=()=>{
+    $("edKyotoTitle").value=safe(KS.title);$("edKyotoSection").value=safe(KS.section);$("edKyotoPage").value=safe(KS.page);$("edKyotoUrl").value=safe(KS.url);
+    $("edKyotoRows").innerHTML="";Object.entries(K[$("edKyotoDrug").value]||{}).forEach(([o,s])=>addKyotoRow(o,s));
+  };
+  const applyKyoto=()=>{
+    KS.title=$("edKyotoTitle").value.trim();KS.section=$("edKyotoSection").value.trim();KS.page=$("edKyotoPage").value.trim();KS.url=$("edKyotoUrl").value.trim();
+    const drug=$("edKyotoDrug").value;if(drug){K[drug]={};qsa(".kyoto-row",$("edKyotoRows")).forEach(r=>{const o=r.querySelector('[data-k="organism"]').value.trim(),s=r.querySelector('[data-k="status"]').value.trim();if(o)K[drug][o]=s})}
+    refreshMain();toast("京都表を反映しました");
+  };
+
+  // ---- Static text ----
+  const staticTargets={
+    edStaticEyebrow:".topbar .eyebrow",edStaticTitle:".topbar h1",edStaticBadge:".intro-badge",
+    edStaticIntro:".intro-card p",edStaticPrinciple:".principle",edStaticEvidenceTitle:"#evidenceTitle",
+    edStaticEvidenceDesc:".evidence-fixed-head p"
+  };
+  const loadStatic=()=>Object.entries(staticTargets).forEach(([id,sel])=>{const el=document.querySelector(sel);if(el)$(id).value=el.textContent.trim()});
+  const applyStatic=()=>{
+    Object.entries(staticTargets).forEach(([id,sel])=>{const el=document.querySelector(sel);if(el)el.textContent=$(id).value});
+    toast("画面文言を反映しました");
+  };
+
+  // ---- Local save / restore ----
+  const snapshot=()=>({
+    cds:clone(D),approval:clone(A),kyoto:clone(K),kyotoSource:clone(KS),
+    static:Object.fromEntries(Object.entries(staticTargets).map(([id,sel])=>[sel,document.querySelector(sel)?.textContent||""]))
+  });
+  const applySnapshot=(s)=>{
+    if(s.cds)replaceObject(D,s.cds);if(s.approval)replaceObject(A,s.approval);if(s.kyoto)replaceObject(K,s.kyoto);if(s.kyotoSource)replaceObject(KS,s.kyotoSource);
+    if(s.static)Object.entries(s.static).forEach(([sel,val])=>{const el=document.querySelector(sel);if(el)el.textContent=val});
+    rebuildMainSyndromeControls();fillSyndromeSelects();fillApprovalDrugs();fillKyotoDrugs();
+    loadSyndrome();loadEvidence();loadApproval();loadKyoto();loadStatic();refreshMain();
+  };
+  const saveLocal=()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(snapshot()));toast("この端末に保存しました")};
+  const clearLocal=()=>{localStorage.removeItem(STORAGE_KEY);toast("端末保存を消去しました")};
+
+  // ---- Export complete replacement index.html ----
+  const jsonForScript=o=>JSON.stringify(o,null,2).replace(/</g,"\\u003c");
+  const exportIndex=()=>{
+    // Apply the currently visible editor pane first, so the last edit is not missed.
+    const active=document.querySelector(".editor-tab.active")?.dataset.editorTab;
+    if(active==="syndrome")applySyndrome();
+    if(active==="evidence")applyEvidence();
+    if(active==="approval")applyApproval();
+    if(active==="kyoto")applyKyoto();
+    if(active==="static")applyStatic();
+
+    const override=$("editorDataOverride");
+    override.textContent=
+      "\\nwindow.CDS_DATA = "+jsonForScript(D)+";\\n"+
+      "window.APPROVAL_DATA = "+jsonForScript(A)+";\\n"+
+      "window.KYOTO_SOURCE = "+jsonForScript(KS)+";\\n"+
+      "window.KYOTO = "+jsonForScript(K)+";\\n";
+
+    const wasHidden=$("editorModal").hidden;
+    $("editorModal").hidden=true;
+    const doc="<!DOCTYPE html>\\n"+document.documentElement.outerHTML;
+    $("editorModal").hidden=wasHidden;
+
+    const blob=new Blob([doc],{type:"text/html;charset=utf-8"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");a.href=url;a.download="index.html";document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),2000);
+    toast("更新済み index.html を作成しました");
+  };
+
+  // ---- Tabs / open-close ----
+  const openEditor=()=>{
+    $("editorModal").hidden=false;document.body.style.overflow="hidden";
+    fillSyndromeSelects();fillApprovalDrugs();fillKyotoDrugs();
+    const current=$("syndromeSelect").value;
+    if(current){$("edSyndromeSelect").value=current;$("edEvidenceSyndrome").value=current}
+    loadSyndrome();loadEvidence();loadApproval();loadKyoto();loadStatic();
+  };
+  const closeEditor=()=>{$("editorModal").hidden=true;document.body.style.overflow=""};
+  qsa(".editor-tab").forEach(btn=>btn.onclick=()=>{
+    qsa(".editor-tab").forEach(x=>x.classList.toggle("active",x===btn));
+    qsa(".editor-pane").forEach(p=>p.classList.toggle("active",p.dataset.editorPane===btn.dataset.editorTab));
+  });
+
+  $("editBtn").onclick=openEditor;$("closeEditor").onclick=closeEditor;
+  $("editorModal").onclick=e=>{if(e.target===$("editorModal"))closeEditor()};
+  $("edSyndromeSelect").onchange=loadSyndrome;$("edEvidenceSyndrome").onchange=loadEvidence;
+  $("edApprovalDrug").onchange=loadApproval;$("edKyotoDrug").onchange=loadKyoto;
+  $("addPathogen").onclick=()=>addPathogenRow();$("addBeta").onclick=()=>addBetaRow();
+  $("addEvidence").onclick=()=>addEvidenceRow();$("addKyotoRow").onclick=()=>addKyotoRow();
+  $("applySyndrome").onclick=applySyndrome;$("applyEvidence").onclick=applyEvidence;
+  $("applyApproval").onclick=applyApproval;$("applyKyoto").onclick=applyKyoto;$("applyStatic").onclick=applyStatic;
+  $("saveLocal").onclick=saveLocal;$("clearLocal").onclick=clearLocal;$("exportIndex").onclick=exportIndex;
+
+  // Restore device-local edits automatically.
+  try{
+    const saved=localStorage.getItem(STORAGE_KEY);
+    if(saved)applySnapshot(JSON.parse(saved));
+  }catch(err){console.warn("Editor local restore failed",err)}
+})();
+</script>
+
 </body>
 </html>
