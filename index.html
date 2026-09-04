@@ -200,6 +200,95 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 }
 </style>
 
+
+<style id="similarity-explainer-style">
+.sim-scale{
+  margin:14px 0 12px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fafcff;
+}
+.sim-scale-line{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:10px;
+}
+.sim-scale-end{
+  font-weight:900;
+  color:#172033;
+  white-space:nowrap;
+  font-size:13px;
+}
+.sim-scale-track{
+  position:relative;
+  height:8px;
+  border-radius:999px;
+  background:linear-gradient(to right,#2563eb,#d7deea);
+}
+.sim-scale-caption{
+  margin-top:6px;
+  text-align:center;
+  font-size:11px;
+  color:#667085;
+}
+.sim-source-guide{
+  margin:14px 0;
+  border:1px solid #d8e0ea;
+  border-radius:12px;
+  overflow:hidden;
+}
+.sim-source-guide table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+.sim-source-guide th,
+.sim-source-guide td{
+  padding:10px 11px;
+  border-bottom:1px solid #e7ebf0;
+  border-right:1px solid #e7ebf0;
+  vertical-align:top;
+  line-height:1.55;
+}
+.sim-source-guide th:last-child,
+.sim-source-guide td:last-child{border-right:0}
+.sim-source-guide tr:last-child td{border-bottom:0}
+.sim-source-guide thead th{
+  background:#eef2f7;
+  color:#344054;
+  font-weight:800;
+  text-align:left;
+}
+.sim-source-guide tbody td:first-child{
+  font-weight:800;
+  width:18%;
+  background:#fbfcfe;
+}
+.sim-source-note{
+  margin:9px 0 0;
+  font-size:11px;
+  line-height:1.6;
+  color:#667085;
+}
+.meta-explain{
+  margin:10px 0 12px;
+  padding:11px 12px;
+  background:#f8fafc;
+  border-left:4px solid #2563eb;
+  border-radius:9px;
+  line-height:1.7;
+  font-size:12px;
+}
+@media(max-width:800px){
+  .sim-source-guide{overflow-x:auto}
+  .sim-source-guide table{min-width:650px}
+  .sim-scale-line{gap:7px}
+  .sim-scale-end{font-size:11px}
+}
+</style>
+
 </head><body>
 <header><div><div style="font-size:12px;font-weight:800;letter-spacing:.08em;opacity:.85;margin-bottom:4px">PICARD 2019 PUBLISHED-DATA MODE</div><h1>βラクタム Side-chain Comparator｜Picard 2019 Published-score</h1></div></header><main>
 <section class="card" style="border-left:6px solid #2563eb">
@@ -212,50 +301,57 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 <details class="allergy-knowledge">
   <summary>📖 βラクタムアレルギーを詳しく理解する</summary>
   <div class="allergy-body">
-    <p class="allergy-lead"><b>構造比較は「投与可否」を単独で決めるものではありません。</b><br>
-    まず原因薬、反応が起きた時期、投与から発症までの時間、症状、重症度を確認し、そのうえで側鎖構造を判断材料の1つとして使います。</p>
+    <p class="allergy-lead"><b>構造解析は「投与可否」を単独で決めるものではない。</b><br>
+    まず原因薬、反応が起きた時期、投与から発症までの時間、症状、重症度を確認し、その上で構造解析を判断材料の一つとして用いる。</p>
 
     <div class="allergy-section allergy-alt-1">
       <h3>1. 「ペニシリンアレルギー」の記録は、そのまま真のアレルギーを意味しない</h3>
-      <p>ペニシリンアレルギーは医療記録上よくみられますが、申告・記録された患者の多くは評価すると皮膚テスト陰性とされています。過去の発疹が感染症によるものだった、薬との因果関係が不明だった、時間の経過とともに感作が失われた、などが含まれます。</p>
-      <p>一方、ペニシリンは薬剤誘発性アナフィラキシーの重要な原因でもあります。したがって、単に「アレルギーあり／なし」で分けず、<b>どのような反応だったか</b>を確認することが重要です。</p>
+      <p>ペニシリンアレルギーは医療記録でもっとも多く確認される薬物アレルギー（発症率6〜25%）だが、うち90%以上は皮膚テスト陰性である。また、最も多い反応は良性の皮膚反応（蕁麻疹など）であるが、薬剤誘発性アナフィラキシーの最も多い要因でもある。</p>
     </div>
 
     <div class="allergy-section allergy-alt-2">
-      <h3>2. アレルギー歴は時間とともに変化する</h3>
-      <p>即時型ペニシリンアレルギーの既往がある患者のうち、<b>80%までが、それ以上の曝露がなければ10年後には忍容性を獲得する</b>と推定されています。また、<b>20年後も感受性を維持している患者は1%以下</b>といわれています。</p>
+      <h3>2. アレルギー反応は時間とともに変化する</h3>
+      <p>即時型ペニシリンアレルギーの既往がある患者のうち、80%までが、それ以上の曝露がなければ10年後には忍容性を獲得すると言われている。また、20年後も感受性を維持している患者は1%以下と言われている。</p>
       <p>特に成人で、<b>5年以上前の軽い皮膚反応だけ</b>が既往として残っている場合には、適切な環境下でアモキシシリン直接負荷試験が検討されることがあります。アナフィラキシー歴や最近のIgE介在性反応が疑われる場合は、より慎重な評価が必要です。</p>
     </div>
 
     <div class="allergy-section allergy-alt-1">
-      <h3>3. なぜR1側鎖を見るのか</h3>
+      <h3>3. なぜR1側鎖を評価するのか</h3>
       <p>βラクタム薬の交差反応は、βラクタム環だけでなく側鎖構造に左右されます。特に<b>R1側鎖</b>はアレルギー反応の特異性に重要で、同一またはよく似たR1側鎖を持つ薬剤では交差反応に注意が必要です。</p>
       <p>セファロスポリン間ではR2側鎖の一致も関与する可能性がありますが、一般にはR1側鎖ほど重要ではないと考えられています。</p>
       <p><b>このツールの類似度スコアは、実際のアレルギー発症確率を表す数字ではありません。</b></p>
     </div>
 
     <div class="allergy-section allergy-alt-2">
-      <h3>4. ペニシリンアレルギー患者でセファロスポリンを使うとき</h3>
-      <p>確定していない非アナフィラキシー性のペニシリンアレルギー歴だけを理由に、セファロスポリンを一律に避ける必要はありません。</p>
-      <p>ペニシリンによるアナフィラキシー歴があっても、<b>原因薬と構造的に異なるR1側鎖を持つセファロスポリン</b>は選択肢になり得ます。構造だけでなく、既往歴・投与経路・臨床状況を合わせて判断します。</p>
+      <h3>4. ペニシリンアレルギーの管理</h3>
+      <p><b>① 非アナフィラキシー性アレルギー</b><br>
+      成人において、遠い過去（5年以上前）の良性皮膚反応（麻疹薬疹，じんま疹など）の既往がある場合は、直接AMPC負荷試験を考慮する。</p>
+      <p><b>② アナフィラキシーの既往歴がある患者</b><br>
+      ペニシリン皮膚テストを実施する。</p>
     </div>
 
     <div class="allergy-section allergy-alt-1">
-      <h3>5. セファロスポリンアレルギー患者でペニシリンを使うとき</h3>
-      <p>確定していない、または評価済みの非アナフィラキシー性セファロスポリンアレルギーでは、ペニシリンを一律に避ける必要はありません。</p>
-      <p>セファロスポリンによるアナフィラキシー歴がある場合は、ペニシリン治療前に<b>ペニシリン皮膚テストや薬物負荷試験</b>など、より慎重な評価が必要です。</p>
+      <h3>5. セファロスポリンアレルギーの管理</h3>
+      <p><b>① 非アナフィラキシー性セファロスポリンアレルギーの既往歴</b><br>
+      異なる側鎖をもつセファロスポリンを使用し、直接負荷試験で忍容性を評価する方法が推奨。</p>
+      <p><b>② アナフィラキシー性セファロスポリンアレルギーの既往歴</b><br>
+      R1側鎖が異なるセファロスポリンであっても、非経口投与前にはより慎重な評価（皮膚テスト陰性）を確認する。</p>
     </div>
 
     <div class="allergy-section allergy-alt-2">
-      <h3>6. セファロスポリン同士を切り替えるとき</h3>
-      <p>非アナフィラキシー性のセファロスポリンアレルギー歴では、<b>異なる側鎖を持つ別のセファロスポリン</b>について、直接負荷試験で忍容性を評価する方法が検討されます。</p>
-      <p>一方、セファロスポリンによるアナフィラキシー歴がある場合は、R1側鎖が異なる薬剤であっても、非経口投与前にはより慎重な評価が必要です。</p>
+      <h3>6. ペニシリンアレルギー × セファロスポリンアレルギー</h3>
+      <p><b>① ペニシリンアレルギー患者でセファロスポリンを使うとき</b><br>
+      ペニシリンによるアナフィラキシーの既往があっても、原因薬と構造的に異なるR1側鎖をもつセファロスポリンであれば、検査や追加の予防措置なしに投与してよい。<br>
+      また、非アナフィラキシー性ペニシリンアレルギーの患者には、検査なしにセファロスポリンを投与してよい。</p>
+      <p><b>② セファロスポリンアレルギー患者でペニシリンを使うとき</b><br>
+      非アナフィラキシー性セファロスポリンアレルギーの患者には、検査や追加の予防措置なしにペニシリンを投与してよい。<br>
+      セファロスポリンに対するアナフィラキシーの既往がある患者では、ペニシリン治療の前にペニシリン皮膚テストや薬物負荷試験など、より慎重な評価が必要。</p>
     </div>
 
     <div class="allergy-section allergy-alt-1">
       <h3>7. アズトレオナム（AZT）は例外に注意</h3>
-      <p>モノバクタム系のアズトレオナムは、通常はペニシリン・セファロスポリンアレルギー患者でも交差反応を起こしにくいと考えられています。</p>
-      <p>ただし、<b>セフタジジム（CAZ）アレルギー歴</b>がある場合は別です。CAZとAZTは関連する側鎖構造を持つため、単純に「AZTなら安全」と判断しないよう注意します。</p>
+      <p>モノバクタム系のアズトレオナムは、ペニシリンまたはセファロスポリンアレルギー患者でも事前の検査なしに投与可能。</p>
+      <p>ただし、セフタジジム（CAZ）アレルギーがある場合は異なる。CAZとAZTは同一の側鎖構造を持つため、安全ではない。</p>
     </div>
 
     <div class="allergy-section allergy-flow-section">
@@ -829,7 +925,7 @@ Q 381.3 306.3, 383.9 306.3
     ・例：<b>アンピシリン―セファクロル／セファレキシン</b>など、aminopenicillinとaminocephalosporinにはR1側鎖が同一・近似する組み合わせがある。「ペニシリンとセフェムは別系統だから大丈夫」とは扱わない。
   </div>
 <p class="small" style="margin-bottom:0"><b>表示の意味：</b>
-  蛍光赤＝両薬で共通する側鎖構造 ／ <span style="background:#ffea00;padding:1px 5px;border-radius:4px;color:#111"><b>蛍光黄色</b></span>＝片方だけにある構造。
+  <span style="background:#ff1744;padding:1px 5px;border-radius:4px;color:#111"><b>蛍光赤色</b></span>＝両薬で共通する側鎖構造 ／ <span style="background:#ffea00;padding:1px 5px;border-radius:4px;color:#111"><b>蛍光黄色</b></span>＝片方だけにある構造。
   この版のR1 similarityは<b>Picard 2019 Figure 2Aに掲載された値をそのまま表示</b>する。掲載のない組み合わせは推定せず「データなし」とする。</p>
 </section>
 <section class="card"><div class="pickers"><div><label>薬剤A</label><select id="a"><option value="benzyl">ベンジルペニシリン</option><option value="ampi">アンピシリン</option><option value="amox">アモキシシリン</option><option value="pip">ピペラシリン</option><option value="clox">クロキサシリン</option><option value="cefaclor">セファクロル</option><option value="cephalexin">セファレキシン</option><option value="cefazolin">セファゾリン</option><option value="cefuroxime">セフロキシム</option><option value="cefotiam">セフォチアム</option><option value="ceftriaxone">セフトリアキソン</option><option value="cefdinir">セフジニル</option><option value="cefditoren">セフジトレン</option><option value="cefcapene">セフカペン</option><option value="cefpodoxime">セフポドキシム</option><option value="cefixime">セフィキシム</option><option value="cefteram">セフテラム</option><option value="cefotaxime">セフォタキシム</option><option value="cefmenoxime">セフメノキシム</option><option value="cefepime">セフェピム</option><option value="ceftazidime">セフタジジム</option><option value="aztreonam">アズトレオナム</option></select></div><div><label>薬剤B</label><select id="b"><option value="benzyl">ベンジルペニシリン</option><option value="ampi">アンピシリン</option><option value="amox">アモキシシリン</option><option value="pip">ピペラシリン</option><option value="clox">クロキサシリン</option><option value="cefaclor">セファクロル</option><option value="cephalexin">セファレキシン</option><option value="cefazolin">セファゾリン</option><option value="cefuroxime">セフロキシム</option><option value="cefotiam">セフォチアム</option><option value="ceftriaxone">セフトリアキソン</option><option value="cefdinir">セフジニル</option><option value="cefditoren">セフジトレン</option><option value="cefcapene">セフカペン</option><option value="cefpodoxime">セフポドキシム</option><option value="cefixime">セフィキシム</option><option value="cefteram">セフテラム</option><option value="cefotaxime">セフォタキシム</option><option value="cefmenoxime">セフメノキシム</option><option value="cefepime">セフェピム</option><option value="ceftazidime">セフタジジム</option><option value="aztreonam">アズトレオナム</option></select></div></div></section>
@@ -842,7 +938,7 @@ Q 381.3 306.3, 383.9 306.3
     <span>R1 Similarity score</span>
     <div class="big" id="sim">—</div>
     <div class="bar"><div class="fill" id="fill"></div></div>
-    <p class="small">原著Figure 2Aに掲載された数値を最優先で表示。0＝類似なし、1＝同一側鎖。原著未掲載ペアのみ、Morgan fingerprint / Tanimoto similarityを「補助計算値」として別指標で表示する。</p>
+    <p class="small">Picard 2019 Figure 2Aに文献値がある場合はAtom-Pair / Tanimotoによる原著値を表示。文献値がない場合のみ、RDKitで計算したMorgan fingerprint / Tanimotoを補助計算値として表示する。どちらもR1側鎖の構造類似性を表す指標であり、交差反応率そのものではない。</p>
   </div>
   <div class="metric">
     <span>この数値の位置づけ</span>
@@ -858,31 +954,82 @@ Q 381.3 306.3, 383.9 306.3
 </div>
 </section>
 <section class="card r3card" id="r3card"><h2>セフェム3位側鎖（R2）の補助比較</h2><p class="small">両方がセフェム系のときだけ表示する。Picard 2019はR2側鎖を解析対象としていないため、ここは本ツール独自の補助解析として3位側鎖（R2）をMorgan fingerprint / TanimotoとMCSで比較する。</p><div class="metrics"><div class="metric"><span>R2 Morgan / Tanimoto similarity（補助）</span><div class="big" id="r3sim">—</div><div class="bar"><div class="fill" id="r3fill"></div></div></div><div class="metric"><span>R2 MCS</span><div class="big" id="r3mcs">—</div><p class="small" id="r3desc"></p></div></div><div class="mini-grid"><div class="mini"><b id="r3al"></b><div class="r3structure" id="r3ai"></div><p class="small"><code id="r3ar"></code></p></div><div class="mini"><b id="r3bl"></b><div class="r3structure" id="r3bi"></div><p class="small"><code id="r3br"></code></p></div></div><p class="comparison-note">R2表示時は、上の構造式にもR2の比較結果を追加できますが、R1とR2の色が混ざると読みにくいため、この版では<strong>構造式の縁取りはR1を優先</strong>し、R2は数値とフラグメントで独立表示する。</p></section>
-<section class="card">
-<h2>Picard 2019の解析群（セフェム側）</h2>
-<div class="paper-live">
-  <span>原著で各セフェムに付与された「最高R1 similarity」に基づく群</span>
-  <div class="big" id="papersim">—</div>
-  <p class="small" id="paperdesc">ペニシリン–セフェムの組み合わせを選ぶと表示する。</p>
-</div>
-<p class="small"><b>重要：</b>ここに出る16.45%、5.60%、2.11%は選択した2剤固有の交差反応率ではない。PicardらがセフェムをR1 similarity群に分けて統合したメタ解析値である。また、対象患者のほとんどはaminopenicillin allergyであり、penicillin G、cloxacillin、piperacillin等の非aminopenicillin allergyへの適用は不明確と原著で述べられている。</p>
-</section>
 <section class="card explain"><h2>今回の蛍光表示はどう決めている？</h2><p>まず両方のR1側鎖だけを切り出し、RDKitの<strong>Maximum Common Substructure（MCS）</strong>で「両方に存在する最大の共通部分」を探します。その共通結合を<strong style="color:#ff1744">蛍光赤の縁取り</strong>、R1のうちMCSに入らなかった結合を<strong style="color:#f97316">蛍光黄色の縁取り</strong>にしている。したがって、published Similarity scoreとは別に、<b>どこが共通し、どこが異なるか</b>を目で追えます。</p><p class="small">MCSは「最大の共通部分」を機械的に探す化学構造アルゴリズムで、免疫学的エピトープを直接同定する検査ではない。</p></section>
 <section class="card explain"><h2>Picardら2019年の「Similarity score」とは</h2>
 <p>Picardらは、ペニシリンとセフェムから<strong>R1（C6/C7）側鎖だけ</strong>を切り出し、ChemBioDraw 13.0で作成してChemMine Toolsへ取り込み、Similarity Workbenchで比較した。原著Methodsでは、構造・物理化学的性質（pKa、charge、polarity、hydrophobicity、hydrogen bonds）に基づき、<strong>Atom-Pair molecular descriptors と Tanimoto coefficient</strong>を用いてSimilarity scoreを算出したと記載されている。</p>
-<div class="paperbox"><div><strong>1.000</strong>同一側鎖</div><div><strong>0</strong>類似なし</div><div><strong>Figure 2A</strong>掲載値をそのまま使用</div></div>
-<p class="note"><b>この版の方針：</b>RDKitのAtom-Pairで「近い値」を作るのではなく、Picard Figure 2Aに存在する組み合わせは<strong>原著の数値そのもの</strong>を表示する。存在しない組み合わせはPicard scoreとして推定せず、別指標として本ツールで計算済みのMorgan fingerprint / Tanimoto similarityを補助表示する。</p>
-<p>構造式の描画とMCS可視化にはRDKitを使用する。R1 Similarity scoreは、Picard原著値がある場合は原著値を表示し、原著未掲載の場合のみMorgan/Tanimotoによる補助計算値へ切り替える。<strong>原著値と補助計算値は画面上で明確に区別</strong>して表示する。</p></section>
+
+<div class="sim-scale" aria-label="Similarity scoreの尺度">
+  <div class="sim-scale-line">
+    <span class="sim-scale-end">1.000（同一側鎖）</span>
+    <div class="sim-scale-track"></div>
+    <span class="sim-scale-end">0（類似なし）</span>
+  </div>
+  <div class="sim-scale-caption">1に近いほどR1側鎖の構造特徴が類似する</div>
+</div>
+
+<div class="sim-source-guide">
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>文献値：Picard 2019</th>
+      <th>補助計算値：本ツール</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>計算方法</td>
+      <td><b>Atom-Pair molecular descriptors ＋ Tanimoto</b></td>
+      <td><b>Morgan fingerprint ＋ Tanimoto</b></td>
+    </tr>
+    <tr>
+      <td>データの由来</td>
+      <td>Picard 2019 Figure 2Aに掲載された既報値</td>
+      <td>RDKitを用いて本ツールで計算した値</td>
+    </tr>
+    <tr>
+      <td>いつ表示する？</td>
+      <td><b>選択した2剤の文献値が存在する場合は、こちらを最優先で表示</b></td>
+      <td><b>Picard 2019に文献値がない組み合わせの場合に表示</b></td>
+    </tr>
+    <tr>
+      <td>何を表す？</td>
+      <td>R1側鎖の構造的な類似性</td>
+      <td>R1側鎖のfingerprint上の構造特徴の類似性</td>
+    </tr>
+    <tr>
+      <td>注意</td>
+      <td>交差反応率そのものではない</td>
+      <td>交差反応率そのものではない</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p class="sim-source-note">※ Atom-PairとMorganでは分子構造を数値化する方法が異なるため、両者のTanimoto値を同一尺度として直接比較するものではありません。</p>
+
+<p class="note"><b>このツールの表示ルール：</b>Picard Figure 2Aに値がある組み合わせは<strong>原著のAtom-Pair / Tanimoto値</strong>を表示する。原著に値がない組み合わせではPicard scoreを推定せず、<strong>RDKitで作成したMorgan fingerprint / Tanimoto similarity</strong>を補助計算値として表示する。両者は画面上で明確に区別する。</p>
+</section>
+
+<section class="card">
+<h2>Picard 2019の解析群（セフェム側）</h2>
+<div class="meta-explain">
+  <b>いつ数字が出る？</b><br>
+  ペニシリン系薬と、Picard 2019の群別メタ解析に対応するセファロスポリンを組み合わせた場合に表示する。<br><br>
+  <b>何を表す数字？</b><br>
+  選択したセファロスポリンが、ペニシリン系薬との<strong>最高R1 similarity</strong>によって分類された群と、その群で報告された<strong>統合交差反応率</strong>を表示する。
+</div>
+<div class="paper-live">
+  <span>原著で各セフェムに付与された「最高R1 similarity」に基づく群</span>
+  <div class="big" id="papersim">—</div>
+  <p class="small" id="paperdesc">条件に該当するペニシリン–セフェムの組み合わせを選ぶと表示する。</p>
+</div>
+<p class="small"><b>重要：</b>ここに出る16.45%、5.60%、2.11%は選択した2剤固有の交差反応率ではない。PicardらがセフェムをR1 similarity群に分けて統合したメタ解析値である。また、対象患者のほとんどはaminopenicillin allergyであり、penicillin G、cloxacillin、piperacillin等の非aminopenicillin allergyへの適用は不明確と原著で述べられている。</p>
+</section>
 <section class="card explain"><h2>判定について</h2><p>R1側鎖はβラクタム交差反応性の主要な決定因子ですが、PicardのSimilarity scoreそのものは個々の患者のアレルギー発症確率ではない。特にセフタジジム–アズトレオナムのような既知の同一R1関係は、機械スコアに加えて臨床ルールとして明示的に扱っています。</p><p class="small"><span>※ 教育・臨床判断支援用の試作であり、ツール単独で判断しないように。</span></p></section>
 <section class="card references">
 <h2>使用ツール・計算方法</h2>
 <div class="tool-grid">
 <div class="tool-item"><b>RDKit</b><br/><span class="small">本ツールでは分子構造の描画、R1/R2フラグメント処理、MCS可視化、および原著未掲載ペアのR1・セフェムR2のMorgan fingerprint補助比較に使用。Picard published Similarity score自体の計算には使用していない。</span></div>
-<div class="tool-item"><b>Morgan fingerprintとは</b><br/><span class="small">分子中の<strong>各原子を中心として、その周囲にどのような原子・結合が存在するかという局所的な化学構造</strong>を特徴量として表現する方法です。<br/><br/>
-本ツールの補助解析では、R1側鎖（およびセフェム同士のR2側鎖）について<strong>radius=2、2048 bit、chirality ON</strong>のMorgan fingerprintを作成し、2つのfingerprintに共通する特徴と固有の特徴を<strong>Tanimoto係数（0～1）</strong>で比較します。<strong>1に近いほどfingerprint上の構造特徴がよく一致し、0に近いほど異なる</strong>ことを示します。<br/><br/>
-Morgan fingerprintは、原子の<strong>「周囲の局所構造」</strong>を捉えるため、置換基が1つ変わるだけでもその周辺の複数の特徴が変化し、見た目の共通部分が大きくてもTanimoto similarityが低くなることがあります。<br/><br/>
-※Morgan/Tanimoto値は<strong>構造特徴の類似度</strong>であり、「構造が○％同じ」という意味でも、患者個人の交差反応率を示す値でもありません。<br/>
-※このPicard版では、<strong>Picard 2019の原著値がある組み合わせを最優先</strong>し、原著未掲載のR1ペアおよびセフェムR2の比較にMorgan fingerprintを補助指標として使用します。</span></div>
 <div class="tool-item"><b>Picard 2019：Atom-Pair / Tanimoto</b><br/><span class="small">原著ではChemMine ToolsのSimilarity Workbenchを用い、Atom-Pair molecular descriptorsとTanimoto coefficientでR1 side-chain similarityを算出。本ツールではそのFigure 2A掲載値を直接収載する。</span></div>
 <div class="tool-item"><b>Atom-Pair molecular descriptorsとは</b><br/><span class="small">分子内の<strong>原子どうしの組み合わせ（Atom Pair）と、その原子間の距離・結合経路など</strong>を構造上の特徴として捉える方法です。<br/><br/>
 2つの側鎖について、共通するAtom Pairと、それぞれに固有のAtom Pairを比較し、<strong>Tanimoto係数（0～1）</strong>で類似性を数値化します。<strong>1に近いほど構造的な特徴が似ており、0に近いほど異なる</strong>ことを示します。<br/><br/>
