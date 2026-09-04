@@ -1004,21 +1004,6 @@ Q 381.3 306.3, 383.9 306.3
 <p class="note"><b>このツールの表示ルール：</b>Picard Figure 2Aに値がある組み合わせは<strong>原著のAtom-Pair / Tanimoto値</strong>を表示する。原著に値がない組み合わせではPicard scoreを推定せず、<strong>RDKitで作成したMorgan fingerprint / Tanimoto similarity</strong>を補助計算値として表示する。両者は画面上で明確に区別する。</p>
 </section>
 
-<section class="card">
-<h2>Picard 2019の解析群（セフェム側）</h2>
-<div class="meta-explain">
-  <b>いつ数字が出る？</b><br>
-  ペニシリン系薬と、Picard 2019の群別メタ解析に対応するセファロスポリンを組み合わせた場合に表示する。<br><br>
-  <b>何を表す数字？</b><br>
-  選択したセファロスポリンが、ペニシリン系薬との<strong>最高R1 similarity</strong>によって分類された群と、その群で報告された<strong>統合交差反応率</strong>を表示する。
-</div>
-<div class="paper-live">
-  <span>原著で各セフェムに付与された「最高R1 similarity」に基づく群</span>
-  <div class="big" id="papersim">—</div>
-  <p class="small" id="paperdesc">条件に該当するペニシリン–セフェムの組み合わせを選ぶと表示する。</p>
-</div>
-<p class="small"><b>重要：</b>ここに出る16.45%、5.60%、2.11%は選択した2剤固有の交差反応率ではない。PicardらがセフェムをR1 similarity群に分けて統合したメタ解析値である。また、対象患者のほとんどはaminopenicillin allergyであり、penicillin G、cloxacillin、piperacillin等の非aminopenicillin allergyへの適用は不明確と原著で述べられている。</p>
-</section>
 <section class="card explain"><h2>判定について</h2><p>R1側鎖はβラクタム交差反応性の主要な決定因子ですが、PicardのSimilarity scoreそのものは個々の患者のアレルギー発症確率ではない。特にセフタジジム–アズトレオナムのような既知の同一R1関係は、機械スコアに加えて臨床ルールとして明示的に扱っています。</p><p class="small"><span>※ 教育・臨床判断支援用の試作であり、ツール単独で判断しないように。</span></p></section>
 <section class="card references">
 <h2>使用ツール・計算方法</h2>
