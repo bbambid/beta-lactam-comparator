@@ -553,6 +553,8 @@ body.compact-view .deep-section{display:none}
 @media(max-width:700px){.ph-qgrid{grid-template-columns:1fr}}
 
 .ph-reverse{margin-top:11px;padding-top:10px;border-top:1px solid #e3e9ef}.ph-reverse-title{font-size:11px;font-weight:900;margin-bottom:7px}.ph-reverse-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}.ph-reverse label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.ph-reverse select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.ph-reverse-result{margin-top:8px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.ph-reverse-result b{display:block;font-size:12px;margin-bottom:3px}@media(max-width:700px){.ph-reverse-grid{grid-template-columns:1fr}}
+
+.cap-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.cap-cds.show{display:block}.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.cap-field label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.cap-field select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.cap-result{margin-top:9px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.cap-result b{display:block;font-size:12px;margin-bottom:3px}.cap-warn{margin-top:7px;padding:8px;border-radius:8px;background:#fffaf0;border:1px solid #ead9ad}@media(max-width:700px){.cap-grid{grid-template-columns:1fr}}
 </style>
 
 
@@ -943,7 +945,18 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="qc-text">下の「標的菌」と「βラクタムの位置づけ」を先に確認し、必要なときだけ比較表・アレルギー・Evidenceへ進みます。薬剤の順位は各疾患データに登録されたガイドライン上の位置づけをそのまま表示し、根拠のない順位づけは行いません。</div>
   </section>
 
-  <section id="pharynxCds" class="pharynx-cds">
+  <section id="capCds" class="cap-cds">
+ <div class="branch-title">成人市中肺炎｜処方から逆引き</div>
+ <div class="branch-sub">薬局で分かる処方と診療情報から、βラクタムが何を狙う処方か・非定型病原体のカバーがあるかを確認します。重症度や診断をツール側で推定しません。</div>
+ <div class="cap-grid">
+  <div class="cap-field"><label>現在の処方</label><select id="capDrug"><option value="ampc_cva">CVA/AMPC＋高用量AMPC</option><option value="cdtr">CDTR-PI 高用量</option><option value="fq">レスピラトリーキノロン</option><option value="beta_macro">βラクタム＋マクロライド</option><option value="beta_only">その他βラクタム単剤</option><option value="other">その他</option></select></div>
+  <div class="cap-field"><label>非定型肺炎の情報</label><select id="capAtypical"><option value="unknown">不明</option><option value="suspect">疑いあり</option><option value="unlikely">疑い低い</option></select></div>
+  <div class="cap-field"><label>レジオネラの情報</label><select id="capLegionella"><option value="unknown">不明</option><option value="suspect">疑いあり</option><option value="negative">検査陰性 / 疑い低い</option></select></div>
+  <div class="cap-field"><label>慢性呼吸器疾患など</label><select id="capComorb"><option value="unknown">不明</option><option value="yes">あり</option><option value="no">なし</option></select></div>
+ </div>
+ <div id="capResult" class="cap-result"></div>
+</section>
+<section id="pharynxCds" class="pharynx-cds">
   <div class="branch-title">急性咽頭炎｜薬局で確認できるGAS評価</div>
   <div class="branch-sub">CentorはGASの可能性を考える補助。スコアだけで抗菌薬適応を決めず、検査結果と合わせて確認します。</div>
   <div class="ph-qgrid">
@@ -1051,7 +1064,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v18 / Pharyngitis reverse lookup
+    Clinical Reference UI concept v19 / CAP reverse lookup
   </footer>
 </main>
 
@@ -2270,6 +2283,23 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22"}
     }
   };
+  function renderCapReverse(){
+    const out=$("capResult"); if(!out)return;
+    const d=$("capDrug")?.value||"ampc_cva", a=$("capAtypical")?.value||"unknown", l=$("capLegionella")?.value||"unknown", co=$("capComorb")?.value||"unknown";
+    const dn={ampc_cva:"CVA/AMPC＋高用量AMPC",cdtr:"CDTR-PI高用量",fq:"レスピラトリーキノロン",beta_macro:"βラクタム＋マクロライド",beta_only:"その他βラクタム単剤",other:"その他"}[d];
+    let body="";
+    if(d==="ampc_cva") body="細菌性CAPを想定したβラクタム中心の処方として位置づけを確認できます。";
+    else if(d==="cdtr") body="H. influenzae、特にBLNARを考慮する場面で高用量CDTR-PIが専門GLに記載される処方です。";
+    else if(d==="fq") body="細菌性・非定型の鑑別が難しい場合や、患者背景などに応じてレスピラトリーキノロンが位置づけられることがあります。";
+    else if(d==="beta_macro") body="βラクタムで典型細菌を、マクロライドで非定型病原体を考慮した組み合わせとして処方意図を確認できます。";
+    else if(d==="beta_only") body="βラクタム単剤は肺炎球菌・H. influenzae等の典型細菌を狙う一方、MycoplasmaやLegionellaはカバーしません。";
+    else body="処方だけではGL上の位置づけを特定できません。診断・重症度・原因微生物・患者背景を確認します。";
+    let warn="";
+    if((a==="suspect"||l==="suspect")&&(d==="ampc_cva"||d==="cdtr"||d==="beta_only")) warn='<div class="cap-warn"><b>確認ポイント</b>非定型肺炎またはLegionellaが疑われる情報があります。βラクタム単独ではこれらをカバーしないため、処方意図・検査結果を確認します。</div>';
+    if(co==="yes") warn+='<div class="cap-warn"><b>患者背景</b>慢性呼吸器疾患などの基礎疾患は抗菌薬選択に影響します。処方だけで適否を断定しません。</div>';
+    out.innerHTML="<b>"+dn+"｜逆引き結果</b>"+body+warn+'<div class="branch-source">参考：成人肺炎診療ガイドライン2024。詳細な治療アルゴリズムは公式資料を参照。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+  }
+
   function renderPharynxReverse(){
     const out=$("phReverseResult"); if(!out)return;
     const drug=$("phDrug")?.value||"none", days=$("phDays")?.value||"unknown", gas=$("phReverseGas")?.value||"unknown";
@@ -2441,6 +2471,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
     ["phFever","phNoCough","phNodes","phExudate","phGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynx;});
     ["phDrug","phDays","phReverseGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynxReverse;});
+    ["capDrug","capAtypical","capLegionella","capComorb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomDay","aomResponse"].forEach(id=>{if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
@@ -2463,6 +2494,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     $("sinusBranch").classList.toggle("show",x.id==="sinus"); if(x.id==="sinus")renderSinusBranch();
     $("aomBranch").classList.toggle("show",x.id==="aom"); if(x.id==="aom")renderAomBranch();
     $("pharynxCds").classList.toggle("show",x.id==="pharynx"); if(x.id==="pharynx")renderPharynx();
+    $("capCds").classList.toggle("show",x.id==="cap"); if(x.id==="cap")renderCapReverse();
     $("summaryHero").innerHTML=`<div class="summary-kicker">CURRENT SYNDROME</div><h2>${esc(x.name)}</h2><div class="summary-line">${esc(x.lead)}</div><div class="summary-chiprow">${x.chips.map((c,i)=>`<span class="chip ${i===0?'good':'warn'}">${esc(c)}</span>`).join('')}</div>`;
 
     renderDecisionZone(x);
