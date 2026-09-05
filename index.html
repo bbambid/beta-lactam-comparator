@@ -628,7 +628,7 @@ Q 424.7 304.9, 427.3 304.9
 </div>
 <div class="skeleton-panel">
 <div class="skeleton-name">セフェム骨格</div>
-<div class="compare-rule">セフェム系同士は7位側鎖（R1）を主に比較<br>3位側鎖（R2）は補助比較</div>
+<div class="compare-rule">セフェム系同士は7位側鎖（R1）を主に比較<br>3位側鎖（R2）は補助比較（3位側鎖の一致は7位/R1ほど確立した予測因子ではない）</div>
 <div aria-label="セフェム骨格。R1は左上、βラクタムNは右下、βラクタムカルボニルは左下、正六角形に近い6員環は右側、R2は右側。立体化学表示なし。" class="rdkit-scaffold" role="img"><svg baseprofile="full" height="100%" version="1.1" viewbox="0 0 620 330" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:rdkit="http://www.rdkit.org/xml" xmlns:xlink="http://www.w3.org/1999/xlink">
 <!-- END OF HEADER -->
 <rect height="330.0" style="opacity:1.0;fill:#FFFFFF;stroke:none" width="620.0" x="0.0" y="0.0"> </rect>
@@ -911,7 +911,7 @@ Q 381.3 306.3, 383.9 306.3
 <div class="scaffold-caption">7位側鎖（R1）／3位側鎖（R2）</div>
 </div>
 </div>
-<p class="compare-footnote"><b>重要：</b>3位側鎖の一致は7位/R1ほど確立した予測因子ではない。R1を主軸として解釈する。<br>例：<b>アンピシリン―セファクロル／セファレキシン</b>など、aminopenicillinとaminocephalosporinにはR1側鎖が同一・近似する組み合わせがある。「ペニシリンとセフェムは別系統だから大丈夫」とは扱わない。</p>
+<p class="compare-footnote"><b>重要：</b><br><b>アンピシリン―セファクロル／セファレキシン</b>など、aminopenicillinとaminocephalosporinにはR1側鎖が同一・近似する組み合わせがある。「ペニシリンとセフェムは別系統だから大丈夫」とは扱わない。</p>
 </section>
 <div class="paperbox" style="grid-template-columns:1fr">
 <div>
@@ -930,7 +930,7 @@ Q 381.3 306.3, 383.9 306.3
 
 <p class="small" style="margin-bottom:0"><b>表示の意味：</b>
   <span style="background:#ff1744;padding:1px 5px;border-radius:4px;color:#111"><b>蛍光赤色</b></span>＝両薬で共通する側鎖構造 ／ <span style="background:#ffea00;padding:1px 5px;border-radius:4px;color:#111"><b>蛍光黄色</b></span>＝片方だけにある構造。
-  この版のR1 similarityは<b>Picard 2019 Figure 2Aに掲載された値をそのまま表示</b>する。掲載のない組み合わせは推定せず「データなし」とする。</p>
+  Picard 2019に掲載のある組み合わせは<b>文献値を表示</b>し、掲載のない組み合わせは<b>Morgan/Tanimoto similarityによる本ツールの補助計算値</b>を表示する。<br><span style="font-size:11px">※ Atom-PairとMorganは異なるfingerprintを用いるため、両者の数値を同一尺度として直接比較しない。</span></p>
 </section>
 <section class="card"><div class="pickers"><div><label>薬剤A</label><select id="a"><option value="benzyl">ベンジルペニシリン</option><option value="ampi">アンピシリン</option><option value="amox">アモキシシリン</option><option value="pip">ピペラシリン</option><option value="clox">クロキサシリン</option><option value="cefaclor">セファクロル</option><option value="cephalexin">セファレキシン</option><option value="cefazolin">セファゾリン</option><option value="cephalothin">セファロチン</option><option value="cefuroxime">セフロキシム</option><option value="cefotiam">セフォチアム</option><option value="ceftriaxone">セフトリアキソン</option><option value="cefdinir">セフジニル</option><option value="cefditoren">セフジトレン</option><option value="cefcapene">セフカペン</option><option value="cefpodoxime">セフポドキシム</option><option value="cefixime">セフィキシム</option><option value="cefteram">セフテラム</option><option value="cefotaxime">セフォタキシム</option><option value="cefmenoxime">セフメノキシム</option><option value="cefepime">セフェピム</option><option value="ceftazidime">セフタジジム</option><option value="cefmetazole">セフメタゾール</option><option value="aztreonam">アズトレオナム</option></select></div><div><label>薬剤B</label><select id="b"><option value="benzyl">ベンジルペニシリン</option><option value="ampi">アンピシリン</option><option value="amox">アモキシシリン</option><option value="pip">ピペラシリン</option><option value="clox">クロキサシリン</option><option value="cefaclor">セファクロル</option><option value="cephalexin">セファレキシン</option><option value="cefazolin">セファゾリン</option><option value="cephalothin">セファロチン</option><option value="cefuroxime">セフロキシム</option><option value="cefotiam">セフォチアム</option><option value="ceftriaxone">セフトリアキソン</option><option value="cefdinir">セフジニル</option><option value="cefditoren">セフジトレン</option><option value="cefcapene">セフカペン</option><option value="cefpodoxime">セフポドキシム</option><option value="cefixime">セフィキシム</option><option value="cefteram">セフテラム</option><option value="cefotaxime">セフォタキシム</option><option value="cefmenoxime">セフメノキシム</option><option value="cefepime">セフェピム</option><option value="ceftazidime">セフタジジム</option><option value="cefmetazole">セフメタゾール</option><option value="aztreonam">アズトレオナム</option></select></div></div></section>
 <div class="drugs"><section class="card"><div class="drug-title"><h2 id="an"></h2><span class="badge" id="ac"></span></div><div class="structure" id="ai"></div><p class="legend"><span class="swatch common"></span><b>蛍光赤：</b>2剤のR1で共通する部分　<span class="swatch unique"></span><b>蛍光黄色：</b>この薬にだけあるR1部分<br/></p><b id="al"></b><p class="small"><code id="ar"></code></p></section>
