@@ -557,6 +557,8 @@ body.compact-view .deep-section{display:none}
 .cap-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.cap-cds.show{display:block}.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.cap-field label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.cap-field select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.cap-result{margin-top:9px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.cap-result b{display:block;font-size:12px;margin-bottom:3px}.cap-warn{margin-top:7px;padding:8px;border-radius:8px;background:#fffaf0;border:1px solid #ead9ad}@media(max-width:700px){.cap-grid{grid-template-columns:1fr}}
 
 .aom-audit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.aom-audit-grid .full{grid-column:1/-1}.aom-audit-note{margin-top:8px;padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#f8fafc;font-size:10px;line-height:1.55}.aom-audit-note.warn{background:#fffaf0;border-color:#ead9ad}.aom-audit-note.danger{background:#fff4f2;border-color:#efc9c3}.aom-dose-line{display:flex;gap:7px;align-items:center}.aom-dose-line input{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}@media(max-width:700px){.aom-audit-grid{grid-template-columns:1fr}.aom-audit-grid .full{grid-column:auto}}
+
+.uti-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.uti-cds.show{display:block}.uti-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.uti-field label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.uti-field select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.uti-check{margin-top:9px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.uti-check b{display:block;font-size:12px;margin-bottom:3px}.uti-alert{margin-top:7px;padding:8px;border-radius:8px;background:#fffaf0;border:1px solid #ead9ad}.uti-critical{background:#fff4f2;border-color:#e9c4bd}@media(max-width:700px){.uti-grid{grid-template-columns:1fr}}
 </style>
 
 
@@ -947,7 +949,18 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="qc-text">下の「標的菌」と「βラクタムの位置づけ」を先に確認し、必要なときだけ比較表・アレルギー・Evidenceへ進みます。薬剤の順位は各疾患データに登録されたガイドライン上の位置づけをそのまま表示し、根拠のない順位づけは行いません。</div>
   </section>
 
-  <section id="capCds" class="cap-cds">
+  <section id="utiCds" class="uti-cds">
+ <div class="branch-title">尿路感染症｜薬局処方監査</div>
+ <div class="branch-sub">入力するのは判断が変わる項目だけ。まず「膀胱炎」として処方された患者に、上部尿路感染・無症候性細菌尿・培養確認など別の評価が必要なサインがないか確認します。</div>
+ <div class="uti-grid">
+  <div class="uti-field"><label>尿路症状</label><select id="utiSymptoms"><option value="yes">排尿痛・頻尿・尿意切迫などあり</option><option value="none">尿路症状なし</option><option value="unknown">不明</option></select></div>
+  <div class="uti-field"><label>発熱 / 悪寒 / 側腹部・背部痛</label><select id="utiUpper"><option value="no">なし</option><option value="yes">あり</option><option value="unknown">不明</option></select></div>
+  <div class="uti-field" id="utiPregWrap" style="display:none"><label>妊娠</label><select id="utiPreg"><option value="no">妊娠していない</option><option value="yes">妊娠中</option><option value="unknown">不明</option></select></div>
+  <div class="uti-field" id="utiCultureWrap" style="display:none"><label>尿培養・感受性</label><select id="utiCulture"><option value="unknown">未確認 / 不明</option><option value="pending">採取済み・結果待ち</option><option value="known">結果確認済み</option></select></div>
+ </div>
+ <div id="utiResult" class="uti-check"></div>
+</section>
+<section id="capCds" class="cap-cds">
  <div class="branch-title">成人市中肺炎｜処方監査カード</div>
  <div class="branch-sub">まず処方薬だけ選択。選んだ薬で確認価値がある質問だけ追加表示し、回答によって監査結果が変わります。</div>
  <div class="cap-grid">
@@ -1066,8 +1079,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v21 / AOM advanced pharmacy audit
-  </footer>
+    Clinical Reference UI concept v22 / UTI pharmacist audit</footer>
 </main>
 
 <div class="modal-backdrop" id="aboutModal" hidden>
@@ -2285,6 +2297,30 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22"}
     }
   };
+  function renderUtiAudit(){
+    const out=$("utiResult"); if(!out)return;
+    const s=$("utiSymptoms")?.value||"yes", u=$("utiUpper")?.value||"no", p=$("utiPreg")?.value||"no", cul=$("utiCulture")?.value||"unknown";
+    if($("utiPregWrap")) $("utiPregWrap").style.display=s==="none"?"block":"none";
+    if($("utiCultureWrap")) $("utiCultureWrap").style.display=u==="yes"?"block":"none";
+    let title="単純性膀胱炎としての監査",body="尿路症状があり、発熱・悪寒・側腹部/背部痛がなければ、まず下部尿路感染として処方内容を確認します。",alerts="";
+    if(u==="yes"){
+      title="⚠ 腎盂腎炎を考えるサイン";
+      body="発熱・悪寒・側腹部/背部痛がある場合、単純性膀胱炎として処方だけを見るのではなく上部尿路感染としての評価状況を確認します。";
+      if(cul==="unknown") alerts+="<div class='uti-alert'><b>尿培養を確認</b>腎盂腎炎が疑われる場面では、培養・感受性結果が後の抗菌薬選択を変え得ます。採取状況を確認。</div>";
+      if(cul==="known") alerts+="<div class='uti-alert'><b>感受性結果あり</b>empiric therapyのままではなく、培養・感受性に合わせた治療になっているか確認。</div>";
+    }else if(s==="none"){
+      title="抗菌薬を始める前に確認";
+      body="尿路症状がない場合は、細菌尿があるだけで治療対象とは限りません。";
+      if(p==="yes") alerts+="<div class='uti-alert'><b>妊娠中</b>無症候性細菌尿でも扱いが異なるため、培養結果と治療方針を確認します。</div>";
+      else if(p==="no") alerts+="<div class='uti-alert uti-critical'><b>⚠ 無症候性細菌尿の可能性</b>妊娠など治療対象となる例外がなければ、抗菌薬適応そのものを確認したい場面です。</div>";
+      else alerts+="<div class='uti-alert'><b>妊娠の有無を確認</b>無症候性細菌尿では、この情報によって抗菌薬適応の判断が変わります。</div>";
+    }else if(s==="unknown"){
+      title="まず症状を1点確認";
+      body="尿検査陽性だけでは感染症として治療すべきか判断できません。排尿痛・頻尿・尿意切迫などの症状の有無を確認します。";
+    }
+    out.innerHTML="<b>"+title+"</b>"+body+alerts+'<div class="branch-source">Evidence：尿路感染症の詳細薬剤選択はJAID/JSC感染症治療ガイド2023を参照。耐性菌検出時は厚労省 抗微生物薬適正使用の手引き 第四版「薬剤耐性菌感染症の抗菌薬適正使用編」を別レイヤーで確認。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+  }
+
   function renderCapReverse(){
     const out=$("capResult"); if(!out)return;
     const d=$("capDrug")?.value||"ampc_cva", a=$("capAtypical")?.value||"unknown", bl=$("capBlnar")?.value||"unknown", tb=$("capTb")?.value||"unknown";
@@ -2477,6 +2513,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["phFever","phNoCough","phNodes","phExudate","phGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynx;});
     ["phDrug","phDays","phReverseGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynxReverse;});
     ["capDrug","capAtypical","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
+    ["utiSymptoms","utiUpper","utiPreg","utiCulture"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomWeight","aomDailyMg","aomPivRecent","aom6m","aom12m"].forEach(id=>{if($(id))$(id).oninput=renderAomReverse;if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
@@ -2500,6 +2537,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     $("aomBranch").classList.toggle("show",x.id==="aom"); if(x.id==="aom")renderAomBranch();
     $("pharynxCds").classList.toggle("show",x.id==="pharynx"); if(x.id==="pharynx")renderPharynx();
     $("capCds").classList.toggle("show",x.id==="cap"); if(x.id==="cap")renderCapReverse();
+    $("utiCds").classList.toggle("show",x.id==="cystitis"||x.id==="pyelo"); if(x.id==="cystitis"||x.id==="pyelo")renderUtiAudit();
     $("summaryHero").innerHTML=`<div class="summary-kicker">CURRENT SYNDROME</div><h2>${esc(x.name)}</h2><div class="summary-line">${esc(x.lead)}</div><div class="summary-chiprow">${x.chips.map((c,i)=>`<span class="chip ${i===0?'good':'warn'}">${esc(c)}</span>`).join('')}</div>`;
 
     renderDecisionZone(x);
