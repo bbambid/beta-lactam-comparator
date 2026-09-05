@@ -488,6 +488,15 @@ body.compact-view .deep-section{display:none}
 .branch-seg button.active{background:#fff;color:#102a43;box-shadow:0 1px 4px #102a4320}.branch-result{margin-top:10px;border-radius:12px;padding:12px 13px;background:#f7fafc;border:1px solid #e5ebf1}
 .br-label{font-size:9px;font-weight:900;letter-spacing:.08em;color:#667085}.br-main{font-size:15px;font-weight:900;margin-top:4px;line-height:1.45}.br-note{font-size:11px;color:#667085;line-height:1.55;margin-top:4px}.branch-source{font-size:9px;color:#667085;margin-top:7px}
 @media(max-width:700px){.branch-controls{grid-template-columns:1fr}}
+
+.sinus-score{margin-top:12px;border-top:1px solid #e5ebf1;padding-top:11px}
+.score-title{font-size:11px;font-weight:900;margin-bottom:3px}.score-sub{font-size:9px;color:#667085;line-height:1.45;margin-bottom:8px}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.score-item{min-width:0}.score-item label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}
+.score-item select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px 7px;font-size:10px;color:#344054}
+.score-summary{display:flex;align-items:center;gap:8px;margin-top:9px;padding:8px 10px;border-radius:9px;background:#eef4fb}
+.score-number{font-size:20px;font-weight:900;color:#102a43}.score-grade{font-size:11px;font-weight:900}.score-note{font-size:9px;color:#667085;margin-left:auto}
+@media(max-width:700px){.score-grid{grid-template-columns:1fr}.score-summary{align-items:flex-start}.score-note{margin-left:0}}
 </style>
 
 
@@ -878,7 +887,17 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="qc-text">下の「標的菌」と「βラクタムの位置づけ」を先に確認し、必要なときだけ比較表・アレルギー・Evidenceへ進みます。薬剤の順位は各疾患データに登録されたガイドライン上の位置づけをそのまま表示し、根拠のない順位づけは行いません。</div>
   </section>
 
-  <section id="sinusBranch" class="sinus-branch"><div class="branch-title">急性鼻副鼻腔炎｜治療分岐</div><div class="branch-sub">年齢区分と重症度を選ぶと、最初に見る治療方針を切り替えます。</div><div class="branch-controls"><div class="branch-field"><label>対象</label><div class="branch-seg" id="sinusAge"><button type="button" data-v="adult" class="active">成人</button><button type="button" data-v="child">学童期以降の小児</button></div></div><div class="branch-field"><label>重症度</label><div class="branch-seg" id="sinusSeverity"><button type="button" data-v="mild">軽症</button><button type="button" data-v="moderate" class="active">中等症</button><button type="button" data-v="severe">重症</button></div></div></div><div id="sinusBranchResult" class="branch-result"></div></section>
+  <section id="sinusBranch" class="sinus-branch"><div class="branch-title">急性鼻副鼻腔炎｜治療分岐</div><div class="branch-sub">年齢区分と重症度を選ぶと、最初に見る治療方針を切り替えます。</div><div class="branch-controls"><div class="branch-field"><label>対象</label><div class="branch-seg" id="sinusAge"><button type="button" data-v="adult" class="active">成人</button><button type="button" data-v="child">学童期以降の小児</button></div></div><div class="branch-field"><label>重症度</label><div class="branch-seg" id="sinusSeverity"><button type="button" data-v="mild">軽症</button><button type="button" data-v="moderate" class="active">中等症</button><button type="button" data-v="severe">重症</button></div></div></div><div id="sinusBranchResult" class="branch-result"></div>
+<div id="sinusScore" class="sinus-score">
+  <div class="score-title">成人｜重症度スコア自動判定</div>
+  <div class="score-sub">鼻漏 0–2点＋顔面痛/前頭部痛 0–2点＋鼻汁/後鼻漏 0・2・4点。合計から重症度を自動判定し、上の重症度ボタンと治療方針を連動します。</div>
+  <div class="score-grid">
+    <div class="score-item"><label>鼻漏</label><select id="scoreRhinorrhea"><option value="0">なし：0</option><option value="1">軽度 / 少量：1</option><option value="2">中等以上：2</option></select></div>
+    <div class="score-item"><label>顔面痛・前頭部痛</label><select id="scorePain"><option value="0">なし：0</option><option value="1">軽度：1</option><option value="2">中等以上：2</option></select></div>
+    <div class="score-item"><label>鼻汁・後鼻漏</label><select id="scoreDischarge"><option value="0">なし / 漿液性：0</option><option value="2">粘膿性 少量：2</option><option value="4">中等量以上：4</option></select></div>
+  </div>
+  <div class="score-summary"><div id="scoreNumber" class="score-number">0</div><div><div id="scoreGrade" class="score-grade">0点</div><div class="score-note">1–3 軽症 / 4–6 中等症 / 7–8 重症</div></div></div>
+</div></section>
 <section id="decisionZone" class="decision-zone" aria-label="治療の要点"></section>
   <div class="guideline-rule">薬剤の「第一選択・代替・条件付き」は、各疾患データに登録されたガイドライン上の位置づけを表示します。順位が明示されない場合は、無理に第一選択へ分類しません。</div>
 
@@ -931,7 +950,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v6 / Rhinosinusitis
+    Clinical Reference UI concept v7 / Sinus score-linked
   </footer>
 </main>
 
@@ -2144,9 +2163,26 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第三版"}
     }
   };
-  function renderSinusBranch(){
+  function calcSinusScore(){
+    if(sinusAge!=="adult") return;
+    const ids=["scoreRhinorrhea","scorePain","scoreDischarge"];
+    if(ids.some(id=>!$(id))) return;
+    const score=ids.reduce((n,id)=>n+Number($(id).value||0),0);
+    let grade,sev;
+    if(score===0){grade="0点｜所見なし";sev="mild";}
+    else if(score<=3){grade=score+"点｜軽症";sev="mild";}
+    else if(score<=6){grade=score+"点｜中等症";sev="moderate";}
+    else{grade=score+"点｜重症";sev="severe";}
+    $("scoreNumber").textContent=score;
+    $("scoreGrade").textContent=grade;
+    sinusSeverity=sev;
+    renderSinusBranch(false);
+  }
+
+  function renderSinusBranch(updateScore=true){
     const r=$("sinusBranchResult"); if(!r)return;
     const d=SINUS_BRANCH[sinusAge][sinusSeverity];
+    if($("sinusScore")) $("sinusScore").style.display=sinusAge==="adult"?"block":"none";
     r.innerHTML=`<div class="br-label">CURRENT PATH</div><div class="br-main">${esc(d.main)}</div><div class="br-note">${esc(d.note)}</div><div class="branch-source">根拠：${esc(d.src)}</div>`;
     document.querySelectorAll("#sinusAge button").forEach(b=>b.classList.toggle("active",b.dataset.v===sinusAge));
     document.querySelectorAll("#sinusSeverity button").forEach(b=>b.classList.toggle("active",b.dataset.v===sinusSeverity));
@@ -2160,6 +2196,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     select.onchange=()=>render(select.value);
     document.querySelectorAll("#sinusAge button").forEach(b=>b.onclick=()=>{sinusAge=b.dataset.v;renderSinusBranch();});
     document.querySelectorAll("#sinusSeverity button").forEach(b=>b.onclick=()=>{sinusSeverity=b.dataset.v;renderSinusBranch();});
+    ["scoreRhinorrhea","scorePain","scoreDischarge"].forEach(id=>{if($(id))$(id).onchange=calcSinusScore;});
     $("allergySelect").onchange=renderAllergy;
     document.body.classList.add("compact-view");
     const detailToggle=$("detailToggle");
