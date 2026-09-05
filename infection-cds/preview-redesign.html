@@ -555,6 +555,8 @@ body.compact-view .deep-section{display:none}
 .ph-reverse{margin-top:11px;padding-top:10px;border-top:1px solid #e3e9ef}.ph-reverse-title{font-size:11px;font-weight:900;margin-bottom:7px}.ph-reverse-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}.ph-reverse label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.ph-reverse select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.ph-reverse-result{margin-top:8px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.ph-reverse-result b{display:block;font-size:12px;margin-bottom:3px}@media(max-width:700px){.ph-reverse-grid{grid-template-columns:1fr}}
 
 .cap-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.cap-cds.show{display:block}.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.cap-field label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.cap-field select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.cap-result{margin-top:9px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.cap-result b{display:block;font-size:12px;margin-bottom:3px}.cap-warn{margin-top:7px;padding:8px;border-radius:8px;background:#fffaf0;border:1px solid #ead9ad}@media(max-width:700px){.cap-grid{grid-template-columns:1fr}}
+
+.aom-audit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.aom-audit-grid .full{grid-column:1/-1}.aom-audit-note{margin-top:8px;padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#f8fafc;font-size:10px;line-height:1.55}.aom-audit-note.warn{background:#fffaf0;border-color:#ead9ad}.aom-audit-note.danger{background:#fff4f2;border-color:#efc9c3}.aom-dose-line{display:flex;gap:7px;align-items:center}.aom-dose-line input{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}@media(max-width:700px){.aom-audit-grid{grid-template-columns:1fr}.aom-audit-grid .full{grid-column:auto}}
 </style>
 
 
@@ -978,16 +980,16 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 </section>
 <section id="aomBranch" class="aom-branch">
-  <div class="branch-title">小児急性中耳炎｜薬局向け治療確認</div>
-  <div class="branch-sub">鼓膜所見が不明な薬局では、正式な重症度を推定しません。処方と治療経過の位置づけを確認します。</div>
-  <div class="aom-entry"><button type="button" data-aom="pharmacy" class="active"><b>💊 処方から確認する</b><span>現在薬・治療日数・改善状況から、公開情報をもとに治療上の位置づけを確認します。</span></button></div>
-  <div id="aomResult" class="aom-box"></div>
-  <div id="aomReverse" class="aom-reverse">
-    <div class="aom-reverse-title">処方から逆引き｜GL上の現在位置</div>
-    <div class="aom-reverse-grid">
-      <div><label>現在の抗菌薬</label><select id="aomDrug"><option value="none">抗菌薬なし</option><option value="ampc_std">AMPC 常用量</option><option value="ampc_high">AMPC 高用量</option><option value="cva">CVA/AMPC 1:14</option><option value="cdtr_std">CDTR-PI 常用量</option><option value="cdtr_high">CDTR-PI 高用量</option><option value="tbpm">TBPM-PI</option><option value="tflx">TFLX</option><option value="abpc">ABPC 点滴</option><option value="ctrx">CTRX 点滴</option></select></div>
-      <div><label>治療経過</label><select id="aomDay"><option value="start">開始時</option><option value="3to5">3〜5日後</option><option value="later">それ以降</option></select></div>
-      <div><label>臨床経過</label><select id="aomResponse"><option value="unknown">不明</option><option value="better">改善あり</option><option value="same">改善なし</option><option value="worse">悪化</option></select></div>
+  <div class="branch-title">小児急性中耳炎｜高度な薬局処方監査</div>
+  <div class="branch-sub">処方箋＋薬歴で薬剤師が確認できる項目に絞ります。鼓膜所見から重症度や治療アルゴリズムを再現しません。</div>
+  <div class="aom-reverse">
+    <div class="aom-reverse-title">まず現在の抗菌薬を選択</div>
+    <div class="aom-audit-grid">
+      <div><label>現在の抗菌薬</label><select id="aomDrug"><option value="none">抗菌薬なし</option><option value="ampc">AMPC</option><option value="cva">CVA/AMPC</option><option value="cdtr">CDTR-PI</option><option value="cfpn">CFPN-PI</option><option value="cftm">CFTM-PI</option><option value="tbpm">TBPM-PI</option><option value="tflx">TFLX</option><option value="other">その他</option></select></div>
+      <div id="aomDoseWrap"><label>体重用量監査（抗菌薬のみ）</label><div class="aom-dose-line"><input id="aomWeight" inputmode="decimal" type="number" min="0" step="0.1" placeholder="体重 kg"><input id="aomDailyMg" inputmode="decimal" type="number" min="0" step="1" placeholder="1日量 mg"></div></div>
+      <div id="aomPivWrap" class="full" style="display:none"><label>ピボキシル系の最近の使用</label><select id="aomPivRecent"><option value="unknown">不明</option><option value="none">最近なし</option><option value="repeat">最近も使用 / 反復処方</option></select></div>
+      <div><label>直近6か月の中耳炎回数（今回を含む）</label><select id="aom6m"><option value="unknown">不明</option><option value="1">1回</option><option value="2">2回</option><option value="3">3回以上</option></select></div>
+      <div><label>直近12か月の中耳炎回数（今回を含む）</label><select id="aom12m"><option value="unknown">不明</option><option value="1">1回</option><option value="2">2回</option><option value="3">3回</option><option value="4">4回以上</option></select></div>
     </div>
     <div id="aomPosition" class="aom-position"></div>
   </div>
@@ -1064,7 +1066,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v20 / CAP audit card
+    Clinical Reference UI concept v21 / AOM advanced pharmacy audit
   </footer>
 </main>
 
@@ -2425,23 +2427,23 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 
   function renderAomReverse(){
     const out=$("aomPosition"); if(!out)return;
-    const drug=$("aomDrug")?.value||"none", day=$("aomDay")?.value||"start", response=$("aomResponse")?.value||"unknown";
-    const names={none:"抗菌薬なし",ampc_std:"AMPC常用量",ampc_high:"AMPC高用量",cva:"CVA/AMPC 1:14",cdtr_std:"CDTR-PI常用量",cdtr_high:"CDTR-PI高用量",tbpm:"TBPM-PI",tflx:"TFLX",abpc:"ABPC点滴",ctrx:"CTRX点滴"};
-    let title="GL上の位置づけを確認",body="鼓膜所見と正式な重症度が不明なため、処方だけから適否は断定しません。";
-    if(drug==="none") body+=" 軽症では抗菌薬非投与で3日間観察する経路があります。中等症・重症では抗菌薬治療の対象となるため、重症度情報が必要です。";
-    else if(drug==="ampc_high") body+=" AMPC高用量は2024年版で中等症の初期治療、および重症の初期選択肢に位置づけられます。";
-    else if(drug==="ampc_std") body+=" AMPC常用量は軽症で3日間の抗菌薬非投与観察後、改善がない場合の治療段階に位置づけられます。";
-    else if(["cva","cdtr_high","tflx","tbpm","abpc","ctrx"].includes(drug)) body+=" この薬剤は初回から一律に選ぶ薬ではなく、重症度・前治療への反応・原因菌/感受性などに応じた後続段階を含む選択肢です。";
-    else if(drug==="cdtr_std") body+=" CDTR-PI常用量は軽症でAMPC常用量後も改善しない場合など、GLアルゴリズム上の後続選択肢です。";
-    if(day==="3to5"&&response==="better") body+=" 現在改善しているなら、GLでは経過観察へ進み、抗菌薬は最低5日間投与する流れが示されています。";
-    if(day==="3to5"&&response==="same") body+=" 3〜5日で改善がなければ次段階を検討しますが、変更薬は重症度・現在薬・細菌検査で異なるため、この3項目だけから自動指定しません。";
-    if(response==="worse") body+=" 臨床症状が悪化する場合は抗菌薬変更を考慮するとされます。鼓膜所見・合併症・細菌検査を含めた再評価が必要です。";
-    let stage=1;
-    if(day==="3to5" && response==="better") stage=3;
-    else if(day==="3to5" && (response==="same"||response==="worse")) stage=2;
-    else if(["cva","cdtr_high","tbpm","tflx","abpc","ctrx"].includes(drug)) stage=2;
-    const node=(n,label,main,note)=>'<div class="aom-flow-node '+(stage===n?'active':stage>n?'done':'')+'"><div class="fn-step">'+label+'</div><b>'+main+'</b><span>'+note+'</span>'+(stage===n?'<em class="aom-flow-here">現在地</em>':'')+'</div>';
-    out.innerHTML="<b>"+names[drug]+"｜"+title+"</b>"+body+'<div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.85–90</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+    const drug=$("aomDrug")?.value||"none", w=Number($("aomWeight")?.value||0), mg=Number($("aomDailyMg")?.value||0);
+    const piv=["cdtr","cfpn","cftm","tbpm"].includes(drug), recent=$("aomPivRecent")?.value||"unknown", m6=$("aom6m")?.value||"unknown", m12=$("aom12m")?.value||"unknown";
+    if($("aomPivWrap")) $("aomPivWrap").style.display=piv?"block":"none";
+    if($("aomDoseWrap")) $("aomDoseWrap").style.display=drug==="none"?"none":"block";
+    const names={none:"抗菌薬なし",ampc:"AMPC",cva:"CVA/AMPC",cdtr:"CDTR-PI",cfpn:"CFPN-PI",cftm:"CFTM-PI",tbpm:"TBPM-PI",tflx:"TFLX",other:"その他"};
+    let cards="";
+    if(drug!=="none"){
+      if(w>0&&mg>0) cards+='<div class="aom-audit-note"><b>① 体重用量監査</b>処方量は <strong>'+(mg/w).toFixed(1)+' mg/kg/day</strong>。この値を薬剤ごとの承認用量・根拠データと照合します。成人量からの一律換算では判定しません。</div>';
+      else cards+='<div class="aom-audit-note"><b>① 体重用量監査</b>体重と抗菌薬の1日量を入力すると mg/kg/day を算出します。整腸剤など小児用量の根拠が異なる薬はここでは対象にしません。</div>';
+    }
+    if(piv){
+      cards+='<div class="aom-audit-note danger"><b>② ピボキシル安全性</b>CDTR-PI / CFPN-PI / CFTM-PI / TBPM-PI は低カルニチン血症とそれに伴う低血糖に注意。特に小児では処方歴も確認します。</div>';
+      if(recent==="repeat") cards+='<div class="aom-audit-note danger"><b>⚠ 反復使用を検出</b>最近もピボキシル系を使用しています。低カルニチン血症リスクを意識し、前回薬・投与期間・患者状態を確認。</div>';
+    }
+    if(m6==="3"||m12==="4") cards+='<div class="aom-audit-note warn"><b>③ 反復性中耳炎の可能性</b>6か月で3回以上または12か月で4回以上に該当。単発AOMの抗菌薬反復としてだけ扱わず、耳鼻科での反復性中耳炎としての評価状況を確認します。</div>';
+    else cards+='<div class="aom-audit-note"><b>③ 反復性中耳炎</b>薬歴から回数を確認すると、反復性中耳炎の可能性を拾えます。</div>';
+    out.innerHTML="<b>"+names[drug]+"｜薬局処方監査</b>"+cards+'<div class="branch-source">安全性：PMDAの各ピボキシル系製剤の注意喚起・電子添文。反復性の定義：日本耳鼻咽喉科頭頸部外科学会公開情報。治療アルゴリズム自体は本ツール上で再現しません。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
   }
 
   let aomMode="pharmacy";
@@ -2476,7 +2478,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["phDrug","phDays","phReverseGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynxReverse;});
     ["capDrug","capAtypical","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
-    ["aomDrug","aomDay","aomResponse"].forEach(id=>{if($(id))$(id).onchange=renderAomReverse;});
+    ["aomDrug","aomWeight","aomDailyMg","aomPivRecent","aom6m","aom12m"].forEach(id=>{if($(id))$(id).oninput=renderAomReverse;if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
     $("allergySelect").onchange=renderAllergy;
     document.body.classList.add("compact-view");
