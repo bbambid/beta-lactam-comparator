@@ -289,6 +289,12 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 }
 </style>
 
+<style id="compare-place-integration-preview">
+.skeleton-guide.compare-focus{border:2px solid #f59e0b;background:#fffaf0;box-shadow:0 3px 15px #f59e0b14}
+.skeleton-guide.compare-focus>h3{display:inline-flex;align-items:center;gap:7px;margin:0 0 7px;padding:5px 10px;border-radius:999px;background:#ffedd5;color:#9a3412;font-size:18px}
+.compare-focus .compare-lead{margin:0 0 12px;color:#475467}.compare-rule{margin:6px 0 2px;padding:8px 10px;border-radius:9px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12px;font-weight:800;line-height:1.55;text-align:center}
+.compare-focus .compare-arrow{display:grid;grid-template-columns:52px minmax(135px,.85fr) minmax(0,1.25fr);align-items:center;column-gap:9px;padding:7px 5px}.compare-focus .compare-arrow-line{grid-column:1;grid-row:1;margin:0}.compare-focus .compare-arrow>b{grid-column:2;grid-row:1;display:block;text-align:left;line-height:1.45}.compare-focus .compare-arrow-rule{grid-column:3;grid-row:1;margin:0;padding:6px 8px 6px 11px;border:0;border-left:1px solid #fdba74;border-radius:0;background:transparent;color:#9a3412;font-size:10px;font-weight:800;line-height:1.45;text-align:left}.compare-focus .compare-footnote{margin:11px 0 0;padding:10px 12px;border-top:1px dashed #fdba74;color:#667085;font-size:11px;line-height:1.7}
+@media(max-width:800px){.compare-focus .compare-arrow{grid-template-columns:46px minmax(120px,.9fr) minmax(0,1.25fr);column-gap:7px;padding:5px 2px}.compare-focus .compare-arrow-line{font-size:30px}.compare-focus .compare-arrow>b{font-size:11px;line-height:1.4}.compare-focus .compare-arrow-rule{font-size:9px;line-height:1.4;padding-left:8px}}</style>
 </head><body>
 <header><div><div style="font-size:12px;font-weight:800;letter-spacing:.08em;opacity:.85;margin-bottom:4px">PICARD 2019 PUBLISHED-DATA MODE</div><h1>βラクタム Side-chain Comparator｜Picard 2019 Published-score</h1></div></header><main>
 <section class="card" style="border-left:6px solid #2563eb">
@@ -371,14 +377,15 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
     </div>
   </div>
 </details>
-<section aria-label="βラクタム骨格と側鎖位置" class="skeleton-guide scaffold-rdkit">
+<section aria-label="βラクタム骨格と側鎖位置" class="skeleton-guide scaffold-rdkit compare-focus">
 <h3>どこを比べる？</h3>
-<p class="small" style="margin-top:0">
-    ペニシリンの<b>6位側鎖（R1）</b>とセフェム系の<b>7位側鎖（R1）</b>が主な比較ポイント。ここでいう<b>セフェム系</b>には、セファロスポリン系とセファマイシン系を含む。セフェム系同士では<b>3位側鎖（R2）</b>も補助的に比較する。
-  </p>
+<p class="small compare-lead">
+  ここでいう<b>セフェム系</b>には、セファロスポリン系とセファマイシン系を含む。比較する位置は、下の骨格図で確認する。
+</p>
 <div class="skeleton-grid rdkit-scaffold-grid">
 <div class="skeleton-panel">
 <div class="skeleton-name">ペナム骨格</div>
+<div class="compare-rule">ペナム同士は6位側鎖（R1）を比較</div>
 <div aria-label="ペナム骨格。R1は左上、βラクタムNは右下、βラクタムカルボニルは左下、正五角形に近い5員環は右側。立体化学表示なし。" class="rdkit-scaffold" role="img"><svg baseprofile="full" height="100%" version="1.1" viewbox="0 0 620 330" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:rdkit="http://www.rdkit.org/xml" xmlns:xlink="http://www.w3.org/1999/xlink">
 <!-- END OF HEADER -->
 <rect height="330.0" style="opacity:1.0;fill:#FFFFFF;stroke:none" width="620.0" x="0.0" y="0.0"> </rect>
@@ -617,9 +624,11 @@ Q 424.7 304.9, 427.3 304.9
 <div class="compare-arrow">
 <div class="compare-arrow-line">↔</div>
 <b>R1が同一・類似すると<br/>交差反応に注意</b>
+<div class="compare-arrow-rule">ペナム ↔ セフェム系では<br>ペナム6位側鎖（R1）と<br>セフェム系7位側鎖（R1）を比較</div>
 </div>
 <div class="skeleton-panel">
 <div class="skeleton-name">セフェム骨格</div>
+<div class="compare-rule">セフェム系同士は7位側鎖（R1）を主に比較<br>3位側鎖（R2）は補助比較</div>
 <div aria-label="セフェム骨格。R1は左上、βラクタムNは右下、βラクタムカルボニルは左下、正六角形に近い6員環は右側、R2は右側。立体化学表示なし。" class="rdkit-scaffold" role="img"><svg baseprofile="full" height="100%" version="1.1" viewbox="0 0 620 330" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:rdkit="http://www.rdkit.org/xml" xmlns:xlink="http://www.w3.org/1999/xlink">
 <!-- END OF HEADER -->
 <rect height="330.0" style="opacity:1.0;fill:#FFFFFF;stroke:none" width="620.0" x="0.0" y="0.0"> </rect>
@@ -902,6 +911,7 @@ Q 381.3 306.3, 383.9 306.3
 <div class="scaffold-caption">7位側鎖（R1）／3位側鎖（R2）</div>
 </div>
 </div>
+<p class="compare-footnote"><b>重要：</b>3位側鎖の一致は7位/R1ほど確立した予測因子ではない。R1を主軸として解釈する。<br>例：<b>アンピシリン―セファクロル／セファレキシン</b>など、aminopenicillinとaminocephalosporinにはR1側鎖が同一・近似する組み合わせがある。「ペニシリンとセフェムは別系統だから大丈夫」とは扱わない。</p>
 </section>
 <div class="paperbox" style="grid-template-columns:1fr">
 <div>
@@ -917,13 +927,7 @@ Q 381.3 306.3, 383.9 306.3
 <p class="small"><span>非アナフィラキシー性の軽い皮疹や良性の遅発性皮疹では、βラクタム系を一律に除外しなくてよい場合がある。代替薬を検討するときは<b>原因薬と異なる側鎖</b>を優先する。</span></p>
 </div>
 </div>
-<div class="note" style="margin-top:12px">
-<b>このアプリで比較する場所</b><br/>
-    ・<b>ペニシリン ↔ セフェム系：</b>ペニシリン6位側鎖とセフェム系7位側鎖（R1）を比較する。<br/>
-    ・<b>セフェム系 ↔ セフェム系：</b>7位側鎖（R1）を主に比較し、3位側鎖（R2）も補助的に比較する。<br/>
-    ・<b>重要：</b>3位側鎖の一致は7位/R1ほど確立した予測因子ではない。R1を主軸として解釈する。<br/>
-    ・例：<b>アンピシリン―セファクロル／セファレキシン</b>など、aminopenicillinとaminocephalosporinにはR1側鎖が同一・近似する組み合わせがある。「ペニシリンとセフェムは別系統だから大丈夫」とは扱わない。
-  </div>
+
 <p class="small" style="margin-bottom:0"><b>表示の意味：</b>
   <span style="background:#ff1744;padding:1px 5px;border-radius:4px;color:#111"><b>蛍光赤色</b></span>＝両薬で共通する側鎖構造 ／ <span style="background:#ffea00;padding:1px 5px;border-radius:4px;color:#111"><b>蛍光黄色</b></span>＝片方だけにある構造。
   この版のR1 similarityは<b>Picard 2019 Figure 2Aに掲載された値をそのまま表示</b>する。掲載のない組み合わせは推定せず「データなし」とする。</p>
