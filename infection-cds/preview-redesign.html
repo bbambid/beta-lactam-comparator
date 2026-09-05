@@ -958,7 +958,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
  <div class="alt-grid">
   <div><label>治療目的</label><select id="altPurpose"><option value="crs">慢性副鼻腔炎｜少量長期マクロライド療法</option><option value="other">その他 / 不明</option></select></div>
   <div><label>CAMが使えない理由</label><select id="altReason"><option value="interaction">併用禁忌・相互作用</option><option value="allergy">CAM過敏症 / アレルギー</option><option value="qt">QT延長・不整脈リスク</option><option value="adverse">その他の副作用</option><option value="other">その他 / 不明</option></select></div>
-  <div id="altInteractWrap"><label>原因となる併用薬</label><select id="altInteract"><option value="unknown">選択してください</option><option value="suvorexant">スボレキサント等オレキシン受容体拮抗薬</option><option value="azelnidipine">アゼルニジピン</option><option value="finerenone">フィネレノン</option><option value="ergot">エルゴタミン / ジヒドロエルゴタミン</option><option value="warfarin">ワルファリン</option><option value="qt_drug">QT延長薬</option><option value="other">その他</option></select></div>
+  <div id="altInteractWrap"><label>原因となる併用薬</label><input id="altInteractSearch" type="search" placeholder="薬剤名で絞り込み（例：スボレキサント）" style="width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px;margin-bottom:5px"><select id="altInteract"><option value="unknown">選択してください</option><option value="suvorexant">スボレキサント等オレキシン受容体拮抗薬</option><option value="azelnidipine">アゼルニジピン</option><option value="finerenone">フィネレノン</option><option value="ergot">エルゴタミン / ジヒドロエルゴタミン</option><option value="warfarin">ワルファリン</option><option value="qt_drug">QT延長薬</option><option value="other">その他 / リスト外</option></select></div>
  </div>
  <div id="altResult" class="alt-result"></div>
 </section>
@@ -1101,7 +1101,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v25 / CAM interaction-aware alternative engine</footer>
+    Clinical Reference UI concept v26 / CAM three-way interaction check</footer>
 </main>
 
 <div class="modal-backdrop" id="aboutModal" hidden>
@@ -2328,7 +2328,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     if(r==="interaction"){
       if(["suvorexant","azelnidipine","finerenone"].includes(x)){
         const n={suvorexant:"スボレキサント等",azelnidipine:"アゼルニジピン",finerenone:"フィネレノン"}[x];
-        body+="<div class='alt-candidate'><b>代替候補：RXM（ロキシスロマイシン）</b><br>CAMの現行電子添文では "+n+" は併用禁忌に含まれます。一方、RXMの現行電子添文の併用禁忌はエルゴタミン系で、"+n+" は併用禁忌として列挙されていません。<br><b>提案前チェック：</b>併用薬側の最新電子添文も確認し、RXMとの相互作用・QT等の別リスクがないことを確認してから提案します。</div>";
+        body+="<div class='alt-candidate'><b>判定：RXMは代替候補</b><br><b>① 疑義薬 CAM：</b>"+n+" はCAMの現行電子添文で併用禁忌。<br><b>② 代替候補 RXM：</b>RXMの現行電子添文では同じ併用禁忌として列挙されていません。<br><b>③ 併用薬側：</b>併用薬自身の最新電子添文でもRXMとの禁忌・重要な相互作用がないことを確認できた場合に、初めて「回避可能」とします。<br><b>提案候補：</b>慢性副鼻腔炎の少量長期療法としてRXM 150 mg/dayを検討。※用量は臨床報告に基づく候補で、患者背景と処方医の判断を前提。</div>";
       }else if(x==="ergot"){
         body+="<div class='alt-stop'><b>RXMでは回避できません</b><br>エルゴタミン / ジヒドロエルゴタミンはRXMでも併用禁忌。CAM→RXM置換は相互作用回避になりません。</div>";
       }else if(x==="warfarin"){
@@ -2571,7 +2571,9 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["phDrug","phDays","phReverseGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynxReverse;});
     ["capDrug","capAtypical","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
     ["utiSymptoms","utiUpper","utiPreg","utiCulture","utiResistance","utiCurrentDrug","utiAdvancedCulture","utiRenal"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
-    ["altPurpose","altReason","altInteract"].forEach(id=>{if($(id))$(id).onchange=renderAltEngine;}); renderAltEngine();
+    ["altPurpose","altReason","altInteract"].forEach(id=>{if($(id))$(id).onchange=renderAltEngine;});
+    if($("altInteractSearch")) $("altInteractSearch").oninput=function(){const q=this.value.trim().toLowerCase(),sel=$("altInteract");Array.from(sel.options).forEach((o,i)=>{if(i===0)return;o.hidden=!!q&&!o.textContent.toLowerCase().includes(q);});};
+    renderAltEngine();
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomWeight","aomDailyMg","aomPivRecent","aom6m","aom12m"].forEach(id=>{if($(id))$(id).oninput=renderAomReverse;if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
