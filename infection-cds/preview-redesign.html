@@ -480,6 +480,14 @@ h1,h2,h3,h4,h5,h6,
 .deep-section{transition:opacity .18s ease}
 body.compact-view .deep-section{display:none}
 @media(max-width:700px){.detail-togglebar{align-items:flex-start;flex-direction:column}}
+
+.sinus-branch{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.sinus-branch.show{display:block}.branch-title{font-size:13px;font-weight:900}.branch-sub{font-size:10px;color:var(--muted);margin:3px 0 10px}
+.branch-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.branch-field label{display:block;font-size:10px;font-weight:900;color:#667085;margin-bottom:5px}
+.branch-seg{display:flex;gap:5px;background:#f3f6f9;border-radius:10px;padding:4px}.branch-seg button{flex:1;border:0;background:transparent;border-radius:7px;padding:8px 7px;font-size:11px;font-weight:900;color:#667085}
+.branch-seg button.active{background:#fff;color:#102a43;box-shadow:0 1px 4px #102a4320}.branch-result{margin-top:10px;border-radius:12px;padding:12px 13px;background:#f7fafc;border:1px solid #e5ebf1}
+.br-label{font-size:9px;font-weight:900;letter-spacing:.08em;color:#667085}.br-main{font-size:15px;font-weight:900;margin-top:4px;line-height:1.45}.br-note{font-size:11px;color:#667085;line-height:1.55;margin-top:4px}.branch-source{font-size:9px;color:#667085;margin-top:7px}
+@media(max-width:700px){.branch-controls{grid-template-columns:1fr}}
 </style>
 
 
@@ -870,7 +878,8 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="qc-text">下の「標的菌」と「βラクタムの位置づけ」を先に確認し、必要なときだけ比較表・アレルギー・Evidenceへ進みます。薬剤の順位は各疾患データに登録されたガイドライン上の位置づけをそのまま表示し、根拠のない順位づけは行いません。</div>
   </section>
 
-  <section id="decisionZone" class="decision-zone" aria-label="治療の要点"></section>
+  <section id="sinusBranch" class="sinus-branch"><div class="branch-title">急性鼻副鼻腔炎｜治療分岐</div><div class="branch-sub">年齢区分と重症度を選ぶと、最初に見る治療方針を切り替えます。</div><div class="branch-controls"><div class="branch-field"><label>対象</label><div class="branch-seg" id="sinusAge"><button type="button" data-v="adult" class="active">成人</button><button type="button" data-v="child">学童期以降の小児</button></div></div><div class="branch-field"><label>重症度</label><div class="branch-seg" id="sinusSeverity"><button type="button" data-v="mild">軽症</button><button type="button" data-v="moderate" class="active">中等症</button><button type="button" data-v="severe">重症</button></div></div></div><div id="sinusBranchResult" class="branch-result"></div></section>
+<section id="decisionZone" class="decision-zone" aria-label="治療の要点"></section>
   <div class="guideline-rule">薬剤の「第一選択・代替・条件付き」は、各疾患データに登録されたガイドライン上の位置づけを表示します。順位が明示されない場合は、無理に第一選択へ分類しません。</div>
 
   <section class="clinical-flow">
@@ -922,7 +931,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v4 / Sinus model
+    Clinical Reference UI concept v5 / Sinus branching
   </footer>
 </main>
 
@@ -2102,12 +2111,35 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
   const statusClass = s => s === "代替" ? " alt" : "";
 
+  let sinusAge="adult", sinusSeverity="moderate";
+  const SINUS_BRANCH={
+    adult:{
+      mild:{main:"抗菌薬は原則投与せず、まず経過観察",note:"軽症では抗菌薬非投与を基本とする。改善しない場合は再評価する。",src:"抗微生物薬適正使用の手引き 第三版 / 急性鼻副鼻腔炎GL"},
+      moderate:{main:"AMPCを第一選択として検討",note:"成人の基本はAMPC 5–7日間。",src:"抗微生物薬適正使用の手引き 第三版"},
+      severe:{main:"抗菌薬治療＋治療反応を早めに再評価",note:"AMPCを軸に治療。旧専門GLでは重症度・感受性に応じた追加選択肢がある。",src:"適正使用の手引き / 急性鼻副鼻腔炎GL（追補版）"}
+    },
+    child:{
+      mild:{main:"抗菌薬を投与しない",note:"学童期以降では、遷延性または重症を除き抗菌薬を行わない。",src:"抗微生物薬適正使用の手引き 第三版"},
+      moderate:{main:"遷延性を確認して抗菌薬適応を判断",note:"小児では重症度に加えて遷延性が重要。必要な場合の基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第三版"},
+      severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第三版"}
+    }
+  };
+  function renderSinusBranch(){
+    const r=$("sinusBranchResult"); if(!r)return;
+    const d=SINUS_BRANCH[sinusAge][sinusSeverity];
+    r.innerHTML=`<div class="br-label">CURRENT PATH</div><div class="br-main">${esc(d.main)}</div><div class="br-note">${esc(d.note)}</div><div class="branch-source">根拠：${esc(d.src)}</div>`;
+    document.querySelectorAll("#sinusAge button").forEach(b=>b.classList.toggle("active",b.dataset.v===sinusAge));
+    document.querySelectorAll("#sinusSeverity button").forEach(b=>b.classList.toggle("active",b.dataset.v===sinusSeverity));
+  }
+
   function init(){
     D.syndromes.forEach((x,i)=>{
       const o=document.createElement("option");o.value=x.id;o.textContent=x.name;select.appendChild(o);
       const b=document.createElement("button");b.className="quick-tab";b.type="button";b.dataset.id=x.id;b.textContent=x.short;b.onclick=()=>{select.value=x.id;render(x.id)};tabs.appendChild(b);
     });
     select.onchange=()=>render(select.value);
+    document.querySelectorAll("#sinusAge button").forEach(b=>b.onclick=()=>{sinusAge=b.dataset.v;renderSinusBranch();});
+    document.querySelectorAll("#sinusSeverity button").forEach(b=>b.onclick=()=>{sinusSeverity=b.dataset.v;renderSinusBranch();});
     $("allergySelect").onchange=renderAllergy;
     document.body.classList.add("compact-view");
     const detailToggle=$("detailToggle");
@@ -2124,6 +2156,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   function render(id){
     const x=D.syndromes.find(s=>s.id===id)||D.syndromes[0];
     document.querySelectorAll('.quick-tab').forEach(b=>b.classList.toggle('active',b.dataset.id===x.id));
+    $("sinusBranch").classList.toggle("show",x.id==="sinus"); if(x.id==="sinus")renderSinusBranch();
     $("summaryHero").innerHTML=`<div class="summary-kicker">CURRENT SYNDROME</div><h2>${esc(x.name)}</h2><div class="summary-line">${esc(x.lead)}</div><div class="summary-chiprow">${x.chips.map((c,i)=>`<span class="chip ${i===0?'good':'warn'}">${esc(c)}</span>`).join('')}</div>`;
 
     const primaryWords=/第一選択|推奨|軸/;
