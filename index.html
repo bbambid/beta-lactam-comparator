@@ -377,6 +377,32 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 }
 </style>
 
+
+<style id="r1-source-badge-preview">
+.r1-source-badge{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  margin:12px 0 2px;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  line-height:1.2;
+  letter-spacing:.01em;
+}
+.r1-source-badge.tool{
+  color:#36556f;
+  background:#eef4f8;
+  border:1px solid #cfdae3;
+}
+.r1-source-badge.paper{
+  color:#31546f;
+  background:#edf5fb;
+  border:1px solid #c8dceb;
+}
+</style>
+
 </head><body>
 <header><div><div style="font-size:12px;font-weight:800;letter-spacing:.08em;opacity:.85;margin-bottom:4px">PICARD 2019 PUBLISHED-DATA MODE</div><h1>βラクタム Side-chain Comparator｜Picard 2019 Published-score</h1></div></header><main>
 <section class="card" style="border-left:6px solid #2563eb">
@@ -410,8 +436,7 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
       <p><b>このツールの類似度スコアは、実際のアレルギー発症確率を表す数字ではありません。</b></p>
     </div>
 
-    <div class="allergy-section allergy-alt-2">
-      <h3>4. ペニシリンアレルギーの管理</h3>
+    <div class="allergy-section allergy-alt-2">      <h3>4. ペニシリンアレルギーの管理</h3>
       <p><b>① 非アナフィラキシー性アレルギー</b><br>
       成人において、遠い過去（5年以上前）の良性皮膚反応（麻疹薬疹，じんま疹など）の既往がある場合は、直接AMPC負荷試験を考慮する。</p>
       <p><b>② アナフィラキシーの既往歴がある患者</b><br>
@@ -436,7 +461,8 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
       セファロスポリンに対するアナフィラキシーの既往がある患者では、ペニシリン治療の前にペニシリン皮膚テストや薬物負荷試験など、より慎重な評価が必要。</p>
     </div>
 
-    <div class="allergy-section allergy-alt-1">      <h3>7. アズトレオナム（AZT）は例外に注意</h3>
+    <div class="allergy-section allergy-alt-1">
+      <h3>7. アズトレオナム（AZT）は例外に注意</h3>
       <p>モノバクタム系のアズトレオナムは、ペニシリンまたはセファロスポリンアレルギー患者でも事前の検査なしに投与可能。</p>
       <p>ただし、セフタジジム（CAZ）アレルギーがある場合は異なる。CAZとAZTは同一の側鎖構造を持つため、安全ではない。</p>
     </div>
@@ -629,8 +655,7 @@ L 80.5 49.6
 Q 82.1 49.6, 83.0 48.8
 Q 83.9 48.0, 83.9 46.5
 Q 83.9 45.0, 83.0 44.2
-Q 82.1 43.4, 80.5 43.4
-L 77.7 43.4
+Q 82.1 43.4, 80.5 43.4L 77.7 43.4
 L 77.7 49.6
 " fill="#FF1644"></path>
 <path class="atom-11" d="M 89.7 56.6
@@ -655,7 +680,8 @@ Q 532.4 272.6, 530.4 275.0
 Q 528.4 277.3, 524.6 277.3
 Q 520.9 277.3, 518.9 275.0
 Q 516.8 272.6, 516.8 268.5
-M 524.6 275.4Q 527.2 275.4, 528.6 273.6
+M 524.6 275.4
+Q 527.2 275.4, 528.6 273.6
 Q 530.0 271.9, 530.0 268.5
 Q 530.0 265.1, 528.6 263.5
 Q 527.2 261.8, 524.6 261.8
@@ -848,8 +874,7 @@ Q 153.2 114.8, 153.2 110.6
 M 161.0 117.5
 Q 163.6 117.5, 165.0 115.8
 Q 166.4 114.0, 166.4 110.6
-Q 166.4 107.3, 165.0 105.6
-Q 163.6 103.9, 161.0 103.9
+Q 166.4 107.3, 165.0 105.6Q 163.6 103.9, 161.0 103.9
 Q 158.4 103.9, 157.0 105.6
 Q 155.6 107.3, 155.6 110.6
 Q 155.6 114.1, 157.0 115.8
@@ -874,7 +899,8 @@ L 73.4 48.2
 Q 75.1 48.2, 75.9 47.4
 Q 76.8 46.6, 76.8 45.1
 Q 76.8 43.6, 75.9 42.8
-Q 75.1 42.0, 73.4 42.0L 70.7 42.0
+Q 75.1 42.0, 73.4 42.0
+L 70.7 42.0
 L 70.7 48.2
 " fill="#FF1644"></path>
 <path class="atom-12" d="M 82.7 55.2
@@ -1024,10 +1050,9 @@ Q 381.3 306.3, 383.9 306.3
   <div class="metric">
     <div class="big" id="sim">—</div>
     <div class="bar"><div class="fill" id="fill"></div></div>
-    <p class="small" id="r1ScoreDesc">—</p>
   </div>
 </div>
-<div class="risk" id="risk"><b id="riskt"></b><p id="riskp"></p></div>
+<div class="risk" id="risk"><span class="r1-source-badge tool" id="r1SourceBadge">本ツール補助計算値</span><b id="riskt"></b><p id="riskp"></p></div>
 <div class="published-risk" id="publishedRisk" style="display:none">
   <span class="published-risk-label">Picard 2019 群別メタ解析</span>
   <div class="published-risk-value" id="publishedRiskValue">—</div>
@@ -1068,8 +1093,7 @@ Q 381.3 306.3, 383.9 306.3
       <td>Picard 2019 Figure 2Aに掲載された既報値</td>
       <td>RDKitを用いて本ツールで計算した値</td>
     </tr>
-    <tr>
-      <td>いつ表示する？</td>
+    <tr>      <td>いつ表示する？</td>
       <td><b>選択した2剤の文献値が存在する場合は、こちらを最優先で表示</b></td>
       <td><b>Picard 2019に文献値がない組み合わせの場合に表示</b></td>
     </tr>
@@ -1093,7 +1117,8 @@ Q 381.3 306.3, 383.9 306.3
 
 <section class="card explain"><h2>判定について</h2><p>R1側鎖はβラクタム交差反応性の主要な決定因子ですが、PicardのSimilarity scoreそのものは個々の患者のアレルギー発症確率ではない。特にセフタジジム–アズトレオナムのような既知の同一R1関係は、機械スコアに加えて臨床ルールとして明示的に扱っています。</p><p class="small"><span>※ 教育・臨床判断支援用の試作であり、ツール単独で判断しないように。</span></p></section>
 <section class="card references">
-<h2>使用ツール・計算方法</h2><div class="tool-grid">
+<h2>使用ツール・計算方法</h2>
+<div class="tool-grid">
 <div class="tool-item"><b>RDKit</b><br/><span class="small">本ツールでは分子構造の描画、R1/R2フラグメント処理、MCS可視化、および原著未掲載ペアのR1・セフェムR2のMorgan fingerprint補助比較に使用。Picard published Similarity score自体の計算には使用していない。</span></div>
 <div class="tool-item"><b>Picard 2019：Atom-Pair / Tanimoto</b><br/><span class="small">原著ではChemMine ToolsのSimilarity Workbenchを用い、Atom-Pair molecular descriptorsとTanimoto coefficientでR1 side-chain similarityを算出。本ツールではそのFigure 2A掲載値を直接収載する。</span></div>
 <div class="tool-item"><b>Atom-Pair molecular descriptorsとは</b><br/><span class="small">分子内の<strong>原子どうしの組み合わせ（Atom Pair）と、その原子間の距離・結合経路など</strong>を構造上の特徴として捉える方法です。<br/><br/>
@@ -1245,8 +1270,8 @@ function atomPairPairInterpretation(a,b,s){
   const keys=new Set([a.key,b.key]);
   if(keys.has('ceftazidime')&&keys.has('aztreonam')) return ['high','🔴 既知の高注意ペア','Picard原著値の有無とは別に、セフタジジム–アズトレオナムは重要な側鎖関係が知られている。補助計算値だけで投与可否を判断しない。'];
   let level=s>=0.7?'warn':'safe';
-  let title='RDKit Atom-Pair/Tanimoto 補助計算値 = '+s.toFixed(3);
-  let desc='Picard 2019 Figure 2Aにはこの組み合わせの値がないため、本ツールで事前計算したR1 RDKit Atom-Pair count fingerprint / Tanimoto similarity（chirality ON）を表示している。Picard 2019もAtom-Pairを用いるが実装が異なるため、文献値と同一尺度として扱わない。交差反応率そのものでもない。';
+  let title='';
+  let desc='Picard 2019に文献値がない組み合わせのため、本モジュールで計算したRDKit Atom-Pair count fingerprint / Tanimoto similarity（chirality ON）を表示している。Picard 2019もAtom-Pairを用いるが実装が異なるため、文献値と同一尺度として扱わない。交差反応率そのものでもない。';
   return [level,title,desc];
 }
 
@@ -1258,15 +1283,15 @@ function render(){
 
  const ps=PAPER[a.key+'|'+b.key];
  const simEl=document.getElementById('sim'), fill=document.getElementById('fill');
- const scoreTitle=document.getElementById('r1ScoreTitle'), scoreDesc=document.getElementById('r1ScoreDesc');
+ const scoreTitle=document.getElementById('r1ScoreTitle'), sourceBadge=document.getElementById('r1SourceBadge');
  if(ps!==undefined){
    simEl.textContent=ps.toFixed(3); fill.style.width=(ps*100)+'%';
-   scoreTitle.textContent='Picard 2019 Similarity score（文献値）';
-   scoreDesc.textContent='Atom-Pair molecular descriptors ＋ Tanimoto coefficient により算出された、R1側鎖の類似度。0＝類似なし、1.000＝同一側鎖。どちらもR1側鎖の構造類似性を表す指標であり、交差反応率そのものではない。';
+   scoreTitle.textContent='R1側鎖の構造類似性：Picard 2019 Similarity score（文献値）';
+   sourceBadge.textContent='Picard 2019 文献値'; sourceBadge.className='r1-source-badge paper';
  }else{
    simEl.textContent=p.sim.toFixed(3); fill.style.width=(p.sim*100)+'%';
-   scoreTitle.textContent='RDKit Atom-Pair/Tanimoto similarity（本ツール補助計算値）';
-   scoreDesc.textContent='Picard 2019に文献値がない組み合わせについて、RDKitでAtom-Pair count fingerprint（chirality ON）を作成し、Tanimoto similarityを計算した補助指標。0＝類似なし、1.000＝同一fingerprint。Picard 2019もAtom-Pairを用いるが実装が異なるため、文献値と同一尺度として扱わない。交差反応率そのものでもない。';
+   scoreTitle.textContent='R1側鎖の構造類似性：RDKit Atom-Pair/Tanimoto similarity（本ツール補助計算値）';
+   sourceBadge.textContent='本ツール補助計算値'; sourceBadge.className='r1-source-badge tool';
  }
  const r=(ps!==undefined?picardPairInterpretation(a,b,ps):atomPairPairInterpretation(a,b,p.sim)),el=document.getElementById('risk');
  el.className='risk '+r[0];document.getElementById('riskt').textContent=r[1];document.getElementById('riskp').textContent=r[2];
@@ -1280,26 +1305,25 @@ function render(){
    const pm=PICARD_META[prCeph.key];
    pr.style.display='block';
    prv.textContent=pm.pooled;
-   prd.textContent=pm.label+'。この割合は選択した2剤固有の交差反応率ではなく、Picard 2019でセフェム側を「最高R1 similarity」に基づいて分類した群の統合推定値。';
+   prd.innerHTML='<strong>'+pm.label+'</strong>。この割合は選択した2剤固有の交差反応率ではなく、Picard 2019でセフェム側を「最高R1 similarity」に基づいて分類した群の統合推定値。';
  }else{
    pr.style.display='none'; prv.textContent='—'; prd.textContent='';
  }
 
  const rp=R3P[a.key+'|'+b.key], rc=document.getElementById('r3card');
  if(rp && a.r3 && b.r3){
-   rc.classList.add('show'); document.getElementById('r3sim').textContent=rp.sim.toFixed(3);document.getElementById('r3fill').style.width=(rp.sim*100)+'%';document.getElementById('r3mcs').textContent=rp.mcsAtoms+' atoms / '+rp.mcsBonds+' bonds';document.getElementById('r3desc').textContent=DYNAMIC_TEXTS.r3_desc;document.getElementById('r3al').textContent=a.name+' R2';document.getElementById('r3bl').textContent=b.name+' R2';document.getElementById('r3ar').textContent=a.r3;document.getElementById('r3br').textContent=b.r3;outlineRaw(document.getElementById('r3ai'),a.r3svg,rp.faCommon||[],rp.faUnique||[]);outlineRaw(document.getElementById('r3bi'),b.r3svg,rp.fbCommon||[],rp.fbUnique||[]);
- } else {rc.classList.remove('show');}
+   rc.classList.add('show'); document.getElementById('r3sim').textContent=rp.sim.toFixed(3);document.getElementById('r3fill').style.width=(rp.sim*100)+'%';document.getElementById('r3mcs').textContent=rp.mcsAtoms+' atoms / '+rp.mcsBonds+' bonds';document.getElementById('r3desc').textContent=DYNAMIC_TEXTS.r3_desc;document.getElementById('r3al').textContent=a.name+' R2';document.getElementById('r3bl').textContent=b.name+' R2';document.getElementById('r3ar').textContent=a.r3;document.getElementById('r3br').textContent=b.r3;outlineRaw(document.getElementById('r3ai'),a.r3svg,rp.faCommon||[],rp.faUnique||[]);outlineRaw(document.getElementById('r3bi'),b.r3svg,rp.fbCommon||[],rp.fbUnique||[]); } else {rc.classList.remove('show');}
 
  const pe=document.getElementById('papersim'),pd=document.getElementById('paperdesc');
  let ceph=null,pen=null;
  if(isCephLike(a)){ceph=a;pen=b}else if(isCephLike(b)){ceph=b;pen=a}
  if(ceph && pen && pen.cls==='ペニシリン' && PICARD_META[ceph.key]){
    const m=PICARD_META[ceph.key];
-   pe.textContent=m.label;
-   pd.textContent='このセフェムのFigure 2Aでの最高R1 similarity = '+m.max.toFixed(3)+'。群別メタ解析：'+m.pooled+'。※上記は選択した2剤固有の交差反応率ではなく、セフェム側の最高R1 similarityに基づく群の統合値。';
+   if(pe) pe.innerHTML='<strong>'+m.label+'</strong>';
+   if(pd) pd.textContent='このセフェムのFigure 2Aでの最高R1 similarity = '+m.max.toFixed(3)+'。群別メタ解析：'+m.pooled+'。※上記は選択した2剤固有の交差反応率ではなく、セフェム側の最高R1 similarityに基づく群の統合値。';
  }else{
-   pe.textContent='—';
-   pd.textContent='Picardの群別メタ解析はペニシリン–セフェムの比較に対して表示します。';
+   if(pe) pe.textContent='—';
+   if(pd) pd.textContent='Picardの群別メタ解析はペニシリン–セフェムの比較に対して表示します。';
  }
 }
 A.addEventListener('change',render);B.addEventListener('change',render);render();</script>
@@ -1311,6 +1335,7 @@ A.addEventListener('change',render);B.addEventListener('change',render);render()
     <p id="glossaryBody"></p>
   </div>
 </div>
+
 
 <script id="v37-glossary-script">
 (function(){
