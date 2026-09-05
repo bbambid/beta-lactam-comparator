@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小児処方監査CDS</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7f9;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}
+.w{max-width:940px;margin:auto;padding:18px}.card{background:#fff;border:1px solid #dfe6ec;border-radius:16px;padding:16px;margin-bottom:10px}
+.title{font-size:23px;font-weight:900}.sub{font-size:11px;line-height:1.75;color:#667085}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}input,select{width:100%;padding:9px;border:1px solid #d6dee8;border-radius:8px;background:#fff}
+.out{margin-top:10px;padding:12px;background:#f8fafc;border:1px solid #e3e9ef;border-radius:10px;font-size:11px;line-height:1.7}
+.tag,.pill{display:inline-block;padding:3px 7px;border-radius:999px;background:#eef4fb;font-size:9px;font-weight:900}.ok{background:#eaf6ee;color:#27623b}.warn{background:#fff7e6;color:#7a5a12}.ng{background:#fff0ed;color:#9b3d31}
+.hero{font-size:18px;font-weight:900;margin-bottom:3px}.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:9px 0}.num{padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#fff}.num b{font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{padding:7px;border-bottom:1px solid #e9eef2;text-align:left}th{background:#f5f7f9}.note{font-size:9px;color:#667085;margin-top:7px;line-height:1.6}
+@media(max-width:650px){.grid,.nums{grid-template-columns:1fr}}
+</style></head><body><main class="w">
+<section class="card"><span class="tag">CAM / AMPC</span><div class="title">小児処方監査CDS</div>
+<div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPCを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
+
+<section class="card"><div class="grid">
+<div><label>薬剤</label><select id="drug"><option value="cam">クラリスロマイシン</option><option value="amox">アモキシシリン</option></select></div>
+<div><label>製剤・規格</label><select id="product"></select></div>
+<div><label>適応</label><select id="ind"></select></div>
+<div><label>年齢</label><select id="age">
+<option value="0.25">3か月</option><option value="0.5">6か月</option><option value="0.75">9か月</option>
+<option value="0">0歳</option><option value="1">1歳</option><option value="2">2歳</option><option value="3">3歳</option><option value="4">4歳</option><option value="5" selected>5歳</option><option value="6">6歳</option><option value="7">7歳</option><option value="8">8歳</option><option value="9">9歳</option><option value="10">10歳</option><option value="11">11歳</option><option value="12">12歳</option><option value="13">13歳</option><option value="14">14歳</option><option value="15">15歳</option><option value="16">16歳</option><option value="17">17歳</option><option value="18">18歳</option>
+</select></div>
+<div><label>体重</label><select id="wt">
+<option value="4">4 kg</option><option value="5">5 kg</option><option value="6">6 kg</option><option value="7">7 kg</option><option value="8">8 kg</option><option value="9">9 kg</option><option value="10">10 kg</option><option value="11">11 kg</option><option value="12">12 kg</option><option value="13">13 kg</option><option value="14">14 kg</option><option value="15">15 kg</option><option value="16">16 kg</option><option value="17">17 kg</option><option value="18" selected>18 kg</option><option value="19">19 kg</option><option value="20">20 kg</option><option value="21">21 kg</option><option value="22">22 kg</option><option value="23">23 kg</option><option value="24">24 kg</option><option value="25">25 kg</option><option value="26">26 kg</option><option value="27">27 kg</option><option value="28">28 kg</option><option value="29">29 kg</option><option value="30">30 kg</option><option value="31">31 kg</option><option value="32">32 kg</option><option value="33">33 kg</option><option value="34">34 kg</option><option value="35">35 kg</option><option value="36">36 kg</option><option value="37">37 kg</option><option value="38">38 kg</option><option value="39">39 kg</option><option value="40">40 kg</option><option value="41">41 kg</option><option value="42">42 kg</option><option value="43">43 kg</option><option value="44">44 kg</option><option value="45">45 kg</option><option value="46">46 kg</option><option value="47">47 kg</option><option value="48">48 kg</option><option value="49">49 kg</option><option value="50">50 kg</option><option value="51">51 kg</option><option value="52">52 kg</option><option value="53">53 kg</option><option value="54">54 kg</option><option value="55">55 kg</option><option value="56">56 kg</option><option value="57">57 kg</option><option value="58">58 kg</option><option value="59">59 kg</option><option value="60">60 kg</option>
+</select></div>
+<div><label>身長 cm（BSA算出・任意）</label><input id="ht" type="number" min="30" max="220" step=".1" value="110"></div>
+<div><label id="amountLabel">処方製剤量 g/day</label><input id="amount" type="number" min="0" step=".01" value="2.7"></div>
+<div><label>分割</label><select id="freq"><option value="2">分2</option><option value="3">分3</option></select></div>
+</div><div id="out" class="out"></div></section>
+
+<section class="card"><b>監査ロジック</b><div class="sub">
+① 製剤量→成分量換算　② 薬剤固有の承認小児用量・分割・上限を判定　③ 1回量を算出　④ 成人標準量から古典的換算式を並列計算　⑤ 承認量と換算値の位置関係を補助表示。<br>
+CAM：一般感染症10–15 mg/kg/day（分2～3）、レジオネラ15 mg/kg/day、播種性MAC 15 mg/kg/day（分2）。<br>
+AMPC：ヘリコバクター・ピロリ感染を除く感染症で20–40 mg/kg/day（分3～4）、最大90 mg/kg/day。
+</div></section>
+</main><script>
+const $=x=>document.getElementById(x);
+const DB={
+ cam:{
+  products:{
+   ds10:{label:"ドライシロップ10%小児用",unit:"g",mgPerUnit:100,defaultAmount:2.7},
+   tab50:{label:"錠50mg小児用",unit:"錠",mgPerUnit:50,defaultAmount:5}
+  },
+  indications:{
+   general:{label:"一般感染症",lo:w=>10*w,hi:w=>Math.min(15*w,400),freq:[2,3],desc:"一般感染症 10–15 mg/kg/day・分2～3・最大400 mg/day"},
+   legionella:{label:"レジオネラ肺炎",lo:w=>Math.min(15*w,400),hi:w=>Math.min(15*w,400),freq:[2,3],desc:"レジオネラ肺炎 15 mg/kg/day・分2～3"},
+   mac:{label:"播種性MAC症（AIDSに伴う）",lo:w=>15*w,hi:w=>15*w,freq:[2],desc:"播種性MAC症 15 mg/kg/day・分2"}
+  },
+  adult:[400,400],source:"PMDA クラリスロマイシン小児用電子添文"
+ },
+ amox:{
+  products:{
+   gran10:{label:"細粒10%",unit:"g",mgPerUnit:100,defaultAmount:3.6},
+   gran20:{label:"細粒20%",unit:"g",mgPerUnit:200,defaultAmount:1.8},
+   cap125:{label:"カプセル125mg",unit:"カプセル",mgPerUnit:125,defaultAmount:3},
+   cap250:{label:"カプセル250mg",unit:"カプセル",mgPerUnit:250,defaultAmount:3},
+   tab250:{label:"錠250mg",unit:"錠",mgPerUnit:250,defaultAmount:3}
+  },
+  indications:{
+   general:{label:"ヘリコバクター・ピロリ感染を除く感染症",lo:w=>20*w,hi:w=>40*w,max:w=>90*w,freq:[3,4],desc:"通常20–40 mg/kg/day・分3～4。適宜増減可、最大90 mg/kg/day"}
+  },
+  adult:[750,1000],source:"PMDA アモキシシリン水和物製剤電子添文"
+ }
+};
+function vh(a){if(a<0.08)return .125;if(a<0.75)return .2;if(a<2)return .25;if(a<5)return 1/3;if(a<10)return .5;if(a<15)return 2/3;return 1}
+function fmt(x,d=1){return Number.isFinite(x)?x.toFixed(d):"—"}
+function range(v1,v2){return Math.abs(v1-v2)<.01?fmt(v1,0):fmt(Math.min(v1,v2),0)+"～"+fmt(Math.max(v1,v2),0)}
+function loadDrug(reset=true){
+ const d=DB[$("drug").value],p=$("product"),ind=$("ind");
+ p.innerHTML=Object.entries(d.products).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
+ ind.innerHTML=Object.entries(d.indications).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
+ $("freq").innerHTML=$("drug").value==="amox"?'<option value="3">分3</option><option value="4">分4</option>':'<option value="2">分2</option><option value="3">分3</option>';
+ if(reset)$("amount").value=Object.values(d.products)[0].defaultAmount;
+ render();
+}
+function render(){
+ const key=$("drug").value,d=DB[key],p=d.products[$("product").value],ii=d.indications[$("ind").value];
+ const a=+$("age").value,w=+$("wt").value,h=+$("ht").value,q=+$("amount").value,f=+$("freq").value;
+ if(!p||!ii)return;
+ $("amountLabel").textContent="処方製剤量 "+p.unit+"/day";
+ const mg=q*p.mgPerUnit,kg=mg/w,oneMg=mg/f,oneProd=q/f;
+ const lo=ii.lo(w),hi=ii.hi(w),absoluteMax=ii.max?ii.max(w):hi;
+ const freqOK=ii.freq.includes(f), withinUsual=mg>=lo-.01&&mg<=hi+.01, withinMax=mg<=absoluteMax+.01;
+ let cls="ok",verdict="承認された通常用量・分割の範囲内";
+ if(!freqOK||!withinUsual){cls="warn";verdict="要確認";}
+ if(!withinMax||mg<lo*.8){cls="ng";verdict=!withinMax?"承認上限を超える":"通常用量から大きく外れる";}
+ const [adLo,adHi]=d.adult;
+ const calc=(adult,kind)=>{
+   if(kind==="aug")return adult*(4*a+12)/100;
+   if(kind==="young")return adult*a/(a+12);
+   if(kind==="clark")return adult*w/68;
+   if(kind==="von")return adult*vh(a);
+   const bsa=(h>0&&w>0)?Math.sqrt(h*w/3600):NaN; return Number.isFinite(bsa)?adult*bsa/1.73:NaN;
+ };
+ const rows=[["Augsberger-II","aug"],["Young","young"],["Clark","clark"],["von Harnack","von"],["BSA / Mosteller","bsa"]]
+  .map(([n,k])=>'<tr><td>'+n+'</td><td>'+range(calc(adLo,k),calc(adHi,k))+'</td><td>参考</td></tr>').join("");
+ $("out").innerHTML=
+  '<div class="hero">判定：<span class="pill '+cls+'">'+verdict+'</span></div>'+
+  '<div>'+ii.desc+'</div>'+
+  '<div class="nums"><div class="num">製剤量<br><b>'+fmt(q,2)+' '+p.unit+'/day</b></div><div class="num">成分量<br><b>'+fmt(mg,1)+' mg/day</b></div><div class="num">体重換算<br><b>'+fmt(kg,1)+' mg/kg/day</b></div></div>'+
+  '<b>1回量：</b>'+fmt(oneMg,1)+' mg（製剤 '+fmt(oneProd,2)+' '+p.unit+'）× '+f+'回<br>'+
+  '<b>通常量：</b>'+range(lo,hi)+' mg/day'+(ii.max?'　<b>承認上限：</b>'+fmt(absoluteMax,0)+' mg/day':'')+
+  (!freqOK?' <span class="pill warn">分割回数も要確認</span>':'')+
+  '<table><thead><tr><th>補助換算</th><th>成人標準量からの推定 mg/day</th><th>位置づけ</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+  '<div class="note">古典的換算式は補助評価です。'+(adLo===adHi?'成人標準量 '+adLo+' mg/day':'成人標準量 '+adLo+'～'+adHi+' mg/day')+'を基準に換算し、承認された小児用量がある場合はそちらを主判定にします。</div>'+
+  '<div class="note">出典：'+d.source+'。最終確認は最新電子添文・適応・患者背景に基づきます。</div>';
+}
+$("drug").onchange=()=>loadDrug(true);
+$("product").onchange=function(){const p=DB[$("drug").value].products[this.value];$("amount").value=p.defaultAmount;render()};
+$("ind").onchange=render;["age","wt","ht","amount","freq"].forEach(id=>$(id).oninput=render);
+loadDrug(true);
+</script></body></html>
