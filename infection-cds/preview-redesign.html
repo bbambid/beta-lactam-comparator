@@ -536,6 +536,11 @@ body.compact-view .deep-section{display:none}
 .aom-flow-here{display:inline-flex;margin-top:5px;border-radius:999px;padding:2px 6px;font-size:8px;font-weight:900;background:#e9f2fb;color:#315f7d}
 .aom-next{margin-top:7px;font-size:9px;line-height:1.5;color:#667085}
 @media(max-width:700px){.aom-flow-track{grid-template-columns:1fr}.aom-flow-arrow{transform:rotate(90deg);height:18px}}
+
+.aom-fullscore{display:none;margin-top:10px;padding:11px;border:1px solid #e1e8ef;border-radius:11px;background:#fbfcfd}
+.aom-fullscore.show{display:block}.aom-scoregrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.aom-scoregrid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.aom-scoregrid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px 6px;font-size:10px}
+.aom-score-result{margin-top:9px;padding:10px;border-radius:10px;background:#eef4fb}.aom-score-result b{font-size:14px}.aom-score-result span{display:block;font-size:10px;color:#667085;line-height:1.5;margin-top:3px}
+@media(max-width:700px){.aom-scoregrid{grid-template-columns:1fr}}
 </style>
 
 
@@ -931,6 +936,19 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   <div class="branch-sub">鼓膜所見が不明な薬局では、正式な重症度を推定しません。処方と治療経過の位置づけを確認します。</div>
   <div class="aom-mode"><button type="button" data-aom="pharmacy" class="active">薬局モード</button><button type="button" data-aom="full">鼓膜所見あり</button></div>
   <div id="aomResult" class="aom-box"></div>
+  <div id="aomFullScore" class="aom-fullscore">
+    <div class="aom-reverse-title">鼓膜所見あり｜2024年版 正式重症度スコア</div>
+    <div class="aom-scoregrid">
+      <div><label>年齢</label><select id="aomAge"><option value="0">24か月齢以上：0</option><option value="3">24か月齢未満：3</option></select></div>
+      <div><label>耳痛</label><select id="aomPain"><option value="0">なし：0</option><option value="1">あり：1</option><option value="2">持続性で高度：2</option></select></div>
+      <div><label>発熱</label><select id="aomFever"><option value="0">37℃未満：0</option><option value="1">37〜38℃：1</option><option value="2">38℃以上：2</option></select></div>
+      <div><label>啼泣・不機嫌</label><select id="aomIrritable"><option value="0">なし：0</option><option value="1">あり：1</option></select></div>
+      <div><label>鼓膜発赤</label><select id="aomRed"><option value="0">なし：0</option><option value="2">一部発赤：2</option><option value="4">全体発赤：4</option></select></div>
+      <div><label>鼓膜膨隆</label><select id="aomBulge"><option value="0">なし：0</option><option value="4">部分膨隆：4</option><option value="8">全体膨隆：8</option></select></div>
+      <div><label>耳漏</label><select id="aomOtorrhea"><option value="0">なし：0</option><option value="4">あり・鼓膜観察可：4</option><option value="8">あり・鼓膜観察不可：8</option></select></div>
+    </div>
+    <div id="aomScoreResult" class="aom-score-result"></div>
+  </div>
   <div id="aomReverse" class="aom-reverse">
     <div class="aom-reverse-title">処方から逆引き｜GL上の現在位置</div>
     <div class="aom-reverse-grid">
@@ -1013,7 +1031,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v13 / AOM flow position
+    Clinical Reference UI concept v14 / AOM formal score
   </footer>
 </main>
 
@@ -2319,6 +2337,15 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       <article class="decision-panel target"><div class="dp-label">MAIN TARGETS</div>${x.pathogens.length?x.pathogens.map(p=>`<div class="dp-item"><div class="dp-main">${esc(p[0])}</div><div class="dp-note">${esc(p[1])}</div></div>`).join(""):`<div class="dp-note">標的菌を一律には設定していません。</div>`}</article>`;
   }
 
+  function calcAomScore(){
+    const ids=["aomAge","aomPain","aomFever","aomIrritable","aomRed","aomBulge","aomOtorrhea"];
+    if(ids.some(id=>!$(id)))return;
+    const score=ids.reduce((n,id)=>n+Number($(id).value||0),0);
+    const grade=score<=5?"軽症":score<=11?"中等症":"重症";
+    let path=grade==="軽症"?"抗菌薬非投与で3日間経過観察。改善しなければAMPC高用量3〜5日間へ。":grade==="中等症"?"AMPC高用量3〜5日間を初期治療とし、改善がなければ原因菌・感受性を考慮して次段階へ。":"AMPC高用量、CVA/AMPC 1:14、CDTR-PI高用量などGL記載の初期選択肢から、鼓膜切開・細菌検査等も含めて治療。";
+    $("aomScoreResult").innerHTML="<b>"+score+"点｜"+grade+"</b><span>"+path+"</span><div class=\"branch-source\">根拠：小児急性中耳炎診療ガイドライン2024年版｜急性中耳炎診療スコアシート／治療アルゴリズム 誌面 p.85–90・巻末カラー</div><div class=\"evidence-jump\"><button type=\"button\" onclick=\"jumpToEvidence()\">根拠を見る ↓</button></div>";
+  }
+
   function renderAomReverse(){
     const out=$("aomPosition"); if(!out)return;
     const drug=$("aomDrug")?.value||"none", day=$("aomDay")?.value||"start", response=$("aomResponse")?.value||"unknown";
@@ -2349,6 +2376,9 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   function renderAomBranch(){
     const r=$("aomResult"); if(!r)return;
     document.querySelectorAll("[data-aom]").forEach(b=>b.classList.toggle("active",b.dataset.aom===aomMode));
+    if($("aomFullScore")) $("aomFullScore").classList.toggle("show",aomMode==="full");
+    if($("aomReverse")) $("aomReverse").style.display=aomMode==="pharmacy"?"block":"none";
+    if(aomMode==="full") calcAomScore();
     renderAomReverse();
     if(aomMode==="pharmacy"){
       r.innerHTML='<strong>正式な軽症・中等症・重症判定は行いません</strong><p>2024年版GLの重症度は年齢・症状に加えて鼓膜発赤・膨隆・耳漏などの鼓膜所見を含むスコアで判定します。薬局で鼓膜所見が不明なら、症状だけから重症度や治療段階を断定しません。</p><div class="aom-alert">処方監査では「AMPC高用量が第1選択」「3〜5日後に効果判定」「改善なしならGLの次段階を検討」という位置づけを確認します。薬剤の変更候補は、重症度・前治療・細菌検査が確認できる場合のみGLに沿って表示します。</div><div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.85–90</div>';
@@ -2375,6 +2405,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomDay","aomResponse"].forEach(id=>{if($(id))$(id).onchange=renderAomReverse;});
+    ["aomAge","aomPain","aomFever","aomIrritable","aomRed","aomBulge","aomOtorrhea"].forEach(id=>{if($(id))$(id).onchange=calcAomScore;});
     renderAomReverse();
     $("allergySelect").onchange=renderAllergy;
     document.body.classList.add("compact-view");
