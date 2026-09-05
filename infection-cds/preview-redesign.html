@@ -958,6 +958,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
  <div class="alt-grid">
   <div><label>治療目的</label><select id="altPurpose"><option value="crs">慢性副鼻腔炎｜少量長期マクロライド療法</option><option value="other">その他 / 不明</option></select></div>
   <div><label>CAMが使えない理由</label><select id="altReason"><option value="interaction">併用禁忌・相互作用</option><option value="allergy">CAM過敏症 / アレルギー</option><option value="qt">QT延長・不整脈リスク</option><option value="adverse">その他の副作用</option><option value="other">その他 / 不明</option></select></div>
+  <div id="altInteractWrap"><label>原因となる併用薬</label><select id="altInteract"><option value="unknown">選択してください</option><option value="suvorexant">スボレキサント等オレキシン受容体拮抗薬</option><option value="azelnidipine">アゼルニジピン</option><option value="finerenone">フィネレノン</option><option value="ergot">エルゴタミン / ジヒドロエルゴタミン</option><option value="warfarin">ワルファリン</option><option value="qt_drug">QT延長薬</option><option value="other">その他</option></select></div>
  </div>
  <div id="altResult" class="alt-result"></div>
 </section>
@@ -1100,7 +1101,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v24 / Antibiotic alternative engine prototype</footer>
+    Clinical Reference UI concept v25 / CAM interaction-aware alternative engine</footer>
 </main>
 
 <div class="modal-backdrop" id="aboutModal" hidden>
@@ -2320,14 +2321,27 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   };
   function renderAltEngine(){
     const out=$("altResult"); if(!out)return;
-    const p=$("altPurpose")?.value||"crs", r=$("altReason")?.value||"interaction";
-    if(p!=="crs"){out.innerHTML="<strong>治療目的を先に確認</strong>同じ抗菌薬でも疾患・治療目的によって代替候補は変わります。現段階のprototypeは慢性副鼻腔炎の少量長期マクロライド療法のみ対応。";return;}
-    let body="<strong>治療目的：14員環マクロライド少量長期療法</strong>慢性副鼻腔炎ではEM・CAM・RXMが14員環マクロライドとして使用されてきたため、薬剤名だけでなく『この治療目的を維持できるか』を評価します。";
-    if(r==="interaction") body+="<div class='alt-candidate'><b>代替候補：RXM（ロキシスロマイシン）</b><br>慢性副鼻腔炎の少量長期療法として使用実績があり、成人では150 mg/dayを用いた報告があります。<br><b>ただし：</b>相互作用は原因となった併用薬ごとにRXMでも再評価して、回避できる場合にのみ提案候補とします。現段階では『CAM禁忌＝RXM可』とは自動判定しません。</div>";
-    else if(r==="allergy") body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>CAM過敏症の内容・重症度を確認せず、同じマクロライド系へ機械的に置換するのは避けます。</div>";
-    else if(r==="qt") body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>QT/不整脈リスクが理由なら、候補薬側にも同じ安全性論点がないか個別評価が必要です。</div>";
-    else body+="<div class='alt-stop'><b>代替候補の自動提示を保留</b><br>副作用の内容やCAMを避ける理由が分からないと、RXMで問題を回避できるか判断できません。</div>";
-    out.innerHTML=body+'<div class="branch-source">根拠：慢性副鼻腔炎のマクロライド療法では14員環のEM・RXM・CAMが使用され、原則常用量の半量・約3か月を目安とする整理あり。RXM 150 mg/dayの少量長期投与報告あり。相互作用の可否は最新の電子添文で個別確認。</div>';
+    const p=$("altPurpose")?.value||"crs", r=$("altReason")?.value||"interaction", x=$("altInteract")?.value||"unknown";
+    if($("altInteractWrap")) $("altInteractWrap").style.display=r==="interaction"?"block":"none";
+    if(p!=="crs"){out.innerHTML="<strong>治療目的を先に確認</strong>同じ抗菌薬でも疾患・治療目的によって代替候補は変わります。現段階は慢性副鼻腔炎の少量長期マクロライド療法のみ対応。";return;}
+    let body="<strong>治療目的：14員環マクロライド少量長期療法</strong>RXMには慢性副鼻腔炎で150 mg/dayを用いた少量長期投与の臨床報告があります。";
+    if(r==="interaction"){
+      if(["suvorexant","azelnidipine","finerenone"].includes(x)){
+        const n={suvorexant:"スボレキサント等",azelnidipine:"アゼルニジピン",finerenone:"フィネレノン"}[x];
+        body+="<div class='alt-candidate'><b>代替候補：RXM（ロキシスロマイシン）</b><br>CAMの現行電子添文では "+n+" は併用禁忌に含まれます。一方、RXMの現行電子添文の併用禁忌はエルゴタミン系で、"+n+" は併用禁忌として列挙されていません。<br><b>提案前チェック：</b>併用薬側の最新電子添文も確認し、RXMとの相互作用・QT等の別リスクがないことを確認してから提案します。</div>";
+      }else if(x==="ergot"){
+        body+="<div class='alt-stop'><b>RXMでは回避できません</b><br>エルゴタミン / ジヒドロエルゴタミンはRXMでも併用禁忌。CAM→RXM置換は相互作用回避になりません。</div>";
+      }else if(x==="warfarin"){
+        body+="<div class='alt-stop'><b>RXMへ替えるだけでは解決しません</b><br>RXMにもワルファリン作用増強の併用注意があります。相互作用回避目的の単純置換候補にはしません。</div>";
+      }else if(x==="qt_drug"){
+        body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>RXMにもQT延長の注意があり、QT延長薬との併用でリスクが増える可能性があります。</div>";
+      }else{
+        body+="<div class='alt-stop'><b>併用薬を個別照合</b><br>CAMの相互作用機序と、RXMおよび併用薬双方の最新電子添文を比較できる場合だけ代替候補を提示します。</div>";
+      }
+    }else if(r==="allergy") body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>CAM過敏症の内容・重症度を確認せず同系統へ機械的に置換しません。</div>";
+    else if(r==="qt") body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>RXMにもQT延長の注意があるため、相互作用回避候補として自動提示しません。</div>";
+    else body+="<div class='alt-stop'><b>代替候補の自動提示を保留</b><br>副作用の内容やCAMを避ける理由を特定してから候補を評価します。</div>";
+    out.innerHTML=body+'<div class="branch-source">Evidence：PMDA クラリスロマイシン電子添文（2026年3月改訂）／PMDA ルリッド錠150電子添文／慢性副鼻腔炎に対するRXM 150 mg/day少量長期投与の臨床報告。最終確認は両薬剤＋併用薬の最新電子添文。</div>';
   }
 
   function renderUtiAudit(){
@@ -2557,7 +2571,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["phDrug","phDays","phReverseGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynxReverse;});
     ["capDrug","capAtypical","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
     ["utiSymptoms","utiUpper","utiPreg","utiCulture","utiResistance","utiCurrentDrug","utiAdvancedCulture","utiRenal"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
-    ["altPurpose","altReason"].forEach(id=>{if($(id))$(id).onchange=renderAltEngine;}); renderAltEngine();
+    ["altPurpose","altReason","altInteract"].forEach(id=>{if($(id))$(id).onchange=renderAltEngine;}); renderAltEngine();
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomWeight","aomDailyMg","aomPivRecent","aom6m","aom12m"].forEach(id=>{if($(id))$(id).oninput=renderAomReverse;if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
