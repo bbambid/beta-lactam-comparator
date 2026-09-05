@@ -547,6 +547,10 @@ body.compact-view .deep-section{display:none}
 .aom-entry button.active{border:2px solid #5d7890;background:#f6f9fc;box-shadow:0 2px 8px #102a4314}
 .aom-entry b{display:block;font-size:12px}.aom-entry span{display:block;font-size:9px;line-height:1.45;color:#667085;margin-top:4px}
 @media(max-width:700px){.aom-entry{grid-template-columns:1fr}}
+
+.pharynx-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.pharynx-cds.show{display:block}.ph-qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}.ph-q{display:flex;gap:7px;align-items:flex-start;border:1px solid #e4eaf0;border-radius:10px;padding:9px;background:#fafbfd}.ph-q label{font-size:10px;line-height:1.45}.ph-result{margin-top:9px;padding:10px;border-radius:10px;background:#eef4fb}.ph-result b{font-size:13px}.ph-result span{display:block;font-size:10px;line-height:1.5;color:#667085;margin-top:3px}.ph-test{margin-top:9px}.ph-test select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}
+@media(max-width:700px){.ph-qgrid{grid-template-columns:1fr}}
 </style>
 
 
@@ -937,7 +941,19 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="qc-text">下の「標的菌」と「βラクタムの位置づけ」を先に確認し、必要なときだけ比較表・アレルギー・Evidenceへ進みます。薬剤の順位は各疾患データに登録されたガイドライン上の位置づけをそのまま表示し、根拠のない順位づけは行いません。</div>
   </section>
 
-  <section id="aomBranch" class="aom-branch">
+  <section id="pharynxCds" class="pharynx-cds">
+  <div class="branch-title">急性咽頭炎｜薬局で確認できるGAS評価</div>
+  <div class="branch-sub">CentorはGASの可能性を考える補助。スコアだけで抗菌薬適応を決めず、検査結果と合わせて確認します。</div>
+  <div class="ph-qgrid">
+    <div class="ph-q"><input id="phFever" type="checkbox"><label for="phFever">38℃以上の発熱 ＋1</label></div>
+    <div class="ph-q"><input id="phNoCough" type="checkbox"><label for="phNoCough">咳がない ＋1</label></div>
+    <div class="ph-q"><input id="phNodes" type="checkbox"><label for="phNodes">圧痛を伴う前頸部リンパ節腫脹 ＋1</label></div>
+    <div class="ph-q"><input id="phExudate" type="checkbox"><label for="phExudate">白苔を伴う扁桃炎 ＋1</label></div>
+  </div>
+  <div class="ph-test"><label>GAS迅速抗原検査 / 培養</label><select id="phGas"><option value="unknown">未実施・不明</option><option value="positive">GAS陽性</option><option value="negative">GAS陰性</option></select></div>
+  <div id="phResult" class="ph-result"></div>
+</section>
+<section id="aomBranch" class="aom-branch">
   <div class="branch-title">小児急性中耳炎｜薬局向け治療確認</div>
   <div class="branch-sub">鼓膜所見が不明な薬局では、正式な重症度を推定しません。処方と治療経過の位置づけを確認します。</div>
   <div class="aom-entry"><button type="button" data-aom="pharmacy" class="active"><b>💊 処方から確認する</b><span>現在薬・治療日数・改善状況から、公開情報をもとに治療上の位置づけを確認します。</span></button></div>
@@ -1024,7 +1040,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v16 / AOM reverse-only
+    Clinical Reference UI concept v17 / Pharyngitis GAS CDS
   </footer>
 </main>
 
@@ -1079,7 +1095,10 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       warning:{title:"アレルギー代替で注意",text:"CEXを単純な代替にしない。AMPC/ABPCとアミノ側鎖が近く、反応型を確認して構造Comparatorへ。"},
       spectrum:[["AMPC × GAS","Layer 3","GAS検出時の治療軸","l3"]],
       compare:["AMPC","CEX","CCL"],
-      evidence:[["PHARYNX-MHLW4","厚労省 抗微生物薬適正使用の手引き 第四版","ページ最終監査待ち","GAS検出時のAMPC治療。","https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000120172.html"]]
+      evidence:[
+        ["PHARYNX-MHLW4-A","抗微生物薬適正使用の手引き 第四版 医科・外来編","成人：誌面 p.24–27（表2 Centor/McIsaac）","GASの可能性評価、検査診断、GAS未検出では抗菌薬なし、GAS検出時はAMPC 10日間。","https://www.mhlw.go.jp/content/10900000/001630903.pdf#page=24"],
+        ["PHARYNX-MHLW4-P","抗微生物薬適正使用の手引き 第四版 医科・外来編","小児：誌面 p.63–65（表3・表4）","小児ではスコアのみでGASと判断せず検査診断を重視。GAS検出時の治療を記載。","https://www.mhlw.go.jp/content/10900000/001630903.pdf#page=63"]
+      ]
     },
     {
       id:"chronic_sinus", short:"慢性副鼻腔炎", name:"慢性副鼻腔炎",
@@ -2240,6 +2259,17 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22"}
     }
   };
+  function renderPharynx(){
+    const ids=["phFever","phNoCough","phNodes","phExudate"]; if(ids.some(id=>!$(id)))return;
+    const score=ids.reduce((n,id)=>n+($(id).checked?1:0),0), gas=$("phGas")?.value||"unknown";
+    let title=score+"点｜Centor",body="";
+    if(gas==="positive") body="GASが検出されています。第四版では抗菌薬を投与する場合、AMPC 10日間経口投与を推奨。";
+    else if(gas==="negative") body="GASは検出されていません。第四版ではGAS未検出の急性咽頭炎に抗菌薬を投与しないことを推奨。";
+    else if(score<=2) body="第四版ではCentor 2点以下ではGAS迅速抗原検査は不要とする海外指針を紹介。ただしGAS曝露歴など別の根拠があれば検査を考慮。抗菌薬適応はスコアだけで決めません。";
+    else body="GASの可能性を考え、迅速抗原検査または培養結果を確認したい領域です。スコアのみでGASと診断・抗菌薬投与はしません。";
+    $("phResult").innerHTML="<b>"+title+"</b><span>"+body+"</span><div class=\"branch-source\">根拠：抗微生物薬適正使用の手引き 第四版 医科・外来編｜成人 p.24–27（表2 Centor/McIsaac）・小児 p.63–65（表3・4）</div><div class=\"evidence-jump\"><button type=\"button\" onclick=\"jumpToEvidence()\">根拠を見る ↓</button></div>";
+  }
+
   function calcChildSinus(){
     const qs=["childQ1","childQ2","childQ3"].map(id=>$(id)).filter(Boolean);
     if(!qs.length)return;
@@ -2379,6 +2409,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     document.querySelectorAll("#sinusSeverity button").forEach(b=>b.onclick=()=>{sinusSeverity=b.dataset.v;renderSinusBranch();});
     ["scoreRhinorrhea","scorePain","scoreDischarge"].forEach(id=>{if($(id))$(id).onchange=calcSinusScore;});
     ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
+    ["phFever","phNoCough","phNodes","phExudate","phGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynx;});
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomDay","aomResponse"].forEach(id=>{if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
@@ -2400,6 +2431,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     document.querySelectorAll('.quick-tab').forEach(b=>b.classList.toggle('active',b.dataset.id===x.id));
     $("sinusBranch").classList.toggle("show",x.id==="sinus"); if(x.id==="sinus")renderSinusBranch();
     $("aomBranch").classList.toggle("show",x.id==="aom"); if(x.id==="aom")renderAomBranch();
+    $("pharynxCds").classList.toggle("show",x.id==="pharynx"); if(x.id==="pharynx")renderPharynx();
     $("summaryHero").innerHTML=`<div class="summary-kicker">CURRENT SYNDROME</div><h2>${esc(x.name)}</h2><div class="summary-line">${esc(x.lead)}</div><div class="summary-chiprow">${x.chips.map((c,i)=>`<span class="chip ${i===0?'good':'warn'}">${esc(c)}</span>`).join('')}</div>`;
 
     renderDecisionZone(x);
