@@ -720,6 +720,24 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 
 
 <style id="module-link-style">
+/* LOCKED MODULE NAV: 入口・構造解析への導線。今後の更新でも削除しない */
+.module-bridgebar{
+  min-height:54px;background:#102a43;color:#fff;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;padding:8px 14px;border-bottom:1px solid #0b2238;
+  position:sticky;top:0;z-index:30
+}
+.module-bridge-title{font-size:13px;font-weight:800;white-space:nowrap}
+.module-bridge-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.module-bridge-actions a{
+  color:#fff;text-decoration:none;border:1px solid #ffffff66;border-radius:5px;
+  padding:7px 10px;font-size:11px;font-weight:700;background:#ffffff0d
+}
+.module-bridge-actions a:hover{background:#ffffff1f}
+@media(max-width:650px){
+  .module-bridgebar{min-height:62px;padding:8px 10px}
+  .module-bridge-title{font-size:11px}
+  .module-bridge-actions a{padding:6px 8px;font-size:10px}
+}
 .module-nav-btn{
   display:inline-flex;align-items:center;justify-content:center;
   min-height:38px;padding:8px 12px;border:1px solid rgba(255,255,255,.42);
@@ -759,6 +777,14 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 
 </head>
 <body>
+<!-- LOCKED MODULE NAV: 構造解析モジュールと同じ上部ナビ。今後の更新でも削除しない -->
+<div class="module-bridgebar">
+  <div class="module-bridge-title">β-LACTAM CLINICAL REFERENCE ｜ 疾患モジュール</div>
+  <div class="module-bridge-actions">
+    <a href="../structure-bridge/index.html">構造解析 →</a>
+    <a href="../portal.html">入口</a>
+  </div>
+</div>
 <header class="topbar">
   <div class="topbar-inner">
     <div>
@@ -766,9 +792,6 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       <h1>感染症から読み解く</h1>
     </div>
     <div class="top-actions">
-      <!-- LOCKED NAV: 入口・構造解析への導線は今後の更新でも削除しない -->
-      <a class="module-nav-btn" href="../portal.html">入口</a>
-      <a class="module-nav-btn" href="../structure-bridge/index.html">構造解析 ↗</a>
       <button id="editBtn" class="edit-btn" aria-label="編集モードを開く">編集</button>
       <button id="aboutBtn" class="icon-btn" aria-label="このツールについて">?</button>
     </div>
