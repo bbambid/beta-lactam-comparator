@@ -946,13 +946,13 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <section id="capCds" class="cap-cds">
- <div class="branch-title">成人市中肺炎｜処方から逆引き</div>
- <div class="branch-sub">薬局で分かる処方と診療情報から、βラクタムが何を狙う処方か・非定型病原体のカバーがあるかを確認します。重症度や診断をツール側で推定しません。</div>
+ <div class="branch-title">成人市中肺炎｜処方監査カード</div>
+ <div class="branch-sub">まず処方薬だけ選択。選んだ薬で確認価値がある質問だけ追加表示し、回答によって監査結果が変わります。</div>
  <div class="cap-grid">
   <div class="cap-field"><label>現在の処方</label><select id="capDrug"><option value="ampc_cva">CVA/AMPC＋高用量AMPC</option><option value="cdtr">CDTR-PI 高用量</option><option value="fq">レスピラトリーキノロン</option><option value="beta_macro">βラクタム＋マクロライド</option><option value="beta_only">その他βラクタム単剤</option><option value="other">その他</option></select></div>
-  <div class="cap-field"><label>非定型肺炎の情報</label><select id="capAtypical"><option value="unknown">不明</option><option value="suspect">疑いあり</option><option value="unlikely">疑い低い</option></select></div>
-  <div class="cap-field"><label>レジオネラの情報</label><select id="capLegionella"><option value="unknown">不明</option><option value="suspect">疑いあり</option><option value="negative">検査陰性 / 疑い低い</option></select></div>
-  <div class="cap-field"><label>慢性呼吸器疾患など</label><select id="capComorb"><option value="unknown">不明</option><option value="yes">あり</option><option value="no">なし</option></select></div>
+  <div class="cap-field" id="capAtypicalWrap"><label>非定型肺炎 / Legionellaを疑う情報</label><select id="capAtypical"><option value="unknown">不明</option><option value="suspect">あり</option><option value="unlikely">なし / 疑い低い</option></select></div>
+  <div class="cap-field" id="capBlnarWrap" style="display:none"><label>BLNARを考慮する情報</label><select id="capBlnar"><option value="unknown">不明</option><option value="yes">あり</option><option value="no">なし</option></select></div>
+  <div class="cap-field" id="capTbWrap" style="display:none"><label>結核を除外できているか</label><select id="capTb"><option value="unknown">不明</option><option value="yes">確認済み</option><option value="no">未確認 / 疑いあり</option></select></div>
  </div>
  <div id="capResult" class="cap-result"></div>
 </section>
@@ -1064,7 +1064,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v19 / CAP reverse lookup
+    Clinical Reference UI concept v20 / CAP audit card
   </footer>
 </main>
 
@@ -2285,19 +2285,22 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   };
   function renderCapReverse(){
     const out=$("capResult"); if(!out)return;
-    const d=$("capDrug")?.value||"ampc_cva", a=$("capAtypical")?.value||"unknown", l=$("capLegionella")?.value||"unknown", co=$("capComorb")?.value||"unknown";
+    const d=$("capDrug")?.value||"ampc_cva", a=$("capAtypical")?.value||"unknown", bl=$("capBlnar")?.value||"unknown", tb=$("capTb")?.value||"unknown";
+    const beta=["ampc_cva","cdtr","beta_only"].includes(d);
+    if($("capAtypicalWrap")) $("capAtypicalWrap").style.display=beta?"block":"none";
+    if($("capBlnarWrap")) $("capBlnarWrap").style.display=d==="cdtr"?"block":"none";
+    if($("capTbWrap")) $("capTbWrap").style.display=d==="fq"?"block":"none";
     const dn={ampc_cva:"CVA/AMPC＋高用量AMPC",cdtr:"CDTR-PI高用量",fq:"レスピラトリーキノロン",beta_macro:"βラクタム＋マクロライド",beta_only:"その他βラクタム単剤",other:"その他"}[d];
-    let body="";
-    if(d==="ampc_cva") body="細菌性CAPを想定したβラクタム中心の処方として位置づけを確認できます。";
-    else if(d==="cdtr") body="H. influenzae、特にBLNARを考慮する場面で高用量CDTR-PIが専門GLに記載される処方です。";
-    else if(d==="fq") body="細菌性・非定型の鑑別が難しい場合や、患者背景などに応じてレスピラトリーキノロンが位置づけられることがあります。";
-    else if(d==="beta_macro") body="βラクタムで典型細菌を、マクロライドで非定型病原体を考慮した組み合わせとして処方意図を確認できます。";
-    else if(d==="beta_only") body="βラクタム単剤は肺炎球菌・H. influenzae等の典型細菌を狙う一方、MycoplasmaやLegionellaはカバーしません。";
-    else body="処方だけではGL上の位置づけを特定できません。診断・重症度・原因微生物・患者背景を確認します。";
-    let warn="";
-    if((a==="suspect"||l==="suspect")&&(d==="ampc_cva"||d==="cdtr"||d==="beta_only")) warn='<div class="cap-warn"><b>確認ポイント</b>非定型肺炎またはLegionellaが疑われる情報があります。βラクタム単独ではこれらをカバーしないため、処方意図・検査結果を確認します。</div>';
-    if(co==="yes") warn+='<div class="cap-warn"><b>患者背景</b>慢性呼吸器疾患などの基礎疾患は抗菌薬選択に影響します。処方だけで適否を断定しません。</div>';
-    out.innerHTML="<b>"+dn+"｜逆引き結果</b>"+body+warn+'<div class="branch-source">参考：成人肺炎診療ガイドライン2024。詳細な治療アルゴリズムは公式資料を参照。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+    let pos="",coverage="",check="";
+    if(d==="ampc_cva"){pos="細菌性肺炎を疑う外来CAPでGLに示されるβラクタム中心の選択肢。";coverage="肺炎球菌・H. influenzaeなどの典型細菌を主に想定。非定型病原体はカバーしません。";}
+    else if(d==="cdtr"){pos="H. influenzaeのBLNARを考慮する必要がある場合に、高用量CDTR-PIがGL注釈で示されます。";coverage="典型細菌を主に想定。非定型病原体はカバーしません。";if(bl==="no")check+="<div class='cap-warn'><b>確認ポイント</b>BLNARを特に考慮しない状況なら、高用量CDTR-PIを選択した背景を確認。</div>";}
+    else if(d==="fq"){pos="細菌性/非定型の鑑別困難、Legionella疑い、慢性呼吸器疾患などでもGL上の外来選択肢。";coverage="典型細菌と非定型病原体の双方を考慮できる。";if(tb!=="yes")check+="<div class='cap-warn'><b>結核の確認</b>レスピラトリーキノロンは結核診断を遅らせる懸念があり、GLも使用前の結核評価に注意を促しています。</div>";}
+    else if(d==="beta_macro"){pos="典型細菌＋非定型病原体の双方を意識した処方。";coverage="βラクタム側で典型細菌、マクロライド側で非定型病原体を補う意図を確認。";}
+    else if(d==="beta_only"){pos="典型細菌を狙う処方としては理解できますが、薬剤名・用量によりGL上の位置づけは異なります。";coverage="Mycoplasma / Legionellaなど非定型病原体はβラクタムではカバーしません。";}
+    else {pos="処方だけではCAPのGL上の位置づけを特定できません。";coverage="薬剤名、用量、診断情報を確認。";}
+    if(beta&&a==="suspect") check+="<div class='cap-warn'><b>⚠ カバー不足の可能性</b>非定型肺炎またはLegionellaを疑う情報があるのにβラクタム単独です。GLでは別の薬剤選択になるため、処方意図・検査結果を確認。</div>";
+    else if(beta&&a==="unknown") check+="<div class='cap-warn'><b>追加で1点だけ確認</b>非定型肺炎 / Legionellaを疑う情報がないか確認できると、この処方の位置づけがより明確になります。</div>";
+    out.innerHTML="<b>"+dn+"｜処方監査</b><div><strong>位置づけ：</strong>"+pos+"</div><div style='margin-top:5px'><strong>カバー：</strong>"+coverage+"</div>"+check+'<div class="branch-source">根拠：成人肺炎診療ガイドライン2024｜CAPエンピリック治療 図4・誌面 p.35。図そのものは再現せず、処方監査用に要点のみ表示。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
   }
 
   function renderPharynxReverse(){
@@ -2471,7 +2474,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
     ["phFever","phNoCough","phNodes","phExudate","phGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynx;});
     ["phDrug","phDays","phReverseGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynxReverse;});
-    ["capDrug","capAtypical","capLegionella","capComorb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
+    ["capDrug","capAtypical","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomDay","aomResponse"].forEach(id=>{if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
