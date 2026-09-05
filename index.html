@@ -325,7 +325,7 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 }
 .compare-focus .compare-arrow{
   display:grid;
-  grid-template-columns:52px minmax(135px,.85fr) minmax(0,1.25fr);
+  grid-template-columns:42px minmax(135px,.85fr) minmax(0,1.35fr);
   align-items:center;
   column-gap:9px;
   padding:7px 5px;
@@ -346,7 +346,7 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
   grid-column:3;
   grid-row:1;
   margin:0;
-  padding:6px 8px 6px 11px;
+  padding:6px 5px 6px 8px;
   border:0;
   border-left:1px solid #fdba74;
   border-radius:0;
@@ -367,13 +367,13 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 }
 @media(max-width:800px){
   .compare-focus .compare-arrow{
-    grid-template-columns:46px minmax(120px,.9fr) minmax(0,1.25fr);
+    grid-template-columns:34px minmax(112px,.82fr) minmax(0,1.42fr);
     column-gap:7px;
     padding:5px 2px;
   }
   .compare-focus .compare-arrow-line{font-size:30px}
   .compare-focus .compare-arrow>b{font-size:11px;line-height:1.4}
-  .compare-focus .compare-arrow-rule{font-size:9px;line-height:1.4;padding-left:8px}
+  .compare-focus .compare-arrow-rule{font-size:9px;line-height:1.4;padding-left:6px}
 }
 </style>
 
@@ -1276,7 +1276,7 @@ function atomPairPairInterpretation(a,b,s){
   if(keys.has('ceftazidime')&&keys.has('aztreonam')) return ['high','🔴 既知の高注意ペア','Picard原著値の有無とは別に、セフタジジム–アズトレオナムは重要な側鎖関係が知られている。補助計算値だけで投与可否を判断しない。'];
   let level=s>=0.7?'warn':'safe';
   let title='';
-  let desc='Picard 2019に文献値がない組み合わせのため、本モジュールで計算したRDKit Atom-Pair count fingerprint / Tanimoto similarity（chirality ON）を表示している。Picard 2019もAtom-Pairを用いるが実装が異なるため、文献値と同一尺度として扱わない。交差反応率そのものでもない。';
+  let desc='Picard 2019に文献値がない組み合わせのため、本モジュールで計算したRDKit Atom-Pair count fingerprint / Tanimoto similarity（chirality ON）を表示している。Picard 2019もAtom-Pairを用いるが算出ソフトが異なるため、文献値と同一尺度として扱わない。交差反応率そのものでもない。';
   return [level,title,desc];
 }
 
