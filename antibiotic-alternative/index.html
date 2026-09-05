@@ -15,7 +15,7 @@ CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索�
 <div><label>CAMが使えない原因薬</label><select id="drug">
 <option value="suv">スボレキサント</option>
 <option value="aze">アゼルニジピン</option>
-<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option><option value="tada">タダラフィル（アドシルカ）</option><option value="maci">マシテンタン・タダラフィル</option><option value="tica">チカグレロル</option><option value="ibru">イブルチニブ</option><option value="iva">イバブラジン</option>
+<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option><option value="tada">タダラフィル（アドシルカ）</option><option value="maci">マシテンタン・タダラフィル</option><option value="tica">チカグレロル</option><option value="ibru">イブルチニブ</option><option value="iva">イバブラジン</option><option value="vene">ベネトクラクス</option><option value="lura">ルラシドン</option><option value="anam">アナモレリン</option><option value="isav">イサブコナゾニウム</option><option value="vocl">ボクロスポリン</option>
 <option value="ergot">エルゴタミン／ジヒドロエルゴタミン</option>
 <option value="pim">ピモジド</option>
 <option value="war">ワルファリン（併用注意ケース）</option>
@@ -23,7 +23,7 @@ CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索�
 <div><label>治療目的</label><select id="purpose"><option>慢性副鼻腔炎｜少量長期マクロライド療法</option></select></div>
 </div><div id="out" class="out"></div></section>
 
-<section class="card"><div class="sectionTitle">検証済みデータ</div><div class="sub">Batch 1：スボレキサント／アゼルニジピン／フィネレノン。Batch 2：ダリドレキサント／ボルノレキサント／ロミタピド。Batch 3：タダラフィル／マシテンタン・タダラフィル／チカグレロル／イブルチニブ／イバブラジン。CAM→RXMで相互作用が完全消失するかではなく、禁忌を回避しつつ残存リスクを管理できるかで判定します。</div><div id="list"></div></section>
+<section class="card"><div class="sectionTitle">検証済みデータ</div><div class="sub">Batch 1：スボレキサント／アゼルニジピン／フィネレノン。Batch 2：ダリドレキサント／ボルノレキサント／ロミタピド。Batch 3：タダラフィル／マシテンタン・タダラフィル／チカグレロル／イブルチニブ／イバブラジン。Batch 4：ベネトクラクス／ルラシドン／アナモレリン／イサブコナゾニウム／ボクロスポリン。CAM→RXMで相互作用が完全消失するかではなく、禁忌を回避しつつ残存リスクを管理できるかで判定します。</div><div id="list"></div></section>
 </main>
 <script>
 const DB={
@@ -49,6 +49,11 @@ maci:{name:"マシテンタン・タダラフィル配合剤",state:"cond",label
 tica:{name:"チカグレロル",state:"cond",label:"条件付き候補",cam:"CAMではチカグレロル血漿中濃度が著しく上昇するおそれがあり併用禁忌。",rxm:"RXMはCAMほど強いCYP3A阻害ではなく、同じ併用禁忌には位置付けられていない。",co:"チカグレロルはCYP3A阻害により曝露上昇し出血リスク増加が懸念されるため、RXMでも出血徴候等を確認。",memo:"CAM禁忌回避の候補になりうるが、抗血小板作用増強を念頭に条件付き。"},
 ibru:{name:"イブルチニブ",state:"hold",label:"要個別判断",cam:"CAMではCYP3A阻害によりイブルチニブ作用が増強するため併用禁忌。",rxm:"RXMはCAMより阻害が弱いもののCYP3A阻害作用を有する。",co:"イブルチニブはCYP3A阻害薬の強度に応じた休薬・減量等の管理が治療レジメンに直結する。",memo:"単純なCAM→RXM置換を自動提案せず、イブルチニブ側の用量調整規定を確認して個別判断。"},
 iva:{name:"イバブラジン",state:"ng",label:"RXMを自動提案しない",cam:"CAMではCYP3A阻害によりイバブラジン曝露が上昇し、過度の徐脈のおそれがあるため併用禁忌。",rxm:"RXMにもCYP3A阻害作用があり、さらにQT延長リスクを持つ。",co:"イバブラジンは徐脈を生じうるため、心拍数低下・不整脈という元の安全性問題をRXMで十分回避できない。",memo:"禁忌の形式的回避だけでなく循環器リスクを優先し、RXMを自動代替候補にしない。"},
+vene:{name:"ベネトクラクス",state:"hold",label:"要個別判断",cam:"CAMは用量漸増期のベネトクラクスで腫瘍崩壊症候群リスクを増強するため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱いが、ベネトクラクスは阻害強度に応じた用量調整が必要。",co:"ベネトクラクス側では用量漸増期に中等度CYP3A阻害薬も回避または大幅減量が必要。",memo:"治療フェーズと阻害強度が処方設計に直結するため自動代替せず、ベネトクラクス側の用量調整表で個別判断。"},
+lura:{name:"ルラシドン",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりルラシドン血中濃度を上昇させるため併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同じ強い阻害薬カテゴリーではない。",co:"ルラシドンは中等度CYP3A阻害薬でも曝露が約2倍となり用量調整が必要。",memo:"CAM禁忌回避の余地はあるが、RXMでも曝露上昇の可能性を残すため条件付き候補。"},
+anam:{name:"アナモレリン",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりアナモレリンの血中濃度上昇・副作用増強のおそれがあり併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同一の併用禁忌には位置付けられていない。",co:"アナモレリンはCYP3A基質であり、弱い阻害でも曝露上昇の可能性を考慮する。",memo:"CAM禁忌は回避可能だが、食欲増進薬の副作用・QT等も含め観察する条件付き候補。"},
+isav:{name:"イサブコナゾニウム",state:"cond",label:"条件付き候補",cam:"CAMとの併用でイサブコナゾール曝露上昇が懸念され併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱く、強い阻害薬には該当しない。",co:"イサブコナゾールはCYP3Aを介した相互作用が多く、併用薬側の相互作用管理が必要。",memo:"CAM禁忌回避の候補にはなりうるが、多剤相互作用を再評価する条件付き候補。"},
+vocl:{name:"ボクロスポリン",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりボクロスポリン濃度を上昇させ副作用を増強するため併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同じ強い阻害薬カテゴリーではない。",co:"ボクロスポリンはCYP3A阻害薬で曝露が変動しうるため、腎機能・血圧等の管理が必要。",memo:"CAM禁忌回避の余地はあるが、免疫抑制薬として残存相互作用を慎重に管理する条件付き候補。"},
 fin:{
  name:"フィネレノン",state:"cond",label:"条件付き候補",
  cam:"CAMは強いCYP3A阻害薬としてフィネレノンとの併用禁忌。",
@@ -82,5 +87,5 @@ const $=x=>document.getElementById(x);
 function badge(x){return '<span class="'+x.state+'">'+x.label+'</span>'}
 function render(){const x=DB[$("drug").value];$("out").innerHTML='<b>'+x.name+'</b> '+badge(x)+'<div class="row"><b>① CAM側</b><br>'+x.cam+'</div><div class="row"><b>② RXM側</b><br>'+x.rxm+'</div><div class="row"><b>③ 併用薬側</b><br>'+x.co+'</div><div class="row"><b>CDS判断</b><br>'+x.memo+'</div><div class="mini">治療目的が慢性副鼻腔炎の少量長期療法であることを前提。最終確認は最新電子添文と患者背景で行います。</div>'}
 $("drug").onchange=render;render();
-$("list").innerHTML=["suv","aze","fin","dari","vor","lomi","tada","maci","tica","ibru","iva"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
+$("list").innerHTML=["suv","aze","fin","dari","vor","lomi","tada","maci","tica","ibru","iva","vene","lura","anam","isav","vocl"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
 </script></body></html>
