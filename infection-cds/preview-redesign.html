@@ -950,7 +950,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v7 / Sinus score-linked
+    Clinical Reference UI concept v7.1 / Evidence pages
   </footer>
 </main>
 
@@ -989,8 +989,8 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       ],
       compare:["AMPC","CCL","CDTR"],
       evidence:[
-        ["SINUS-AMR-ADULT","抗微生物薬適正使用の手引き 第三版","急性鼻副鼻腔炎・成人","成人では中等症・重症に抗菌薬を検討し、AMPCを第一選択として5–7日間経口投与。","https://amr.jihs.go.jp/app/tebiki_honpen.html"],
-        ["SINUS-JRS2014","急性鼻副鼻腔炎診療ガイドライン2010年版 追補版","2014","重症度別アルゴリズム。AMPC/ABPC、CDTR/CFPN/CFTM、重症・不応時のCTRX等の歴史的な位置づけを確認。","https://www.jstage.jst.go.jp/article/jjrhi/53/2/53_103/_article/-char/ja/"],
+        ["SINUS-AMR-ADULT","抗微生物薬適正使用の手引き 第三版","p.20–22（急性鼻副鼻腔炎／表3・表4を含む）","成人：軽症は抗菌薬なし、中等症・重症ではAMPCを第一選択として5–7日間。成人重症度スコアと小児の判定基準も掲載。","https://www.mhlw.go.jp/content/10900000/001168459.pdf#page=20"],
+        ["SINUS-JRS2014","急性鼻副鼻腔炎診療ガイドライン2010年版","p.43–44（CQ13-8：スコアリングと重症度分類）","成人・小児のスコアリングと軽症1–3点／中等症4–6点／重症7–8点の分類。追補版の治療アルゴリズムと併せて参照。","https://minds.jcqhc.or.jp/common/summary/pdf/c00181.pdf#page=45"],
         ["SINUS-JRS2024-HANDBOOK","鼻副鼻腔炎診療の手引き","2024;63(1):1-85","日本鼻科学会の2024年手引き。疾患全体の最新の専門学会資料として参照。","https://www.jstage.jst.go.jp/article/jjrhi/63/1/63_1/_article/-char/ja"],
         ["SINUS-JRS2010-SURV2007-01","急性鼻副鼻腔炎診療ガイドライン2010年版","紙面 p.59 / PDF p.61","2007年全国サーベイランスはHistorical evidence。現在の感受性率として扱わない。","https://minds.jcqhc.or.jp/common/summary/pdf/c00181.pdf"]
       ]
@@ -2153,14 +2153,14 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   let sinusAge="adult", sinusSeverity="moderate";
   const SINUS_BRANCH={
     adult:{
-      mild:{main:"抗菌薬は原則投与せず、まず経過観察",note:"軽症では抗菌薬非投与を基本とする。改善しない場合は再評価する。",src:"抗微生物薬適正使用の手引き 第三版 / 急性鼻副鼻腔炎GL"},
-      moderate:{main:"AMPCを第一選択として検討",note:"成人の基本はAMPC 5–7日間。",src:"抗微生物薬適正使用の手引き 第三版"},
-      severe:{main:"抗菌薬治療＋治療反応を早めに再評価",note:"AMPCを軸に治療。旧専門GLでは重症度・感受性に応じた追加選択肢がある。",src:"適正使用の手引き / 急性鼻副鼻腔炎GL（追補版）"}
+      mild:{main:"抗菌薬は原則投与せず、まず経過観察",note:"軽症では抗菌薬非投与を基本とする。改善しない場合は再評価する。",src:"抗微生物薬適正使用の手引き 第三版 p.20–22 / 急性鼻副鼻腔炎診療ガイドライン2010年版 p.43–44"},
+      moderate:{main:"AMPCを第一選択として検討",note:"成人の基本はAMPC 5–7日間。",src:"抗微生物薬適正使用の手引き 第三版 p.20–22"},
+      severe:{main:"抗菌薬治療＋治療反応を早めに再評価",note:"AMPCを軸に治療。旧専門GLでは重症度・感受性に応じた追加選択肢がある。",src:"抗微生物薬適正使用の手引き 第三版 p.20–22 / 急性鼻副鼻腔炎診療ガイドライン2010年版・追補版（治療アルゴリズム）"}
     },
     child:{
-      mild:{main:"抗菌薬を投与しない",note:"学童期以降では、遷延性または重症を除き抗菌薬を行わない。",src:"抗微生物薬適正使用の手引き 第三版"},
-      moderate:{main:"遷延性を確認して抗菌薬適応を判断",note:"小児では重症度に加えて遷延性が重要。必要な場合の基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第三版"},
-      severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第三版"}
+      mild:{main:"抗菌薬を投与しない",note:"学童期以降では、遷延性または重症を除き抗菌薬を行わない。",src:"抗微生物薬適正使用の手引き 第三版 p.20–22"},
+      moderate:{main:"遷延性を確認して抗菌薬適応を判断",note:"小児では重症度に加えて遷延性が重要。必要な場合の基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第三版 p.20–22"},
+      severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第三版 p.20–22"}
     }
   };
   function calcSinusScore(){
