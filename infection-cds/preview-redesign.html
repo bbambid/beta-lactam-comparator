@@ -931,7 +931,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v5 / Sinus branching
+    Clinical Reference UI concept v6 / Rhinosinusitis
   </footer>
 </main>
 
@@ -987,6 +987,26 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       spectrum:[["AMPC × GAS","Layer 3","GAS検出時の治療軸","l3"]],
       compare:["AMPC","CEX","CCL"],
       evidence:[["PHARYNX-MHLW4","厚労省 抗微生物薬適正使用の手引き 第四版","ページ最終監査待ち","GAS検出時のAMPC治療。","https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000120172.html"]]
+    },
+    {
+      id:"chronic_sinus", short:"慢性副鼻腔炎", name:"慢性副鼻腔炎",
+      lead:"病型を見極めたうえで治療する。非好酸球性ではマクロライド少量長期療法が選択肢となるが、急性増悪時は漫然と少量投与を続けない。",
+      chips:["病型評価が先","CAM少量長期は非好酸球性が中心","急性増悪は常用量/他剤を再評価"],
+      pathogens:[
+        ["病型評価","慢性期は感染だけで説明せず、好酸球性副鼻腔炎・鼻茸など病態を確認する。"],
+        ["急性増悪時の細菌","増悪時は急性感染の要素を再評価し、必要時に抗菌薬を選択する。"]
+      ],
+      beta:[
+        {name:"βラクタム",status:"急性増悪時に再評価",note:"慢性期の少量長期療法の主役ではない。急性増悪時は急性副鼻腔炎に準じ、病態・重症度・培養等を踏まえて選択する。"}
+      ],
+      nonbeta:{title:"マクロライド少量長期療法",body:"非好酸球性を中心に、クラリスロマイシン等を常用量の半量で長期投与する考え方がある。症状が強い場合は常用量から開始して改善後に半量へ、少量療法中の急性増悪では常用量への切替または他の抗菌薬への変更を検討する。漫然投与は避け、原則3か月を目安に効果判定する。",pills:["CAM：少量長期療法","急性増悪：常用量へ / 他剤へ"]},
+      warning:{title:"最初に確認：病型",text:"好酸球性副鼻腔炎などではマクロライド少量長期療法の効果が乏しいことがあり、慢性副鼻腔炎＝CAM長期投与と単純化しない。"},
+      spectrum:[],
+      allergy:{title:"βラクタムアレルギー",text:"急性増悪でβラクタムを検討する場合は、反応型・重症度・側鎖を確認する。"},
+      evidence:[
+        ["CRS-MACROLIDE-01","副鼻腔炎の診断と治療","日本耳鼻咽喉科学会会報 2010;113:614-618","慢性副鼻腔炎のマクロライド療法：常用量の半量、症状が強い場合は常用量から開始、急性増悪時は常用量への切替または他抗菌薬への変更、原則3か月を目安。","https://www.jstage.jst.go.jp/article/jibiinkoka/113/7/113_7_614/_article/-char/ja/"],
+        ["CRS-JRS2024","鼻副鼻腔炎診療の手引き","2024;63(1):1-85","慢性副鼻腔炎を含む最新の専門学会手引き。病型・治療全体の参照資料。","https://www.jstage.jst.go.jp/article/jjrhi/63/1/63_1/_article/-char/ja/"]
+      ]
     },
     {
       id:"aom", short:"小児中耳炎", name:"小児急性中耳炎",
