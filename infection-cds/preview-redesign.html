@@ -559,6 +559,8 @@ body.compact-view .deep-section{display:none}
 .aom-audit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.aom-audit-grid .full{grid-column:1/-1}.aom-audit-note{margin-top:8px;padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#f8fafc;font-size:10px;line-height:1.55}.aom-audit-note.warn{background:#fffaf0;border-color:#ead9ad}.aom-audit-note.danger{background:#fff4f2;border-color:#efc9c3}.aom-dose-line{display:flex;gap:7px;align-items:center}.aom-dose-line input{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}@media(max-width:700px){.aom-audit-grid{grid-template-columns:1fr}.aom-audit-grid .full{grid-column:auto}}
 
 .uti-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.uti-cds.show{display:block}.uti-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.uti-field label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.uti-field select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.uti-check{margin-top:9px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.uti-check b{display:block;font-size:12px;margin-bottom:3px}.uti-alert{margin-top:7px;padding:8px;border-radius:8px;background:#fffaf0;border:1px solid #ead9ad}.uti-critical{background:#fff4f2;border-color:#e9c4bd}@media(max-width:700px){.uti-grid{grid-template-columns:1fr}}
+
+.uti-advanced{margin-top:10px;padding-top:10px;border-top:1px solid #e3e9ef}.uti-advanced-title{font-size:11px;font-weight:900;margin-bottom:7px}.uti-advanced-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.uti-advanced-grid>div{border:1px solid #e3e9ef;border-radius:10px;padding:9px;background:#fbfcfd}.uti-advanced-grid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.uti-advanced-grid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}@media(max-width:700px){.uti-advanced-grid{grid-template-columns:1fr}}
 </style>
 
 
@@ -959,6 +961,15 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   <div class="uti-field" id="utiCultureWrap" style="display:none"><label>尿培養・感受性</label><select id="utiCulture"><option value="unknown">未確認 / 不明</option><option value="pending">採取済み・結果待ち</option><option value="known">結果確認済み</option></select></div>
  </div>
  <div id="utiResult" class="uti-check"></div>
+ <div class="uti-advanced">
+  <div class="uti-advanced-title">高度監査｜薬歴・検査結果を使う</div>
+  <div class="uti-advanced-grid">
+   <div><label>過去の尿培養でESBL / 耐性菌</label><select id="utiResistance"><option value="unknown">不明 / なし</option><option value="yes">あり</option></select></div>
+   <div id="utiCurrentDrugWrap" style="display:none"><label>今回の抗菌薬</label><select id="utiCurrentDrug"><option value="unknown">不明 / その他</option><option value="oral_ceph">経口セフェム</option><option value="fq">フルオロキノロン</option><option value="st">ST合剤</option><option value="fos">ホスホマイシン</option><option value="other">その他</option></select></div>
+   <div><label>今回の尿培養・感受性</label><select id="utiAdvancedCulture"><option value="unknown">未確認 / 不明</option><option value="pending">採取済み・結果待ち</option><option value="known">結果あり</option></select></div>
+   <div><label>腎機能情報</label><select id="utiRenal"><option value="unknown">不明</option><option value="normal">大きな低下なし</option><option value="reduced">低下あり</option></select></div>
+  </div>
+ </div>
 </section>
 <section id="capCds" class="cap-cds">
  <div class="branch-title">成人市中肺炎｜処方監査カード</div>
@@ -1079,7 +1090,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v22 / UTI pharmacist audit</footer>
+    Clinical Reference UI concept v23 / UTI advanced pharmacy audit</footer>
 </main>
 
 <div class="modal-backdrop" id="aboutModal" hidden>
@@ -2318,7 +2329,17 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       title="まず症状を1点確認";
       body="尿検査陽性だけでは感染症として治療すべきか判断できません。排尿痛・頻尿・尿意切迫などの症状の有無を確認します。";
     }
-    out.innerHTML="<b>"+title+"</b>"+body+alerts+'<div class="branch-source">Evidence：尿路感染症の詳細薬剤選択はJAID/JSC感染症治療ガイド2023を参照。耐性菌検出時は厚労省 抗微生物薬適正使用の手引き 第四版「薬剤耐性菌感染症の抗菌薬適正使用編」を別レイヤーで確認。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+    const res=$("utiResistance")?.value||"unknown", drug=$("utiCurrentDrug")?.value||"unknown", ac=$("utiAdvancedCulture")?.value||"unknown", renal=$("utiRenal")?.value||"unknown";
+    if($("utiCurrentDrugWrap")) $("utiCurrentDrugWrap").style.display=res==="yes"?"block":"none";
+    if(res==="yes"){
+      alerts+="<div class='uti-alert uti-critical'><b>⚠ 過去にESBL / 耐性菌歴あり</b>過去の培養結果は今回の初期抗菌薬選択を変え得る重要情報です。今回の培養・感受性と処方選択を照合します。</div>";
+      if(drug==="oral_ceph") alerts+="<div class='uti-alert uti-critical'><b>経口セフェム処方を確認</b>ESBLは通常、第1〜3世代セファロスポリンを分解します。過去菌の感受性、今回の培養結果、別菌種・別病態の可能性を確認します。</div>";
+    }
+    if(ac==="known") alerts+="<div class='uti-alert'><b>培養結果を処方に反映できる段階</b>感受性が判明しているなら、初期治療のまま漫然継続せず、狭域化・経口薬への切替を含め結果と処方を照合します。</div>";
+    else if((u==="yes"||res==="yes")&&ac==="unknown") alerts+="<div class='uti-alert'><b>培養情報を確認</b>腎盂腎炎を疑う場合や耐性菌既往がある場合は、培養結果が薬剤選択を大きく変えます。</div>";
+    if(renal==="reduced") alerts+="<div class='uti-alert'><b>腎機能による用量監査</b>抗菌薬によって腎機能に応じた用量・投与間隔調整が必要です。次段階で薬剤別の腎機能監査につなげます。</div>";
+    if(drug==="fq") alerts+="<div class='uti-alert'><b>フルオロキノロン使用</b>第四版では大腸菌の高い耐性率や重大な有害事象、抗結核作用などから温存すべき薬剤とされています。培養・患者背景・選択理由を確認します。</div>";
+    out.innerHTML="<b>"+title+"</b>"+body+alerts+'<div class="branch-source">Evidence：厚労省 抗微生物薬適正使用の手引き 第四版 医科・外来編 p.45（腎盂腎炎・培養、フルオロキノロン）／医科・入院編 UTI項／薬剤耐性菌感染症編 ESBL産生腸内細菌目細菌。詳細薬剤選択はJAID/JSC感染症治療ガイド2023も参照。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
   }
 
   function renderCapReverse(){
@@ -2513,7 +2534,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["phFever","phNoCough","phNodes","phExudate","phGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynx;});
     ["phDrug","phDays","phReverseGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynxReverse;});
     ["capDrug","capAtypical","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
-    ["utiSymptoms","utiUpper","utiPreg","utiCulture"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
+    ["utiSymptoms","utiUpper","utiPreg","utiCulture","utiResistance","utiCurrentDrug","utiAdvancedCulture","utiRenal"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomWeight","aomDailyMg","aomPivRecent","aom6m","aom12m"].forEach(id=>{if($(id))$(id).oninput=renderAomReverse;if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
