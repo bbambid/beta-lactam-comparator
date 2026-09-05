@@ -561,6 +561,8 @@ body.compact-view .deep-section{display:none}
 .uti-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.uti-cds.show{display:block}.uti-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.uti-field label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.uti-field select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.uti-check{margin-top:9px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.uti-check b{display:block;font-size:12px;margin-bottom:3px}.uti-alert{margin-top:7px;padding:8px;border-radius:8px;background:#fffaf0;border:1px solid #ead9ad}.uti-critical{background:#fff4f2;border-color:#e9c4bd}@media(max-width:700px){.uti-grid{grid-template-columns:1fr}}
 
 .uti-advanced{margin-top:10px;padding-top:10px;border-top:1px solid #e3e9ef}.uti-advanced-title{font-size:11px;font-weight:900;margin-bottom:7px}.uti-advanced-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.uti-advanced-grid>div{border:1px solid #e3e9ef;border-radius:10px;padding:9px;background:#fbfcfd}.uti-advanced-grid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.uti-advanced-grid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}@media(max-width:700px){.uti-advanced-grid{grid-template-columns:1fr}}
+
+.alt-cds{margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.alt-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.alt-badge{font-size:8px;font-weight:900;padding:4px 7px;border-radius:999px;background:#eef4fb;color:#405b73}.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.alt-grid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.alt-grid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.alt-result{margin-top:10px;padding:11px;border:1px solid #dce5ed;border-radius:11px;background:#f8fafc;font-size:10px;line-height:1.55}.alt-result>strong{display:block;font-size:13px;margin-bottom:5px}.alt-candidate{margin-top:8px;padding:9px;border-radius:9px;background:#eef6f1;border:1px solid #d3e4d8}.alt-stop{margin-top:8px;padding:9px;border-radius:9px;background:#fff4f2;border:1px solid #e9c4bd}@media(max-width:700px){.alt-grid{grid-template-columns:1fr}}
 </style>
 
 
@@ -951,7 +953,15 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="qc-text">下の「標的菌」と「βラクタムの位置づけ」を先に確認し、必要なときだけ比較表・アレルギー・Evidenceへ進みます。薬剤の順位は各疾患データに登録されたガイドライン上の位置づけをそのまま表示し、根拠のない順位づけは行いません。</div>
   </section>
 
-  <section id="utiCds" class="uti-cds">
+  <section id="altEngine" class="alt-cds">
+ <div class="alt-head"><div><div class="branch-title">抗菌薬 代替提案CDS｜prototype</div><div class="branch-sub">第1ケース：慢性副鼻腔炎のクラリスロマイシン少量長期療法。元薬が使えない理由まで確認して、治療目的を保てる候補だけ提示します。</div></div><span class="alt-badge">CAM → ?</span></div>
+ <div class="alt-grid">
+  <div><label>治療目的</label><select id="altPurpose"><option value="crs">慢性副鼻腔炎｜少量長期マクロライド療法</option><option value="other">その他 / 不明</option></select></div>
+  <div><label>CAMが使えない理由</label><select id="altReason"><option value="interaction">併用禁忌・相互作用</option><option value="allergy">CAM過敏症 / アレルギー</option><option value="qt">QT延長・不整脈リスク</option><option value="adverse">その他の副作用</option><option value="other">その他 / 不明</option></select></div>
+ </div>
+ <div id="altResult" class="alt-result"></div>
+</section>
+<section id="utiCds" class="uti-cds">
  <div class="branch-title">尿路感染症｜薬局処方監査</div>
  <div class="branch-sub">入力するのは判断が変わる項目だけ。まず「膀胱炎」として処方された患者に、上部尿路感染・無症候性細菌尿・培養確認など別の評価が必要なサインがないか確認します。</div>
  <div class="uti-grid">
@@ -1090,7 +1100,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v23 / UTI advanced pharmacy audit</footer>
+    Clinical Reference UI concept v24 / Antibiotic alternative engine prototype</footer>
 </main>
 
 <div class="modal-backdrop" id="aboutModal" hidden>
@@ -2308,6 +2318,18 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22"}
     }
   };
+  function renderAltEngine(){
+    const out=$("altResult"); if(!out)return;
+    const p=$("altPurpose")?.value||"crs", r=$("altReason")?.value||"interaction";
+    if(p!=="crs"){out.innerHTML="<strong>治療目的を先に確認</strong>同じ抗菌薬でも疾患・治療目的によって代替候補は変わります。現段階のprototypeは慢性副鼻腔炎の少量長期マクロライド療法のみ対応。";return;}
+    let body="<strong>治療目的：14員環マクロライド少量長期療法</strong>慢性副鼻腔炎ではEM・CAM・RXMが14員環マクロライドとして使用されてきたため、薬剤名だけでなく『この治療目的を維持できるか』を評価します。";
+    if(r==="interaction") body+="<div class='alt-candidate'><b>代替候補：RXM（ロキシスロマイシン）</b><br>慢性副鼻腔炎の少量長期療法として使用実績があり、成人では150 mg/dayを用いた報告があります。<br><b>ただし：</b>相互作用は原因となった併用薬ごとにRXMでも再評価して、回避できる場合にのみ提案候補とします。現段階では『CAM禁忌＝RXM可』とは自動判定しません。</div>";
+    else if(r==="allergy") body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>CAM過敏症の内容・重症度を確認せず、同じマクロライド系へ機械的に置換するのは避けます。</div>";
+    else if(r==="qt") body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>QT/不整脈リスクが理由なら、候補薬側にも同じ安全性論点がないか個別評価が必要です。</div>";
+    else body+="<div class='alt-stop'><b>代替候補の自動提示を保留</b><br>副作用の内容やCAMを避ける理由が分からないと、RXMで問題を回避できるか判断できません。</div>";
+    out.innerHTML=body+'<div class="branch-source">根拠：慢性副鼻腔炎のマクロライド療法では14員環のEM・RXM・CAMが使用され、原則常用量の半量・約3か月を目安とする整理あり。RXM 150 mg/dayの少量長期投与報告あり。相互作用の可否は最新の電子添文で個別確認。</div>';
+  }
+
   function renderUtiAudit(){
     const out=$("utiResult"); if(!out)return;
     const s=$("utiSymptoms")?.value||"yes", u=$("utiUpper")?.value||"no", p=$("utiPreg")?.value||"no", cul=$("utiCulture")?.value||"unknown";
@@ -2535,6 +2557,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["phDrug","phDays","phReverseGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynxReverse;});
     ["capDrug","capAtypical","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
     ["utiSymptoms","utiUpper","utiPreg","utiCulture","utiResistance","utiCurrentDrug","utiAdvancedCulture","utiRenal"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
+    ["altPurpose","altReason"].forEach(id=>{if($(id))$(id).onchange=renderAltEngine;}); renderAltEngine();
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomWeight","aomDailyMg","aomPivRecent","aom6m","aom12m"].forEach(id=>{if($(id))$(id).oninput=renderAomReverse;if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
