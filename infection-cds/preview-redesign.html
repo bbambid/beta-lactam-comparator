@@ -551,6 +551,8 @@ body.compact-view .deep-section{display:none}
 .pharynx-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
 .pharynx-cds.show{display:block}.ph-qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}.ph-q{display:flex;gap:7px;align-items:flex-start;border:1px solid #e4eaf0;border-radius:10px;padding:9px;background:#fafbfd}.ph-q label{font-size:10px;line-height:1.45}.ph-result{margin-top:9px;padding:10px;border-radius:10px;background:#eef4fb}.ph-result b{font-size:13px}.ph-result span{display:block;font-size:10px;line-height:1.5;color:#667085;margin-top:3px}.ph-test{margin-top:9px}.ph-test select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}
 @media(max-width:700px){.ph-qgrid{grid-template-columns:1fr}}
+
+.ph-reverse{margin-top:11px;padding-top:10px;border-top:1px solid #e3e9ef}.ph-reverse-title{font-size:11px;font-weight:900;margin-bottom:7px}.ph-reverse-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}.ph-reverse label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.ph-reverse select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.ph-reverse-result{margin-top:8px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.ph-reverse-result b{display:block;font-size:12px;margin-bottom:3px}@media(max-width:700px){.ph-reverse-grid{grid-template-columns:1fr}}
 </style>
 
 
@@ -952,6 +954,15 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
   <div class="ph-test"><label>GAS迅速抗原検査 / 培養</label><select id="phGas"><option value="unknown">未実施・不明</option><option value="positive">GAS陽性</option><option value="negative">GAS陰性</option></select></div>
   <div id="phResult" class="ph-result"></div>
+  <div class="ph-reverse">
+    <div class="ph-reverse-title">💊 処方から逆引き｜GAS咽頭炎としての位置づけ</div>
+    <div class="ph-reverse-grid">
+      <div><label>現在の抗菌薬</label><select id="phDrug"><option value="none">抗菌薬なし</option><option value="ampc">AMPC</option><option value="other_beta">その他βラクタム</option><option value="macrolide">マクロライド系</option><option value="cldm">CLDM</option><option value="other">その他</option></select></div>
+      <div><label>処方日数</label><select id="phDays"><option value="unknown">不明</option><option value="short">1〜4日</option><option value="mid">5〜9日</option><option value="ten">10日</option><option value="long">11日以上</option></select></div>
+      <div><label>GAS検査</label><select id="phReverseGas"><option value="unknown">未実施・不明</option><option value="positive">陽性</option><option value="negative">陰性</option></select></div>
+    </div>
+    <div id="phReverseResult" class="ph-reverse-result"></div>
+  </div>
 </section>
 <section id="aomBranch" class="aom-branch">
   <div class="branch-title">小児急性中耳炎｜薬局向け治療確認</div>
@@ -1040,7 +1051,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v17 / Pharyngitis GAS CDS
+    Clinical Reference UI concept v18 / Pharyngitis reverse lookup
   </footer>
 </main>
 
@@ -2259,6 +2270,24 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22"}
     }
   };
+  function renderPharynxReverse(){
+    const out=$("phReverseResult"); if(!out)return;
+    const drug=$("phDrug")?.value||"none", days=$("phDays")?.value||"unknown", gas=$("phReverseGas")?.value||"unknown";
+    const dn={none:"抗菌薬なし",ampc:"AMPC",other_beta:"その他βラクタム",macrolide:"マクロライド系",cldm:"CLDM",other:"その他"}[drug];
+    let body="";
+    if(gas==="negative"){
+      body=drug==="none"?"GAS未検出＋抗菌薬なし：第四版の推奨と整合します。":"GAS未検出例では第四版は抗菌薬を投与しないことを推奨。GAS以外の診断・適応理由がないか確認したい処方です。";
+    }else if(gas==="positive"){
+      if(drug==="ampc"&&days==="ten") body="GAS陽性＋AMPC 10日：第四版の基本推奨と整合します。";
+      else if(drug==="ampc") body="GAS陽性でAMPCは第四版の基本推奨。ただし第四版の推奨期間は10日間なので、処方日数と意図を確認します。";
+      else if(drug==="none") body="GAS陽性ですが抗菌薬なし。第四版では抗菌薬を投与する場合AMPC 10日間を推奨しており、治療方針の確認対象です。";
+      else body="GAS陽性ですが第四版の基本推奨AMPC 10日とは異なる処方です。アレルギー、既往、他の診断など選択理由を確認します。代替薬をツール側で推測はしません。";
+    }else{
+      body=drug==="ampc"?"AMPC処方あり。急性咽頭炎としては、まずGAS迅速抗原検査または培養の結果を確認したいところです。GAS未検出なら第四版は抗菌薬なしを推奨します。":drug==="none"?"抗菌薬なし。GAS未検出例では第四版の推奨と整合します。GASが疑われる場合は検査結果の有無を確認します。":"抗菌薬処方あり・GAS結果不明。急性咽頭炎としての抗菌薬適応を判断する前にGAS検査結果や別診断を確認します。";
+    }
+    out.innerHTML="<b>"+dn+"｜逆引き結果</b>"+body+'<div class="branch-source">根拠：抗微生物薬適正使用の手引き 第四版 医科・外来編｜成人 p.24–27／小児 p.63–65</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+  }
+
   function renderPharynx(){
     const ids=["phFever","phNoCough","phNodes","phExudate"]; if(ids.some(id=>!$(id)))return;
     const score=ids.reduce((n,id)=>n+($(id).checked?1:0),0), gas=$("phGas")?.value||"unknown";
@@ -2268,6 +2297,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     else if(score<=2) body="第四版ではCentor 2点以下ではGAS迅速抗原検査は不要とする海外指針を紹介。ただしGAS曝露歴など別の根拠があれば検査を考慮。抗菌薬適応はスコアだけで決めません。";
     else body="GASの可能性を考え、迅速抗原検査または培養結果を確認したい領域です。スコアのみでGASと診断・抗菌薬投与はしません。";
     $("phResult").innerHTML="<b>"+title+"</b><span>"+body+"</span><div class=\"branch-source\">根拠：抗微生物薬適正使用の手引き 第四版 医科・外来編｜成人 p.24–27（表2 Centor/McIsaac）・小児 p.63–65（表3・4）</div><div class=\"evidence-jump\"><button type=\"button\" onclick=\"jumpToEvidence()\">根拠を見る ↓</button></div>";
+    renderPharynxReverse();
   }
 
   function calcChildSinus(){
@@ -2410,6 +2440,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["scoreRhinorrhea","scorePain","scoreDischarge"].forEach(id=>{if($(id))$(id).onchange=calcSinusScore;});
     ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
     ["phFever","phNoCough","phNodes","phExudate","phGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynx;});
+    ["phDrug","phDays","phReverseGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynxReverse;});
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomDay","aomResponse"].forEach(id=>{if($(id))$(id).onchange=renderAomReverse;});
     renderAomReverse();
