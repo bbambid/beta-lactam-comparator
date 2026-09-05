@@ -15,7 +15,7 @@ CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索�
 <div><label>CAMが使えない原因薬</label><select id="drug">
 <option value="suv">スボレキサント</option>
 <option value="aze">アゼルニジピン</option>
-<option value="fin">フィネレノン</option>
+<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option>
 <option value="ergot">エルゴタミン／ジヒドロエルゴタミン</option>
 <option value="pim">ピモジド</option>
 <option value="war">ワルファリン（併用注意ケース）</option>
@@ -23,7 +23,7 @@ CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索�
 <div><label>治療目的</label><select id="purpose"><option>慢性副鼻腔炎｜少量長期マクロライド療法</option></select></div>
 </div><div id="out" class="out"></div></section>
 
-<section class="card"><div class="sectionTitle">検証済みデータ</div><div class="sub">Batch 1：スボレキサント／アゼルニジピン／フィネレノン。CAM→RXMで相互作用が完全消失するかではなく、禁忌を回避しつつ残存リスクを管理できるかで判定します。</div><div id="list"></div></section>
+<section class="card"><div class="sectionTitle">検証済みデータ</div><div class="sub">Batch 1：スボレキサント／アゼルニジピン／フィネレノン。Batch 2：ダリドレキサント／ボルノレキサント／ロミタピド。CAM→RXMで相互作用が完全消失するかではなく、禁忌を回避しつつ残存リスクを管理できるかで判定します。</div><div id="list"></div></section>
 </main>
 <script>
 const DB={
@@ -41,6 +41,9 @@ aze:{
  co:"アゼルニジピンはCYP3A阻害薬との併用で曝露上昇が問題となるため、RXMへ変更しても相互作用リスクはゼロではない。",
  memo:"CAM禁忌は回避できるが『相互作用なし』とはしない。血圧・めまい等を含め管理する条件付き候補。"
 },
+dari:{name:"ダリドレキサント",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりダリドレキサント曝露を上昇させるため併用禁忌。",rxm:"RXMは弱いCYP3A阻害レベルで、CAMと同じ強い阻害薬には該当しない。",co:"ダリドレキサント側は中等度CYP3A阻害薬でも曝露上昇・副作用増強に注意が必要。",memo:"CAM禁忌は回避できるが、傾眠等の増強を含め残存相互作用を管理する条件付き候補。"},
+vor:{name:"ボルノレキサント",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりボルノレキサント曝露を顕著に上昇させるため併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同じ併用禁忌には位置付けられていない。",co:"ボルノレキサントは主にCYP3A4で代謝されるため、弱い阻害でも曝露増加の可能性は残る。",memo:"CAM禁忌回避としてRXMへ置換余地はあるが、自動で安全扱いせず眠気等を含め観察。"},
+lomi:{name:"ロミタピド",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりロミタピド曝露を著しく上昇させるため併用禁忌。",rxm:"RXMは弱いCYP3A阻害薬として扱われ、CAMほど強い阻害ではない。",co:"ロミタピド側では弱いCYP3A阻害薬でも曝露増加があり、減量等を含む慎重な管理が必要。",memo:"CAM禁忌は回避可能だが、RXM併用時もロミタピドの用量・副作用管理が必要な条件付き候補。"},
 fin:{
  name:"フィネレノン",state:"cond",label:"条件付き候補",
  cam:"CAMは強いCYP3A阻害薬としてフィネレノンとの併用禁忌。",
@@ -74,5 +77,5 @@ const $=x=>document.getElementById(x);
 function badge(x){return '<span class="'+x.state+'">'+x.label+'</span>'}
 function render(){const x=DB[$("drug").value];$("out").innerHTML='<b>'+x.name+'</b> '+badge(x)+'<div class="row"><b>① CAM側</b><br>'+x.cam+'</div><div class="row"><b>② RXM側</b><br>'+x.rxm+'</div><div class="row"><b>③ 併用薬側</b><br>'+x.co+'</div><div class="row"><b>CDS判断</b><br>'+x.memo+'</div><div class="mini">治療目的が慢性副鼻腔炎の少量長期療法であることを前提。最終確認は最新電子添文と患者背景で行います。</div>'}
 $("drug").onchange=render;render();
-$("list").innerHTML=["suv","aze","fin"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
+$("list").innerHTML=["suv","aze","fin","dari","vor","lomi"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
 </script></body></html>
