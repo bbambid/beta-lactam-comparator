@@ -504,6 +504,13 @@ body.compact-view .deep-section{display:none}
 .child-q input{margin-top:2px;transform:scale(1.12)}.child-q label{font-size:10px;line-height:1.5;color:#344054}
 .child-result{margin-top:8px;padding:10px 11px;border-radius:10px;background:#f7fafc;border:1px solid #e5ebf1}
 .child-result strong{display:block;font-size:13px}.child-result span{display:block;font-size:10px;color:#667085;line-height:1.5;margin-top:3px}
+
+.evidence-group{margin:2px 0 14px}
+.evidence-group-title{font-size:12px;font-weight:900;color:#23384d;margin:0 0 7px;padding:7px 9px;border-left:4px solid #6f879b;background:#f7f9fb;border-radius:5px}
+.evidence-group-sub{font-size:9px;font-weight:600;color:#7b8794;margin-left:6px}
+.evidence-jump{display:flex;justify-content:flex-end;margin-top:9px}
+.evidence-jump button{border:0;background:transparent;color:#315f7d;font-size:10px;font-weight:900;padding:3px 0;cursor:pointer}
+.conditional-note{margin-top:8px;padding:8px 9px;border-radius:9px;background:#fffaf0;border:1px solid #ead9ad;font-size:10px;line-height:1.55;color:#5f512c}
 </style>
 
 
@@ -956,7 +963,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       <div>
         <div class="section-label">EVIDENCE / REFERENCES</div>
         <h3 id="evidenceTitle">📖 Evidence / References</h3>
-        <p>この画面の判断に使用している根拠を、Layer 1 → Layer 2 → Layer 3 → Historical → Sanford の順に確認できます。</p>
+        <p>根拠を役割別に整理しています。スペクトルの根拠と、疾患別の治療推奨は分けて確認できます。</p>
       </div>
     </div>
     <div id="evidenceBody" class="details-body">
@@ -966,7 +973,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v9.1 / MHLW4 + Kyoto preserved
+    Clinical Reference UI concept v10 / Evidence roles + source jump
   </footer>
 </main>
 
@@ -2226,24 +2233,29 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     if(sinusAge==="adult"){
       if(sinusSeverity==="mild") return {
         primary:[],
-        alt:[{name:"抗菌薬なし",status:"第一選択",note:"成人軽症：抗菌薬を投与せず経過観察。"}],
-        source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜p.29–30（急性鼻副鼻腔炎／表3・表4）"
+        alt:[{name:"抗菌薬なし",status:"第一選択",note:"成人軽症：抗菌薬を投与せず5日間経過観察。"}],
+        source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜誌面 p.29–31（表3を含む）",
+        conditional:"改善しない場合は診断・重症度を再評価。軽症のまま機械的に抗菌薬へ切り替える設計にはしません。"
       };
+      const alt=sinusSeverity==="severe"
+        ? [{name:"フルオロキノロン系",status:"重症例の第二選択",note:"第四版はJAID/JSC指針を引用し、成人重症例の第二選択肢として記載（誌面 p.31）。"}]
+        : [];
       return {
         primary:[{name:"AMPC",status:"第一選択",note:"成人の中等症・重症：AMPCを基本に5–7日間経口投与。"}],
-        alt:[],
-        source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜p.29–30（急性鼻副鼻腔炎／表3・表4）"
+        alt,
+        source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜誌面 p.29–31",
+        conditional:"AMPC不応時の一律な次剤は第四版に明示されていません。まず診断・合併症・服薬状況・重症度を再評価。ペニシリンアレルギー時の代替薬も副鼻腔炎項では明示されないため、反応型を確認してアレルギーモジュールへ。"
       };
     }
     const positive=["childQ1","childQ2","childQ3"].some(id=>$(id)?.checked);
     return positive ? {
       primary:[{name:"AMPC",status:"第一選択",note:"学童期以降：遷延性又は重症に該当する場合、AMPC 7–10日間経口投与を検討。"}],
       alt:[],
-      source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜p.29–30（急性鼻副鼻腔炎／表4）"
+      source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜誌面 p.61（小児急性鼻副鼻腔炎）", conditional:"ペニシリンアレルギー時は一律の代替薬を自動表示せず、反応型・重症度を確認してアレルギーモジュールへ。"
     } : {
       primary:[],
       alt:[{name:"抗菌薬なし",status:"第一選択",note:"学童期以降：遷延性又は重症に該当しない場合は抗菌薬を投与しない。"}],
-      source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜p.29–30（急性鼻副鼻腔炎／表4）"
+      source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜誌面 p.61（小児急性鼻副鼻腔炎）", conditional:"抗菌薬適応に該当しない場合は経過観察。病状変化や合併症があれば再評価。"
     };
   }
 
@@ -2259,10 +2271,16 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     }
     const drugRows=(arr,empty)=>arr.length?arr.map(d=>`<div class="dp-item"><div class="dp-main">${esc(d.name)}<span class="dp-tag">${esc(d.status)}</span></div><div class="dp-note">${esc(d.note)}</div></div>`).join(""):`<div class="dp-note">${empty}</div>`;
     $("decisionZone").innerHTML=`
-      <article class="decision-panel primary"><div class="dp-label">FIRST / CORE</div>${drugRows(primary,"ガイドライン上、第一選択として単純化できる薬剤は設定していません。")}${source?`<div class="dp-note" style="margin-top:8px">根拠：${esc(source)}</div>`:""}</article>
-      <article class="decision-panel alternative"><div class="dp-label">ALTERNATIVE / CONDITIONAL</div>${drugRows([...alternatives,...unranked],"明示された代替・条件付き薬はありません。")}</article>
+      <article class="decision-panel primary"><div class="dp-label">FIRST / CORE</div>${drugRows(primary,"ガイドライン上、第一選択として単純化できる薬剤は設定していません。")}${source?`<div class="dp-note" style="margin-top:8px">根拠：${esc(source)}</div>`:""}${x.id==="sinus"?`<div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>`:""}</article>
+      <article class="decision-panel alternative"><div class="dp-label">ALTERNATIVE / CONDITIONAL</div>${drugRows([...alternatives,...unranked],"明示された代替・条件付き薬はありません。")}${x.id==="sinus"&&getSinusDecision().conditional?`<div class="conditional-note">${esc(getSinusDecision().conditional)}</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>`:""}</article>
       <article class="decision-panel target"><div class="dp-label">MAIN TARGETS</div>${x.pathogens.length?x.pathogens.map(p=>`<div class="dp-item"><div class="dp-main">${esc(p[0])}</div><div class="dp-note">${esc(p[1])}</div></div>`).join(""):`<div class="dp-note">標的菌を一律には設定していません。</div>`}</article>`;
   }
+
+  window.jumpToEvidence=function(){
+    document.body.classList.remove("compact-view");
+    const btn=$("detailToggle"); if(btn)btn.textContent="詳しい比較・根拠を閉じる";
+    setTimeout(()=>document.getElementById("evidenceDetails")?.scrollIntoView({behavior:"smooth",block:"start"}),30);
+  };
 
   function init(){
     D.syndromes.forEach((x,i)=>{
@@ -2680,58 +2698,28 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   function renderSourceList(x,drugs){
     const ev=[...x.evidence];
     const hasKyoto=drugs.some(d=>KYOTO[d]);
+    const card=e=>`<div class="evidence-card"><div class="evidence-top"><span class="evidence-kind">${esc(sourceTypeLabel(e))}</span><b>${esc(e[1])}</b></div><div class="evidence-meta">${esc(e[0])} ・ ${esc(e[2])}</div><div class="evidence-why">${esc(e[3])}</div><a href="${e[4]}" target="_blank" rel="noopener">該当ページ / 公式資料を開く ↗</a></div>`;
+    const historical=ev.filter(e=>/Historical|SURV|2010/i.test(e[0]) || /Historical|2007年全国サーベイランス/.test(e[3]));
+    const disease=ev.filter(e=>!historical.includes(e));
     let cards="";
-    if(hasKyoto){
-      cards+=`<div class="evidence-card">
-        <div class="evidence-top"><span class="evidence-kind layer1-kind">Layer 1｜基本スペクトル</span><b>${esc(KYOTO_SOURCE.title)}</b></div>
-        <div class="evidence-meta">${esc(KYOTO_SOURCE.section)} ・ ${esc(KYOTO_SOURCE.page)}</div>
-        <div class="evidence-why">表中の「第一選択」「感受性あり」のLayer 1根拠。</div>
-        <a href="${KYOTO_SOURCE.url}" target="_blank" rel="noopener">該当ページを開く ↗</a>
-      </div>`;
-    }
-    ev.forEach(e=>{
-      cards+=`<div class="evidence-card">
-        <div class="evidence-top"><span class="evidence-kind">${esc(sourceTypeLabel(e))}</span><b>${esc(e[1])}</b></div>
-        <div class="evidence-meta">${esc(e[0])} ・ ${esc(e[2])}</div>
-        <div class="evidence-why">${esc(e[3])}</div>
-        <a href="${e[4]}" target="_blank" rel="noopener">該当ページ / 公式資料を開く ↗</a>
-      </div>`;
-    });
+    cards+=`<section class="evidence-group"><div class="evidence-group-title">基本スペクトル｜京都 <span class="evidence-group-sub">菌に対する基本的な活性の参照</span></div>`;
+    if(hasKyoto) cards+=`<div class="evidence-card"><div class="evidence-top"><span class="evidence-kind layer1-kind">Layer 1</span><b>${esc(KYOTO_SOURCE.title)}</b></div><div class="evidence-meta">${esc(KYOTO_SOURCE.section)} ・ ${esc(KYOTO_SOURCE.page)}</div><div class="evidence-why">「第一選択」「感受性あり」等の基本スペクトル参照。疾患別の推奨順位とは別データです。</div><a href="${KYOTO_SOURCE.url}" target="_blank" rel="noopener">該当ページを開く ↗</a></div>`;
+    else cards+=`<div class="evidence-empty">この疾患で表示中の薬剤に京都Layer 1登録はありません。</div>`;
+    cards+=`</section>`;
+
     const A=window.APPROVAL_DATA||{};
-    cards+=`<details class="drug-source-block layer2-block layer2-collapsible">
-      <summary>
-        <span><b>Layer 2｜国内承認情報 添付文書・IF</b><small>${drugs.length}薬剤</small></span>
-        <em>タップして展開</em>
-      </summary>
-      <div class="layer2-content">
-        <p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。</p>
-        <div class="layer2-drug-grid">${drugs.map(d=>{const a=A[d];return a?`<a class="layer2-drug-card" href="${a.url}" target="_blank" rel="noopener" title="${esc(a.note||a.source)}"><b>${esc(d)}</b><span>${a.verified?"電子添文 ✓":"要確認"}</span><small>${esc(a.source)}</small></a>`:`<div class="layer2-drug-card muted"><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div>
-        <small class="pending-note">「該当記載なし」は承認範囲の話で、抗菌活性がないことを意味しません。「要確認」は未監査です。</small>
-      </div>
-    </details>`;
+    cards+=`<section class="evidence-group"><div class="evidence-group-title">薬剤固有データ｜PMDA・IF・MIC <span class="evidence-group-sub">承認情報・薬剤そのもののデータ</span></div><details class="drug-source-block layer2-block layer2-collapsible"><summary><span><b>Layer 2｜国内承認情報 添付文書・IF</b><small>${drugs.length}薬剤</small></span><em>タップして展開</em></summary><div class="layer2-content"><p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。</p><div class="layer2-drug-grid">${drugs.map(d=>{const a=A[d];return a?`<a class="layer2-drug-card" href="${a.url}" target="_blank" rel="noopener" title="${esc(a.note||a.source)}"><b>${esc(d)}</b><span>${a.verified?"電子添文 ✓":"要確認"}</span><small>${esc(a.source)}</small></a>`:`<div class="layer2-drug-card muted"><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div><small class="pending-note">「該当記載なし」は承認範囲の話で、抗菌活性がないことを意味しません。「要確認」は未監査です。</small></div></details></section>`;
+
+    cards+=`<section class="evidence-group" id="diseaseEvidenceGroup"><div class="evidence-group-title">この疾患での推奨｜厚労省第四版・専門GL <span class="evidence-group-sub">治療選択・重症度・投与期間</span></div>${disease.length?disease.map(card).join(""):`<div class="evidence-empty">疾患別推奨の出典は未登録です。</div>`}</section>`;
+    cards+=`<section class="evidence-group"><div class="evidence-group-title">Historical｜旧GL・旧サーベイランス <span class="evidence-group-sub">現在の推奨と混同しない参照資料</span></div>${historical.length?historical.map(card).join(""):`<div class="evidence-empty">Historical資料はありません。</div>`}</section>`;
+
     const sf=(window.SANFORD_SPECTRUM||{})[x.id];
+    cards+=`<section class="evidence-group"><div class="evidence-group-title">Sanford｜独立検証 <span class="evidence-group-sub">既存Layerを上書きしない補助参照</span></div>`;
     if(sf){
-      const sfRows=drugs.map(d=>{
-        const v=sf.drugs[d];
-        if(!v) return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未登録</span></div>`;
-        if(v.status!=="verified") return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未確認・後日確認</span></div>`;
-        const labels={sp:"S. pneumoniae",hi:"H. influenzae",mc:"M. catarrhalis",gas:"GAS",mp:"M. pneumoniae",leg:"Legionella",ec:"E. coli",ss:"S. saprophyticus",pm:"P. mirabilis",sa:"S. aureus (MSSA)",oralstrep:"Viridans streptococci",prev:"Prevotella",pepto:"Peptostreptococcus"};
-        const vals=["sp","hi","mc","gas","mp","leg","ec","ss","pm","sa","oralstrep","prev","pepto"].filter(k=>v[k]!==undefined&&v[k]!==null).map(k=>`<span>${labels[k]} <strong>${esc(v[k])}</strong></span>`).join("");
-        return `<div class="sanford-drug-row"><b>${esc(d)}</b>${vals}</div>`;
-      }).join("");
-      cards+=`<div class="sanford-source-block">
-        <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜独立検証</span><b>${esc(SANFORD_SOURCE.title)}</b></div>
-        <div class="evidence-meta">更新 ${esc(SANFORD_SOURCE.updated)}</div>
-        <div class="evidence-why">${x.id==="aspiration"?"誤嚥性肺炎は症候だけで原因菌を固定しないため、Sanfordの菌種別 0 / ± / + / ++ を単一の標的菌セルへ割り当てません。":(x.id==="sinus"?"副鼻腔炎の主な標的菌3菌":"この疾患の主な標的菌")+"について、Sanford原表の 0 / ± / + / ++ をそのまま保持。"}Layer 1・2・3の判定は変更・上書きしません。</div>
-        <div class="sanford-spectrum-grid">${sfRows}</div>
-        <small class="pending-note">${esc(sf.note)}</small>
-      </div>`;
-    }else{
-      cards+=`<div class="sanford-source-block">
-        <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜独立検証</span><b>Sanford Guide</b></div>
-        <div class="evidence-why">この疾患のSanfordスペクトラムはまだマスタ未登録です。既存Layerは変更しません。</div>
-      </div>`;
-    }
+      const sfRows=drugs.map(d=>{const v=sf.drugs[d];if(!v)return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未登録</span></div>`;if(v.status!=="verified")return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未確認・後日確認</span></div>`;const labels={sp:"S. pneumoniae",hi:"H. influenzae",mc:"M. catarrhalis",gas:"GAS",mp:"M. pneumoniae",leg:"Legionella",ec:"E. coli",ss:"S. saprophyticus",pm:"P. mirabilis",sa:"S. aureus (MSSA)",oralstrep:"Viridans streptococci",prev:"Prevotella",pepto:"Peptostreptococcus"};const vals=["sp","hi","mc","gas","mp","leg","ec","ss","pm","sa","oralstrep","prev","pepto"].filter(k=>v[k]!==undefined&&v[k]!==null).map(k=>`<span>${labels[k]} <strong>${esc(v[k])}</strong></span>`).join("");return `<div class="sanford-drug-row"><b>${esc(d)}</b>${vals}</div>`}).join("");
+      cards+=`<div class="sanford-source-block"><div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford</span><b>${esc(SANFORD_SOURCE.title)}</b></div><div class="evidence-meta">更新 ${esc(SANFORD_SOURCE.updated)}</div><div class="evidence-why">原表の 0 / ± / + / ++ をそのまま保持。Layer 1・2・3の判定は変更・上書きしません。</div><div class="sanford-spectrum-grid">${sfRows}</div><small class="pending-note">${esc(sf.note)}</small></div>`;
+    }else cards+=`<div class="sanford-source-block"><div class="evidence-why">この疾患のSanfordスペクトラムはまだマスタ未登録です。</div></div>`;
+    cards+=`</section>`;
     return cards;
   }
 
