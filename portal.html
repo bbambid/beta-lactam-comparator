@@ -4,27 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>β-LACTAM CLINICAL REFERENCE</title>
+
 <style>
-:root{--navy:#183247;--ink:#263d4c;--muted:#6f7d87;--line:#cfd7dc;--bg:#f5f7f8}
+:root{--navy:#183247;--navy2:#244b67;--ink:#263d4c;--muted:#6f7d87;--line:#cfd7dc;--bg:#f5f7f8;--soft:#eef3f6}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif;color:var(--ink)}
-header{background:var(--navy);color:#fff;padding:34px 20px 30px}
+header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:34px 20px 30px}
 header>div,main{max-width:900px;margin:auto}
 .eyebrow{font-size:11px;font-weight:800;letter-spacing:.1em;opacity:.82}
 h1{margin:5px 0 7px;font-size:27px}
 header p{margin:0;color:#dbe4e9;font-size:13px;line-height:1.65}
 main{padding:24px 18px 38px}
-.intro{margin-bottom:16px;color:var(--muted);font-size:13px;line-height:1.7}
-.modules{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.module{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:6px;padding:22px;min-height:210px;transition:.15s ease}
-.module:hover{transform:translateY(-1px);box-shadow:0 5px 16px #18324712}
+.intro{margin-bottom:18px;padding:13px 15px;background:#fff;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:13px;line-height:1.7}
+.modules{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.module{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden;min-height:270px;box-shadow:0 3px 12px rgba(24,50,71,.05);transition:.16s ease}
+.module::before{content:"";display:block;height:7px;background:var(--navy)}
+.module:hover,.module:focus-visible{transform:translateY(-2px);box-shadow:0 10px 26px rgba(24,50,71,.12);border-color:#9fb0bd;outline:none}
+.module-inner{padding:20px 20px 0}
+.module-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.module-number{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--navy);font-size:14px;font-weight:900}
 .module-tag{font-size:10px;font-weight:800;letter-spacing:.08em;color:#6f7d87}
-.module h2{margin:8px 0 8px;color:var(--navy);font-size:21px}
-.module p{margin:0;color:#62717c;font-size:13px;line-height:1.7}
-.go{margin-top:20px;display:inline-block;font-size:12px;font-weight:800;color:var(--navy)}
+.module h2{margin:0 0 9px;color:var(--navy);font-size:22px}
+.module p{margin:0;color:#62717c;font-size:13px;line-height:1.75}
+.go{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--navy);color:#fff;padding:14px 18px;font-size:13px;font-weight:900}
+.go::after{content:"→";font-size:18px;line-height:1}
 .note{margin-top:16px;padding:11px 13px;border-left:3px solid #98a9b4;background:#fff;color:#6c7a84;font-size:11px;line-height:1.65}
-@media(max-width:680px){.modules{grid-template-columns:1fr}.module{min-height:0}h1{font-size:23px}}
+@media(max-width:680px){.modules{grid-template-columns:1fr;gap:12px}.module{min-height:0}.module-inner{padding:17px}.go{padding:13px 16px}h1{font-size:23px}}
 </style>
+
 </head>
 <body>
 <header><div>
@@ -36,16 +43,20 @@ main{padding:24px 18px 38px}
   <div class="intro">目的に合わせてモジュールを選択してください。2つのモジュールは相互に行き来でき、疾患モジュールで選んだ2剤を構造解析へ引き継げます。</div>
   <div class="modules">
     <a class="module" href="infection-cds/index.html">
-      <div class="module-tag">MODULE 01</div>
-      <h2>感染症から読み解く</h2>
-      <p>主な標的菌、βラクタムの位置づけ、国内承認情報、疾患ガイドライン、Sanfordなどを横断して確認。</p>
-      <span class="go">疾患モジュールを開く →</span>
+      <div class="module-inner">
+        <div class="module-head"><span class="module-number">01</span><div class="module-tag">MODULE 01</div></div>
+        <h2>感染症から読み解く</h2>
+        <p>主な標的菌、βラクタムの位置づけ、国内承認情報、疾患ガイドライン、Sanfordなどを横断して確認。</p>
+      </div>
+      <span class="go">疾患モジュールを開く</span>
     </a>
     <a class="module" href="structure-bridge/index.html">
-      <div class="module-tag">MODULE 02</div>
-      <h2>構造から読み解く</h2>
-      <p>2剤の側鎖構造を比較し、R1を中心とした類似性と交差反応を考えるための構造解析モジュール。</p>
-      <span class="go">構造解析を開く →</span>
+      <div class="module-inner">
+        <div class="module-head"><span class="module-number">02</span><div class="module-tag">MODULE 02</div></div>
+        <h2>構造から読み解く</h2>
+        <p>2剤の側鎖構造を比較し、R1を中心とした類似性と交差反応を考えるための構造解析モジュール。</p>
+      </div>
+      <span class="go">構造解析を開く</span>
     </a>
   </div>
   <div class="note">安全のため、現段階では2モジュール本体を統合せず、URLで薬剤情報だけを受け渡す「疎結合」にしています。</div>
