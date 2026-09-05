@@ -1,0 +1,35 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>抗菌薬 代替提案CDS</title><style>:root{--line:#dfe6ec;--shadow:0 6px 24px rgba(20,40,60,.07)}*{box-sizing:border-box}body{margin:0;background:#f5f7f9;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}.wrap{max-width:920px;margin:auto;padding:18px}.top{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);margin-bottom:12px}.eyebrow{font-size:11px;font-weight:800;color:#607284}.title{font-size:24px;font-weight:900;margin:4px 0}.sub{font-size:12px;line-height:1.7;color:#667085}.alt-cds{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.branch-title{font-size:15px;font-weight:900}.branch-sub{font-size:11px;color:#667085;line-height:1.6;margin-top:3px}.alt-head{display:flex;justify-content:space-between;gap:10px}.alt-badge{font-size:9px;font-weight:900;padding:5px 8px;border-radius:999px;background:#eef4fb;color:#405b73}.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.alt-grid label{display:block;font-size:10px;font-weight:900;color:#667085;margin-bottom:4px}.alt-grid select,.alt-grid input{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:9px;font-size:11px}.alt-result{margin-top:10px;padding:12px;border:1px solid #dce5ed;border-radius:11px;background:#f8fafc;font-size:11px;line-height:1.65}.alt-result>strong{display:block;font-size:14px;margin-bottom:5px}.alt-candidate{margin-top:8px;padding:10px;border-radius:9px;background:#eef6f1;border:1px solid #d3e4d8}.alt-stop{margin-top:8px;padding:10px;border-radius:9px;background:#fff4f2;border:1px solid #e9c4bd}.branch-source{margin-top:9px;font-size:9px;color:#667085}@media(max-width:700px){.alt-grid{grid-template-columns:1fr}.title{font-size:20px}}</style></head><body><main class="wrap"><section class="top"><div class="eyebrow">Pharmacist Clinical Decision Support</div><div class="title">抗菌薬 代替提案CDS</div><div class="sub">疾患モジュールとは独立。使用できない抗菌薬について「治療目的を維持できるか × 元の問題を回避できるか」を検証して、疑義照会で使える代替候補を支援します。</div></section><section id="altEngine" class="alt-cds">
+ <div class="alt-head"><div><div class="branch-title">抗菌薬 代替提案CDS｜prototype</div><div class="branch-sub">第1ケース：慢性副鼻腔炎のクラリスロマイシン少量長期療法。元薬が使えない理由まで確認して、治療目的を保てる候補だけ提示します。</div></div><span class="alt-badge">CAM → ?</span></div>
+ <div class="alt-grid">
+  <div><label>治療目的</label><select id="altPurpose"><option value="crs">慢性副鼻腔炎｜少量長期マクロライド療法</option><option value="other">その他 / 不明</option></select></div>
+  <div><label>CAMが使えない理由</label><select id="altReason"><option value="interaction">併用禁忌・相互作用</option><option value="allergy">CAM過敏症 / アレルギー</option><option value="qt">QT延長・不整脈リスク</option><option value="adverse">その他の副作用</option><option value="other">その他 / 不明</option></select></div>
+  <div id="altInteractWrap"><label>原因となる併用薬</label><input id="altInteractSearch" type="search" placeholder="薬剤名で絞り込み（例：スボレキサント）" style="width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px;margin-bottom:5px"><select id="altInteract"><option value="unknown">選択してください</option><option value="suvorexant">スボレキサント等オレキシン受容体拮抗薬</option><option value="azelnidipine">アゼルニジピン</option><option value="finerenone">フィネレノン</option><option value="ergot">エルゴタミン / ジヒドロエルゴタミン</option><option value="warfarin">ワルファリン</option><option value="qt_drug">QT延長薬</option><option value="other">その他 / リスト外</option></select></div>
+ </div>
+ <div id="altResult" class="alt-result"></div>
+</section>
+<div class="branch-source" style="padding:12px">prototype v1｜第1ケース：慢性副鼻腔炎 CAM → RXM</div></main><script>const $=id=>document.getElementById(id);function renderAltEngine(){
+  const out=$("altResult"); if(!out)return;
+  const p=$("altPurpose")?.value||"crs", r=$("altReason")?.value||"interaction", x=$("altInteract")?.value||"unknown";
+  if($("altInteractWrap")) $("altInteractWrap").style.display=r==="interaction"?"block":"none";
+  if(p!=="crs"){out.innerHTML="<strong>治療目的を先に確認</strong>同じ抗菌薬でも疾患・治療目的によって代替候補は変わります。現段階は慢性副鼻腔炎の少量長期マクロライド療法のみ対応。";return;}
+  let body="<strong>治療目的：14員環マクロライド少量長期療法</strong>RXMには慢性副鼻腔炎で150 mg/dayを用いた少量長期投与の臨床報告があります。";
+  if(r==="interaction"){
+    if(["suvorexant","azelnidipine","finerenone"].includes(x)){
+      const n={suvorexant:"スボレキサント等",azelnidipine:"アゼルニジピン",finerenone:"フィネレノン"}[x];
+      body+="<div class='alt-candidate'><b>判定：RXMは代替候補</b><br><b>① 疑義薬 CAM：</b>"+n+" はCAMの現行電子添文で併用禁忌。<br><b>② 代替候補 RXM：</b>RXMの現行電子添文では同じ併用禁忌として列挙されていません。<br><b>③ 併用薬側：</b>併用薬自身の最新電子添文でもRXMとの禁忌・重要な相互作用がないことを確認できた場合に、初めて「回避可能」とします。<br><b>提案候補：</b>慢性副鼻腔炎の少量長期療法としてRXM 150 mg/dayを検討。※用量は臨床報告に基づく候補で、患者背景と処方医の判断を前提。</div>";
+    }else if(x==="ergot"){
+      body+="<div class='alt-stop'><b>RXMでは回避できません</b><br>エルゴタミン / ジヒドロエルゴタミンはRXMでも併用禁忌。CAM→RXM置換は相互作用回避になりません。</div>";
+    }else if(x==="warfarin"){
+      body+="<div class='alt-stop'><b>RXMへ替えるだけでは解決しません</b><br>RXMにもワルファリン作用増強の併用注意があります。相互作用回避目的の単純置換候補にはしません。</div>";
+    }else if(x==="qt_drug"){
+      body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>RXMにもQT延長の注意があり、QT延長薬との併用でリスクが増える可能性があります。</div>";
+    }else{
+      body+="<div class='alt-stop'><b>併用薬を個別照合</b><br>CAMの相互作用機序と、RXMおよび併用薬双方の最新電子添文を比較できる場合だけ代替候補を提示します。</div>";
+    }
+  }else if(r==="allergy") body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>CAM過敏症の内容・重症度を確認せず同系統へ機械的に置換しません。</div>";
+  else if(r==="qt") body+="<div class='alt-stop'><b>RXMを自動提案しません</b><br>RXMにもQT延長の注意があるため、相互作用回避候補として自動提示しません。</div>";
+  else body+="<div class='alt-stop'><b>代替候補の自動提示を保留</b><br>副作用の内容やCAMを避ける理由を特定してから候補を評価します。</div>";
+  out.innerHTML=body+'<div class="branch-source">Evidence：PMDA クラリスロマイシン電子添文（2026年3月改訂）／PMDA ルリッド錠150電子添文／慢性副鼻腔炎に対するRXM 150 mg/day少量長期投与の臨床報告。最終確認は両薬剤＋併用薬の最新電子添文。</div>';
+}
+
+["altPurpose","altReason","altInteract"].forEach(id=>{if($(id))$(id).onchange=renderAltEngine;});if($("altInteractSearch"))$("altInteractSearch").oninput=function(){const q=this.value.trim().toLowerCase(),sel=$("altInteract");Array.from(sel.options).forEach((o,i)=>{if(i===0)return;o.hidden=!!q&&!o.textContent.toLowerCase().includes(q);});};renderAltEngine();</script></body></html>
