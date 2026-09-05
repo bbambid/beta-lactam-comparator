@@ -497,6 +497,13 @@ body.compact-view .deep-section{display:none}
 .score-summary{display:flex;align-items:center;gap:8px;margin-top:9px;padding:8px 10px;border-radius:9px;background:#eef4fb}
 .score-number{font-size:20px;font-weight:900;color:#102a43}.score-grade{font-size:11px;font-weight:900}.score-note{font-size:9px;color:#667085;margin-left:auto}
 @media(max-width:700px){.score-grid{grid-template-columns:1fr}.score-summary{align-items:flex-start}.score-note{margin-left:0}}
+
+.child-check{margin-top:12px;border-top:1px solid #e5ebf1;padding-top:11px}
+.child-check-title{font-size:11px;font-weight:900;margin-bottom:3px}.child-check-sub{font-size:9px;color:#667085;line-height:1.5;margin-bottom:8px}
+.child-q{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-top:1px solid #edf1f5}.child-q:first-of-type{border-top:0}
+.child-q input{margin-top:2px;transform:scale(1.12)}.child-q label{font-size:10px;line-height:1.5;color:#344054}
+.child-result{margin-top:8px;padding:10px 11px;border-radius:10px;background:#f7fafc;border:1px solid #e5ebf1}
+.child-result strong{display:block;font-size:13px}.child-result span{display:block;font-size:10px;color:#667085;line-height:1.5;margin-top:3px}
 </style>
 
 
@@ -897,6 +904,15 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="score-item"><label>鼻汁・後鼻漏</label><select id="scoreDischarge"><option value="0">なし / 漿液性：0</option><option value="2">粘膿性 少量：2</option><option value="4">中等量以上：4</option></select></div>
   </div>
   <div class="score-summary"><div id="scoreNumber" class="score-number">0</div><div><div id="scoreGrade" class="score-grade">0点</div><div class="score-note">1–3 軽症 / 4–6 中等症 / 7–8 重症</div></div></div>
+</div>
+<div id="sinusChildCheck" class="child-check" style="display:none">
+  <div class="child-check-title">学童期以降の小児｜抗菌薬適応チェック</div>
+  <div class="child-check-sub">以下のいずれか1つでも該当すれば「遷延性又は重症」と判定します。</div>
+  <div class="child-q"><input id="childQ1" type="checkbox"><label for="childQ1">10日間以上続く鼻汁・後鼻漏、または日中の咳がある</label></div>
+  <div class="child-q"><input id="childQ2" type="checkbox"><label for="childQ2">39℃以上の発熱＋膿性鼻汁が少なくとも3日以上続き、重症感がある</label></div>
+  <div class="child-q"><input id="childQ3" type="checkbox"><label for="childQ3">感冒に引き続き、約1週間後に再度の発熱、または日中の鼻汁・咳が増悪した</label></div>
+  <div id="childCheckResult" class="child-result"></div>
+  <div class="branch-source">根拠：抗微生物薬適正使用の手引き 第三版｜p.27｜表4「小児の急性鼻副鼻腔炎に係る判定基準」</div>
 </div></section>
 <section id="decisionZone" class="decision-zone" aria-label="治療の要点"></section>
   <div class="guideline-rule">薬剤の「第一選択・代替・条件付き」は、各疾患データに登録されたガイドライン上の位置づけを表示します。順位が明示されない場合は、無理に第一選択へ分類しません。</div>
@@ -950,7 +966,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v7.1 / Evidence pages
+    Clinical Reference UI concept v8 / Adult score + pediatric criteria
   </footer>
 </main>
 
@@ -2163,6 +2179,21 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第三版 p.20–22"}
     }
   };
+  function calcChildSinus(){
+    const qs=["childQ1","childQ2","childQ3"].map(id=>$(id)).filter(Boolean);
+    if(!qs.length)return;
+    const positive=qs.some(q=>q.checked);
+    const r=$("childCheckResult"); if(!r)return;
+    if(positive){
+      sinusSeverity="severe";
+      r.innerHTML="<strong>遷延性又は重症に該当</strong><span>抗菌薬投与を検討。基本はAMPC 7–10日間経口投与。</span>";
+    }else{
+      sinusSeverity="mild";
+      r.innerHTML="<strong>現時点では3基準に該当なし</strong><span>原則として抗菌薬を投与せず経過観察。臨床経過や合併症があれば再評価する。</span>";
+    }
+    renderSinusBranch(false);
+  }
+
   function calcSinusScore(){
     if(sinusAge!=="adult") return;
     const ids=["scoreRhinorrhea","scorePain","scoreDischarge"];
@@ -2183,6 +2214,8 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     const r=$("sinusBranchResult"); if(!r)return;
     const d=SINUS_BRANCH[sinusAge][sinusSeverity];
     if($("sinusScore")) $("sinusScore").style.display=sinusAge==="adult"?"block":"none";
+    if($("sinusChildCheck")) $("sinusChildCheck").style.display=sinusAge==="child"?"block":"none";
+    if(sinusAge==="child" && $("childCheckResult") && !$("childCheckResult").innerHTML) calcChildSinus();
     r.innerHTML=`<div class="br-label">CURRENT PATH</div><div class="br-main">${esc(d.main)}</div><div class="br-note">${esc(d.note)}</div><div class="branch-source">根拠：${esc(d.src)}</div>`;
     document.querySelectorAll("#sinusAge button").forEach(b=>b.classList.toggle("active",b.dataset.v===sinusAge));
     document.querySelectorAll("#sinusSeverity button").forEach(b=>b.classList.toggle("active",b.dataset.v===sinusSeverity));
@@ -2197,6 +2230,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     document.querySelectorAll("#sinusAge button").forEach(b=>b.onclick=()=>{sinusAge=b.dataset.v;renderSinusBranch();});
     document.querySelectorAll("#sinusSeverity button").forEach(b=>b.onclick=()=>{sinusSeverity=b.dataset.v;renderSinusBranch();});
     ["scoreRhinorrhea","scorePain","scoreDischarge"].forEach(id=>{if($(id))$(id).onchange=calcSinusScore;});
+    ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
     $("allergySelect").onchange=renderAllergy;
     document.body.classList.add("compact-view");
     const detailToggle=$("detailToggle");
