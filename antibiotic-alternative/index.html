@@ -15,7 +15,7 @@ CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索�
 <div><label>CAMが使えない原因薬</label><select id="drug">
 <option value="suv">スボレキサント</option>
 <option value="aze">アゼルニジピン</option>
-<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option>
+<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option><option value="tada">タダラフィル（アドシルカ）</option><option value="maci">マシテンタン・タダラフィル</option><option value="tica">チカグレロル</option><option value="ibru">イブルチニブ</option><option value="iva">イバブラジン</option>
 <option value="ergot">エルゴタミン／ジヒドロエルゴタミン</option>
 <option value="pim">ピモジド</option>
 <option value="war">ワルファリン（併用注意ケース）</option>
@@ -23,7 +23,7 @@ CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索�
 <div><label>治療目的</label><select id="purpose"><option>慢性副鼻腔炎｜少量長期マクロライド療法</option></select></div>
 </div><div id="out" class="out"></div></section>
 
-<section class="card"><div class="sectionTitle">検証済みデータ</div><div class="sub">Batch 1：スボレキサント／アゼルニジピン／フィネレノン。Batch 2：ダリドレキサント／ボルノレキサント／ロミタピド。CAM→RXMで相互作用が完全消失するかではなく、禁忌を回避しつつ残存リスクを管理できるかで判定します。</div><div id="list"></div></section>
+<section class="card"><div class="sectionTitle">検証済みデータ</div><div class="sub">Batch 1：スボレキサント／アゼルニジピン／フィネレノン。Batch 2：ダリドレキサント／ボルノレキサント／ロミタピド。Batch 3：タダラフィル／マシテンタン・タダラフィル／チカグレロル／イブルチニブ／イバブラジン。CAM→RXMで相互作用が完全消失するかではなく、禁忌を回避しつつ残存リスクを管理できるかで判定します。</div><div id="list"></div></section>
 </main>
 <script>
 const DB={
@@ -44,6 +44,11 @@ aze:{
 dari:{name:"ダリドレキサント",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりダリドレキサント曝露を上昇させるため併用禁忌。",rxm:"RXMは弱いCYP3A阻害レベルで、CAMと同じ強い阻害薬には該当しない。",co:"ダリドレキサント側は中等度CYP3A阻害薬でも曝露上昇・副作用増強に注意が必要。",memo:"CAM禁忌は回避できるが、傾眠等の増強を含め残存相互作用を管理する条件付き候補。"},
 vor:{name:"ボルノレキサント",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりボルノレキサント曝露を顕著に上昇させるため併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同じ併用禁忌には位置付けられていない。",co:"ボルノレキサントは主にCYP3A4で代謝されるため、弱い阻害でも曝露増加の可能性は残る。",memo:"CAM禁忌回避としてRXMへ置換余地はあるが、自動で安全扱いせず眠気等を含め観察。"},
 lomi:{name:"ロミタピド",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりロミタピド曝露を著しく上昇させるため併用禁忌。",rxm:"RXMは弱いCYP3A阻害薬として扱われ、CAMほど強い阻害ではない。",co:"ロミタピド側では弱いCYP3A阻害薬でも曝露増加があり、減量等を含む慎重な管理が必要。",memo:"CAM禁忌は回避可能だが、RXM併用時もロミタピドの用量・副作用管理が必要な条件付き候補。"},
+tada:{name:"タダラフィル（アドシルカ）",state:"cond",label:"条件付き候補",cam:"CAMではタダラフィルのクリアランスが高度に低下し作用増強のおそれがあるため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱く、同一の併用禁忌としては扱われていない。",co:"タダラフィルはCYP3A阻害薬で曝露が増加しうるため、RXMへ変更後も血圧低下・頭痛等を含め臨床管理が必要。",memo:"CAM禁忌の回避余地はあるが、相互作用ゼロとは扱わない条件付き候補。"},
+maci:{name:"マシテンタン・タダラフィル配合剤",state:"cond",label:"条件付き候補",cam:"CAMでは配合成分タダラフィルのクリアランス低下・作用増強が問題となり併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱いが、配合剤の両成分を個別に評価する必要がある。",co:"タダラフィル曝露上昇に加え、肺高血圧症治療中という背景から血圧等の管理が必要。",memo:"単剤タダラフィルより慎重に扱い、処方医確認を前提とする条件付き候補。"},
+tica:{name:"チカグレロル",state:"cond",label:"条件付き候補",cam:"CAMではチカグレロル血漿中濃度が著しく上昇するおそれがあり併用禁忌。",rxm:"RXMはCAMほど強いCYP3A阻害ではなく、同じ併用禁忌には位置付けられていない。",co:"チカグレロルはCYP3A阻害により曝露上昇し出血リスク増加が懸念されるため、RXMでも出血徴候等を確認。",memo:"CAM禁忌回避の候補になりうるが、抗血小板作用増強を念頭に条件付き。"},
+ibru:{name:"イブルチニブ",state:"hold",label:"要個別判断",cam:"CAMではCYP3A阻害によりイブルチニブ作用が増強するため併用禁忌。",rxm:"RXMはCAMより阻害が弱いもののCYP3A阻害作用を有する。",co:"イブルチニブはCYP3A阻害薬の強度に応じた休薬・減量等の管理が治療レジメンに直結する。",memo:"単純なCAM→RXM置換を自動提案せず、イブルチニブ側の用量調整規定を確認して個別判断。"},
+iva:{name:"イバブラジン",state:"ng",label:"RXMを自動提案しない",cam:"CAMではCYP3A阻害によりイバブラジン曝露が上昇し、過度の徐脈のおそれがあるため併用禁忌。",rxm:"RXMにもCYP3A阻害作用があり、さらにQT延長リスクを持つ。",co:"イバブラジンは徐脈を生じうるため、心拍数低下・不整脈という元の安全性問題をRXMで十分回避できない。",memo:"禁忌の形式的回避だけでなく循環器リスクを優先し、RXMを自動代替候補にしない。"},
 fin:{
  name:"フィネレノン",state:"cond",label:"条件付き候補",
  cam:"CAMは強いCYP3A阻害薬としてフィネレノンとの併用禁忌。",
@@ -77,5 +82,5 @@ const $=x=>document.getElementById(x);
 function badge(x){return '<span class="'+x.state+'">'+x.label+'</span>'}
 function render(){const x=DB[$("drug").value];$("out").innerHTML='<b>'+x.name+'</b> '+badge(x)+'<div class="row"><b>① CAM側</b><br>'+x.cam+'</div><div class="row"><b>② RXM側</b><br>'+x.rxm+'</div><div class="row"><b>③ 併用薬側</b><br>'+x.co+'</div><div class="row"><b>CDS判断</b><br>'+x.memo+'</div><div class="mini">治療目的が慢性副鼻腔炎の少量長期療法であることを前提。最終確認は最新電子添文と患者背景で行います。</div>'}
 $("drug").onchange=render;render();
-$("list").innerHTML=["suv","aze","fin","dari","vor","lomi"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
+$("list").innerHTML=["suv","aze","fin","dari","vor","lomi","tada","maci","tica","ibru","iva"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
 </script></body></html>
