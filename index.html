@@ -403,6 +403,20 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 }
 </style>
 
+
+<style id="r1-scale-endpoints-preview">
+.r1-scale-endpoints{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:6px;
+  font-size:11px;
+  color:#667085;
+  line-height:1.35;
+}
+.r1-scale-endpoints span:last-child{text-align:right}
+</style>
+
 </head><body>
 <header><div><div style="font-size:12px;font-weight:800;letter-spacing:.08em;opacity:.85;margin-bottom:4px">PICARD 2019 PUBLISHED-DATA MODE</div><h1>βラクタム Side-chain Comparator｜Picard 2019 Published-score</h1></div></header><main>
 <section class="card" style="border-left:6px solid #2563eb">
@@ -422,7 +436,6 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
       <h3>1. 「ペニシリンアレルギー」の記録は、そのまま真のアレルギーを意味しない</h3>
       <p>ペニシリンアレルギーは医療記録でもっとも多く確認される薬物アレルギー（発症率6〜25%）だが、うち90%以上は皮膚テスト陰性である。また、最も多い反応は良性の皮膚反応（蕁麻疹など）であるが、薬剤誘発性アナフィラキシーの最も多い要因でもある。</p>
     </div>
-
     <div class="allergy-section allergy-alt-2">
       <h3>2. アレルギー反応は時間とともに変化する</h3>
       <p>即時型ペニシリンアレルギーの既往がある患者のうち、80%までが、それ以上の曝露がなければ10年後には忍容性を獲得すると言われている。また、20年後も感受性を維持している患者は1%以下と言われている。</p>
@@ -436,7 +449,8 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
       <p><b>このツールの類似度スコアは、実際のアレルギー発症確率を表す数字ではありません。</b></p>
     </div>
 
-    <div class="allergy-section allergy-alt-2">      <h3>4. ペニシリンアレルギーの管理</h3>
+    <div class="allergy-section allergy-alt-2">
+      <h3>4. ペニシリンアレルギーの管理</h3>
       <p><b>① 非アナフィラキシー性アレルギー</b><br>
       成人において、遠い過去（5年以上前）の良性皮膚反応（麻疹薬疹，じんま疹など）の既往がある場合は、直接AMPC負荷試験を考慮する。</p>
       <p><b>② アナフィラキシーの既往歴がある患者</b><br>
@@ -641,8 +655,7 @@ L 80.5 51.5
 L 80.5 51.5
 L 77.7 51.5
 L 77.7 58.5
-L 75.4 58.5
-L 75.4 41.5
+L 75.4 58.5L 75.4 41.5
 L 80.5 41.5
 Q 83.4 41.5, 84.8 42.8
 Q 86.3 44.1, 86.3 46.5
@@ -655,7 +668,8 @@ L 80.5 49.6
 Q 82.1 49.6, 83.0 48.8
 Q 83.9 48.0, 83.9 46.5
 Q 83.9 45.0, 83.0 44.2
-Q 82.1 43.4, 80.5 43.4L 77.7 43.4
+Q 82.1 43.4, 80.5 43.4
+L 77.7 43.4
 L 77.7 49.6
 " fill="#FF1644"></path>
 <path class="atom-11" d="M 89.7 56.6
@@ -860,8 +874,7 @@ L 226.1 30.5
 L 217.4 30.5
 L 217.4 38.4
 L 215.1 38.4
-L 215.1 21.4
-" fill="#000000"></path>
+L 215.1 21.4" fill="#000000"></path>
 <path class="atom-11" d="M 153.2 110.6
 Q 153.2 106.6, 155.3 104.3
 Q 157.3 102.0, 161.0 102.0
@@ -874,7 +887,8 @@ Q 153.2 114.8, 153.2 110.6
 M 161.0 117.5
 Q 163.6 117.5, 165.0 115.8
 Q 166.4 114.0, 166.4 110.6
-Q 166.4 107.3, 165.0 105.6Q 163.6 103.9, 161.0 103.9
+Q 166.4 107.3, 165.0 105.6
+Q 163.6 103.9, 161.0 103.9
 Q 158.4 103.9, 157.0 105.6
 Q 155.6 107.3, 155.6 110.6
 Q 155.6 114.1, 157.0 115.8
@@ -1050,6 +1064,10 @@ Q 381.3 306.3, 383.9 306.3
   <div class="metric">
     <div class="big" id="sim">—</div>
     <div class="bar"><div class="fill" id="fill"></div></div>
+    <div class="r1-scale-endpoints">
+      <span><b>0</b>：構造類似性なし</span>
+      <span><b>1.000</b>：同一側鎖</span>
+    </div>
   </div>
 </div>
 <div class="risk" id="risk"><span class="r1-source-badge tool" id="r1SourceBadge">本ツール補助計算値</span><b id="riskt"></b><p id="riskp"></p></div>
@@ -1060,7 +1078,7 @@ Q 381.3 306.3, 383.9 306.3
 </div>
 </section>
 <section class="card r3card" id="r3card"><h2>セフェム系3位側鎖（R2）の補助比較</h2><p class="small">両方がセフェム系（セファロスポリン系・セファマイシン系）のときだけ表示する。Picard 2019はR2側鎖を解析対象としていないため、ここは本ツール独自の補助解析として3位側鎖（R2）をRDKit Atom-Pair count fingerprint（chirality ON）/ TanimotoとMCSで比較する。</p><div class="metrics"><div class="metric"><span>R2 Atom-Pair / Tanimoto similarity（補助）</span><div class="big" id="r3sim">—</div><div class="bar"><div class="fill" id="r3fill"></div></div></div><div class="metric"><span>R2 MCS</span><div class="big" id="r3mcs">—</div><p class="small" id="r3desc"></p></div></div><div class="mini-grid"><div class="mini"><b id="r3al"></b><div class="r3structure" id="r3ai"></div><p class="small"><code id="r3ar"></code></p></div><div class="mini"><b id="r3bl"></b><div class="r3structure" id="r3bi"></div><p class="small"><code id="r3br"></code></p></div></div><p class="comparison-note">R2表示時は、上の構造式にもR2の比較結果を追加できますが、R1とR2の色が混ざると読みにくいため、この版では<strong>構造式の縁取りはR1を優先</strong>し、R2は数値とフラグメントで独立表示する。</p></section>
-<section class="card explain"><h2>今回の蛍光表示はどう決めている？</h2><p>まず両方のR1側鎖だけを切り出し、RDKitの<strong>Maximum Common Substructure（MCS）</strong>で「両方に存在する最大の共通部分」を探します。その共通結合を<strong style="color:#ff1744">蛍光赤の縁取り</strong>、R1のうちMCSに入らなかった結合を<strong style="color:#f97316">蛍光黄色の縁取り</strong>にしている。したがって、published Similarity scoreとは別に、<b>どこが共通し、どこが異なるか</b>を目で追えます。</p><p class="small">MCSは「最大の共通部分」を機械的に探す化学構造アルゴリズムで、免疫学的エピトープを直接同定する検査ではない。</p></section>
+<section class="card explain"><h2>今回の蛍光表示はどう決めている？</h2><p>RDKitの<strong>Maximum Common Substructure（MCS）</strong>でR1側鎖の最大共通部分を抽出し、共通部分と固有の部分を色分け表示。Similarity scoreとは別に、視覚的に把握可能。</p><p class="small">※ MCSは構造上の共通部分を示す補助表示であり、免疫学的エピトープを直接示すものではない。</p></section>
 <section class="card explain"><h2>Picardら2019年の「Similarity score」とは</h2>
 <p>Picardらは、ペニシリンとセフェムから<strong>R1（C6/C7）側鎖だけ</strong>を切り出し、ChemBioDraw 13.0で作成してChemMine Toolsへ取り込み、Similarity Workbenchで比較した。原著Methodsでは、構造・物理化学的性質（pKa、charge、polarity、hydrophobicity、hydrogen bonds）に基づき、<strong>Atom-Pair molecular descriptors と Tanimoto coefficient</strong>を用いてSimilarity scoreを算出したと記載されている。</p>
 
@@ -1075,8 +1093,7 @@ Q 381.3 306.3, 383.9 306.3
 
 <div class="sim-source-guide">
 <table>
-  <thead>
-    <tr>
+  <thead>    <tr>
       <th></th>
       <th>文献値：Picard 2019</th>
       <th>補助計算値：本ツール</th>
@@ -1093,7 +1110,8 @@ Q 381.3 306.3, 383.9 306.3
       <td>Picard 2019 Figure 2Aに掲載された既報値</td>
       <td>RDKitを用いて本ツールで計算した値</td>
     </tr>
-    <tr>      <td>いつ表示する？</td>
+    <tr>
+      <td>いつ表示する？</td>
       <td><b>選択した2剤の文献値が存在する場合は、こちらを最優先で表示</b></td>
       <td><b>Picard 2019に文献値がない組み合わせの場合に表示</b></td>
     </tr>
@@ -1250,18 +1268,18 @@ function picardPairInterpretation(a,b,ps){
       'Figure 2Aはペニシリン–セフェムのR1側鎖マトリクスです。この組み合わせは掲載されていないため、別の計算法からPicard scoreを推定していません。構造上の共通部分はMCS表示を参考にしてください。'];
   }
   if(ps===1){
-    return ['danger','R1 Similarity score = 1.000（同一側鎖）',
+    return ['danger','',
       'Picard 2019でR1側鎖がidenticalとされた組み合わせです。ただし、この数値そのものは患者個人の交差反応率ではありません。'];
   }
   if(ps>=0.563 && ps<=0.714){
-    return ['warn','R1 Similarity score = '+ps.toFixed(3),
-      'このペアのpublished scoreは、数値上は原著で報告されたintermediate similarityの範囲（0.563–0.714）に入ります。ただし群別メタ解析は各セフェムの最高similarityを用いた分類であり、この2剤固有の発症確率を意味しません。'];
+    return ['warn','',
+      'このペアのpublished scoreは、数値上は原著で報告された<strong>Intermediate similarity</strong>の範囲（0.563–0.714）に入ります。ただし群別メタ解析は各セフェムの最高similarityを用いた分類であり、この2剤固有の発症確率を意味しません。'];
   }
   if(ps<0.4){
-    return ['safe','R1 Similarity score = '+ps.toFixed(3),
+    return ['safe','',
       'このペアのpublished scoreは0.4未満です。Picardではlow-similarity cephalosporin群の交差反応リスクは低値でしたが、患者個人の投与可否は反応型・重症度・既往歴を優先して判断します。'];
   }
-  return ['warn','R1 Similarity score = '+ps.toFixed(3),
+  return ['warn','',
     'Picard Figure 2Aに掲載された値です。Similarity scoreは構造比較の指標であり、交差反応率へ直接換算しません。'];
 }
 function isCephLike(d){return d && (d.cls==='セフェム' || d.cls==='セファマイシン');}
@@ -1294,8 +1312,7 @@ function render(){
    sourceBadge.textContent='本ツール補助計算値'; sourceBadge.className='r1-source-badge tool';
  }
  const r=(ps!==undefined?picardPairInterpretation(a,b,ps):atomPairPairInterpretation(a,b,p.sim)),el=document.getElementById('risk');
- el.className='risk '+r[0];document.getElementById('riskt').textContent=r[1];document.getElementById('riskp').textContent=r[2];
-
+ el.className='risk '+r[0];document.getElementById('riskt').textContent=r[1];document.getElementById('riskp').innerHTML=r[2];
  // Picard published value exists: show the corresponding cephalosporin-group pooled cross-reactivity estimate.
  // This is NOT a pair-specific probability; Picard grouped cephalosporins by each cephalosporin's maximum R1 similarity.
  const pr=document.getElementById('publishedRisk'), prv=document.getElementById('publishedRiskValue'), prd=document.getElementById('publishedRiskDesc');
@@ -1312,7 +1329,8 @@ function render(){
 
  const rp=R3P[a.key+'|'+b.key], rc=document.getElementById('r3card');
  if(rp && a.r3 && b.r3){
-   rc.classList.add('show'); document.getElementById('r3sim').textContent=rp.sim.toFixed(3);document.getElementById('r3fill').style.width=(rp.sim*100)+'%';document.getElementById('r3mcs').textContent=rp.mcsAtoms+' atoms / '+rp.mcsBonds+' bonds';document.getElementById('r3desc').textContent=DYNAMIC_TEXTS.r3_desc;document.getElementById('r3al').textContent=a.name+' R2';document.getElementById('r3bl').textContent=b.name+' R2';document.getElementById('r3ar').textContent=a.r3;document.getElementById('r3br').textContent=b.r3;outlineRaw(document.getElementById('r3ai'),a.r3svg,rp.faCommon||[],rp.faUnique||[]);outlineRaw(document.getElementById('r3bi'),b.r3svg,rp.fbCommon||[],rp.fbUnique||[]); } else {rc.classList.remove('show');}
+   rc.classList.add('show'); document.getElementById('r3sim').textContent=rp.sim.toFixed(3);document.getElementById('r3fill').style.width=(rp.sim*100)+'%';document.getElementById('r3mcs').textContent=rp.mcsAtoms+' atoms / '+rp.mcsBonds+' bonds';document.getElementById('r3desc').textContent=DYNAMIC_TEXTS.r3_desc;document.getElementById('r3al').textContent=a.name+' R2';document.getElementById('r3bl').textContent=b.name+' R2';document.getElementById('r3ar').textContent=a.r3;document.getElementById('r3br').textContent=b.r3;outlineRaw(document.getElementById('r3ai'),a.r3svg,rp.faCommon||[],rp.faUnique||[]);outlineRaw(document.getElementById('r3bi'),b.r3svg,rp.fbCommon||[],rp.fbUnique||[]);
+ } else {rc.classList.remove('show');}
 
  const pe=document.getElementById('papersim'),pd=document.getElementById('paperdesc');
  let ceph=null,pen=null;
