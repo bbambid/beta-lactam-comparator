@@ -224,7 +224,7 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
   position:relative;
   height:8px;
   border-radius:999px;
-  background:linear-gradient(to right,#2563eb,#d7deea);
+  background:linear-gradient(to right,#d7deea,#2563eb);
 }
 .sim-scale-caption{
   margin-top:6px;
@@ -1093,9 +1093,9 @@ Q 381.3 306.3, 383.9 306.3
 
 <div class="sim-scale" aria-label="Similarity scoreの尺度">
   <div class="sim-scale-line">
-    <span class="sim-scale-end">1.000（同一側鎖）</span>
-    <div class="sim-scale-track"></div>
     <span class="sim-scale-end">0（類似なし）</span>
+    <div class="sim-scale-track"></div>
+    <span class="sim-scale-end">1.000（同一側鎖）</span>
   </div>
   <div class="sim-scale-caption">1に近いほどR1側鎖の構造特徴が類似する</div>
 </div>
@@ -1145,7 +1145,7 @@ Q 381.3 306.3, 383.9 306.3
 
 
 
-<section class="card explain"><h2>判定について</h2><p>R1側鎖はβラクタム交差反応性の主要な決定因子ですが、PicardのSimilarity scoreそのものは個々の患者のアレルギー発症確率ではない。特にセフタジジム–アズトレオナムのような既知の同一R1関係は、機械スコアに加えて臨床ルールとして明示的に扱っています。</p><p class="small"><span>※ 教育・臨床判断支援用の試作であり、ツール単独で判断しないように。</span></p></section>
+
 <section class="card references">
 <h2>使用ツール・計算方法</h2>
 <div class="tool-grid">
