@@ -922,7 +922,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v3.1 / Preview
+    Clinical Reference UI concept v4 / Sinus model
   </footer>
 </main>
 
@@ -940,18 +940,20 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   syndromes: [
     {
       id:"sinus", short:"鼻副鼻腔炎", name:"急性鼻副鼻腔炎",
-      lead:"抗菌薬が必要な病型かをまず確認し、必要時にAMPCを軸として考える。",
-      chips:["抗菌薬不要の分岐が重要","小児：遷延/重症でAMPC"],
+      lead:"まず抗菌薬が必要かを判断する。成人の中等症・重症ではAMPCを第一選択として考える。",
+      chips:["成人：軽症は原則抗菌薬なし","中等症・重症：AMPC第一選択","主標的：肺炎球菌 / H. influenzae / M. catarrhalis"],
       pathogens:[
-        ["肺炎球菌（S. pneumoniae）","感染部位・症候から想定される主な標的菌"],
-        ["インフルエンザ菌（H. influenzae）","BLNARを含む耐性機序に注意"],
-        ["モラクセラ（M. catarrhalis）","主な標的菌の一つ"]
+        ["肺炎球菌（S. pneumoniae）","主要原因菌。ペニシリン系を治療の軸として考える。"],
+        ["インフルエンザ菌（H. influenzae）","主要原因菌。BLNARなど耐性背景に注意。"],
+        ["モラクセラ（M. catarrhalis）","主要原因菌の一つ。βラクタマーゼ産生を考慮する。"]
       ],
       beta:[
-        {name:"AMPC",status:"軸",note:"小児では遷延性または重症で30–50 mg/kg/日 分3、7–10日。"}
+        {name:"AMPC",status:"第一選択",note:"成人の中等症・重症で第一選択。抗微生物薬適正使用の手引きでは5–7日間。"},
+        {name:"CDTR-PI / CFPN-PI / CFTM-PI",status:"代替・エスカレーション",note:"旧・急性鼻副鼻腔炎診療ガイドラインでは重症度や初期治療不応に応じた選択肢。現行第一選択と同列には扱わない。"},
+        {name:"CTRX",status:"重症・不応時",note:"旧ガイドラインでは重症例の治療不応時に、感受性を考慮した選択肢として位置づけ。"}
       ],
-      nonbeta:{title:"主要な非βラクタム選択肢",body:"現行の主根拠から無理に標準薬を補完しない。必要な場合のみ別ガイドラインで追加する。",pills:[]},
-      warning:{title:"最初に確認",text:"症状だけから原因菌を確定しない。鼻汁の色だけで細菌性とは判断しない。"},
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"レスピラトリーキノロン等は旧ガイドラインで重症度・治療経過に応じた選択肢。βラクタムアレルギーでは国内の耐性背景も踏まえ、安易に一律代替とせず専門医相談も考慮する。",pills:["レスピラトリーキノロン（条件付き）"]},
+      warning:{title:"最初に確認：抗菌薬は本当に必要？",text:"成人では軽症例に抗菌薬をルーチン投与せず経過観察を基本とする。中等症・重症で抗菌薬を検討し、AMPCを第一選択とする。"},
       spectrum:[
         ["AMPC × S. pneumoniae","Layer 1","第一選択薬","l1"],
         ["AMPC × H. influenzae","Layer 1","第一選択薬","l1"],
@@ -959,9 +961,10 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       ],
       compare:["AMPC","CCL","CDTR"],
       evidence:[
-        ["SINUS-MHLW4-PED-01","厚労省 抗微生物薬適正使用の手引き 第四版","p.60 / PDF p.60","小児急性鼻副鼻腔炎：抗菌薬を投与しない分岐。","https://www.mhlw.go.jp/content/10906000/001575216.pdf#page=60"],
-        ["SINUS-MHLW4-PED-02","厚労省 抗微生物薬適正使用の手引き 第四版","p.61 / PDF p.61","遷延性または重症でAMPC 30–50 mg/kg/日 分3、7–10日。","https://www.mhlw.go.jp/content/10906000/001575216.pdf#page=61"],
-        ["SINUS-JRS2010-SURV2007-01","急性鼻副鼻腔炎診療ガイドライン2010年版","紙面 p.59 / PDF p.61","2007年全国サーベイランス（検出菌・薬剤感受性／MIC）のHistorical evidence。現在の感受性率・治療推奨としては使用しない。","https://minds.jcqhc.or.jp/common/wp-content/plugins/pdfjs-viewer-shortcode/pdfjs/web/viewer.php?file=https://minds.jcqhc.or.jp/common/summary/pdf/c00181.pdf&dButton=false&pButton=false&oButton=false&sButton=true#page=61&zoom=auto&pagemode=none"]
+        ["SINUS-AMR-ADULT","抗微生物薬適正使用の手引き 第三版","急性鼻副鼻腔炎・成人","成人では中等症・重症に抗菌薬を検討し、AMPCを第一選択として5–7日間経口投与。","https://amr.jihs.go.jp/app/tebiki_honpen.html"],
+        ["SINUS-JRS2014","急性鼻副鼻腔炎診療ガイドライン2010年版 追補版","2014","重症度別アルゴリズム。AMPC/ABPC、CDTR/CFPN/CFTM、重症・不応時のCTRX等の歴史的な位置づけを確認。","https://www.jstage.jst.go.jp/article/jjrhi/53/2/53_103/_article/-char/ja/"],
+        ["SINUS-JRS2024-HANDBOOK","鼻副鼻腔炎診療の手引き","2024;63(1):1-85","日本鼻科学会の2024年手引き。疾患全体の最新の専門学会資料として参照。","https://www.jstage.jst.go.jp/article/jjrhi/63/1/63_1/_article/-char/ja"],
+        ["SINUS-JRS2010-SURV2007-01","急性鼻副鼻腔炎診療ガイドライン2010年版","紙面 p.59 / PDF p.61","2007年全国サーベイランスはHistorical evidence。現在の感受性率として扱わない。","https://minds.jcqhc.or.jp/common/summary/pdf/c00181.pdf"]
       ]
     },
     {
