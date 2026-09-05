@@ -417,7 +417,17 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 .r1-scale-endpoints span:last-child{text-align:right}
 </style>
 
-</head><body>
+<style id="r1-explain-toggle-row">
+.r1-explain-toggles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.explain-toggle{border:1px solid #d8e0e7;border-radius:10px;background:#f8fafc;overflow:hidden}
+.explain-toggle summary{cursor:pointer;list-style:none;padding:11px 30px 11px 13px;font-size:12px;font-weight:800;color:#34495e;position:relative}
+.explain-toggle summary::-webkit-details-marker{display:none}
+.explain-toggle summary::after{content:"＋";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#718096;font-size:15px}
+.explain-toggle[open] summary::after{content:"−"}
+.explain-toggle-body{padding:0 13px 12px;font-size:12px;line-height:1.65}
+.explain-toggle-body p:first-child{margin-top:4px}
+@media(max-width:520px){.r1-explain-toggles{gap:7px}.explain-toggle summary{font-size:11px;padding:10px 26px 10px 10px}}
+</style></head><body>
 <header><div><div style="font-size:12px;font-weight:800;letter-spacing:.08em;opacity:.85;margin-bottom:4px">PICARD 2019 PUBLISHED-DATA MODE</div><h1>βラクタム Side-chain Comparator｜Picard 2019 Published-score</h1></div></header><main>
 <section class="card" style="border-left:6px solid #2563eb">
 <h2 style="margin-top:0">このツールを使う前に：βラクタムアレルギーの考え方</h2>
@@ -1076,7 +1086,7 @@ Q 381.3 306.3, 383.9 306.3
   <div class="published-risk-value" id="publishedRiskValue">—</div>
   <p class="small" id="publishedRiskDesc"></p>
 </div>
-<details class="card explain"><summary><strong>Picardら2019年の「Similarity score」とは</strong></summary><div style="margin-top:14px">
+<div class="r1-explain-toggles"><details class="explain-toggle"><summary>Picardら2019年の「Similarity score」とは</summary><div class="explain-toggle-body">
 <p>Picardらは、ペニシリンとセフェムから<strong>R1（C6/C7）側鎖だけ</strong>を切り出し、ChemBioDraw 13.0で作成してChemMine Toolsへ取り込み、Similarity Workbenchで比較した。原著Methodsでは、構造・物理化学的性質（pKa、charge、polarity、hydrophobicity、hydrogen bonds）に基づき、<strong>Atom-Pair molecular descriptors と Tanimoto coefficient</strong>を用いてSimilarity scoreを算出したと記載されている。</p>
 
 <div class="sim-scale" aria-label="Similarity scoreの尺度">
@@ -1128,9 +1138,9 @@ Q 381.3 306.3, 383.9 306.3
 <p class="sim-source-note">※ Picard 2019と本モジュールはいずれもAtom-Pairを用いるが、算出ソフトが異なるため（Picard 2019：ChemMine Tools、本モジュール：RDKit）、両者の数値を同一尺度として直接比較しない。</p>
 
 <p class="note"><b>このツールの表示ルール：</b>Picard Figure 2Aに値がある組み合わせは<strong>原著のAtom-Pair / Tanimoto値</strong>を表示する。原著に値がない組み合わせではPicard scoreを推定せず、<strong>RDKitで作成したAtom-Pair count fingerprint（chirality ON）/ Tanimoto similarity</strong>を補助計算値として表示する。算出ソフトが異なるため、両者は画面上で明確に区別する。</p>
-</div></details></section>
+</div></details><details class="explain-toggle"><summary>蛍光表示の決め方</summary><div class="explain-toggle-body"><p>RDKitの<strong>Maximum Common Substructure（MCS）</strong>でR1側鎖の最大共通部分を抽出し、共通部分と固有の部分を色分け表示。Similarity scoreとは別に、視覚的に把握可能。</p><p class="small">※ MCSは構造上の共通部分を示す補助表示であり、免疫学的エピトープを直接示すものではない。</p></div></details></div></section>
 <section class="card r3card" id="r3card"><h2>セフェム系3位側鎖（R2）の補助比較</h2><p class="small">両方がセフェム系（セファロスポリン系・セファマイシン系）のときだけ表示する。Picard 2019はR2側鎖を解析対象としていないため、ここは本ツール独自の補助解析として3位側鎖（R2）をRDKit Atom-Pair count fingerprint（chirality ON）/ TanimotoとMCSで比較する。</p><div class="metrics"><div class="metric"><span>R2 Atom-Pair / Tanimoto similarity（補助）</span><div class="big" id="r3sim">—</div><div class="bar"><div class="fill" id="r3fill"></div></div></div><div class="metric"><span>R2 MCS</span><div class="big" id="r3mcs">—</div><p class="small" id="r3desc"></p></div></div><div class="mini-grid"><div class="mini"><b id="r3al"></b><div class="r3structure" id="r3ai"></div><p class="small"><code id="r3ar"></code></p></div><div class="mini"><b id="r3bl"></b><div class="r3structure" id="r3bi"></div><p class="small"><code id="r3br"></code></p></div></div><p class="comparison-note">R2表示時は、上の構造式にもR2の比較結果を追加できますが、R1とR2の色が混ざると読みにくいため、この版では<strong>構造式の縁取りはR1を優先</strong>し、R2は数値とフラグメントで独立表示する。</p></section>
-<section class="card explain"><h2>蛍光表示の決め方</h2><p>RDKitの<strong>Maximum Common Substructure（MCS）</strong>でR1側鎖の最大共通部分を抽出し、共通部分と固有の部分を色分け表示。Similarity scoreとは別に、視覚的に把握可能。</p><p class="small">※ MCSは構造上の共通部分を示す補助表示であり、免疫学的エピトープを直接示すものではない。</p></section>
+
 
 
 <section class="card explain"><h2>判定について</h2><p>R1側鎖はβラクタム交差反応性の主要な決定因子ですが、PicardのSimilarity scoreそのものは個々の患者のアレルギー発症確率ではない。特にセフタジジム–アズトレオナムのような既知の同一R1関係は、機械スコアに加えて臨床ルールとして明示的に扱っています。</p><p class="small"><span>※ 教育・臨床判断支援用の試作であり、ツール単独で判断しないように。</span></p></section>
