@@ -940,21 +940,8 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   <section id="aomBranch" class="aom-branch">
   <div class="branch-title">小児急性中耳炎｜薬局向け治療確認</div>
   <div class="branch-sub">鼓膜所見が不明な薬局では、正式な重症度を推定しません。処方と治療経過の位置づけを確認します。</div>
-  <div class="aom-entry"><button type="button" data-aom="pharmacy" class="active"><b>💊 処方から確認する</b><span>薬局向け。現在薬・治療日数・改善状況からGL上の位置づけを逆引きします。鼓膜所見が不明でも使えます。</span></button><button type="button" data-aom="full"><b>🩺 鼓膜所見まで分かる</b><span>年齢・症状・鼓膜所見を入力して正式スコアと重症度別アルゴリズムを確認します。</span></button></div>
+  <div class="aom-entry"><button type="button" data-aom="pharmacy" class="active"><b>💊 処方から確認する</b><span>現在薬・治療日数・改善状況から、公開情報をもとに治療上の位置づけを確認します。</span></button></div>
   <div id="aomResult" class="aom-box"></div>
-  <div id="aomFullScore" class="aom-fullscore">
-    <div class="aom-reverse-title">鼓膜所見あり｜2024年版 正式重症度スコア</div>
-    <div class="aom-scoregrid">
-      <div><label>年齢</label><select id="aomAge"><option value="0">24か月齢以上：0</option><option value="3">24か月齢未満：3</option></select></div>
-      <div><label>耳痛</label><select id="aomPain"><option value="0">なし：0</option><option value="1">あり：1</option><option value="2">持続性で高度：2</option></select></div>
-      <div><label>発熱</label><select id="aomFever"><option value="0">37℃未満：0</option><option value="1">37〜38℃：1</option><option value="2">38℃以上：2</option></select></div>
-      <div><label>啼泣・不機嫌</label><select id="aomIrritable"><option value="0">なし：0</option><option value="1">あり：1</option></select></div>
-      <div><label>鼓膜発赤</label><select id="aomRed"><option value="0">なし：0</option><option value="2">一部発赤：2</option><option value="4">全体発赤：4</option></select></div>
-      <div><label>鼓膜膨隆</label><select id="aomBulge"><option value="0">なし：0</option><option value="4">部分膨隆：4</option><option value="8">全体膨隆：8</option></select></div>
-      <div><label>耳漏</label><select id="aomOtorrhea"><option value="0">なし：0</option><option value="4">あり・鼓膜観察可：4</option><option value="8">あり・鼓膜観察不可：8</option></select></div>
-    </div>
-    <div id="aomScoreResult" class="aom-score-result"></div>
-  </div>
   <div id="aomReverse" class="aom-reverse">
     <div class="aom-reverse-title">処方から逆引き｜GL上の現在位置</div>
     <div class="aom-reverse-grid">
@@ -1037,7 +1024,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v15 / AOM pharmacist-first entry
+    Clinical Reference UI concept v16 / AOM reverse-only
   </footer>
 </main>
 
@@ -2343,15 +2330,6 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       <article class="decision-panel target"><div class="dp-label">MAIN TARGETS</div>${x.pathogens.length?x.pathogens.map(p=>`<div class="dp-item"><div class="dp-main">${esc(p[0])}</div><div class="dp-note">${esc(p[1])}</div></div>`).join(""):`<div class="dp-note">標的菌を一律には設定していません。</div>`}</article>`;
   }
 
-  function calcAomScore(){
-    const ids=["aomAge","aomPain","aomFever","aomIrritable","aomRed","aomBulge","aomOtorrhea"];
-    if(ids.some(id=>!$(id)))return;
-    const score=ids.reduce((n,id)=>n+Number($(id).value||0),0);
-    const grade=score<=5?"軽症":score<=11?"中等症":"重症";
-    let path=grade==="軽症"?"抗菌薬非投与で3日間経過観察。改善しなければAMPC高用量3〜5日間へ。":grade==="中等症"?"AMPC高用量3〜5日間を初期治療とし、改善がなければ原因菌・感受性を考慮して次段階へ。":"AMPC高用量、CVA/AMPC 1:14、CDTR-PI高用量などGL記載の初期選択肢から、鼓膜切開・細菌検査等も含めて治療。";
-    $("aomScoreResult").innerHTML="<b>"+score+"点｜"+grade+"</b><span>"+path+"</span><div class=\"branch-source\">根拠：小児急性中耳炎診療ガイドライン2024年版｜急性中耳炎診療スコアシート／治療アルゴリズム 誌面 p.85–90・巻末カラー</div><div class=\"evidence-jump\"><button type=\"button\" onclick=\"jumpToEvidence()\">根拠を見る ↓</button></div>";
-  }
-
   function renderAomReverse(){
     const out=$("aomPosition"); if(!out)return;
     const drug=$("aomDrug")?.value||"none", day=$("aomDay")?.value||"start", response=$("aomResponse")?.value||"unknown";
@@ -2370,24 +2348,16 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     else if(day==="3to5" && (response==="same"||response==="worse")) stage=2;
     else if(["cva","cdtr_high","tbpm","tflx","abpc","ctrx"].includes(drug)) stage=2;
     const node=(n,label,main,note)=>'<div class="aom-flow-node '+(stage===n?'active':stage>n?'done':'')+'"><div class="fn-step">'+label+'</div><b>'+main+'</b><span>'+note+'</span>'+(stage===n?'<em class="aom-flow-here">現在地</em>':'')+'</div>';
-    const flow='<div class="aom-flow"><div class="aom-flow-title">GLアルゴリズム上のイメージ</div><div class="aom-flow-track">'+
-      node(1,'STEP 1','初期治療 / 経過観察','重症度に応じて開始')+'<div class="aom-flow-arrow">›</div>'+
-      node(2,'STEP 2','3〜5日後に再評価','改善なし・悪化なら次段階を検討')+'<div class="aom-flow-arrow">›</div>'+
-      node(3,'STEP 3','改善後の経過観察','必要な投与期間を確保')+
-      '</div><div class="aom-next">※これは薬局で現在位置を把握するための簡略図です。正式な治療経路・薬剤選択は重症度、鼓膜所見、前治療、細菌検査を含む2024年版GLアルゴリズムに従います。</div></div>';
-    out.innerHTML="<b>"+names[drug]+"｜"+title+"</b>"+body+flow+'<div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.85–90</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+    out.innerHTML="<b>"+names[drug]+"｜"+title+"</b>"+body+'<div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.85–90</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
   }
 
   let aomMode="pharmacy";
   function renderAomBranch(){
     const r=$("aomResult"); if(!r)return;
     document.querySelectorAll("[data-aom]").forEach(b=>b.classList.toggle("active",b.dataset.aom===aomMode));
-    if($("aomFullScore")) $("aomFullScore").classList.toggle("show",aomMode==="full");
-    if($("aomReverse")) $("aomReverse").style.display=aomMode==="pharmacy"?"block":"none";
-    if(aomMode==="full") calcAomScore();
     renderAomReverse();
     if(aomMode==="pharmacy"){
-      r.innerHTML='<strong>正式な軽症・中等症・重症判定は行いません</strong><p>2024年版GLの重症度は年齢・症状に加えて鼓膜発赤・膨隆・耳漏などの鼓膜所見を含むスコアで判定します。薬局で鼓膜所見が不明なら、症状だけから重症度や治療段階を断定しません。</p><div class="aom-alert">処方監査では「AMPC高用量が第1選択」「3〜5日後に効果判定」「改善なしならGLの次段階を検討」という位置づけを確認します。薬剤の変更候補は、重症度・前治療・細菌検査が確認できる場合のみGLに沿って表示します。</div><div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.85–90</div>';
+      r.innerHTML='<strong>薬局向け｜処方から逆引き</strong><p>鼓膜所見が不明な薬局では正式な重症度判定を行わず、現在の処方・治療経過から治療上の位置づけを確認します。</p><div class="aom-alert">ガイドラインのスコアシート・治療アルゴリズムそのものは本ツール上で再現しません。詳細は公式ガイドラインを参照してください。</div>';
     }else{
       r.innerHTML='<strong>鼓膜所見を含む正式スコア入力は次段階で実装</strong><p>鼓膜発赤・膨隆・耳漏まで確認できる場合のみ、GLのスコア（≤5軽症 / 6–11中等症 / ≥12重症）から治療アルゴリズムへ接続します。現時点では誤判定防止のため自動計算をまだ有効化していません。</p><div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜CQ1-4・巻末スコアシート・治療アルゴリズム</div>';
     }
@@ -2411,7 +2381,6 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
     document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     ["aomDrug","aomDay","aomResponse"].forEach(id=>{if($(id))$(id).onchange=renderAomReverse;});
-    ["aomAge","aomPain","aomFever","aomIrritable","aomRed","aomBulge","aomOtorrhea"].forEach(id=>{if($(id))$(id).onchange=calcAomScore;});
     renderAomReverse();
     $("allergySelect").onchange=renderAllergy;
     document.body.classList.add("compact-view");
