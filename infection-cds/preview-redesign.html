@@ -541,6 +541,12 @@ body.compact-view .deep-section{display:none}
 .aom-fullscore.show{display:block}.aom-scoregrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.aom-scoregrid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.aom-scoregrid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px 6px;font-size:10px}
 .aom-score-result{margin-top:9px;padding:10px;border-radius:10px;background:#eef4fb}.aom-score-result b{font-size:14px}.aom-score-result span{display:block;font-size:10px;color:#667085;line-height:1.5;margin-top:3px}
 @media(max-width:700px){.aom-scoregrid{grid-template-columns:1fr}}
+
+.aom-entry{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0 4px}
+.aom-entry button{border:1px solid #d7e0e8;background:#fff;border-radius:13px;padding:13px;text-align:left;cursor:pointer}
+.aom-entry button.active{border:2px solid #5d7890;background:#f6f9fc;box-shadow:0 2px 8px #102a4314}
+.aom-entry b{display:block;font-size:12px}.aom-entry span{display:block;font-size:9px;line-height:1.45;color:#667085;margin-top:4px}
+@media(max-width:700px){.aom-entry{grid-template-columns:1fr}}
 </style>
 
 
@@ -934,7 +940,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   <section id="aomBranch" class="aom-branch">
   <div class="branch-title">小児急性中耳炎｜薬局向け治療確認</div>
   <div class="branch-sub">鼓膜所見が不明な薬局では、正式な重症度を推定しません。処方と治療経過の位置づけを確認します。</div>
-  <div class="aom-mode"><button type="button" data-aom="pharmacy" class="active">薬局モード</button><button type="button" data-aom="full">鼓膜所見あり</button></div>
+  <div class="aom-entry"><button type="button" data-aom="pharmacy" class="active"><b>💊 処方から確認する</b><span>薬局向け。現在薬・治療日数・改善状況からGL上の位置づけを逆引きします。鼓膜所見が不明でも使えます。</span></button><button type="button" data-aom="full"><b>🩺 鼓膜所見まで分かる</b><span>年齢・症状・鼓膜所見を入力して正式スコアと重症度別アルゴリズムを確認します。</span></button></div>
   <div id="aomResult" class="aom-box"></div>
   <div id="aomFullScore" class="aom-fullscore">
     <div class="aom-reverse-title">鼓膜所見あり｜2024年版 正式重症度スコア</div>
@@ -1031,7 +1037,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v14 / AOM formal score
+    Clinical Reference UI concept v15 / AOM pharmacist-first entry
   </footer>
 </main>
 
