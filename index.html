@@ -1208,9 +1208,9 @@ const DEFAULT_DYNAMIC_TEXTS={
  cat_high_label:'原著掲載値',cat_high_desc:'Picard 2019 Figure 2Aに掲載されたR1 Similarity score',
  cat_mid_label:'原著掲載値',cat_mid_desc:'Picard 2019 Figure 2Aに掲載されたR1 Similarity score',
  cat_low_label:'原著掲載値',cat_low_desc:'Picard 2019 Figure 2Aに掲載されたR1 Similarity score',
- clinical_same_title:'Picard 2019 published score',clinical_same_desc:'選択した2剤のR1 Similarity score。個別患者の交差反応率ではない。',
- clinical_mid_title:'Picard 2019 published score',clinical_mid_desc:'選択した2剤のR1 Similarity score。個別患者の交差反応率ではない。',
- clinical_low_title:'Picard 2019 published score',clinical_low_desc:'選択した2剤のR1 Similarity score。個別患者の交差反応率ではない。',
+ clinical_same_title:'Picard 2019 score',clinical_same_desc:'選択した2剤のR1 Similarity score。個別患者の交差反応率ではない。',
+ clinical_mid_title:'Picard 2019 score',clinical_mid_desc:'選択した2剤のR1 Similarity score。個別患者の交差反応率ではない。',
+ clinical_low_title:'Picard 2019 score',clinical_low_desc:'選択した2剤のR1 Similarity score。個別患者の交差反応率ではない。',
  special_title:'🔴 既知の高注意ペア',special_desc:'セフタジジムとアズトレオナムは重要な側鎖関係を持つため、交差反応に注意。',
  r3_desc:'R2だけを切り出した本ツール独自の補助比較。R2構造が同一の場合はfingerprint計算前に1.000と判定し、異なる場合はRDKit Atom-Pair count fingerprint（chirality ON）/ Tanimotoで計算する。Picard 2019はR2を解析対象としていない。',
  paper_found:'Picard 2019の群別メタ解析値。選択した2剤固有の確率ではない。',
@@ -1251,7 +1251,7 @@ function category(s){if(s>=.85)return[DYNAMIC_TEXTS.cat_vhigh_label,DYNAMIC_TEXT
 function clinical(a,b,s){const keys=new Set([a.key,b.key]); if(keys.has('ceftazidime')&&keys.has('aztreonam'))return['high',DYNAMIC_TEXTS.special_title,DYNAMIC_TEXTS.special_desc]; if(s>=.95)return['high',DYNAMIC_TEXTS.clinical_same_title,DYNAMIC_TEXTS.clinical_same_desc]; if(s>=.6)return['mid',DYNAMIC_TEXTS.clinical_mid_title,DYNAMIC_TEXTS.clinical_mid_desc]; return['low',DYNAMIC_TEXTS.clinical_low_title,DYNAMIC_TEXTS.clinical_low_desc];}
 function picardPairInterpretation(a,b,ps){
   if(ps===undefined){
-    return ['warn','Picard 2019 published score：データなし',
+    return ['warn','Picard 2019 score：データなし',
       'Figure 2Aはペニシリン–セフェムのR1側鎖マトリクスです。この組み合わせは掲載されていないため、別の計算法からPicard scoreを推定していません。構造上の共通部分はMCS表示を参考にしてください。'];
   }
   if(ps===1){
@@ -1260,11 +1260,11 @@ function picardPairInterpretation(a,b,ps){
   }
   if(ps>=0.563 && ps<=0.714){
     return ['warn','',
-      'このペアのpublished scoreは、数値上は原著で報告された<strong>Intermediate similarity</strong>の範囲（0.563–0.714）に入ります。ただし群別メタ解析は各セフェムの最高similarityを用いた分類であり、この2剤固有の発症確率を意味しません。'];
+      'このペアのscoreは、数値上は原著で報告された<strong>Intermediate similarity</strong>の範囲（0.563–0.714）に入ります。ただし群別メタ解析は各セフェムの最高similarityを用いた分類であり、この2剤固有の発症確率を意味しません。'];
   }
   if(ps<0.4){
     return ['safe','',
-      'このペアのpublished scoreは0.4未満です。Picardではlow-similarity cephalosporin群の交差反応リスクは低値でしたが、患者個人の投与可否は反応型・重症度・既往歴を優先して判断します。'];
+      'このペアのscoreは0.4未満です。Picardではlow-similarity cephalosporin群の交差反応リスクは低値でしたが、患者個人の投与可否は反応型・重症度・既往歴を優先して判断します。'];
   }
   return ['warn','',
     'Picard Figure 2Aに掲載された値です。Similarity scoreは構造比較の指標であり、交差反応率へ直接換算しません。'];
