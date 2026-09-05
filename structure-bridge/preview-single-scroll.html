@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>βラクタム構造解析｜Single Scroll Preview</title>
+<style>
+*{box-sizing:border-box}
+html{width:100%;min-height:100%;background:#f4f7fb}
+body{
+  margin:0;
+  width:100%;
+  min-height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.bridgebar{
+  min-height:54px;
+  background:#102a43;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:8px 14px;
+  border-bottom:1px solid #0b2238;
+}
+.bridge-title{font-size:13px;font-weight:800;white-space:nowrap}
+.bridge-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.bridge-actions a{
+  color:#fff;text-decoration:none;border:1px solid #ffffff66;border-radius:5px;
+  padding:7px 10px;font-size:11px;font-weight:700;background:#ffffff0d
+}
+.bridge-actions a:hover{background:#ffffff1f}
+.frame-wrap{
+  width:100%;
+  padding-bottom:calc(96px + env(safe-area-inset-bottom));
+}
+#toolFrame{
+  display:block;
+  width:100%;
+  height:1px;
+  min-height:1px;
+  border:0;
+  background:#fff;
+  overflow:hidden;
+}
+.notice{display:none}
+@media(max-width:650px){
+  .bridgebar{min-height:62px;padding:8px 10px}
+  .bridge-title{font-size:11px}
+  .bridge-actions a{padding:6px 8px;font-size:10px}
+}
+</style>
+</head>
+<body>
+<div class="bridgebar">
+  <div class="bridge-title">β-LACTAM CLINICAL REFERENCE ｜ 構造解析</div>
+  <div class="bridge-actions">
+    <a href="../infection-cds/index.html">← 疾患モジュール</a>
+    <a href="../portal.html">入口</a>
+  </div>
+</div>
+
+<div class="frame-wrap">
+  <iframe id="toolFrame" src="../index.html" scrolling="no" title="βラクタム構造解析"></iframe>
+</div>
+
+<script>
+const frame=document.getElementById("toolFrame");
+const params=new URLSearchParams(location.search);
+const drug1=params.get("drug1");
+const drug2=params.get("drug2");
+let resizeObserver=null;
+let mutationObserver=null;
+let rafId=0;
+
+function sizeFrame(){
+  cancelAnimationFrame(rafId);
+  rafId=requestAnimationFrame(()=>{
+    try{
+      const doc=frame.contentDocument;
+      if(!doc) return;
+      const de=doc.documentElement;
+      const body=doc.body;
+      const h=Math.max(
+        de ? de.scrollHeight : 0,
+        de ? de.offsetHeight : 0,
+        body ? body.scrollHeight : 0,
+        body ? body.offsetHeight : 0
+      );
+      if(h>0) frame.style.height=(h+2)+"px";
+    }catch(e){
+      console.warn("Structure bridge resize:",e);
+    }
+  });
+}
+
+function setDrug(el,val){
+  if(!el||!val) return;
+  const exists=[...el.options].some(o=>o.value===val);
+  if(!exists) return;
+  el.value=val;
+  el.dispatchEvent(new Event("change",{bubbles:true}));
+}
+
+frame.addEventListener("load",()=>{
+  try{
+    const doc=frame.contentDocument;
+    if(!doc) return;
+
+    // iframe自身にはスクロールさせず、外側ページ1本だけで縦スクロールする
+    doc.documentElement.style.overflow="visible";
+    doc.body.style.overflow="visible";
+
+    const a=doc.getElementById("a");
+    const b=doc.getElementById("b");
+    setDrug(a,drug1);
+    setDrug(b,drug2);
+    if(b) b.dispatchEvent(new Event("change",{bubbles:true}));
+
+    sizeFrame();
+
+    if("ResizeObserver" in window){
+      resizeObserver=new ResizeObserver(sizeFrame);
+      resizeObserver.observe(doc.documentElement);
+      if(doc.body) resizeObserver.observe(doc.body);
+    }
+
+    mutationObserver=new MutationObserver(sizeFrame);
+    mutationObserver.observe(doc.documentElement,{
+      subtree:true,childList:true,attributes:true,characterData:false
+    });
+
+    doc.addEventListener("toggle",sizeFrame,true);
+    doc.addEventListener("change",sizeFrame,true);
+    doc.addEventListener("click",()=>setTimeout(sizeFrame,0),true);
+
+    setTimeout(sizeFrame,50);
+    setTimeout(sizeFrame,250);
+    setTimeout(sizeFrame,800);
+  }catch(e){
+    console.warn("Structure bridge:",e);
+  }
+});
+
+window.addEventListener("resize",sizeFrame,{passive:true});
+window.addEventListener("orientationchange",()=>setTimeout(sizeFrame,150),{passive:true});
+</script>
+</body>
+</html>
