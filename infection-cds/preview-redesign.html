@@ -511,6 +511,10 @@ body.compact-view .deep-section{display:none}
 .evidence-jump{display:flex;justify-content:flex-end;margin-top:9px}
 .evidence-jump button{border:0;background:transparent;color:#315f7d;font-size:10px;font-weight:900;padding:3px 0;cursor:pointer}
 .conditional-note{margin-top:8px;padding:8px 9px;border-radius:9px;background:#fffaf0;border:1px solid #ead9ad;font-size:10px;line-height:1.55;color:#5f512c}
+
+.aom-branch{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.aom-branch.show{display:block}.aom-mode{display:flex;gap:6px;margin:9px 0}.aom-mode button{border:1px solid #d6dee8;background:#f7f9fb;border-radius:9px;padding:8px 10px;font-size:10px;font-weight:900}.aom-mode button.active{background:#fff;box-shadow:0 1px 4px #102a4320}
+.aom-box{padding:11px;border:1px solid #e5ebf1;border-radius:11px;background:#f8fafc}.aom-box strong{font-size:13px}.aom-box p{font-size:10px;line-height:1.55;color:#667085;margin:5px 0 0}.aom-alert{margin-top:8px;padding:8px 9px;border-radius:9px;background:#fffaf0;border:1px solid #ead9ad;font-size:10px;line-height:1.55}
 </style>
 
 
@@ -901,7 +905,13 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="qc-text">下の「標的菌」と「βラクタムの位置づけ」を先に確認し、必要なときだけ比較表・アレルギー・Evidenceへ進みます。薬剤の順位は各疾患データに登録されたガイドライン上の位置づけをそのまま表示し、根拠のない順位づけは行いません。</div>
   </section>
 
-  <section id="sinusBranch" class="sinus-branch"><div class="branch-title">急性鼻副鼻腔炎｜治療分岐</div><div class="branch-sub">年齢区分と重症度を選ぶと、最初に見る治療方針を切り替えます。</div><div class="branch-controls"><div class="branch-field"><label>対象</label><div class="branch-seg" id="sinusAge"><button type="button" data-v="adult" class="active">成人</button><button type="button" data-v="child">学童期以降の小児</button></div></div><div class="branch-field"><label>重症度</label><div class="branch-seg" id="sinusSeverity"><button type="button" data-v="mild">軽症</button><button type="button" data-v="moderate" class="active">中等症</button><button type="button" data-v="severe">重症</button></div></div></div><div id="sinusBranchResult" class="branch-result"></div>
+  <section id="aomBranch" class="aom-branch">
+  <div class="branch-title">小児急性中耳炎｜薬局向け治療確認</div>
+  <div class="branch-sub">鼓膜所見が不明な薬局では、正式な重症度を推定しません。処方と治療経過の位置づけを確認します。</div>
+  <div class="aom-mode"><button type="button" data-aom="pharmacy" class="active">薬局モード</button><button type="button" data-aom="full">鼓膜所見あり</button></div>
+  <div id="aomResult" class="aom-box"></div>
+</section>
+<section id="sinusBranch" class="sinus-branch"><div class="branch-title">急性鼻副鼻腔炎｜治療分岐</div><div class="branch-sub">年齢区分と重症度を選ぶと、最初に見る治療方針を切り替えます。</div><div class="branch-controls"><div class="branch-field"><label>対象</label><div class="branch-seg" id="sinusAge"><button type="button" data-v="adult" class="active">成人</button><button type="button" data-v="child">学童期以降の小児</button></div></div><div class="branch-field"><label>重症度</label><div class="branch-seg" id="sinusSeverity"><button type="button" data-v="mild">軽症</button><button type="button" data-v="moderate" class="active">中等症</button><button type="button" data-v="severe">重症</button></div></div></div><div id="sinusBranchResult" class="branch-result"></div>
 <div id="sinusScore" class="sinus-score">
   <div class="score-title">成人｜重症度スコア自動判定</div>
   <div class="score-sub">鼻漏 0–2点＋顔面痛/前頭部痛 0–2点＋鼻汁/後鼻漏 0・2・4点。合計から重症度を自動判定し、上の重症度ボタンと治療方針を連動します。</div>
@@ -973,7 +983,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v10 / Evidence roles + source jump
+    Clinical Reference UI concept v11 / AOM pharmacy mode
   </footer>
 </main>
 
@@ -1060,7 +1070,10 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       warning:{title:"小児での注意",text:"ピボキシル基を持つ薬剤では低カルニチン血症に注意。キノロンも安易な第一選択にはしない。"},
       spectrum:[["AMPC × H. influenzae","Layer 3","治療の軸","l3"],["CDTR × H. influenzae","Layer 2/3","薬剤特性と臨床位置づけを分けて表示","l2"]],
       compare:["AMPC","CDTR","CCL"],
-      evidence:[["AOM2024","小児急性中耳炎診療ガイドライン2024","p.94–97","軽症・中等症・重症の治療アルゴリズム。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf#page=94"]]
+      evidence:[
+        ["AOM2024-ALG","小児急性中耳炎診療ガイドライン2024年版","誌面 p.87–90","軽症・中等症・重症の治療アルゴリズム。鼓膜所見を含む正式な重症度に基づいて治療段階を選択する。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf#page=87"],
+        ["AOM2024-CQ31","小児急性中耳炎診療ガイドライン2024年版","CQ3-1 / 治療章","抗菌薬を使用する場合の選択。2024年版では高用量AMPCを第1選択とし、3〜5日後に効果判定する。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf"]
+      ]
     },
     {
       id:"cap", short:"市中肺炎", name:"成人市中肺炎（CAP）",
@@ -2276,6 +2289,17 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       <article class="decision-panel target"><div class="dp-label">MAIN TARGETS</div>${x.pathogens.length?x.pathogens.map(p=>`<div class="dp-item"><div class="dp-main">${esc(p[0])}</div><div class="dp-note">${esc(p[1])}</div></div>`).join(""):`<div class="dp-note">標的菌を一律には設定していません。</div>`}</article>`;
   }
 
+  let aomMode="pharmacy";
+  function renderAomBranch(){
+    const r=$("aomResult"); if(!r)return;
+    document.querySelectorAll("[data-aom]").forEach(b=>b.classList.toggle("active",b.dataset.aom===aomMode));
+    if(aomMode==="pharmacy"){
+      r.innerHTML='<strong>正式な軽症・中等症・重症判定は行いません</strong><p>2024年版GLの重症度は年齢・症状に加えて鼓膜発赤・膨隆・耳漏などの鼓膜所見を含むスコアで判定します。薬局で鼓膜所見が不明なら、症状だけから重症度や治療段階を断定しません。</p><div class="aom-alert">処方監査では「AMPC高用量が第1選択」「3〜5日後に効果判定」「改善なしならGLの次段階を検討」という位置づけを確認します。薬剤の変更候補は、重症度・前治療・細菌検査が確認できる場合のみGLに沿って表示します。</div><div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.87–90</div>';
+    }else{
+      r.innerHTML='<strong>鼓膜所見を含む正式スコア入力は次段階で実装</strong><p>鼓膜発赤・膨隆・耳漏まで確認できる場合のみ、GLのスコア（≤5軽症 / 6–11中等症 / ≥12重症）から治療アルゴリズムへ接続します。現時点では誤判定防止のため自動計算をまだ有効化していません。</p><div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜CQ1-4・巻末スコアシート・治療アルゴリズム</div>';
+    }
+  }
+
   window.jumpToEvidence=function(){
     document.body.classList.remove("compact-view");
     const btn=$("detailToggle"); if(btn)btn.textContent="詳しい比較・根拠を閉じる";
@@ -2292,6 +2316,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     document.querySelectorAll("#sinusSeverity button").forEach(b=>b.onclick=()=>{sinusSeverity=b.dataset.v;renderSinusBranch();});
     ["scoreRhinorrhea","scorePain","scoreDischarge"].forEach(id=>{if($(id))$(id).onchange=calcSinusScore;});
     ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
+    document.querySelectorAll("[data-aom]").forEach(b=>b.onclick=()=>{aomMode=b.dataset.aom;renderAomBranch();});
     $("allergySelect").onchange=renderAllergy;
     document.body.classList.add("compact-view");
     const detailToggle=$("detailToggle");
@@ -2309,6 +2334,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     const x=D.syndromes.find(s=>s.id===id)||D.syndromes[0];
     document.querySelectorAll('.quick-tab').forEach(b=>b.classList.toggle('active',b.dataset.id===x.id));
     $("sinusBranch").classList.toggle("show",x.id==="sinus"); if(x.id==="sinus")renderSinusBranch();
+    $("aomBranch").classList.toggle("show",x.id==="aom"); if(x.id==="aom")renderAomBranch();
     $("summaryHero").innerHTML=`<div class="summary-kicker">CURRENT SYNDROME</div><h2>${esc(x.name)}</h2><div class="summary-line">${esc(x.lead)}</div><div class="summary-chiprow">${x.chips.map((c,i)=>`<span class="chip ${i===0?'good':'warn'}">${esc(c)}</span>`).join('')}</div>`;
 
     renderDecisionZone(x);
