@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>βラクタム構造解析｜Module Bridge</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif;background:#f4f7fb;color:#172033} body{overflow:hidden}
+.bridgebar{height:54px;background:#102a43;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;border-bottom:1px solid #0b2238}
+.bridge-title{font-size:13px;font-weight:800;white-space:nowrap}
+.bridge-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.bridge-actions a{color:#fff;text-decoration:none;border:1px solid #ffffff66;border-radius:5px;padding:7px 10px;font-size:11px;font-weight:700;background:#ffffff0d}
+.bridge-actions a:hover{background:#ffffff1f}
+#toolFrame{display:block;width:100%;height:calc(100dvh - 54px);border:0;background:#fff;-webkit-overflow-scrolling:touch}
+.notice{display:none}
+@media(max-width:650px){
+  .bridgebar{height:62px;padding:8px 10px}
+  .bridge-title{font-size:11px}
+  .bridge-actions a{padding:6px 8px;font-size:10px}
+  #toolFrame{height:calc(100dvh - 62px)}
+}
+
+@supports not (height:100dvh){
+  #toolFrame{height:calc(100vh - 54px)}
+  @media(max-width:650px){#toolFrame{height:calc(100vh - 62px)}}
+}
+</style>
+</head>
+<body>
+<div class="bridgebar">
+  <div class="bridge-title">β-LACTAM CLINICAL REFERENCE ｜ 構造解析</div>
+  <div class="bridge-actions">
+    <a href="../infection-cds/index.html">← 疾患モジュール</a>
+    <a href="../portal.html">入口</a>
+  </div>
+</div>
+<iframe id="toolFrame" src="../preview-scroll.html" title="βラクタム構造解析"></iframe>
+<script>
+const frame=document.getElementById("toolFrame");
+const params=new URLSearchParams(location.search);
+const drug1=params.get("drug1");
+const drug2=params.get("drug2");
+
+frame.addEventListener("load",()=>{
+  try{
+    const doc=frame.contentDocument;
+    if(!doc) return;
+    const a=doc.getElementById("a");
+    const b=doc.getElementById("b");
+    const setDrug=(el,val)=>{
+      if(!el||!val) return;
+      const exists=[...el.options].some(o=>o.value===val);
+      if(!exists) return;
+      el.value=val;
+      el.dispatchEvent(new Event("change",{bubbles:true}));
+    };
+    setDrug(a,drug1);
+    setDrug(b,drug2);
+
+    // 両方をセットした後、既存ツール側の再描画を確実に発火
+    if(b) b.dispatchEvent(new Event("change",{bubbles:true}));
+  }catch(e){
+    console.warn("Structure bridge:",e);
+  }
+});
+</script>
+</body>
+</html>
