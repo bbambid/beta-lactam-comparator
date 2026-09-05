@@ -1,22 +1,68 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CAM代替提案CDS preview</title>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CAM代替提案CDS</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f5f7f9;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}.w{max-width:940px;margin:auto;padding:18px}.card{background:#fff;border:1px solid #dfe6ec;border-radius:16px;padding:16px;margin-bottom:10px}.title{font-size:21px;font-weight:900}.sub{font-size:11px;color:#667085;line-height:1.7}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}select{width:100%;padding:9px;border:1px solid #d6dee8;border-radius:8px;background:#fff}.out{margin-top:10px;padding:12px;border:1px solid #dce5ed;border-radius:11px;background:#f8fafc;font-size:11px;line-height:1.7}.ok,.hold,.ng{display:inline-block;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900}.ok{background:#eaf6ee;color:#27623b}.hold{background:#fff7e6;color:#7a5a12}.ng{background:#fff0ed;color:#9b3d31}.row{padding:9px;margin-top:8px;border-radius:9px;background:#fff;border:1px solid #e3e9ef}.mini{font-size:9px;color:#667085}.tag{display:inline-block;padding:3px 7px;border-radius:999px;background:#eef4fb;font-size:9px;font-weight:900}@media(max-width:650px){.grid{grid-template-columns:1fr}}</style></head>
-<body><main class="w"><section class="card"><span class="tag">interaction DB preview</span><div class="title">CAM併用禁忌 → RXM代替評価</div><div class="sub">慢性副鼻腔炎の少量長期マクロライド療法を想定。「CAM側」「RXM側」「併用薬側」を別々に記録し、3方向の確認状態に応じて判定します。未確認を勝手に「安全」へ昇格させません。</div></section>
-<section class="card"><div class="grid"><div><label>CAMが使えない原因薬</label><select id="drug">
-<option value="suv">スボレキサント</option><option value="aze">アゼルニジピン</option><option value="ergot">エルゴタミン／ジヒドロエルゴタミン</option><option value="pim">ピモジド</option><option value="war">ワルファリン（併用注意ケース）</option></select></div>
-<div><label>治療目的</label><select id="purpose"><option>慢性副鼻腔炎｜少量長期マクロライド療法</option></select></div></div><div id="out" class="out"></div></section>
-<section class="card"><b>今回入れた初期データ</b><div class="sub">まず薬局で遭遇しうる代表例を少数ずつ。相互作用DBはこの形式で追加していきます。</div><div id="list"></div></section></main>
-<script>
+*{box-sizing:border-box}body{margin:0;background:#f5f7f9;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}.w{max-width:960px;margin:auto;padding:18px}.card{background:#fff;border:1px solid #dfe6ec;border-radius:16px;padding:16px;margin-bottom:10px}.title{font-size:21px;font-weight:900}.sub{font-size:11px;color:#667085;line-height:1.7}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}select{width:100%;padding:9px;border:1px solid #d6dee8;border-radius:8px;background:#fff}.out{margin-top:10px;padding:12px;border:1px solid #dce5ed;border-radius:11px;background:#f8fafc;font-size:11px;line-height:1.7}.ok,.hold,.ng,.cond{display:inline-block;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900}.ok{background:#eaf6ee;color:#27623b}.hold{background:#fff7e6;color:#7a5a12}.ng{background:#fff0ed;color:#9b3d31}.cond{background:#eef4fb;color:#405b73}.row{padding:9px;margin-top:8px;border-radius:9px;background:#fff;border:1px solid #e3e9ef}.mini{font-size:9px;color:#667085;line-height:1.6}.tag{display:inline-block;padding:3px 7px;border-radius:999px;background:#eef4fb;font-size:9px;font-weight:900}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}.three>div{background:#fff;border:1px solid #e3e9ef;border-radius:9px;padding:9px}.three b{font-size:10px}.section-title{font-size:14px;font-weight:900;margin-bottom:3px}@media(max-width:700px){.grid,.three{grid-template-columns:1fr}}
+</style></head><body><main class="w">
+<section class="card"><span class="tag">verified batch 1</span><div class="title">CAM併用禁忌 → RXM代替評価</div>
+<div class="sub">慢性副鼻腔炎の少量長期マクロライド療法を想定。「CAM側」「RXM側」「併用薬側」を3方向で確認し、CAMの問題を回避できるか、RXMへ変更後も注意が残るかを分けて表示します。</div></section>
+
+<section class="card"><div class="grid"><div><label>CAMが使えない原因薬 / 条件</label><select id="drug">
+<option value="suv">スボレキサント</option>
+<option value="aze">アゼルニジピン</option>
+<option value="fin">フィネレノン</option>
+<option value="col">コルヒチン＋腎/肝機能障害</option>
+<option value="ergot">エルゴタミン／ジヒドロエルゴタミン</option>
+<option value="pim">ピモジド</option>
+<option value="war">ワルファリン（併用注意ケース）</option>
+</select></div><div><label>治療目的</label><select><option>慢性副鼻腔炎｜少量長期マクロライド療法</option></select></div></div>
+<div id="out" class="out"></div></section>
+
+<section class="card"><div class="section-title">3方向照合済み｜Batch 1</div><div class="sub">まず3剤を電子添文同士で照合して格納。相互作用の“有無”ではなく、禁忌回避後に残る管理まで記録します。</div><div id="verified"></div></section>
+<section class="card"><div class="section-title">条件付き禁忌</div><div class="sub">薬剤の組み合わせだけでは判定できず、患者背景が加わると禁忌になるケースを別レイヤーで管理します。</div><div id="conditional"></div></section>
+</main><script>
 const DB={
-suv:{name:"スボレキサント",cam:"併用禁忌：血中濃度が顕著に上昇し作用増強のおそれ",rxm:"RXM電子添文の併用禁忌には列挙なし",co:"併用薬側の最新電子添文を最終照合して確定",state:"hold",label:"条件付き候補",memo:"RXMへ機械的に置換せず、ベルソムラ側の最新相互作用記載まで確認してから提案。"},
-aze:{name:"アゼルニジピン",cam:"2026年3月改訂でCAMとの併用禁忌",rxm:"RXM電子添文の併用禁忌には列挙なし",co:"アゼルニジピン側の最新電子添文を最終照合して確定",state:"hold",label:"優先検証",memo:"CAM回避という目的は明確。RXM側だけで安全確定しない。"},
-ergot:{name:"エルゴタミン／ジヒドロエルゴタミン",cam:"CAMで併用禁忌：血管攣縮等の重篤な副作用のおそれ",rxm:"RXMでも併用禁忌",co:"代替候補評価不要",state:"ng",label:"RXMでは回避不可",memo:"CAM→RXM置換は相互作用回避にならない。"},
-pim:{name:"ピモジド",cam:"CAMで併用禁忌：QT延長・心室性不整脈",rxm:"RXMはQT延長を起こすおそれがあり、QT延長薬は併用注意",co:"ピモジド側を含め個別評価",state:"ng",label:"RXMを自動提案しない",memo:"元の問題がQT/不整脈なので、同じリスク軸を持つRXMへの単純置換は避ける。"},
-war:{name:"ワルファリン",cam:"CAMでは併用注意として抗凝固作用増強に注意",rxm:"RXMでもワルファリン作用増強の併用注意",co:"INR等を含む臨床管理が必要",state:"ng",label:"単純置換で解決しない",memo:"禁忌回避ではなく相互作用管理の問題。RXMへ替えるだけで問題消失とはしない。"}
+suv:{name:"スボレキサント",state:"ok",label:"代替候補",verified:true,
+ cam:"併用禁忌。CAMの強いCYP3A阻害によりスボレキサント濃度が顕著に上昇する。",
+ rxm:"RXMは電子添文上、CYP3Aに弱い阻害作用。エルゴタミン系以外は併用禁忌として列挙されない。",
+ co:"ベルソムラ側は強いCYP3A阻害薬を禁忌、中等度阻害薬では10mgへの減量考慮。RXMは薬剤名として禁忌・中等度阻害薬に列挙されない。",
+ memo:"CAMの『強いCYP3A阻害』による禁忌はRXMで回避可能と考えられる。RXMにも弱いCYP3A阻害作用があるため、完全に相互作用ゼロとは扱わず、傾眠等の増強に注意。",
+ evidence:"PMDA：CAM 2026-03／ルリッド 2023-05／ベルソムラ 2026-08"},
+aze:{name:"アゼルニジピン",state:"ok",label:"代替候補",verified:true,
+ cam:"2026年3月改訂でCAMとの併用が禁忌。CYP3A阻害によりアゼルニジピン濃度が上昇し作用増強のおそれ。",
+ rxm:"RXMはCYP3Aの弱い阻害作用を示すが、アゼルニジピンはRXMの併用禁忌として列挙されない。",
+ co:"アゼルニジピン側の現行電子添文ではCAMは禁忌として明記。RXMは同じ禁忌薬として列挙されない。",
+ memo:"CAMの禁忌はRXMへの変更で回避可能な候補。ただしRXMの弱いCYP3A阻害を踏まえ、血圧低下・めまい等の作用増強がないかは観察する。",
+ evidence:"PMDA：CAM 2026-03／ルリッド 2023-05／アゼルニジピン 2026-08"},
+fin:{name:"フィネレノン",state:"hold",label:"禁忌回避可・併用注意残る",verified:true,
+ cam:"CAMはフィネレノンとの併用禁忌。強いCYP3A阻害によりフィネレノン濃度が著しく上昇するおそれ。",
+ rxm:"RXMはCYP3Aの弱い阻害作用を示す。",
+ co:"ケレンディア側では強いCYP3A阻害薬は禁忌。一方、中程度・弱いCYP3A阻害薬は併用注意で、血清K等の慎重な観察が必要。",
+ memo:"CAM→RXMで『禁忌』は回避できるが、相互作用そのものは消えない。RXMは弱いCYP3A阻害薬として、フィネレノン濃度上昇・高K血症リスクを意識して管理する。",
+ evidence:"PMDA：CAM 2026-03／ルリッド 2023-05／ケレンディア 2026-03"},
+col:{name:"コルヒチン＋腎/肝機能障害",state:"cond",label:"条件付き禁忌",verified:false,conditional:true,
+ cam:"腎機能障害または肝機能障害がある患者でコルヒチン投与中はCAMを投与しない。コルヒチン濃度上昇に伴う中毒症状の報告。",
+ rxm:"RXMへ変更する場合も、コルヒチン側・患者の腎肝機能を別途確認してから候補判定する。",
+ co:"『コルヒチン服用』だけではCAM禁忌とはせず、腎機能障害または肝機能障害の有無を必須入力条件にする。",
+ memo:"単純な併用薬リストではなく患者背景付きルール。将来UIでは『コルヒチンあり→腎機能障害？肝機能障害？』と分岐させる。",
+ evidence:"PMDA：クラリスロマイシン電子添文 9.2.1 / 9.3.1"},
+ergot:{name:"エルゴタミン／ジヒドロエルゴタミン",state:"ng",label:"RXMでも回避不可",
+ cam:"CAMで併用禁忌。血管攣縮等の重篤な副作用のおそれ。",rxm:"RXMでも併用禁忌。",co:"置換しても禁忌が残る。",
+ memo:"CAM→RXMは相互作用回避にならない。",evidence:"PMDA：CAM／ルリッド"},
+pim:{name:"ピモジド",state:"ng",label:"RXMを自動提案しない",
+ cam:"CAMで併用禁忌。QT延長・心室性不整脈のおそれ。",rxm:"RXM自体にQT延長・TdPの重大な副作用およびQT延長薬との併用注意。",co:"元のリスク軸がQTなので個別評価が必要。",
+ memo:"同じQTリスクを持つRXMへの単純置換はしない。",evidence:"PMDA：CAM／ルリッド"},
+war:{name:"ワルファリン",state:"ng",label:"単純置換で解決しない",
+ cam:"CAMでは併用注意。抗凝固作用増強に注意。",rxm:"RXMでもワルファリン作用増強の併用注意。",co:"INR等を含む臨床管理が必要。",
+ memo:"禁忌回避ケースではなく、相互作用管理の問題として扱う。",evidence:"PMDA：ルリッド"}
 };
 const $=x=>document.getElementById(x);
 function badge(x){return '<span class="'+x.state+'">'+x.label+'</span>'}
-function render(){const x=DB[$("drug").value];$("out").innerHTML='<b>'+x.name+'</b> '+badge(x)+'<div class="row"><b>① CAM側</b><br>'+x.cam+'</div><div class="row"><b>② RXM側</b><br>'+x.rxm+'</div><div class="row"><b>③ 併用薬側</b><br>'+x.co+'</div><div class="row"><b>CDS判断</b><br>'+x.memo+'</div><div class="mini">治療目的が慢性副鼻腔炎の少量長期療法であることを前提。RXMの通常承認用量は成人300 mg/dayであり、少量長期療法の用量は別途エビデンスを明示して扱う。</div>'}
+function render(){
+ const x=DB[$("drug").value];
+ $("out").innerHTML='<b>'+x.name+'</b> '+badge(x)+
+ '<div class="three"><div><b>① CAM側</b><br>'+x.cam+'</div><div><b>② RXM側</b><br>'+x.rxm+'</div><div><b>③ 併用薬側</b><br>'+x.co+'</div></div>'+
+ '<div class="row"><b>CDS判断</b><br>'+x.memo+'</div><div class="mini">Evidence：'+x.evidence+'</div>';
+}
 $("drug").onchange=render;render();
-$("list").innerHTML=Object.values(DB).map(x=>'<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>').join("");
+$("verified").innerHTML=Object.values(DB).filter(x=>x.verified).map(x=>'<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>').join("");
+$("conditional").innerHTML=Object.values(DB).filter(x=>x.conditional).map(x=>'<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>').join("");
 </script></body></html>
