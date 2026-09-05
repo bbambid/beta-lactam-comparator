@@ -12,11 +12,11 @@ label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4p
 table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{padding:7px;border-bottom:1px solid #e9eef2;text-align:left}th{background:#f5f7f9}.note{font-size:9px;color:#667085;margin-top:7px;line-height:1.6}
 @media(max-width:650px){.grid,.nums{grid-template-columns:1fr}}
 </style></head><body><main class="w">
-<section class="card"><span class="tag">CAM / AMPC</span><div class="title">小児処方監査CDS</div>
-<div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPCを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
+<section class="card"><span class="tag">CAM / AMPC / CARBO</span><div class="title">小児処方監査CDS</div>
+<div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPC・カルボシステインを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
 
 <section class="card"><div class="grid">
-<div><label>薬剤</label><select id="drug"><option value="cam">クラリスロマイシン</option><option value="amox">アモキシシリン</option></select></div>
+<div><label>薬剤</label><select id="drug"><option value="cam">クラリスロマイシン</option><option value="amox">アモキシシリン</option><option value="carbo">カルボシステイン</option></select></div>
 <div><label>製剤・規格</label><select id="product"></select></div>
 <div><label>適応</label><select id="ind"></select></div>
 <div><label>年齢</label><select id="age">
@@ -34,7 +34,7 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
 <section class="card"><b>監査ロジック</b><div class="sub">
 ① 製剤量→成分量換算　② 薬剤固有の承認小児用量・分割・上限を判定　③ 1回量を算出　④ 成人標準量から古典的換算式を並列計算　⑤ 承認量と換算値の位置関係を補助表示。<br>
 CAM：一般感染症10–15 mg/kg/day（分2～3）、レジオネラ15 mg/kg/day、播種性MAC 15 mg/kg/day（分2）。<br>
-AMPC：ヘリコバクター・ピロリ感染を除く感染症で20–40 mg/kg/day（分3～4）、最大90 mg/kg/day。
+AMPC：ヘリコバクター・ピロリ感染を除く感染症で20–40 mg/kg/day（分3～4）、最大90 mg/kg/day。<br>カルボシステイン：幼・小児30 mg/kg/day（分3）、年齢・体重・症状により適宜増減。
 </div></section>
 </main><script>
 const $=x=>document.getElementById(x);
@@ -63,6 +63,16 @@ const DB={
    general:{label:"ヘリコバクター・ピロリ感染を除く感染症",lo:w=>20*w,hi:w=>40*w,max:w=>90*w,freq:[3,4],desc:"通常20–40 mg/kg/day・分3～4。適宜増減可、最大90 mg/kg/day"}
   },
   adult:[750,1000],source:"PMDA アモキシシリン水和物製剤電子添文"
+ },
+ carbo:{
+  products:{
+   syrup5:{label:"シロップ小児用5%",unit:"mL",mgPerUnit:50,defaultAmount:10.8},
+   ds50:{label:"ドライシロップ50%",unit:"g",mgPerUnit:500,defaultAmount:1.08}
+  },
+  indications:{
+   general:{label:"去痰／慢性副鼻腔炎の排膿／滲出性中耳炎の排液",lo:w=>30*w,hi:w=>30*w,freq:[3],desc:"通常30 mg/kg/day・分3。年齢・体重・症状により適宜増減"}
+  },
+  adult:[1500,1500],source:"PMDA カルボシステイン製剤電子添文（小児用5%シロップ／DS50%）"
  }
 };
 function vh(a){if(a<0.08)return .125;if(a<0.75)return .2;if(a<2)return .25;if(a<5)return 1/3;if(a<10)return .5;if(a<15)return 2/3;return 1}
@@ -72,7 +82,7 @@ function loadDrug(reset=true){
  const d=DB[$("drug").value],p=$("product"),ind=$("ind");
  p.innerHTML=Object.entries(d.products).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
  ind.innerHTML=Object.entries(d.indications).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
- $("freq").innerHTML=$("drug").value==="amox"?'<option value="3">分3</option><option value="4">分4</option>':'<option value="2">分2</option><option value="3">分3</option>';
+ $("freq").innerHTML=$("drug").value==="amox"?'<option value="3">分3</option><option value="4">分4</option>':$("drug").value==="carbo"?'<option value="3">分3</option>':'<option value="2">分2</option><option value="3">分3</option>';
  if(reset)$("amount").value=Object.values(d.products)[0].defaultAmount;
  render();
 }
