@@ -472,6 +472,14 @@ h1,h2,h3,h4,h5,h6,
 .dp-tag{display:inline-flex;margin-left:5px;border-radius:999px;padding:2px 6px;font-size:9px;font-weight:900;background:#eef4fb;color:#29445f;vertical-align:1px}
 .guideline-rule{font-size:11px;line-height:1.55;color:#667085;margin:-3px 2px 12px;padding:9px 11px;background:#f8fafc;border:1px solid #e6ebf1;border-radius:11px}
 @media(max-width:700px){.decision-zone{grid-template-columns:1fr}.decision-panel{padding:13px}}
+
+/* concept v3: progressive disclosure */
+.detail-togglebar{display:flex;gap:8px;align-items:center;margin:0 0 12px}
+.detail-togglebar button{border:1px solid #d6dee8;background:#fff;color:#344054;border-radius:10px;padding:8px 11px;font-size:11px;font-weight:900;cursor:pointer}
+.detail-togglebar .hint{font-size:10px;color:#667085}
+.deep-section{transition:opacity .18s ease}
+body.compact-view .deep-section{display:none}
+@media(max-width:700px){.detail-togglebar{align-items:flex-start;flex-direction:column}}
 </style>
 
 
@@ -870,6 +878,12 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <article class="step-card" id="betaCard"></article>
   </section>
 
+  <div class="detail-togglebar">
+    <button id="detailToggle" type="button">詳しい比較・根拠を表示</button>
+    <span class="hint">普段は結論と標的菌だけ。必要なときに比較表・アレルギー・Evidenceを開きます。</span>
+  </div>
+
+  <div id="deepSections" class="deep-section">
   <section id="nonBetaCard" class="wide-card"></section>
   <section id="warningCard" class="wide-card warning-card"></section>
 
@@ -907,7 +921,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <footer>
-    Clinical Reference UI concept v2 / Preview
+    Clinical Reference UI concept v3 / Preview
   </footer>
 </main>
 
@@ -2091,6 +2105,12 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     });
     select.onchange=()=>render(select.value);
     $("allergySelect").onchange=renderAllergy;
+    document.body.classList.add("compact-view");
+    const detailToggle=$("detailToggle");
+    if(detailToggle) detailToggle.onclick=()=>{
+      const compact=document.body.classList.toggle("compact-view");
+      detailToggle.textContent=compact?"詳しい比較・根拠を表示":"詳しい比較・根拠を閉じる";
+    };
     $("aboutBtn").onclick=()=>$("aboutModal").hidden=false;
     $("closeAbout").onclick=()=>$("aboutModal").hidden=true;
     $("aboutModal").onclick=e=>{if(e.target===$("aboutModal"))$("aboutModal").hidden=true};
