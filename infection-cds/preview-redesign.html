@@ -457,6 +457,21 @@ h1,h2,h3,h4,h5,h6,
 .quick-conclusion .qc-kicker{font-size:10px;letter-spacing:.1em;font-weight:900;opacity:.72}
 .quick-conclusion .qc-title{font-size:17px;font-weight:900;margin:4px 0 6px}
 .quick-conclusion .qc-text{font-size:12px;line-height:1.65;color:#e6eef5}
+
+/* concept v2: guideline-first decision cards */
+.decision-zone{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 0 12px}
+.decision-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow);min-width:0}
+.decision-panel.primary{border-top:4px solid #08755b}
+.decision-panel.alternative{border-top:4px solid #6d3fc0}
+.decision-panel.target{border-top:4px solid #2563eb}
+.decision-panel .dp-label{font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.decision-panel .dp-main{font-size:14px;font-weight:900;line-height:1.5}
+.decision-panel .dp-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:5px}
+.decision-panel .dp-item{padding:8px 0;border-top:1px solid #edf1f5}
+.decision-panel .dp-item:first-of-type{border-top:0;padding-top:0}
+.dp-tag{display:inline-flex;margin-left:5px;border-radius:999px;padding:2px 6px;font-size:9px;font-weight:900;background:#eef4fb;color:#29445f;vertical-align:1px}
+.guideline-rule{font-size:11px;line-height:1.55;color:#667085;margin:-3px 2px 12px;padding:9px 11px;background:#f8fafc;border:1px solid #e6ebf1;border-radius:11px}
+@media(max-width:700px){.decision-zone{grid-template-columns:1fr}.decision-panel{padding:13px}}
 </style>
 
 
@@ -847,6 +862,9 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div class="qc-text">下の「標的菌」と「βラクタムの位置づけ」を先に確認し、必要なときだけ比較表・アレルギー・Evidenceへ進みます。薬剤の順位は各疾患データに登録されたガイドライン上の位置づけをそのまま表示し、根拠のない順位づけは行いません。</div>
   </section>
 
+  <section id="decisionZone" class="decision-zone" aria-label="治療の要点"></section>
+  <div class="guideline-rule">薬剤の「第一選択・代替・条件付き」は、各疾患データに登録されたガイドライン上の位置づけを表示します。順位が明示されない場合は、無理に第一選択へ分類しません。</div>
+
   <section class="clinical-flow">
     <article class="step-card" id="pathogenCard"></article>
     <article class="step-card" id="betaCard"></article>
@@ -889,7 +907,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <footer>
-    Clinical Reference UI concept / Preview
+    Clinical Reference UI concept v2 / Preview
   </footer>
 </main>
 
@@ -2083,6 +2101,26 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     const x=D.syndromes.find(s=>s.id===id)||D.syndromes[0];
     document.querySelectorAll('.quick-tab').forEach(b=>b.classList.toggle('active',b.dataset.id===x.id));
     $("summaryHero").innerHTML=`<div class="summary-kicker">CURRENT SYNDROME</div><h2>${esc(x.name)}</h2><div class="summary-line">${esc(x.lead)}</div><div class="summary-chiprow">${x.chips.map((c,i)=>`<span class="chip ${i===0?'good':'warn'}">${esc(c)}</span>`).join('')}</div>`;
+
+    const primaryWords=/第一選択|推奨|軸/;
+    const altWords=/代替|第二選択|状況依存|条件/;
+    const primary=x.beta.filter(d=>primaryWords.test(d.status));
+    const alternatives=x.beta.filter(d=>!primary.includes(d) && altWords.test(d.status));
+    const unranked=x.beta.filter(d=>!primary.includes(d) && !alternatives.includes(d));
+    const drugRows=(arr,empty)=>arr.length?arr.map(d=>`<div class="dp-item"><div class="dp-main">${esc(d.name)}<span class="dp-tag">${esc(d.status)}</span></div><div class="dp-note">${esc(d.note)}</div></div>`).join(""):`<div class="dp-note">${empty}</div>`;
+    $("decisionZone").innerHTML=`
+      <article class="decision-panel primary">
+        <div class="dp-label">FIRST / CORE</div>
+        ${drugRows(primary,"ガイドライン上、第一選択として単純化できる薬剤は設定していません。")}
+      </article>
+      <article class="decision-panel alternative">
+        <div class="dp-label">ALTERNATIVE / CONDITIONAL</div>
+        ${drugRows([...alternatives,...unranked],"明示された代替・条件付き薬はありません。")}
+      </article>
+      <article class="decision-panel target">
+        <div class="dp-label">MAIN TARGETS</div>
+        ${x.pathogens.length?x.pathogens.map(p=>`<div class="dp-item"><div class="dp-main">${esc(p[0])}</div><div class="dp-note">${esc(p[1])}</div></div>`).join(""):`<div class="dp-note">標的菌を一律には設定していません。</div>`}
+      </article>`;
     $("pathogenCard").innerHTML=`<div class="step-head"><div class="step-num">1</div><div><div class="step-title">主な標的菌</div><div class="step-sub">感染部位・症候から想定</div></div></div><div class="organism-list">${x.pathogens.map(p=>`<div class="organism"><b>${esc(p[0])}</b><small>${esc(p[1])}</small></div>`).join('')}</div>`;
     $("betaCard").innerHTML=`<div class="step-head"><div class="step-num">2</div><div><div class="step-title">βラクタムの位置づけ</div><div class="step-sub">疾患GL上の役割</div></div></div><div class="drug-list">${x.beta.map(d=>`<div class="drug-item"><b>${esc(d.name)}</b><span class="drug-status${statusClass(d.status)}">${esc(d.status)}</span><small>${esc(d.note)}</small></div>`).join('')}</div>`;
     $("nonBetaCard").innerHTML=`<div class="section-label">REFERENCE / NON-β-LACTAM</div><div class="nonbeta-title">${esc(x.nonbeta.title)}</div><div class="nonbeta-body">${esc(x.nonbeta.body)}</div>${x.nonbeta.pills.length?`<div class="nonbeta-pills">${x.nonbeta.pills.map(p=>`<span class="pill">${esc(p)}</span>`).join('')}</div>`:''}`;
