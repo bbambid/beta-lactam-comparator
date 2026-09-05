@@ -524,6 +524,18 @@ body.compact-view .deep-section{display:none}
 .aom-position{margin-top:9px;padding:10px;border-radius:10px;background:#eef4fb;border:1px solid #dce7f2;font-size:10px;line-height:1.55}
 .aom-position b{display:block;font-size:12px;margin-bottom:3px}
 @media(max-width:700px){.aom-reverse-grid{grid-template-columns:1fr}}
+
+.aom-flow{margin-top:10px;padding-top:10px;border-top:1px solid #dfe6ed}
+.aom-flow-title{font-size:10px;font-weight:900;color:#526577;margin-bottom:7px}
+.aom-flow-track{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr;align-items:stretch;gap:4px}
+.aom-flow-node{border:1px solid #d9e1e9;border-radius:10px;background:#fff;padding:9px;min-height:70px;opacity:.58}
+.aom-flow-node.active{opacity:1;border-width:2px;box-shadow:0 2px 8px #102a4318}
+.aom-flow-node.done{opacity:.75;background:#f7faf8}
+.aom-flow-node .fn-step{font-size:8px;font-weight:900;color:#7b8794;letter-spacing:.06em}.aom-flow-node b{display:block;font-size:10px;line-height:1.4;margin-top:3px}.aom-flow-node span{display:block;font-size:9px;color:#667085;line-height:1.4;margin-top:3px}
+.aom-flow-arrow{display:flex;align-items:center;justify-content:center;font-size:16px;color:#8a99a8;font-weight:900}
+.aom-flow-here{display:inline-flex;margin-top:5px;border-radius:999px;padding:2px 6px;font-size:8px;font-weight:900;background:#e9f2fb;color:#315f7d}
+.aom-next{margin-top:7px;font-size:9px;line-height:1.5;color:#667085}
+@media(max-width:700px){.aom-flow-track{grid-template-columns:1fr}.aom-flow-arrow{transform:rotate(90deg);height:18px}}
 </style>
 
 
@@ -1001,7 +1013,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </div>
 
   <footer>
-    Clinical Reference UI concept v12 / AOM reverse lookup
+    Clinical Reference UI concept v13 / AOM flow position
   </footer>
 </main>
 
@@ -1089,7 +1101,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       spectrum:[["AMPC × H. influenzae","Layer 3","治療の軸","l3"],["CDTR × H. influenzae","Layer 2/3","薬剤特性と臨床位置づけを分けて表示","l2"]],
       compare:["AMPC","CDTR","CCL"],
       evidence:[
-        ["AOM2024-ALG","小児急性中耳炎診療ガイドライン2024年版","誌面 p.87–90","軽症・中等症・重症の治療アルゴリズム。鼓膜所見を含む正式な重症度に基づいて治療段階を選択する。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf#page=87"],
+        ["AOM2024-ALG","小児急性中耳炎診療ガイドライン2024年版","誌面 p.85–90","軽症・中等症・重症の治療アルゴリズム。鼓膜所見を含む正式な重症度に基づいて治療段階を選択する。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf#page=87"],
         ["AOM2024-CQ31","小児急性中耳炎診療ガイドライン2024年版","CQ3-1 / 治療章","抗菌薬を使用する場合の選択。2024年版では高用量AMPCを第1選択とし、3〜5日後に効果判定する。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf"]
       ]
     },
@@ -2320,7 +2332,17 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     if(day==="3to5"&&response==="better") body+=" 現在改善しているなら、GLでは経過観察へ進み、抗菌薬は最低5日間投与する流れが示されています。";
     if(day==="3to5"&&response==="same") body+=" 3〜5日で改善がなければ次段階を検討しますが、変更薬は重症度・現在薬・細菌検査で異なるため、この3項目だけから自動指定しません。";
     if(response==="worse") body+=" 臨床症状が悪化する場合は抗菌薬変更を考慮するとされます。鼓膜所見・合併症・細菌検査を含めた再評価が必要です。";
-    out.innerHTML="<b>"+names[drug]+"｜"+title+"</b>"+body+'<div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.87–90</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+    let stage=1;
+    if(day==="3to5" && response==="better") stage=3;
+    else if(day==="3to5" && (response==="same"||response==="worse")) stage=2;
+    else if(["cva","cdtr_high","tbpm","tflx","abpc","ctrx"].includes(drug)) stage=2;
+    const node=(n,label,main,note)=>'<div class="aom-flow-node '+(stage===n?'active':stage>n?'done':'')+'"><div class="fn-step">'+label+'</div><b>'+main+'</b><span>'+note+'</span>'+(stage===n?'<em class="aom-flow-here">現在地</em>':'')+'</div>';
+    const flow='<div class="aom-flow"><div class="aom-flow-title">GLアルゴリズム上のイメージ</div><div class="aom-flow-track">'+
+      node(1,'STEP 1','初期治療 / 経過観察','重症度に応じて開始')+'<div class="aom-flow-arrow">›</div>'+
+      node(2,'STEP 2','3〜5日後に再評価','改善なし・悪化なら次段階を検討')+'<div class="aom-flow-arrow">›</div>'+
+      node(3,'STEP 3','改善後の経過観察','必要な投与期間を確保')+
+      '</div><div class="aom-next">※これは薬局で現在位置を把握するための簡略図です。正式な治療経路・薬剤選択は重症度、鼓膜所見、前治療、細菌検査を含む2024年版GLアルゴリズムに従います。</div></div>';
+    out.innerHTML="<b>"+names[drug]+"｜"+title+"</b>"+body+flow+'<div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.85–90</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
   }
 
   let aomMode="pharmacy";
@@ -2329,7 +2351,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     document.querySelectorAll("[data-aom]").forEach(b=>b.classList.toggle("active",b.dataset.aom===aomMode));
     renderAomReverse();
     if(aomMode==="pharmacy"){
-      r.innerHTML='<strong>正式な軽症・中等症・重症判定は行いません</strong><p>2024年版GLの重症度は年齢・症状に加えて鼓膜発赤・膨隆・耳漏などの鼓膜所見を含むスコアで判定します。薬局で鼓膜所見が不明なら、症状だけから重症度や治療段階を断定しません。</p><div class="aom-alert">処方監査では「AMPC高用量が第1選択」「3〜5日後に効果判定」「改善なしならGLの次段階を検討」という位置づけを確認します。薬剤の変更候補は、重症度・前治療・細菌検査が確認できる場合のみGLに沿って表示します。</div><div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.87–90</div>';
+      r.innerHTML='<strong>正式な軽症・中等症・重症判定は行いません</strong><p>2024年版GLの重症度は年齢・症状に加えて鼓膜発赤・膨隆・耳漏などの鼓膜所見を含むスコアで判定します。薬局で鼓膜所見が不明なら、症状だけから重症度や治療段階を断定しません。</p><div class="aom-alert">処方監査では「AMPC高用量が第1選択」「3〜5日後に効果判定」「改善なしならGLの次段階を検討」という位置づけを確認します。薬剤の変更候補は、重症度・前治療・細菌検査が確認できる場合のみGLに沿って表示します。</div><div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜治療アルゴリズム 誌面 p.85–90</div>';
     }else{
       r.innerHTML='<strong>鼓膜所見を含む正式スコア入力は次段階で実装</strong><p>鼓膜発赤・膨隆・耳漏まで確認できる場合のみ、GLのスコア（≤5軽症 / 6–11中等症 / ≥12重症）から治療アルゴリズムへ接続します。現時点では誤判定防止のため自動計算をまだ有効化していません。</p><div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜CQ1-4・巻末スコアシート・治療アルゴリズム</div>';
     }
