@@ -374,7 +374,7 @@ main{padding:18px} .card{background:white;border:1px solid var(--line);border-ra
 <section aria-label="βラクタム骨格と側鎖位置" class="skeleton-guide scaffold-rdkit">
 <h3>どこを比べる？</h3>
 <p class="small" style="margin-top:0">
-    ペニシリンの<b>6位側鎖（R1）</b>とセフェムの<b>7位側鎖（R1）</b>が主な比較ポイント。セフェム同士では<b>3位側鎖（R2）</b>も補助的に比較する。
+    ペニシリンの<b>6位側鎖（R1）</b>とセフェム系の<b>7位側鎖（R1）</b>が主な比較ポイント。ここでいう<b>セフェム系</b>には、セファロスポリン系とセファマイシン系を含む。セフェム系同士では<b>3位側鎖（R2）</b>も補助的に比較する。
   </p>
 <div class="skeleton-grid rdkit-scaffold-grid">
 <div class="skeleton-panel">
@@ -903,14 +903,14 @@ Q 381.3 306.3, 383.9 306.3
 </div>
 </div>
 </section>
-<div class="paperbox" style="grid-template-columns:1fr 1fr 1fr">
+<div class="paperbox" style="grid-template-columns:1fr">
 <div>
 <strong style="font-size:17px">① まず反応型を確認</strong>
 <p class="small"><span><b>アナフィラキシーなどの即時型反応（IgE介在を疑う反応）</b>では、「別のβラクタムなら可」と構造だけで判断しない。原因薬、側鎖、皮膚試験・薬物負荷試験などを含めて評価する。</span></p>
 </div>
 <div>
 <strong style="font-size:17px">② 重症遅発型は別枠</strong>
-<p class="small"><span><b>SJS（Stevens–Johnson症候群）／TEN（中毒性表皮壊死症）、DIHS（薬剤性過敏症症候群；DRESSに相当）などの重症皮膚副作用（SCAR）</b>は、軽い遅発性皮疹と同じ扱いにしない。この構造比較だけを根拠に再投与・類薬投与を判断しない。</span></p>
+<p class="small"><span><b>SJS（Stevens–Johnson症候群）／TEN（中毒性表皮壊死症）、DIHS（薬剤性過敏症症候群；DRESSに相当）などの重症皮膚副作用（SCAR）</b>は、軽い遅発性皮疹と別枠。この構造比較だけを根拠に再投与・類薬投与を判断しない。</span></p>
 </div>
 <div>
 <strong style="font-size:17px">③ 軽い皮疹では側鎖が重要</strong>
@@ -919,8 +919,8 @@ Q 381.3 306.3, 383.9 306.3
 </div>
 <div class="note" style="margin-top:12px">
 <b>このアプリで比較する場所</b><br/>
-    ・<b>ペニシリン ↔ セフェム：</b>ペニシリン6位側鎖とセフェム7位側鎖（R1）を比較する。<br/>
-    ・<b>セフェム ↔ セフェム：</b>7位側鎖（R1）を主に比較し、3位側鎖（R2）も補助的に比較する。<br/>
+    ・<b>ペニシリン ↔ セフェム系：</b>ペニシリン6位側鎖とセフェム系7位側鎖（R1）を比較する。<br/>
+    ・<b>セフェム系 ↔ セフェム系：</b>7位側鎖（R1）を主に比較し、3位側鎖（R2）も補助的に比較する。<br/>
     ・<b>重要：</b>3位側鎖の一致は7位/R1ほど確立した予測因子ではない。R1を主軸として解釈する。<br/>
     ・例：<b>アンピシリン―セファクロル／セファレキシン</b>など、aminopenicillinとaminocephalosporinにはR1側鎖が同一・近似する組み合わせがある。「ペニシリンとセフェムは別系統だから大丈夫」とは扱わない。
   </div>
@@ -947,7 +947,7 @@ Q 381.3 306.3, 383.9 306.3
   <p class="small" id="publishedRiskDesc"></p>
 </div>
 </section>
-<section class="card r3card" id="r3card"><h2>セフェム3位側鎖（R2）の補助比較</h2><p class="small">両方がセフェム系のときだけ表示する。Picard 2019はR2側鎖を解析対象としていないため、ここは本ツール独自の補助解析として3位側鎖（R2）をMorgan fingerprint / TanimotoとMCSで比較する。</p><div class="metrics"><div class="metric"><span>R2 Morgan / Tanimoto similarity（補助）</span><div class="big" id="r3sim">—</div><div class="bar"><div class="fill" id="r3fill"></div></div></div><div class="metric"><span>R2 MCS</span><div class="big" id="r3mcs">—</div><p class="small" id="r3desc"></p></div></div><div class="mini-grid"><div class="mini"><b id="r3al"></b><div class="r3structure" id="r3ai"></div><p class="small"><code id="r3ar"></code></p></div><div class="mini"><b id="r3bl"></b><div class="r3structure" id="r3bi"></div><p class="small"><code id="r3br"></code></p></div></div><p class="comparison-note">R2表示時は、上の構造式にもR2の比較結果を追加できますが、R1とR2の色が混ざると読みにくいため、この版では<strong>構造式の縁取りはR1を優先</strong>し、R2は数値とフラグメントで独立表示する。</p></section>
+<section class="card r3card" id="r3card"><h2>セフェム系3位側鎖（R2）の補助比較</h2><p class="small">両方がセフェム系（セファロスポリン系・セファマイシン系）のときだけ表示する。Picard 2019はR2側鎖を解析対象としていないため、ここは本ツール独自の補助解析として3位側鎖（R2）をMorgan fingerprint / TanimotoとMCSで比較する。</p><div class="metrics"><div class="metric"><span>R2 Morgan / Tanimoto similarity（補助）</span><div class="big" id="r3sim">—</div><div class="bar"><div class="fill" id="r3fill"></div></div></div><div class="metric"><span>R2 MCS</span><div class="big" id="r3mcs">—</div><p class="small" id="r3desc"></p></div></div><div class="mini-grid"><div class="mini"><b id="r3al"></b><div class="r3structure" id="r3ai"></div><p class="small"><code id="r3ar"></code></p></div><div class="mini"><b id="r3bl"></b><div class="r3structure" id="r3bi"></div><p class="small"><code id="r3br"></code></p></div></div><p class="comparison-note">R2表示時は、上の構造式にもR2の比較結果を追加できますが、R1とR2の色が混ざると読みにくいため、この版では<strong>構造式の縁取りはR1を優先</strong>し、R2は数値とフラグメントで独立表示する。</p></section>
 <section class="card explain"><h2>今回の蛍光表示はどう決めている？</h2><p>まず両方のR1側鎖だけを切り出し、RDKitの<strong>Maximum Common Substructure（MCS）</strong>で「両方に存在する最大の共通部分」を探します。その共通結合を<strong style="color:#ff1744">蛍光赤の縁取り</strong>、R1のうちMCSに入らなかった結合を<strong style="color:#f97316">蛍光黄色の縁取り</strong>にしている。したがって、published Similarity scoreとは別に、<b>どこが共通し、どこが異なるか</b>を目で追えます。</p><p class="small">MCSは「最大の共通部分」を機械的に探す化学構造アルゴリズムで、免疫学的エピトープを直接同定する検査ではない。</p></section>
 <section class="card explain"><h2>Picardら2019年の「Similarity score」とは</h2>
 <p>Picardらは、ペニシリンとセフェムから<strong>R1（C6/C7）側鎖だけ</strong>を切り出し、ChemBioDraw 13.0で作成してChemMine Toolsへ取り込み、Similarity Workbenchで比較した。原著Methodsでは、構造・物理化学的性質（pKa、charge、polarity、hydrophobicity、hydrogen bonds）に基づき、<strong>Atom-Pair molecular descriptors と Tanimoto coefficient</strong>を用いてSimilarity scoreを算出したと記載されている。</p>
@@ -997,8 +997,7 @@ Q 381.3 306.3, 383.9 306.3
       <td>交差反応率そのものではない</td>
     </tr>
   </tbody>
-</table>
-</div>
+</table></div>
 <p class="sim-source-note">※ Atom-PairとMorganでは分子構造を数値化する方法が異なるため、両者のTanimoto値を同一尺度として直接比較するものではありません。</p>
 
 <p class="note"><b>このツールの表示ルール：</b>Picard Figure 2Aに値がある組み合わせは<strong>原著のAtom-Pair / Tanimoto値</strong>を表示する。原著に値がない組み合わせではPicard scoreを推定せず、<strong>RDKitで作成したMorgan fingerprint / Tanimoto similarity</strong>を補助計算値として表示する。両者は画面上で明確に区別する。</p>
