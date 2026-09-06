@@ -37,3 +37,18 @@
    };
  }
 })();
+// Correct formulation-specific dosing: L-Keflex is BID; Larixin DS is q6h (QID).
+(function(){
+ const S=document.getElementById("drug"); if(typeof DB==="undefined"||!S)return;
+ const cephDose=(freq,desc)=>({general:{label:"承認感染症",lo:w=>25*w,hi:w=>50*w,max:w=>100*w,freq:[freq],perDoseLo:w=>(25*w/freq),perDoseHi:w=>(50*w/freq),desc}});
+ if(DB.aud_lkeflex){
+   DB.aud_lkeflex.indications=cephDose(2,"通常25～50mg/kg/dayを2回に分割し朝・夕食後。重症・低感受性では50～100mg/kg/dayを2回に分割。胃溶性粒と腸溶性粒を組み合わせた持続性製剤。");
+   DB.aud_lkeflex.auditNote="1包1g中セファレキシン200mg（胃溶性粒60mg＋腸溶性粒140mg）。通常は分2。";
+ }
+ ["larixin10","larixin20"].forEach(k=>{if(DB[k]){
+   DB[k].indications=cephDose(4,"通常25～50mg/kg/dayを分割して6時間毎（分4）に投与。重症・低感受性では50～100mg/kg/dayを同様に分割。");
+   DB[k].source="PMDA ラリキシンドライシロップ小児用10%／20% 電子添文";
+   DB[k].sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132002R1168_2?user=1";
+   DB[k].auditNote="L-ケフレックスとは同成分だが製剤設計・承認投与間隔が異なる。ラリキシンDSは6時間毎（分4）。";
+ }});
+})();
