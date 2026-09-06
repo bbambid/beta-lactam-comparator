@@ -64,6 +64,22 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
  .approvedCompare .match{font-weight:900}
  .approvedBasisTitle{font-size:11px;font-weight:900;margin-bottom:6px}
 }
+</style><style id="mobileRxAndDrugPicker">
+@media(max-width:650px){
+ #drug{display:none!important}
+ #drugSearchWrap{display:flex!important;gap:6px;align-items:stretch}
+ #drugSearch{flex:1;min-width:0}
+ #drugListBtn{border:1px solid #cfdbe7;background:#fff;border-radius:9px;padding:0 10px;font-size:10px;font-weight:800;white-space:nowrap}
+ .rxLabelCard{margin:8px 0;padding:10px;border:1px solid #dfe6ec;border-radius:11px;background:#fff}
+ .rxLabelHead{font-size:11px;font-weight:900;margin-bottom:5px}
+ .rxLabelText{font-size:11px;line-height:1.65;color:#344054}
+ .rxLabelSource{font-size:9px;color:#667085;margin-top:5px}
+ .mobileWeightLine{font-size:10px;font-weight:800;color:#475467;margin:2px 0 5px}
+}
+#drugListSheet{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.35)}
+#drugListSheet.open{display:flex;align-items:flex-end}
+#drugListPanel{background:#fff;width:100%;max-height:75vh;border-radius:18px 18px 0 0;padding:12px;overflow:auto}
+#drugListPanel button{display:block;width:100%;padding:11px;border:0;border-bottom:1px solid #edf1f4;background:#fff;text-align:left}
 </style></head><body><main class="w">
 <section class="card"><span class="tag">SMARTPHONE UI PREVIEW</span><div class="title">小児処方監査CDS</div>
 <div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPC・カルボシステイン・アンブロキソール・トラネキサム酸・レボセチリジン・アセトアミノフェン・セチリジン・モンテルカスト・デスロラタジン・オロパタジン・プランルカストを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
@@ -79,7 +95,7 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
 <div><label>体重</label><select id="wt">
 <option value="4">4 kg</option><option value="5">5 kg</option><option value="6">6 kg</option><option value="7">7 kg</option><option value="8">8 kg</option><option value="9">9 kg</option><option value="10">10 kg</option><option value="11">11 kg</option><option value="12">12 kg</option><option value="13">13 kg</option><option value="14">14 kg</option><option value="15">15 kg</option><option value="16">16 kg</option><option value="17">17 kg</option><option value="18" selected>18 kg</option><option value="19">19 kg</option><option value="20">20 kg</option><option value="21">21 kg</option><option value="22">22 kg</option><option value="23">23 kg</option><option value="24">24 kg</option><option value="25">25 kg</option><option value="26">26 kg</option><option value="27">27 kg</option><option value="28">28 kg</option><option value="29">29 kg</option><option value="30">30 kg</option><option value="31">31 kg</option><option value="32">32 kg</option><option value="33">33 kg</option><option value="34">34 kg</option><option value="35">35 kg</option><option value="36">36 kg</option><option value="37">37 kg</option><option value="38">38 kg</option><option value="39">39 kg</option><option value="40">40 kg</option><option value="41">41 kg</option><option value="42">42 kg</option><option value="43">43 kg</option><option value="44">44 kg</option><option value="45">45 kg</option><option value="46">46 kg</option><option value="47">47 kg</option><option value="48">48 kg</option><option value="49">49 kg</option><option value="50">50 kg</option><option value="51">51 kg</option><option value="52">52 kg</option><option value="53">53 kg</option><option value="54">54 kg</option><option value="55">55 kg</option><option value="56">56 kg</option><option value="57">57 kg</option><option value="58">58 kg</option><option value="59">59 kg</option><option value="60">60 kg</option>
 </select></div>
-<div><label>身長 cm（BSA算出・任意）</label><input id="ht" type="number" min="30" max="220" step=".1" value="110"></div>
+<div><label>身長 cm（BSA算出・任意）</label><input id="ht" type="number" min="30" max="220" step=".1" value=""></div>
 <div><label id="amountLabel">処方製剤量 g/day</label><input id="amount" type="number" min="0" step=".01" value="2.7"></div>
 <div><label>分割</label><select id="freq"><option value="2">分2</option><option value="3">分3</option></select></div>
 </div><div id="out" class="out"></div></section>
@@ -348,5 +364,34 @@ loadDrug(true);
  document.addEventListener("DOMContentLoaded",()=>{const out=document.getElementById("out");if(out)mo.observe(out,{childList:true,subtree:false});setTimeout(enhanceApproved,0)});
  document.addEventListener("input",()=>setTimeout(enhanceApproved,0),true);
  document.addEventListener("change",()=>setTimeout(enhanceApproved,0),true);
+})();
+</script><script id="mobileRxAndDrugPickerJS">
+(function(){
+ function setup(){
+  const search=document.getElementById("drugSearch"), sel=document.getElementById("drug");
+  if(search && !document.getElementById("drugListBtn")){
+   const wrap=document.createElement("div");wrap.id="drugSearchWrap";wrap.style.display="flex";
+   search.parentNode.insertBefore(wrap,search);wrap.appendChild(search);
+   const b=document.createElement("button");b.id="drugListBtn";b.type="button";b.textContent="一覧から選択";wrap.appendChild(b);
+   const sheet=document.createElement("div");sheet.id="drugListSheet";sheet.innerHTML='<div id="drugListPanel"><div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 8px"><b>薬剤を選択</b><button id="drugListClose" type="button" style="border:0;background:transparent;font-size:20px">×</button></div><div id="drugListItems"></div></div>';document.body.appendChild(sheet);
+   b.onclick=()=>{document.getElementById("drugListItems").innerHTML=[...sel.options].map(o=>'<button type="button" data-v="'+o.value+'">'+o.textContent+'</button>').join("");sheet.classList.add("open")};
+   sheet.onclick=e=>{if(e.target===sheet||e.target.id==="drugListClose")sheet.classList.remove("open");const x=e.target.closest("[data-v]");if(x){sel.value=x.dataset.v;sel.dispatchEvent(new Event("change",{bubbles:true}));search.value=sel.options[sel.selectedIndex].textContent;sheet.classList.remove("open")}};
+  }
+ }
+ function enhance(){
+  if(!matchMedia("(max-width:650px)").matches)return;
+  const out=document.getElementById("out");if(!out)return;
+  const w=+document.getElementById("wt").value;
+  const nums=out.querySelector(".nums");
+  if(nums&&!out.querySelector(".mobileWeightLine")){const x=document.createElement("div");x.className="mobileWeightLine";x.textContent="体重 "+w+" kg";nums.before(x)}
+  const d=DB[$("drug").value],ii=d&&d.indications[$("ind").value]; if(!d||!ii)return;
+  if(!out.querySelector(".rxLabelCard")){
+   const card=document.createElement("div");card.className="rxLabelCard";
+   card.innerHTML='<div class="rxLabelHead">添付文書の用法・用量</div><div class="rxLabelText">'+ii.desc+'</div><div class="rxLabelSource">出典：'+d.source+'</div>';
+   const basis=out.querySelector(".approvedBasisCard"); if(basis)basis.after(card); else out.appendChild(card);
+  }
+ }
+ document.addEventListener("DOMContentLoaded",()=>{setup();setTimeout(enhance,0);const out=document.getElementById("out");if(out)new MutationObserver(()=>enhance()).observe(out,{childList:true})});
+ document.addEventListener("input",()=>setTimeout(enhance,0),true);document.addEventListener("change",()=>setTimeout(enhance,0),true);
 })();
 </script></body></html>
