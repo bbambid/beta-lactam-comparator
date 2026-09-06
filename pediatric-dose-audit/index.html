@@ -11,6 +11,75 @@ label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4p
 .hero{font-size:18px;font-weight:900;margin-bottom:3px}.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:9px 0}.num{padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#fff}.num b{font-size:15px}
 table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{padding:7px;border-bottom:1px solid #e9eef2;text-align:left}th{background:#f5f7f9}.note{font-size:9px;color:#667085;margin-top:7px;line-height:1.6}
 @media(max-width:650px){.grid,.nums{grid-template-columns:1fr}}
+</style>
+<style id="mobilePreviewStyle">
+@media(max-width:650px){
+  body{background:#f3f6f9}
+  .w{padding:8px;max-width:100%}
+  .card{padding:12px;border-radius:14px;margin-bottom:8px}
+  .title{font-size:21px;line-height:1.25}
+  .sub{font-size:10px;line-height:1.6}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .grid>div:nth-child(1),.grid>div:nth-child(2),.grid>div:nth-child(3){grid-column:1/-1}
+  label{font-size:10px;margin-bottom:3px}
+  input,select{font-size:16px;padding:10px 9px;border-radius:9px}
+  .out{padding:10px;margin-top:8px;font-size:12px;line-height:1.55;background:#f7f9fb}
+  .hero{font-size:16px;margin-bottom:6px}
+  .pill{font-size:9px;padding:3px 6px}
+  .nums{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:8px 0}
+  .num{padding:8px 6px;border-radius:10px;text-align:center;min-width:0}
+  .num b{font-size:14px;line-height:1.25;display:block;overflow-wrap:anywhere}
+  .note{font-size:10px;line-height:1.55}
+  table{display:block;margin-top:6px;font-size:11px}
+  thead{display:none}
+  tbody{display:block;background:#fff;border:1px solid #e3e9ef;border-radius:11px;overflow:hidden}
+  tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;background:#fff;padding:8px 10px;margin:0;border-bottom:1px solid #edf1f4}
+  tbody tr:last-child{border-bottom:0}
+  tbody td{display:block;padding:0;border:0;min-width:0}
+  tbody td:first-child{font-weight:800;color:#2f5d8a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  tbody td:nth-child(2){font-weight:900;font-size:13px;text-align:right;color:#1f2933;white-space:nowrap}
+  tbody td:nth-child(2)::before{content:"推定 ";font-size:9px;font-weight:700;color:#7b8794}
+  tbody td:nth-child(2)::after{content:" mg/day";font-size:9px;font-weight:700;color:#7b8794}
+  tbody td:nth-child(3){display:none}
+  .formulaBtn{font-size:11px;white-space:nowrap}
+  .formulaHelp{font-size:11px!important;line-height:1.6!important;padding:10px!important;border-radius:10px!important}
+}
+</style>
+<style id="approvedDoseCardPreview">
+@media(max-width:650px){
+ .approvedBasisCard{margin:8px 0!important;padding:10px!important;border:1px solid #cfdbe7!important;border-radius:12px!important;background:#fff!important}
+ .approvedPremise{padding:9px 10px;border-radius:9px;background:#eef4fb;margin-bottom:8px}
+ .approvedPremiseTitle{font-size:10px;font-weight:900;color:#475467;margin-bottom:2px}
+ .approvedPremiseMain{font-size:13px;font-weight:900;line-height:1.4;color:#1f2933}
+ .approvedCompare{width:100%;border-collapse:collapse;font-size:11px;margin:0;display:table!important}
+ .approvedCompare thead{display:table-header-group!important}
+ .approvedCompare tbody{display:table-row-group!important;border:0!important;border-radius:0!important}
+ .approvedCompare tr{display:table-row!important;padding:0!important;border:0!important;background:transparent!important}
+ .approvedCompare th,.approvedCompare td{display:table-cell!important;padding:6px 5px!important;border-bottom:1px solid #edf1f4!important}
+ .approvedCompare th{font-size:9px;color:#667085;background:#f8fafc!important}
+ .approvedCompare th:first-child,.approvedCompare td:first-child{text-align:left!important;font-weight:800!important;color:#475467!important}
+ .approvedCompare th:not(:first-child),.approvedCompare td:not(:first-child){text-align:right!important}
+ .approvedCompare td:nth-child(2)::before,.approvedCompare td:nth-child(2)::after{content:none!important}
+ .approvedCompare td:nth-child(3){font-size:11px!important;color:#1f2933!important;font-weight:900!important}
+ .approvedCompare .match{font-weight:900}
+ .approvedBasisTitle{font-size:11px;font-weight:900;margin-bottom:6px}
+}
+</style><style id="mobileRxAndDrugPicker">
+@media(max-width:650px){
+ #drug{display:none!important}
+ #drugSearchWrap{display:flex!important;gap:6px;align-items:stretch}
+ #drugSearch{flex:1;min-width:0}
+ #drugListBtn{border:1px solid #cfdbe7;background:#fff;border-radius:9px;padding:0 10px;font-size:10px;font-weight:800;white-space:nowrap}
+ .rxLabelCard{margin:8px 0;padding:10px;border:1px solid #dfe6ec;border-radius:11px;background:#fff}
+ .rxLabelHead{font-size:11px;font-weight:900;margin-bottom:5px}
+ .rxLabelText{font-size:11px;line-height:1.65;color:#344054}
+ .rxLabelSource{font-size:9px;color:#667085;margin-top:5px}
+ .mobileWeightLine{font-size:10px;font-weight:800;color:#475467;margin:2px 0 5px}
+}
+#drugListSheet{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.35)}
+#drugListSheet.open{display:flex;align-items:flex-end}
+#drugListPanel{background:#fff;width:100%;max-height:75vh;border-radius:18px 18px 0 0;padding:12px;overflow:auto}
+#drugListPanel button{display:block;width:100%;padding:11px;border:0;border-bottom:1px solid #edf1f4;background:#fff;text-align:left}
 </style></head><body><main class="w">
 <section class="card"><span class="tag">CAM / AMPC / CARBO / AMBRO / TXA / LEVO / APAP + ALLERGY</span><div class="title">小児処方監査CDS</div>
 <div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPC・カルボシステイン・アンブロキソール・トラネキサム酸・レボセチリジン・アセトアミノフェン・セチリジン・モンテルカスト・デスロラタジン・オロパタジン・プランルカストを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
@@ -26,7 +95,7 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
 <div><label>体重</label><select id="wt">
 <option value="4">4 kg</option><option value="5">5 kg</option><option value="6">6 kg</option><option value="7">7 kg</option><option value="8">8 kg</option><option value="9">9 kg</option><option value="10">10 kg</option><option value="11">11 kg</option><option value="12">12 kg</option><option value="13">13 kg</option><option value="14">14 kg</option><option value="15">15 kg</option><option value="16">16 kg</option><option value="17">17 kg</option><option value="18" selected>18 kg</option><option value="19">19 kg</option><option value="20">20 kg</option><option value="21">21 kg</option><option value="22">22 kg</option><option value="23">23 kg</option><option value="24">24 kg</option><option value="25">25 kg</option><option value="26">26 kg</option><option value="27">27 kg</option><option value="28">28 kg</option><option value="29">29 kg</option><option value="30">30 kg</option><option value="31">31 kg</option><option value="32">32 kg</option><option value="33">33 kg</option><option value="34">34 kg</option><option value="35">35 kg</option><option value="36">36 kg</option><option value="37">37 kg</option><option value="38">38 kg</option><option value="39">39 kg</option><option value="40">40 kg</option><option value="41">41 kg</option><option value="42">42 kg</option><option value="43">43 kg</option><option value="44">44 kg</option><option value="45">45 kg</option><option value="46">46 kg</option><option value="47">47 kg</option><option value="48">48 kg</option><option value="49">49 kg</option><option value="50">50 kg</option><option value="51">51 kg</option><option value="52">52 kg</option><option value="53">53 kg</option><option value="54">54 kg</option><option value="55">55 kg</option><option value="56">56 kg</option><option value="57">57 kg</option><option value="58">58 kg</option><option value="59">59 kg</option><option value="60">60 kg</option>
 </select></div>
-<div><label>身長 cm（BSA算出・任意）</label><input id="ht" type="number" min="30" max="220" step=".1" value="110"></div>
+<div><label>身長 cm（BSA算出・任意）</label><input id="ht" type="number" min="30" max="220" step=".1" value=""></div>
 <div><label id="amountLabel">処方製剤量 g/day</label><input id="amount" type="number" min="0" step=".01" value="2.7"></div>
 <div><label>分割</label><select id="freq"><option value="2">分2</option><option value="3">分3</option></select></div>
 </div><div id="out" class="out"></div></section>
@@ -225,4 +294,136 @@ $("drug").onchange=()=>loadDrug(true);
 $("product").onchange=function(){const p=DB[$("drug").value].products[this.value];$("amount").value=p.defaultAmount;render()};
 $("ind").onchange=()=>{if(["osel","zana"].includes($("drug").value))loadDrug(false);else render();};["wt","ht","amount","freq"].forEach(id=>$(id).oninput=render); $("age").oninput=()=>{if(["levo","ceti","proc"].includes($("drug").value))loadDrug(false);else render();};
 loadDrug(true);
-</script><script src="image-batch-01.js"></script><script src="image-batch-02.js"></script><script src="nkdesk-batch-01.js"></script><script src="nkdesk-batch-02.js"></script><script src="nkdesk-final.js"></script><script src="image-batch-02-50.js"></script><script src="image-final.js"></script><script src="coverage-audit-2026-09.js"></script><script src="coverage-audit-local-2026-09.js"></script><script src="coverage-audit-final-fixes-2026-09.js"></script><script src="dose-audit-upgrades-2026-09.js"></script><script src="final-reconciliation-2026-09.js"></script><script src="drug-search-2026-09.js"></script><script src="formula-help-2026-09.js"></script><script src="frequency-interpretation-2026-09.js"></script><script src="oral-batch-01-2026-09.js"></script><script src="cephalexin-brands-2026-09.js"></script><script src="oral-batch-02-2026-09.js"></script><script src="pediatric-ui-clarity-2026-09.js"></script><script src="audit-dashboard-2026-09.js"></script><script src="pmda-audit-progress-2026-09.js"></script><script src="pmda-final-batch-01-2026-09.js"></script><script src="pmda-final-batch-02-2026-09.js"></script></body></html>
+</script><script src="image-batch-01.js"></script><script src="image-batch-02.js"></script><script src="nkdesk-batch-01.js"></script><script src="nkdesk-batch-02.js"></script><script src="nkdesk-final.js"></script><script src="image-batch-02-50.js"></script><script src="image-final.js"></script><script src="coverage-audit-2026-09.js"></script><script src="coverage-audit-local-2026-09.js"></script><script src="coverage-audit-final-fixes-2026-09.js"></script><script src="dose-audit-upgrades-2026-09.js"></script><script src="final-reconciliation-2026-09.js"></script><script src="drug-search-2026-09.js"></script><script src="formula-help-2026-09.js"></script><script src="frequency-interpretation-2026-09.js"></script><script src="oral-batch-01-2026-09.js"></script><script src="cephalexin-brands-2026-09.js"></script><script src="oral-batch-02-2026-09.js"></script><script src="pediatric-ui-clarity-2026-09.js"></script><script src="audit-dashboard-2026-09.js"></script><script src="pmda-audit-progress-2026-09.js"></script><script src="pmda-final-batch-01-2026-09.js"></script><script src="pmda-final-batch-02-2026-09.js"></script>
+<script id="mobilePreviewEnhancer">
+(function(){
+  const mq=window.matchMedia("(max-width:650px)");
+  function enhance(){
+    if(!mq.matches) return;
+    const out=document.getElementById("out"); if(!out) return;
+    const nums=out.querySelector(".nums");
+    if(nums && !nums.previousElementSibling?.classList?.contains("mobileSectionLabel")){
+      const lab=document.createElement("div");
+      lab.className="mobileSectionLabel";
+      lab.textContent="今回の処方";
+      lab.style.cssText="font-weight:900;font-size:11px;margin-top:8px;margin-bottom:3px;color:#475467";
+      nums.before(lab);
+    }
+    const table=[...out.querySelectorAll("table")].find(t=>t.textContent.includes("補助換算"));
+    if(table && !table.previousElementSibling?.classList?.contains("mobileSectionLabel")){
+      const lab=document.createElement("div");
+      lab.className="mobileSectionLabel";
+      lab.textContent="補助換算｜成人標準量からの推定";
+      lab.style.cssText="font-weight:900;font-size:11px;margin-top:12px;margin-bottom:4px;color:#475467";
+      table.before(lab);
+    }
+    if(table && !table.nextElementSibling?.classList?.contains("mobileFormulaNote")){
+      const n=document.createElement("div");
+      n.className="mobileFormulaNote";
+      n.textContent="※ すべて補助的な参考値。承認小児用量を主判定に使用";
+      n.style.cssText="font-size:9px;line-height:1.4;color:#7b8794;margin:4px 2px 0";
+      table.after(n);
+    }
+  }
+  const oldRender=window.render;
+  if(typeof oldRender==="function"){
+    window.render=function(){ oldRender(); requestAnimationFrame(enhance); };
+  }
+  document.addEventListener("DOMContentLoaded",()=>setTimeout(enhance,0));
+  document.addEventListener("input",()=>setTimeout(enhance,0),true);
+  document.addEventListener("change",()=>setTimeout(enhance,0),true);
+})();
+</script>
+<script id="approvedDoseCardEnhancer">
+(function(){
+ function enhanceApproved(){
+  if(!matchMedia("(max-width:650px)").matches)return;
+  const out=document.getElementById("out"); if(!out)return;
+  const boxes=[...out.children].filter(x=>x.tagName==="DIV"&&x.textContent.includes("承認用法・用量")&&x.textContent.includes("判定の根拠"));
+  boxes.forEach(box=>{
+   if(box.dataset.mobileDone)return;
+   const d=DB[$("drug").value],ii=d.indications[$("ind").value],p=d.products[$("product").value];
+   const w=+$("wt").value,a=+$("age").value,f=+$("freq").value,q=+$("amount").value,mg=q*p.mgPerUnit;
+   const lo=ii.lo(w,a),hi=ii.hi(w,a),allowed=ii.freqByAge?ii.freqByAge(a):(ii.freq||[]);
+   const doseTxt=Number.isFinite(lo)&&Number.isFinite(hi)?(Math.abs(lo-hi)<.01?lo.toFixed(0):lo.toFixed(0)+"–"+hi.toFixed(0))+" mg":"—";
+   const kgTxt=Number.isFinite(lo)&&Number.isFinite(hi)&&w?((lo/w).toFixed(1)+(Math.abs(lo-hi)<.01?"":"–"+(hi/w).toFixed(1))):"—";
+   const freqTxt=allowed.length?allowed.map(x=>"分"+x).join("–"):"個別確認";
+   const doseOK=Number.isFinite(lo)&&Number.isFinite(hi)&&mg>=lo-.01&&mg<=hi+.01;
+   const freqOK=allowed.includes(f);
+   box.className="approvedBasisCard"; box.dataset.mobileDone="1";
+   box.innerHTML='<div class="approvedBasisTitle">承認用法・用量</div>'+
+    '<div class="approvedPremise"><div class="approvedPremiseTitle">この患者の承認量</div><div class="approvedPremiseMain">'+w+' kg × '+kgTxt+' mg/kg/day → '+doseTxt+'/day</div></div>'+
+    '<table class="approvedCompare"><thead><tr><th></th><th>承認基準</th><th>今回</th></tr></thead><tbody>'+
+    '<tr><td>1日量</td><td>'+doseTxt+'/day</td><td class="match">'+mg.toFixed(0)+' mg/day '+(doseOK?'✓':'要確認')+'</td></tr>'+
+    '<tr><td>mg/kg/day</td><td>'+kgTxt+'</td><td class="match">'+(w?mg/w:0).toFixed(1)+' '+(doseOK?'✓':'要確認')+'</td></tr>'+
+    '<tr><td>分割</td><td>'+freqTxt+'</td><td class="match">分'+f+' '+(freqOK?'✓':'要確認')+'</td></tr>'+
+    '</tbody></table>';
+  });
+ }
+ const mo=new MutationObserver(()=>enhanceApproved());
+ document.addEventListener("DOMContentLoaded",()=>{const out=document.getElementById("out");if(out)mo.observe(out,{childList:true,subtree:false});setTimeout(enhanceApproved,0)});
+ document.addEventListener("input",()=>setTimeout(enhanceApproved,0),true);
+ document.addEventListener("change",()=>setTimeout(enhanceApproved,0),true);
+})();
+</script><script id="mobileRxAndDrugPickerJS">
+(function(){
+ function setup(){
+  const search=document.getElementById("drugSearch"), sel=document.getElementById("drug");
+  if(search && !document.getElementById("drugListBtn")){
+   const wrap=document.createElement("div");wrap.id="drugSearchWrap";wrap.style.display="flex";
+   search.parentNode.insertBefore(wrap,search);wrap.appendChild(search);
+   const b=document.createElement("button");b.id="drugListBtn";b.type="button";b.textContent="一覧から選択";wrap.appendChild(b);
+   const sheet=document.createElement("div");sheet.id="drugListSheet";sheet.innerHTML='<div id="drugListPanel"><div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 8px"><b>薬剤を選択</b><button id="drugListClose" type="button" style="border:0;background:transparent;font-size:20px">×</button></div><div id="drugListItems"></div></div>';document.body.appendChild(sheet);
+   b.onclick=()=>{document.getElementById("drugListItems").innerHTML=[...sel.options].map(o=>'<button type="button" data-v="'+o.value+'">'+o.textContent+'</button>').join("");sheet.classList.add("open")};
+   sheet.onclick=e=>{if(e.target===sheet||e.target.id==="drugListClose")sheet.classList.remove("open");const x=e.target.closest("[data-v]");if(x){sel.value=x.dataset.v;sel.dispatchEvent(new Event("change",{bubbles:true}));search.value=sel.options[sel.selectedIndex].textContent;sheet.classList.remove("open")}};
+  }
+ }
+ function enhance(){
+  if(!matchMedia("(max-width:650px)").matches)return;
+  const out=document.getElementById("out");if(!out)return;
+  const w=+document.getElementById("wt").value;
+  const nums=out.querySelector(".nums");
+  if(nums&&!out.querySelector(".mobileWeightLine")){const x=document.createElement("div");x.className="mobileWeightLine";x.textContent="体重 "+w+" kg";nums.before(x)}
+  const d=DB[$("drug").value],ii=d&&d.indications[$("ind").value]; if(!d||!ii)return;
+  if(!out.querySelector(".rxLabelCard")){
+   const card=document.createElement("div");card.className="rxLabelCard";
+   card.innerHTML='<div class="rxLabelHead">添付文書の用法・用量</div><div class="rxLabelText">'+ii.desc+'</div><div class="rxLabelSource">出典：'+d.source+'</div>';
+   const basis=out.querySelector(".approvedBasisCard"); if(basis)basis.after(card); else out.appendChild(card);
+  }
+ }
+ document.addEventListener("DOMContentLoaded",()=>{setup();setTimeout(enhance,0);const out=document.getElementById("out");if(out)new MutationObserver(()=>enhance()).observe(out,{childList:true})});
+ document.addEventListener("input",()=>setTimeout(enhance,0),true);document.addEventListener("change",()=>setTimeout(enhance,0),true);
+})();
+</script><script id="steroidPreviewData">
+(function(){
+ if(typeof DB==="undefined")return;
+ DB.pred={
+  searchAliases:["プレドニゾロン","プレドニゾロン散","プレドニゾロン散1%"],
+  products:{pow1:{label:"プレドニゾロン散1%",unit:"g",mgPerUnit:10,defaultAmount:2}},
+  indications:{general:{label:"副腎皮質ステロイド適応（用量は疾患・症状により調整）",lo:(w,a)=>NaN,hi:(w,a)=>NaN,freq:[1,2,3,4],desc:"添付文書の用法・用量は疾患・症状等に応じて調整。小児の実務量は別カードで参考表示します。"}},
+  adult:[5,60],source:"PMDA プレドニゾロン製剤電子添文"
+ };
+ const sel=document.getElementById("drug");
+ if(sel&&!sel.querySelector('option[value="pred"]')){const o=document.createElement("option");o.value="pred";o.textContent="プレドニゾロン";sel.appendChild(o);}
+ window.STEROID_PRACTICE={
+  pred:[{title:"実務用量｜湘南鎌倉総合病院 小児薬用量",dose:"1～2 mg/kg/day・分2",note:"最大 2 mg/kg/day",source:"参考区分C：小児の薬の選び方・使い方"}],
+  dexa:[{title:"疾患別実務用量｜治療薬ハンドブック",disease:"クループ症候群",dose:"1回 0.15～0.3 mg/kg・頓用内服",note:"シロップでは量が多いので、錠剤を粉砕し単シロップと服用させるのも有効。経口投与と筋注投与は同等の効果。",source:"治療薬ハンドブック（ユーザー提示資料）"}]
+ };
+})();
+</script>
+<style id="steroidPracticeStyle">
+@media(max-width:650px){.practiceDoseCard{margin:8px 0;padding:10px;border:1px solid #dfe6ec;border-radius:11px;background:#fff}.practiceDoseTitle{font-size:10px;font-weight:900;color:#667085}.practiceDoseDisease{font-size:11px;font-weight:900;margin-top:3px}.practiceDoseMain{font-size:15px;font-weight:900;margin:3px 0}.practiceDoseNote{font-size:10px;line-height:1.55;color:#475467}.practiceDoseSource{font-size:9px;color:#667085;margin-top:5px}}</style>
+<script id="steroidPracticeCards">
+(function(){
+ function draw(){
+  if(!matchMedia("(max-width:650px)").matches||!window.STEROID_PRACTICE)return;
+  const out=document.getElementById("out"),key=document.getElementById("drug")?.value;if(!out)return;
+  out.querySelectorAll(".practiceDoseCard").forEach(x=>x.remove());
+  const items=window.STEROID_PRACTICE[key];if(!items)return;
+  const anchor=out.querySelector(".rxLabelCard")||out.querySelector(".approvedBasisCard");
+  items.slice().reverse().forEach(x=>{const d=document.createElement("div");d.className="practiceDoseCard";d.innerHTML='<div class="practiceDoseTitle">'+x.title+'</div>'+(x.disease?'<div class="practiceDoseDisease">'+x.disease+'</div>':'')+'<div class="practiceDoseMain">'+x.dose+'</div>'+(x.note?'<div class="practiceDoseNote">'+x.note+'</div>':'')+'<div class="practiceDoseSource">出典：'+x.source+'</div>';if(anchor)anchor.after(d);else out.appendChild(d);});
+ }
+ document.addEventListener("DOMContentLoaded",()=>{const out=document.getElementById("out");if(out)new MutationObserver(()=>setTimeout(draw,0)).observe(out,{childList:true});setTimeout(draw,50)});
+ document.addEventListener("change",()=>setTimeout(draw,0),true);
+})();
+</script></body></html>
