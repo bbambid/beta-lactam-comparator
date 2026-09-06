@@ -45,7 +45,26 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
   .formulaHelp{font-size:11px!important;line-height:1.6!important;padding:10px!important;border-radius:10px!important}
 }
 </style>
-</head><body><main class="w">
+<style id="approvedDoseCardPreview">
+@media(max-width:650px){
+ .approvedBasisCard{margin:8px 0!important;padding:10px!important;border:1px solid #cfdbe7!important;border-radius:12px!important;background:#fff!important}
+ .approvedPremise{padding:9px 10px;border-radius:9px;background:#eef4fb;margin-bottom:8px}
+ .approvedPremiseTitle{font-size:10px;font-weight:900;color:#475467;margin-bottom:2px}
+ .approvedPremiseMain{font-size:13px;font-weight:900;line-height:1.4;color:#1f2933}
+ .approvedCompare{width:100%;border-collapse:collapse;font-size:11px;margin:0;display:table!important}
+ .approvedCompare thead{display:table-header-group!important}
+ .approvedCompare tbody{display:table-row-group!important;border:0!important;border-radius:0!important}
+ .approvedCompare tr{display:table-row!important;padding:0!important;border:0!important;background:transparent!important}
+ .approvedCompare th,.approvedCompare td{display:table-cell!important;padding:6px 5px!important;border-bottom:1px solid #edf1f4!important}
+ .approvedCompare th{font-size:9px;color:#667085;background:#f8fafc!important}
+ .approvedCompare th:first-child,.approvedCompare td:first-child{text-align:left!important;font-weight:800!important;color:#475467!important}
+ .approvedCompare th:not(:first-child),.approvedCompare td:not(:first-child){text-align:right!important}
+ .approvedCompare td:nth-child(2)::before,.approvedCompare td:nth-child(2)::after{content:none!important}
+ .approvedCompare td:nth-child(3){font-size:11px!important;color:#1f2933!important;font-weight:900!important}
+ .approvedCompare .match{font-weight:900}
+ .approvedBasisTitle{font-size:11px;font-weight:900;margin-bottom:6px}
+}
+</style></head><body><main class="w">
 <section class="card"><span class="tag">SMARTPHONE UI PREVIEW</span><div class="title">小児処方監査CDS</div>
 <div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPC・カルボシステイン・アンブロキソール・トラネキサム酸・レボセチリジン・アセトアミノフェン・セチリジン・モンテルカスト・デスロラタジン・オロパタジン・プランルカストを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
 
@@ -299,4 +318,35 @@ loadDrug(true);
   document.addEventListener("change",()=>setTimeout(enhance,0),true);
 })();
 </script>
-</body></html>
+<script id="approvedDoseCardEnhancer">
+(function(){
+ function enhanceApproved(){
+  if(!matchMedia("(max-width:650px)").matches)return;
+  const out=document.getElementById("out"); if(!out)return;
+  const boxes=[...out.children].filter(x=>x.tagName==="DIV"&&x.textContent.includes("承認用法・用量")&&x.textContent.includes("判定の根拠"));
+  boxes.forEach(box=>{
+   if(box.dataset.mobileDone)return;
+   const d=DB[$("drug").value],ii=d.indications[$("ind").value],p=d.products[$("product").value];
+   const w=+$("wt").value,a=+$("age").value,f=+$("freq").value,q=+$("amount").value,mg=q*p.mgPerUnit;
+   const lo=ii.lo(w,a),hi=ii.hi(w,a),allowed=ii.freqByAge?ii.freqByAge(a):(ii.freq||[]);
+   const doseTxt=Number.isFinite(lo)&&Number.isFinite(hi)?(Math.abs(lo-hi)<.01?lo.toFixed(0):lo.toFixed(0)+"–"+hi.toFixed(0))+" mg":"—";
+   const kgTxt=Number.isFinite(lo)&&Number.isFinite(hi)&&w?((lo/w).toFixed(1)+(Math.abs(lo-hi)<.01?"":"–"+(hi/w).toFixed(1))):"—";
+   const freqTxt=allowed.length?allowed.map(x=>"分"+x).join("–"):"個別確認";
+   const doseOK=Number.isFinite(lo)&&Number.isFinite(hi)&&mg>=lo-.01&&mg<=hi+.01;
+   const freqOK=allowed.includes(f);
+   box.className="approvedBasisCard"; box.dataset.mobileDone="1";
+   box.innerHTML='<div class="approvedBasisTitle">承認用法・用量</div>'+
+    '<div class="approvedPremise"><div class="approvedPremiseTitle">この患者の承認量</div><div class="approvedPremiseMain">'+w+' kg × '+kgTxt+' mg/kg/day → '+doseTxt+'/day</div></div>'+
+    '<table class="approvedCompare"><thead><tr><th></th><th>承認基準</th><th>今回</th></tr></thead><tbody>'+
+    '<tr><td>1日量</td><td>'+doseTxt+'/day</td><td class="match">'+mg.toFixed(0)+' mg/day '+(doseOK?'✓':'要確認')+'</td></tr>'+
+    '<tr><td>mg/kg/day</td><td>'+kgTxt+'</td><td class="match">'+(w?mg/w:0).toFixed(1)+' '+(doseOK?'✓':'要確認')+'</td></tr>'+
+    '<tr><td>分割</td><td>'+freqTxt+'</td><td class="match">分'+f+' '+(freqOK?'✓':'要確認')+'</td></tr>'+
+    '</tbody></table>';
+  });
+ }
+ const mo=new MutationObserver(()=>enhanceApproved());
+ document.addEventListener("DOMContentLoaded",()=>{const out=document.getElementById("out");if(out)mo.observe(out,{childList:true,subtree:false});setTimeout(enhanceApproved,0)});
+ document.addEventListener("input",()=>setTimeout(enhanceApproved,0),true);
+ document.addEventListener("change",()=>setTimeout(enhanceApproved,0),true);
+})();
+</script></body></html>
