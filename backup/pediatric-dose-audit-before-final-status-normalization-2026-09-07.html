@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小児処方監査CDS</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7f9;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}
+.w{max-width:940px;margin:auto;padding:18px}.card{background:#fff;border:1px solid #dfe6ec;border-radius:16px;padding:16px;margin-bottom:10px}
+.title{font-size:23px;font-weight:900}.sub{font-size:11px;line-height:1.75;color:#667085}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}input,select{width:100%;padding:9px;border:1px solid #d6dee8;border-radius:8px;background:#fff}
+.out{margin-top:10px;padding:12px;background:#f8fafc;border:1px solid #e3e9ef;border-radius:10px;font-size:11px;line-height:1.7}
+.tag,.pill{display:inline-block;padding:3px 7px;border-radius:999px;background:#eef4fb;font-size:9px;font-weight:900}.ok{background:#eaf6ee;color:#27623b}.warn{background:#fff7e6;color:#7a5a12}.ng{background:#fff0ed;color:#9b3d31}
+.hero{font-size:18px;font-weight:900;margin-bottom:3px}.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:9px 0}.num{padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#fff}.num b{font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{padding:7px;border-bottom:1px solid #e9eef2;text-align:left}th{background:#f5f7f9}.note{font-size:9px;color:#667085;margin-top:7px;line-height:1.6}
+@media(max-width:650px){.grid,.nums{grid-template-columns:1fr}}
+</style>
+<style id="mobilePreviewStyle">
+@media(max-width:650px){
+  body{background:#f3f6f9}
+  .w{padding:8px;max-width:100%}
+  .card{padding:12px;border-radius:14px;margin-bottom:8px}
+  .title{font-size:21px;line-height:1.25}
+  .sub{font-size:10px;line-height:1.6}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .grid>div:nth-child(1),.grid>div:nth-child(2),.grid>div:nth-child(3){grid-column:1/-1}
+  label{font-size:10px;margin-bottom:3px}
+  input,select{font-size:16px;padding:10px 9px;border-radius:9px}
+  .out{padding:10px;margin-top:8px;font-size:12px;line-height:1.55;background:#f7f9fb}
+  .hero{font-size:16px;margin-bottom:6px}
+  .pill{font-size:9px;padding:3px 6px}
+  .nums{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:8px 0}
+  .num{padding:8px 6px;border-radius:10px;text-align:center;min-width:0}
+  .num b{font-size:14px;line-height:1.25;display:block;overflow-wrap:anywhere}
+  .note{font-size:10px;line-height:1.55}
+  table{display:block;margin-top:6px;font-size:11px}
+  thead{display:none}
+  tbody{display:block;background:#fff;border:1px solid #e3e9ef;border-radius:11px;overflow:hidden}
+  tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;background:#fff;padding:8px 10px;margin:0;border-bottom:1px solid #edf1f4}
+  tbody tr:last-child{border-bottom:0}
+  tbody td{display:block;padding:0;border:0;min-width:0}
+  tbody td:first-child{font-weight:800;color:#2f5d8a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  tbody td:nth-child(2){font-weight:900;font-size:13px;text-align:right;color:#1f2933;white-space:nowrap}
+  tbody td:nth-child(2)::before{content:"推定 ";font-size:9px;font-weight:700;color:#7b8794}
+  tbody td:nth-child(2)::after{content:" mg/day";font-size:9px;font-weight:700;color:#7b8794}
+  tbody td:nth-child(3){display:none}
+  .formulaBtn{font-size:11px;white-space:nowrap}
+  .formulaHelp{font-size:11px!important;line-height:1.6!important;padding:10px!important;border-radius:10px!important}
+}
+</style>
+<style id="approvedDoseCardPreview">
+@media(max-width:650px){
+ .approvedBasisCard{margin:8px 0!important;padding:10px!important;border:1px solid #cfdbe7!important;border-radius:12px!important;background:#fff!important}
+ .approvedPremise{padding:9px 10px;border-radius:9px;background:#eef4fb;margin-bottom:8px}
+ .approvedPremiseTitle{font-size:10px;font-weight:900;color:#475467;margin-bottom:2px}
+ .approvedPremiseMain{font-size:13px;font-weight:900;line-height:1.4;color:#1f2933}
+ .approvedCompare{width:100%;border-collapse:collapse;font-size:11px;margin:0;display:table!important}
+ .approvedCompare thead{display:table-header-group!important}
+ .approvedCompare tbody{display:table-row-group!important;border:0!important;border-radius:0!important}
+ .approvedCompare tr{display:table-row!important;padding:0!important;border:0!important;background:transparent!important}
+ .approvedCompare th,.approvedCompare td{display:table-cell!important;padding:6px 5px!important;border-bottom:1px solid #edf1f4!important}
+ .approvedCompare th{font-size:9px;color:#667085;background:#f8fafc!important}
+ .approvedCompare th:first-child,.approvedCompare td:first-child{text-align:left!important;font-weight:800!important;color:#475467!important}
+ .approvedCompare th:not(:first-child),.approvedCompare td:not(:first-child){text-align:right!important}
+ .approvedCompare td:nth-child(2)::before,.approvedCompare td:nth-child(2)::after{content:none!important}
+ .approvedCompare td:nth-child(3){font-size:11px!important;color:#1f2933!important;font-weight:900!important}
+ .approvedCompare .match{font-weight:900}
+ .approvedBasisTitle{font-size:11px;font-weight:900;margin-bottom:6px}
+}
+</style><style id="mobileRxAndDrugPicker">
+@media(max-width:650px){
+ #drug{display:none!important}
+ #drugSearchWrap{display:flex!important;gap:6px;align-items:stretch}
+ #drugSearch{flex:1;min-width:0}
+ #drugListBtn{border:1px solid #cfdbe7;background:#fff;border-radius:9px;padding:0 10px;font-size:10px;font-weight:800;white-space:nowrap}
+ .rxLabelCard{margin:8px 0;padding:10px;border:1px solid #dfe6ec;border-radius:11px;background:#fff}
+ .rxLabelHead{font-size:11px;font-weight:900;margin-bottom:5px}
+ .rxLabelText{font-size:11px;line-height:1.65;color:#344054}
+ .rxLabelSource{font-size:9px;color:#667085;margin-top:5px}
+ .mobileWeightLine{display:inline-flex;align-items:baseline;gap:5px;font-size:10px;font-weight:800;color:#475467;margin:6px 0 7px;padding:6px 9px;border:1px solid #dfe6ec;border-radius:9px;background:#fff}
+.mobileWeightLine b{font-size:13px;color:#1f2933}
+}
+#drugListSheet{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.35)}
+#drugListSheet.open{display:flex;align-items:flex-end}
+#drugListPanel{background:#fff;width:100%;max-height:75vh;min-height:46vh;border-radius:18px 18px 0 0;padding:12px;overflow:auto}
+#drugListPanel button{display:block;width:100%;padding:11px;border:0;border-bottom:1px solid #edf1f4;background:#fff;text-align:left}
+#drugCategoryTabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 9px;scrollbar-width:none}
+#drugCategoryTabs::-webkit-scrollbar{display:none}
+#drugCategoryTabs .drugCatTab{display:inline-block;width:auto;flex:0 0 auto;padding:7px 10px;border:1px solid #dfe6ec;border-radius:999px;background:#fff;font-size:10px;font-weight:800;white-space:nowrap;color:#475467}
+#drugCategoryTabs .drugCatTab.active{background:#eef4fb;border-color:#9db9d4;color:#2f5d8a}
+.drugCatHead{position:sticky;top:0;background:#f6f8fa;padding:7px 10px;font-size:10px;font-weight:900;color:#667085;border-bottom:1px solid #e8edf2;z-index:1}
+.drugCatGroup>button{padding:14px 16px!important;font-size:14px;color:#1f2933;min-height:48px}
+.drugCatGroup:only-child>button{padding:16px!important;font-size:15px;min-height:54px}
+.drugCatGroup:only-child .drugCatHead{font-size:11px;padding:9px 10px}
+</style></head><body><main class="w">
+<section class="card"><span class="tag">CAM / AMPC / CARBO / AMBRO / TXA / LEVO / APAP + ALLERGY</span><div class="title">小児処方監査CDS</div>
+<div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPC・カルボシステイン・アンブロキソール・トラネキサム酸・レボセチリジン・アセトアミノフェン・セチリジン・モンテルカスト・デスロラタジン・オロパタジン・プランルカストを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
+
+<section class="card"><div class="grid">
+<div><label>薬剤</label><select id="drug"><option value="cam">クラリスロマイシン</option><option value="amox">アモキシシリン</option><option value="carbo">カルボシステイン</option><option value="ambro">アンブロキソール</option><option value="txa">トラネキサム酸</option><option value="levo">レボセチリジン</option><option value="apap">アセトアミノフェン</option><option value="ceti">セチリジン</option><option value="mont">モンテルカスト</option><option value="desl">デスロラタジン</option><option value="olop">オロパタジン</option><option value="pran">プランルカスト</option><option value="lora">ロラタジン</option><option value="epi">エピナスチン</option><option value="fexo">フェキソフェナジン</option><option value="meq">メキタジン</option><option value="tulo">ツロブテロール</option><option value="cfpn">セフカペン</option><option value="cdtr">セフジトレン</option><option value="cpdx">セフポドキシム</option><option value="cfdn">セフジニル</option><option value="ccr">セファクロル</option><option value="tipe">チペピジン（アスベリン）</option><option value="sult">スルタミシリン（ユナシン）</option><option value="cephalex">セファレキシン</option><option value="ery">エリスロマイシン</option><option value="azi">アジスロマイシン</option><option value="faro">ファロペネム</option><option value="tebi">テビペネム ピボキシル</option><option value="fos">ホスホマイシン</option><option value="tosu">トスフロキサシン</option><option value="keto">ケトチフェン</option><option value="oxa">オキサトミド</option><option value="pemi">ペミロラスト</option><option value="tran">トラニラスト</option><option value="domp">ドンペリドン</option><option value="acy">アシクロビル</option><option value="osel">オセルタミビル</option><option value="lani">ラニナミビル</option><option value="zana">ザナミビル</option><option value="balo">バロキサビル</option><option value="theo">テオフィリン</option><option value="proc">プロカテロール</option><option value="tulooral">ツロブテロール経口</option><option value="clem">クレマスチン</option><option value="dime">ジメモルファン</option><option value="vala">バラシクロビル</option><option value="levet">レベチラセタム</option><option value="mela">メラトニン</option><option value="rupa">ルパタジン</option><option value="meto">メトクロプラミド</option></select></div>
+<div><label>製剤・規格</label><select id="product"></select></div>
+<div><label>適応</label><select id="ind"></select></div>
+<div><label>年齢</label><select id="age">
+<option value="0.25">3か月</option><option value="0.5">6か月</option><option value="0.75">9か月</option>
+<option value="0">0歳</option><option value="1">1歳</option><option value="2">2歳</option><option value="3">3歳</option><option value="4">4歳</option><option value="5" selected>5歳</option><option value="6">6歳</option><option value="7">7歳</option><option value="8">8歳</option><option value="9">9歳</option><option value="10">10歳</option><option value="11">11歳</option><option value="12">12歳</option><option value="13">13歳</option><option value="14">14歳</option><option value="15">15歳</option><option value="16">16歳</option><option value="17">17歳</option><option value="18">18歳</option>
+</select></div>
+<div><label>体重</label><select id="wt">
+<option value="4">4 kg</option><option value="5">5 kg</option><option value="6">6 kg</option><option value="7">7 kg</option><option value="8">8 kg</option><option value="9">9 kg</option><option value="10">10 kg</option><option value="11">11 kg</option><option value="12">12 kg</option><option value="13">13 kg</option><option value="14">14 kg</option><option value="15">15 kg</option><option value="16">16 kg</option><option value="17">17 kg</option><option value="18" selected>18 kg</option><option value="19">19 kg</option><option value="20">20 kg</option><option value="21">21 kg</option><option value="22">22 kg</option><option value="23">23 kg</option><option value="24">24 kg</option><option value="25">25 kg</option><option value="26">26 kg</option><option value="27">27 kg</option><option value="28">28 kg</option><option value="29">29 kg</option><option value="30">30 kg</option><option value="31">31 kg</option><option value="32">32 kg</option><option value="33">33 kg</option><option value="34">34 kg</option><option value="35">35 kg</option><option value="36">36 kg</option><option value="37">37 kg</option><option value="38">38 kg</option><option value="39">39 kg</option><option value="40">40 kg</option><option value="41">41 kg</option><option value="42">42 kg</option><option value="43">43 kg</option><option value="44">44 kg</option><option value="45">45 kg</option><option value="46">46 kg</option><option value="47">47 kg</option><option value="48">48 kg</option><option value="49">49 kg</option><option value="50">50 kg</option><option value="51">51 kg</option><option value="52">52 kg</option><option value="53">53 kg</option><option value="54">54 kg</option><option value="55">55 kg</option><option value="56">56 kg</option><option value="57">57 kg</option><option value="58">58 kg</option><option value="59">59 kg</option><option value="60">60 kg</option>
+</select></div>
+<div><label>身長 cm（BSA算出・任意）</label><input id="ht" type="number" min="30" max="220" step=".1" value=""></div>
+<div><label id="amountLabel">処方製剤量 g/day</label><input id="amount" type="number" min="0" step=".01" value="2.7"></div>
+<div><label>分割</label><select id="freq"><option value="2">分2</option><option value="3">分3</option></select></div>
+</div><div id="out" class="out"></div></section>
+
+<section class="card"><b>監査ロジック</b><div class="sub">
+① 製剤量→成分量換算　② 薬剤固有の承認小児用量・分割・上限を判定　③ 1回量を算出　④ 成人標準量から古典的換算式を並列計算　⑤ 承認量と換算値の位置関係を補助表示。<br>
+CAM：一般感染症10–15 mg/kg/day（分2～3）、レジオネラ15 mg/kg/day、播種性MAC 15 mg/kg/day（分2）。<br>
+AMPC：ヘリコバクター・ピロリ感染を除く感染症で20–40 mg/kg/day（分3～4）、最大90 mg/kg/day。<br>カルボシステイン：幼・小児30 mg/kg/day（分3）、年齢・体重・症状により適宜増減。<br>アンブロキソール：0.9 mg/kg/day（分3）。<br>トラネキサム酸：年齢別1日量を分3～4。<br>レボセチリジン：6か月以上で年齢別固定量。<br>アセトアミノフェン：1回10～15 mg/kg、4～6時間以上あけ、1日60 mg/kgまで。<br>セチリジン：2～6歳2.5mg×2、7～14歳5mg×2。<br>モンテルカスト：1～5歳4mg 1日1回。<br>デスロラタジン：12歳以上5mg 1日1回。<br>オロパタジン：2～6歳2.5mg×2、7歳以上5mg×2。<br>プランルカスト：7mg/kg/day・分2、最大10mg/kg/dayかつ450mg/day。
+</div></section>
+</main><script>
+const $=x=>document.getElementById(x);
+const DB={
+ cam:{
+  products:{
+   ds10:{label:"ドライシロップ10%小児用",unit:"g",mgPerUnit:100,defaultAmount:2.7},
+   tab50:{label:"錠50mg小児用",unit:"錠",mgPerUnit:50,defaultAmount:5}
+  },
+  indications:{
+   general:{label:"一般感染症",lo:w=>10*w,hi:w=>Math.min(15*w,400),freq:[2,3],desc:"一般感染症 10–15 mg/kg/day・分2～3・最大400 mg/day"},
+   legionella:{label:"レジオネラ肺炎",lo:w=>Math.min(15*w,400),hi:w=>Math.min(15*w,400),freq:[2,3],desc:"レジオネラ肺炎 15 mg/kg/day・分2～3"},
+   mac:{label:"播種性MAC症（AIDSに伴う）",lo:w=>15*w,hi:w=>15*w,freq:[2],desc:"播種性MAC症 15 mg/kg/day・分2"}
+  },
+  adult:[400,400],source:"PMDA クラリスロマイシン小児用電子添文"
+ },
+ amox:{
+  products:{
+   gran10:{label:"細粒10%",unit:"g",mgPerUnit:100,defaultAmount:3.6},
+   gran20:{label:"細粒20%",unit:"g",mgPerUnit:200,defaultAmount:1.8},
+   cap125:{label:"カプセル125mg",unit:"カプセル",mgPerUnit:125,defaultAmount:3},
+   cap250:{label:"カプセル250mg",unit:"カプセル",mgPerUnit:250,defaultAmount:3},
+   tab250:{label:"錠250mg",unit:"錠",mgPerUnit:250,defaultAmount:3}
+  },
+  indications:{
+   general:{label:"ヘリコバクター・ピロリ感染を除く感染症",lo:w=>20*w,hi:w=>40*w,max:w=>90*w,freq:[3,4],desc:"通常20–40 mg/kg/day・分3～4。適宜増減可、最大90 mg/kg/day"}
+  },
+  adult:[750,1000],source:"PMDA アモキシシリン水和物製剤電子添文"
+ },
+ carbo:{
+  products:{
+   syrup5:{label:"シロップ小児用5%",unit:"mL",mgPerUnit:50,defaultAmount:10.8},
+   ds50:{label:"ドライシロップ50%",unit:"g",mgPerUnit:500,defaultAmount:1.08}
+  },
+  indications:{
+   general:{label:"去痰／慢性副鼻腔炎の排膿／滲出性中耳炎の排液",lo:(w,a)=>30*w,hi:(w,a)=>30*w,freq:[3],desc:"通常30 mg/kg/day・分3。年齢・体重・症状により適宜増減"}
+  },
+  adult:[1500,1500],source:"PMDA カルボシステイン製剤電子添文（小児用5%シロップ／DS50%）"
+ },
+ ambro:{
+  products:{ds15:{label:"ドライシロップ1.5%",unit:"g",mgPerUnit:15,defaultAmount:1.08}},
+  indications:{general:{label:"去痰（急性気管支炎・気管支喘息）",lo:(w,a)=>0.9*w,hi:(w,a)=>0.9*w,freq:[3],desc:"通常0.9 mg/kg/day（製剤0.06 g/kg/day）・分3"}},
+  adult:[45,45],source:"PMDA アンブロキソール塩酸塩DS1.5%電子添文"
+ },
+ txa:{
+  products:{syrup5:{label:"シロップ5%",unit:"mL",mgPerUnit:50,defaultAmount:10}},
+  indications:{general:{label:"トラネキサム酸の承認適応",lo:(w,a)=>a<2?75:a<4?150:a<7?250:a<15?400:750,hi:(w,a)=>a<2?200:a<4?350:a<7?650:a<15?1000:2000,freq:[3,4],desc:"年齢別承認1日量・分3～4"}},
+  adult:[750,2000],source:"PMDA トラネキサム酸シロップ5%電子添文"
+ },
+ levo:{
+  products:{syrup005:{label:"シロップ0.05%",unit:"mL",mgPerUnit:0.5,defaultAmount:5},ds05:{label:"ドライシロップ0.5%",unit:"g",mgPerUnit:5,defaultAmount:0.5},tab25:{label:"錠/OD錠2.5mg",unit:"錠",mgPerUnit:2.5,defaultAmount:2},tab5:{label:"錠5mg",unit:"錠",mgPerUnit:5,defaultAmount:1}},
+  indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<0.5?NaN:a<1?1.25:a<7?2.5:a<15?5:5,hi:(w,a)=>a<0.5?NaN:a<1?1.25:a<7?2.5:a<15?5:5,freqByAge:a=>a<1?[1]:a<15?[2]:[1],desc:"6か月以上で年齢別固定量"}},
+  adult:[5,5],source:"PMDA レボセチリジン塩酸塩製剤電子添文"
+ },
+ apap:{
+  products:{ds20:{label:"ドライシロップ20%",unit:"g",mgPerUnit:200,defaultAmount:1.35},syrup2:{label:"シロップ2%",unit:"mL",mgPerUnit:20,defaultAmount:13.5}},
+  indications:{general:{label:"小児科領域の解熱・鎮痛",lo:(w,a)=>0,hi:(w,a)=>60*w,max:(w,a)=>60*w,freq:[1,2,3,4,5,6],perDoseLo:w=>10*w,perDoseHi:w=>15*w,desc:"1回10～15 mg/kg、投与間隔4～6時間以上、1日60 mg/kgまで"}},
+  adult:[4000,4000],source:"PMDA アセトアミノフェン小児用製剤電子添文"
+ },
+ ceti:{products:{ds125:{label:"ドライシロップ1.25%",unit:"g",mgPerUnit:12.5,defaultAmount:0.4},tab5:{label:"錠5mg",unit:"錠",mgPerUnit:5,defaultAmount:1},tab10:{label:"錠10mg",unit:"錠",mgPerUnit:10,defaultAmount:1}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<2?NaN:a<7?5:a<15?10:10,hi:(w,a)=>a<2?NaN:a<7?5:a<15?10:10,freqByAge:a=>a<15?[2]:[1],desc:"2～6歳：2.5mg×2、7～14歳：5mg×2"}},adult:[10,10],source:"PMDA セチリジン塩酸塩DS1.25%電子添文"},
+ mont:{products:{gran4:{label:"細粒4mg",unit:"包",mgPerUnit:4,defaultAmount:1},chew5:{label:"チュアブル錠5mg",unit:"錠",mgPerUnit:5,defaultAmount:1}},indications:{asthma:{label:"気管支喘息（1歳以上6歳未満）",lo:(w,a)=>a<1||a>=6?NaN:4,hi:(w,a)=>a<1||a>=6?NaN:4,freq:[1],desc:"1歳以上6歳未満：4mg 1日1回就寝前"}},adult:[10,10],source:"PMDA モンテルカスト細粒4mg電子添文"},
+ desl:{products:{tab5:{label:"錠5mg",unit:"錠",mgPerUnit:5,defaultAmount:1}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<12?NaN:5,hi:(w,a)=>a<12?NaN:5,freq:[1],desc:"12歳以上：5mg 1日1回"}},adult:[5,5],source:"PMDA デザレックス錠5mg電子添文"},
+ olop:{products:{gran05:{label:"顆粒0.5%",unit:"g",mgPerUnit:5,defaultAmount:1},tab25:{label:"錠2.5mg",unit:"錠",mgPerUnit:2.5,defaultAmount:2},tab5:{label:"錠5mg",unit:"錠",mgPerUnit:5,defaultAmount:2}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<2?NaN:a<7?5:10,hi:(w,a)=>a<2?NaN:a<7?5:10,freq:[2],desc:"2～6歳：2.5mg×2、7歳以上：5mg×2"}},adult:[10,10],source:"PMDA オロパタジン塩酸塩顆粒0.5%電子添文"},
+ pran:{products:{ds10:{label:"ドライシロップ10%",unit:"g",mgPerUnit:100,defaultAmount:1.26}},indications:{general:{label:"気管支喘息／アレルギー性鼻炎",lo:(w,a)=>7*w,hi:(w,a)=>Math.min(10*w,450),max:(w,a)=>Math.min(10*w,450),freq:[2],desc:"通常7mg/kg/day・分2。最高10mg/kg/day、ただし450mg/dayを超えない"}},adult:[450,450],source:"PMDA プランルカストDS10%電子添文"},
+ lora:{products:{ds1:{label:"ドライシロップ1%",unit:"g",mgPerUnit:10,defaultAmount:1},tab10:{label:"錠10mg",unit:"錠",mgPerUnit:10,defaultAmount:1},od10:{label:"OD錠10mg",unit:"錠",mgPerUnit:10,defaultAmount:1}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<3?NaN:a<7?5:10,hi:(w,a)=>a<3?NaN:a<7?5:10,freq:[1],desc:"3～6歳：5mg、7歳以上：10mg 1日1回"}},adult:[10,10],source:"PMDA ロラタジンDS1%電子添文"},
+ epi:{products:{ds1:{label:"ドライシロップ1%",unit:"g",mgPerUnit:10,defaultAmount:1},tab10:{label:"錠10mg",unit:"錠",mgPerUnit:10,defaultAmount:1},tab20:{label:"錠20mg",unit:"錠",mgPerUnit:20,defaultAmount:1}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>0.25*w,hi:(w,a)=>0.5*w,freq:[1],desc:"通常0.25～0.5mg/kg/day・分1"}},adult:[20,20],source:"PMDA エピナスチン塩酸塩小児用製剤電子添文"},
+ fexo:{products:{ds5:{label:"ドライシロップ5%",unit:"g",mgPerUnit:50,defaultAmount:1.2},tab30:{label:"錠30mg",unit:"錠",mgPerUnit:30,defaultAmount:2},tab60:{label:"錠60mg",unit:"錠",mgPerUnit:60,defaultAmount:2}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<0.5?NaN:a<2?30:a<7?60:a<12?60:120,hi:(w,a)=>a<0.5?NaN:a<2?30:a<7?60:a<12?60:120,freq:[2],desc:"6か月～1歳：15mg×2、2～11歳：30mg×2、12歳以上：60mg×2"}},adult:[120,120],source:"PMDA フェキソフェナジン塩酸塩DS5%電子添文"},
+ meq:{products:{syr003:{label:"小児用シロップ0.03%",unit:"mL",mgPerUnit:0.3,defaultAmount:6},gran06:{label:"小児用細粒0.6%",unit:"g",mgPerUnit:6,defaultAmount:0.3}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹等",lo:(w,a)=>0.12*w,hi:(w,a)=>0.12*w,freq:[2],desc:"通常0.12mg/kg/day・分2"}},adult:[6,6],source:"PMDA メキタジン小児用製剤電子添文"},
+ tulo:{products:{patch05:{label:"テープ0.5mg",unit:"枚",mgPerUnit:0.5,defaultAmount:1},patch1:{label:"テープ1mg",unit:"枚",mgPerUnit:1,defaultAmount:1},patch2:{label:"テープ2mg",unit:"枚",mgPerUnit:2,defaultAmount:1}},indications:{general:{label:"気管支喘息／急性・慢性気管支炎等",lo:(w,a)=>a<0.5?NaN:a<3?0.5:a<9?1:2,hi:(w,a)=>a<0.5?NaN:a<3?0.5:a<9?1:2,freq:[1],desc:"0.5～2歳：0.5mg、3～8歳：1mg、9歳以上：2mg 1日1回貼付"}},adult:[2,2],source:"PMDA ツロブテロールテープ電子添文"},
+ cfpn:{products:{gran10:{label:"小児用細粒10%",unit:"g",mgPerUnit:100,defaultAmount:1.62}},indications:{general:{label:"一般感染症",lo:(w,a)=>9*w,hi:(w,a)=>9*w,freq:[3],desc:"通常1回3mg/kgを1日3回"},severe:{label:"難治性・効果不十分",lo:(w,a)=>13.5*w,hi:(w,a)=>18*w,freq:[3],desc:"必要に応じ1回4.5～6mg/kgを1日3回"}},adult:[300,300],source:"PMDA セフカペン ピボキシル小児用細粒10%電子添文"},
+ cdtr:{products:{gran10:{label:"小児用細粒10%",unit:"g",mgPerUnit:100,defaultAmount:1.62}},indications:{general:{label:"一般感染症",lo:(w,a)=>9*w,hi:(w,a)=>9*w,freq:[3],desc:"通常1回3mg/kgを1日3回"},resp:{label:"肺炎・中耳炎・副鼻腔炎",lo:(w,a)=>18*w,hi:(w,a)=>18*w,freq:[3],desc:"通常1回6mg/kgを1日3回"}},adult:[300,300],source:"PMDA セフジトレン ピボキシル小児用細粒10%電子添文"},
+ cpdx:{products:{ds5:{label:"ドライシロップ5%",unit:"g",mgPerUnit:50,defaultAmount:3.6}},indications:{general:{label:"一般感染症",lo:(w,a)=>6*w,hi:(w,a)=>6*w,freq:[2,3],desc:"通常1回3mg/kgを1日2～3回"}},adult:[200,400],source:"PMDA セフポドキシム プロキセチルDS5%電子添文"},
+ cfdn:{products:{gran10:{label:"細粒10%",unit:"g",mgPerUnit:100,defaultAmount:1.62}},indications:{general:{label:"一般感染症",lo:(w,a)=>9*w,hi:(w,a)=>18*w,freq:[3],desc:"通常1回3～6mg/kgを1日3回"}},adult:[300,300],source:"PMDA セフジニル細粒10%小児用電子添文"},
+ ccr:{products:{gran20:{label:"細粒小児用20%",unit:"g",mgPerUnit:200,defaultAmount:1.8}},indications:{general:{label:"一般感染症",lo:(w,a)=>20*w,hi:(w,a)=>40*w,freq:[3],desc:"通常20～40mg/kg/dayを3回に分割"}},adult:[750,750],source:"PMDA セファクロル細粒小児用20%電子添文"},
+ tipe:{products:{syr05:{label:"シロップ0.5%",unit:"mL",mgPerUnit:5,defaultAmount:9},pow10:{label:"散10%",unit:"g",mgPerUnit:100,defaultAmount:0.45}},indications:{general:{label:"鎮咳・去痰",lo:(w,a)=>a<1?5:a<3?15:a<6?20:a<15?30:60,hi:(w,a)=>a<1?20:a<3?45:a<6?60:a<15?90:120,freq:[3],desc:"年齢別1日量を3回に分割。年齢・症状により適宜増減"}},adult:[60,120],source:"PMDA アスベリン（チペピジンヒベンズ酸塩）電子添文"},
+ sult:{products:{gran10:{label:"ユナシン細粒小児用10%",unit:"g",mgPerUnit:100,defaultAmount:2.7}},indications:{general:{label:"一般感染症",lo:(w,a)=>15*w,hi:(w,a)=>30*w,freq:[3],desc:"スルタミシリンとして15～30mg/kg/day・分3"}},adult:[750,1125],source:"PMDA ユナシン細粒小児用10%電子添文"},
+ cephalex:{products:{ds10:{label:"DS小児用10%",unit:"g",mgPerUnit:100,defaultAmount:5},ds20:{label:"DS小児用20%",unit:"g",mgPerUnit:200,defaultAmount:2.5},ds50:{label:"DS小児用50%",unit:"g",mgPerUnit:500,defaultAmount:1}},indications:{general:{label:"一般感染症",lo:(w,a)=>25*w,hi:(w,a)=>50*w,freq:[4],desc:"25～50mg/kg/dayを6時間毎に分割"},severe:{label:"重症／感受性が低い場合",lo:(w,a)=>50*w,hi:(w,a)=>100*w,freq:[4],desc:"50～100mg/kg/dayを6時間毎に分割"}},adult:[1000,4000],source:"PMDA セファレキシン小児用製剤電子添文"},
+ ery:{products:{ds10:{label:"ドライシロップ10%",unit:"g",mgPerUnit:100,defaultAmount:5},gran20:{label:"W顆粒20%",unit:"g",mgPerUnit:200,defaultAmount:2.5}},indications:{general:{label:"一般感染症",lo:(w,a)=>25*w,hi:(w,a)=>50*w,freq:[4,5,6],desc:"25～50mg/kg/dayを4～6回に分割。成人量を上限"}},adult:[800,1200],source:"PMDA エリスロマイシン経口製剤電子添文"},
+ azi:{products:{gran10:{label:"細粒小児用10%",unit:"g",mgPerUnit:100,defaultAmount:1.8}},indications:{general:{label:"一般感染症",lo:(w,a)=>Math.min(10*w,500),hi:(w,a)=>Math.min(10*w,500),freq:[1],desc:"10mg/kg 1日1回、3日間。最大500mg/day"}},adult:[500,500],source:"PMDA アジスロマイシン小児用製剤電子添文"},
+ faro:{products:{ds10:{label:"ドライシロップ小児用10%",unit:"g",mgPerUnit:100,defaultAmount:2.7}},indications:{general:{label:"一般感染症",lo:(w,a)=>15*w,hi:(w,a)=>30*w,max:(w,a)=>Math.min(30*w,900),freq:[3],desc:"通常1回5mg/kg×3。増量時1回10mg/kgまで、成人上限1回300mg・900mg/day"}},adult:[450,900],source:"PMDA ファロムドライシロップ小児用10%電子添文"},
+ tebi:{products:{gran10:{label:"オラペネム小児用細粒10%",unit:"g",mgPerUnit:100,defaultAmount:1.44}},indications:{general:{label:"肺炎／中耳炎／副鼻腔炎",lo:(w,a)=>8*w,hi:(w,a)=>8*w,freq:[2],desc:"通常1回4mg/kgを1日2回"},high:{label:"高用量",lo:(w,a)=>12*w,hi:(w,a)=>12*w,freq:[2],desc:"必要時1回6mg/kgを1日2回"}},adult:null,source:"PMDA オラペネム小児用細粒10%電子添文"},
+ fos:{products:{ds20:{label:"ドライシロップ20%",unit:"g",mgPerUnit:200,defaultAmount:5.4},ds40:{label:"ドライシロップ40%",unit:"g",mgPerUnit:400,defaultAmount:2.7}},indications:{general:{label:"一般感染症",lo:(w,a)=>40*w,hi:(w,a)=>120*w,freq:[3,4],desc:"40～120mg/kg/dayを3～4回に分割"}},adult:[2000,3000],source:"PMDA ホスホマイシンカルシウム小児用製剤電子添文"},
+ tosu:{products:{gran15:{label:"細粒小児用15%",unit:"g",mgPerUnit:150,defaultAmount:1.44}},indications:{general:{label:"肺炎／中耳炎等",lo:(w,a)=>12*w,hi:(w,a)=>12*w,max:(w,a)=>Math.min(12*w,360),freq:[2],desc:"1回6mg/kgを1日2回。1回180mgを上限"}},adult:[300,450],source:"PMDA トスフロキサシントシル酸塩小児用細粒15%電子添文"},
+ keto:{products:{ds01:{label:"DS小児用0.1%",unit:"g",mgPerUnit:1,defaultAmount:1.08}},indications:{general:{label:"気管支喘息／アレルギー性鼻炎／皮膚疾患",lo:(w,a)=>0.06*w,hi:(w,a)=>0.06*w,freq:[2],desc:"ケトチフェンとして0.06mg/kg/day・分2"}},adult:[2,2],source:"PMDA ケトチフェンDS小児用0.1%電子添文"},
+ oxa:{products:{ds2:{label:"DS小児用2%",unit:"g",mgPerUnit:20,defaultAmount:0.9}},indications:{general:{label:"気管支喘息／皮膚疾患",lo:(w,a)=>1*w,hi:(w,a)=>1*w,freq:[2],desc:"通常1mg/kg/day・分2"}},adult:[60,60],source:"PMDA オキサトミドDS小児用2%電子添文"},
+ pemi:{products:{ds05:{label:"ドライシロップ0.5%",unit:"g",mgPerUnit:5,defaultAmount:1.44}},indications:{asthma:{label:"気管支喘息",lo:(w,a)=>0.4*w,hi:(w,a)=>0.4*w,freq:[2],desc:"1回0.2mg/kgを1日2回"},rhinitis:{label:"アレルギー性鼻炎",lo:(w,a)=>0.2*w,hi:(w,a)=>0.2*w,freq:[2],desc:"1回0.1mg/kgを1日2回"}},adult:[20,20],source:"PMDA ペミロラストカリウムDS0.5%電子添文"},
+ tran:{products:{gran10:{label:"細粒10%",unit:"g",mgPerUnit:100,defaultAmount:0.9},ds5:{label:"ドライシロップ5%",unit:"g",mgPerUnit:50,defaultAmount:1.8}},indications:{general:{label:"気管支喘息／アレルギー性鼻炎／アトピー性皮膚炎",lo:(w,a)=>5*w,hi:(w,a)=>5*w,freq:[3],desc:"トラニラストとして5mg/kg/day・分3"}},adult:[300,300],source:"PMDA リザベン細粒10%／DS5%電子添文"},
+ domp:{products:{ds1:{label:"ドライシロップ1%",unit:"g",mgPerUnit:10,defaultAmount:2.7}},indications:{general:{label:"悪心・嘔吐等",lo:(w,a)=>1*w,hi:(w,a)=>2*w,freq:[3],desc:"1～2mg/kg/dayを3回に分割"}},adult:[30,60],source:"PMDA ナウゼリンドライシロップ1%電子添文"},
+ acy:{products:{gran40:{label:"顆粒40%",unit:"g",mgPerUnit:400,defaultAmount:1.8}},indications:{
+  simple:{label:"単純疱疹",lo:(w,a)=>4*Math.min(20*w,200),hi:(w,a)=>4*Math.min(20*w,200),freq:[4],desc:"1回20mg/kgを1日4回。1回最大200mg"},
+  vzv:{label:"帯状疱疹／水痘",lo:(w,a)=>4*Math.min(20*w,800),hi:(w,a)=>4*Math.min(20*w,800),freq:[4],desc:"1回20mg/kgを1日4回。1回最大800mg"},
+  genital:{label:"性器ヘルペス再発抑制",lo:(w,a)=>4*Math.min(20*w,200),hi:(w,a)=>4*Math.min(20*w,200),freq:[4],desc:"1回20mg/kgを1日4回。1回最大200mg"}
+ },adult:[800,3200],source:"PMDA ゾビラックス顆粒40%電子添文（2026年2月）"},
+ osel:{products:{ds3:{label:"ドライシロップ3%",unit:"g",mgPerUnit:30,defaultAmount:2.4}},indications:{
+  treat:{label:"インフルエンザ治療",lo:(w,a)=>2*Math.min((a<1?3:2)*w,75),hi:(w,a)=>2*Math.min((a<1?3:2)*w,75),freq:[2],desc:"治療：幼小児2mg/kg/回、1歳未満3mg/kg/回を1日2回・5日間。1回最大75mg"},
+  prevent:{label:"インフルエンザ予防（1歳以上）",lo:(w,a)=>a<1?NaN:Math.min(2*w,75),hi:(w,a)=>a<1?NaN:Math.min(2*w,75),freq:[1],desc:"予防：1歳以上の幼小児2mg/kg/回を1日1回・10日間。1回最大75mg"}
+ },adult:[75,150],source:"PMDA タミフルドライシロップ3%電子添文"},
+ lani:{products:{inh20:{label:"吸入粉末剤20mg",unit:"容器",mgPerUnit:20,defaultAmount:1}},indications:{
+  treat:{label:"インフルエンザ治療",lo:(w,a)=>a<10?20:40,hi:(w,a)=>a<10?20:40,freq:[1],desc:"10歳未満20mg、10歳以上40mgを単回吸入"},
+  prevent:{label:"インフルエンザ予防",lo:(w,a)=>a<10?20:40,hi:(w,a)=>a<10?20:40,freq:[1],desc:"10歳未満20mg単回。10歳以上は40mg単回（又は20mgを1日1回2日間）"}
+ },adult:[40,40],source:"PMDA イナビル吸入粉末剤20mg電子添文"},
+ zana:{products:{bl5:{label:"吸入5mgブリスター",unit:"ブリスター",mgPerUnit:5,defaultAmount:4}},indications:{
+  treat:{label:"インフルエンザ治療",lo:(w,a)=>20,hi:(w,a)=>20,freq:[2],desc:"1回10mg（2ブリスター）を1日2回・5日間"},
+  prevent:{label:"インフルエンザ予防",lo:(w,a)=>10,hi:(w,a)=>10,freq:[1],desc:"1回10mg（2ブリスター）を1日1回・10日間"}
+ },adult:[20,20],source:"PMDA リレンザ電子添文"},
+ balo:{products:{gran2:{label:"顆粒2%分包（10mg/0.5g）",unit:"g",mgPerUnit:20,defaultAmount:0.5},tab10:{label:"錠10mg",unit:"錠",mgPerUnit:10,defaultAmount:1},tab20:{label:"錠20mg",unit:"錠",mgPerUnit:20,defaultAmount:1}},indications:{
+  treat:{label:"インフルエンザ治療（単回）",lo:(w,a)=>a<12?(w<10?w:(w<20?10:(w<40?20:40))):(w<80?40:80),hi:(w,a)=>a<12?(w<10?w:(w<20?10:(w<40?20:40))):(w<80?40:80),freq:[1],desc:"単回投与。12歳未満：<10kgは1mg/kg、10～<20kg 10mg、20～<40kg 20mg、≥40kg 40mg。12歳以上：<80kg 40mg、≥80kg 80mg"}
+ },adult:null,source:"PMDA ゾフルーザ錠・顆粒電子添文（2026年2月）"},
+ theo:{products:{ds20:{label:"徐放性ドライシロップ20%",unit:"g",mgPerUnit:200,defaultAmount:0.9}},indications:{general:{label:"気管支喘息／喘息性気管支炎",lo:(w,a)=>8*w,hi:(w,a)=>16*w,freq:[2],desc:"1回4～8mg/kgを1日2回。血中濃度モニタリング推奨"}},adult:[400,400],source:"PMDA テオフィリン徐放性DS小児用20%電子添文"},
+ proc:{products:{syr:{label:"シロップ5μg/mL",unit:"mL",mgPerUnit:0.005,defaultAmount:4.5}},indications:{general:{label:"気管支喘息／気管支炎等",lo:(w,a)=>a<6?0.0025*w:0.025,hi:(w,a)=>a<6?0.00375*w:0.05,freqByAge:a=>a<6?[2,3]:[1,2],desc:"6歳未満：1回1.25μg/kgを1日2～3回。6歳以上：25μgを1日1～2回"}},adult:[0.05,0.05],source:"PMDA プロカテロール塩酸塩シロップ電子添文"},
+ tulooral:{products:{ds01:{label:"ドライシロップ0.1%",unit:"g",mgPerUnit:1,defaultAmount:0.72}},indications:{general:{label:"気管支喘息／気管支炎等",lo:(w,a)=>0.04*w,hi:(w,a)=>0.04*w,freq:[2],desc:"ツロブテロールとして0.04mg/kg/day・分2"}},adult:[2,2],source:"PMDA ホクナリンDS0.1%小児用電子添文"},
+ clem:{products:{syr001:{label:"シロップ0.01%",unit:"mL",mgPerUnit:0.1,defaultAmount:7}},indications:{general:{label:"アレルギー性鼻炎／皮膚疾患／上気道炎症状",lo:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1.0:a<15?1.3:2.0,hi:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1.0:a<15?1.3:2.0,freq:[2],desc:"年齢別1日量：1～<3歳4mL、3～<5歳5mL、5～<8歳7mL、8～<11歳10mL、11～<15歳13mL"}},adult:[2,2],source:"PMDA クレマスチンシロップ0.01%電子添文"},
+ dime:{products:{syr025:{label:"シロップ0.25%",unit:"mL",mgPerUnit:2.5,defaultAmount:9},ds25:{label:"DS小児用2.5%",unit:"g",mgPerUnit:25,defaultAmount:0.9}},indications:{general:{label:"上気道炎／急性気管支炎／肺炎に伴う鎮咳",lo:(w,a)=>a<2?7.5:a<4?12.5:a<7?20:a<15?30:NaN,hi:(w,a)=>a<2?11.25:a<4?20:a<7?27.5:a<15?35:NaN,freq:[3],desc:"年齢別1日量を3回に分割"}},adult:[60,90],source:"PMDA ジメモルファンリン酸塩小児用シロップ0.25%／DS2.5%電子添文"},
+ vala:{products:{gran50:{label:"バルトレックス顆粒50%",unit:"g",mgPerUnit:500,defaultAmount:1.5}},indications:{vzv:{label:"水痘／帯状疱疹",lo:(w,a)=>3*Math.min(25*w,1000),hi:(w,a)=>3*Math.min(25*w,1000),freq:[3],desc:"1回25mg/kgを1日3回。1回最大1000mg"}},adult:[3000,3000],source:"PMDA バルトレックス顆粒50%電子添文（2026年2月）"},
+ levet:{products:{ds50:{label:"イーケプラDS50%",unit:"g",mgPerUnit:500,defaultAmount:0.72}},indications:{general:{label:"部分発作等（4歳以上・50kg未満）",lo:(w,a)=>a<4?NaN:20*w,hi:(w,a)=>a<4?NaN:60*w,max:(w,a)=>a<4?NaN:60*w,freq:[2],desc:"4歳以上50kg未満：20mg/kg/dayから開始、最大60mg/kg/day・分2"}},adult:[1000,3000],source:"PMDA イーケプラDS50%電子添文"},
+ mela:{products:{gran02:{label:"顆粒0.2%",unit:"g",mgPerUnit:2,defaultAmount:0.5},tab1:{label:"錠1mg",unit:"錠",mgPerUnit:1,defaultAmount:1},tab2:{label:"錠2mg",unit:"錠",mgPerUnit:2,defaultAmount:1}},indications:{general:{label:"神経発達症に伴う入眠困難（6～15歳）",lo:(w,a)=>a<6||a>=16?NaN:1,hi:(w,a)=>a<6||a>=16?NaN:4,max:(w,a)=>4,freq:[1],desc:"1mg 1日1回就寝前から開始。最大4mg/day"}},adult:null,source:"PMDA メラトベル顆粒/錠小児用電子添文"},
+ rupa:{products:{tab10:{label:"ルパフィン錠10mg",unit:"錠",mgPerUnit:10,defaultAmount:1}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒（12歳以上）",lo:(w,a)=>a<12?NaN:10,hi:(w,a)=>a<12?NaN:20,max:(w,a)=>20,freq:[1],desc:"12歳以上：10mg 1日1回。症状により20mgまで増量可"}},adult:[10,20],source:"PMDA ルパフィン錠10mg電子添文"},
+ meto:{products:{syr01:{label:"プリンペランシロップ0.1%",unit:"mL",mgPerUnit:0.767,defaultAmount:9}},indications:{general:{label:"乳幼児嘔吐等",lo:(w,a)=>0.38*w,hi:(w,a)=>0.53*w,freq:[2,3],desc:"メトクロプラミドとして0.38～0.53mg/kg/day・分2～3。製剤量では0.5～0.7mL/kg/day"}},adult:[7.67,23.04],source:"PMDA プリンペランシロップ0.1%電子添文（2026年8月）"}
+};
+const PRACTICE={
+ cypro:{dose:(w,a)=>0.25*w,freq:[3],label:"0.25 mg/kg/day・分3",source:"日本小児科学会『不安・不眠・夜泣きを訴える子どもへの薬剤リスト』",sourceUrl:"https://www.jpeds.or.jp/uploads/files/kodomonokokoronotaiou.pdf",sourceType:"学会公開資料",note:"PMDA承認用量とは別の実務目安。小児科領域の処方例として掲載。"},
+ tipe:{dose:(w,a)=>2*w,freq:[3],label:"2 mg/kg/day・分3を目安",source:"治療薬ハンドブック（ユーザー提示値）",sourceType:"二次資料",note:"承認用量とは別レイヤー。公開一次資料で再検証予定"},
+ ambro:{dose:(w,a)=>0.9*w,freq:[3],label:"0.9 mg/kg/day・分3",source:"神戸市立医療センター西市民病院『小児薬用量』",sourceUrl:"https://nmc.kcho.jp/data/media/nmc-kcho/page/department/pharmacy-2/d012bf25fc1fde449f128ef5e969ebe9.pdf",sourceType:"病院薬剤部公開資料"},
+ carbo:{dose:(w,a)=>30*w,freq:[3],label:"30 mg/kg/day・分3",source:"神戸市立医療センター西市民病院『小児薬用量』",sourceUrl:"https://nmc.kcho.jp/data/media/nmc-kcho/page/department/pharmacy-2/d012bf25fc1fde449f128ef5e969ebe9.pdf",sourceType:"病院薬剤部公開資料"}
+};
+function vh(a){if(a<0.08)return .125;if(a<0.75)return .2;if(a<2)return .25;if(a<5)return 1/3;if(a<10)return .5;if(a<15)return 2/3;return 1}
+function fmtDose(x){if(!Number.isFinite(x))return "—";const a=Math.abs(x),d=a<.1?3:a<1?2:a<10?1:0;return String(Number(x.toFixed(d)))}
+function fmt(x,d=1){return Number.isFinite(x)?(d<=1&&x!==0&&Math.abs(x)<1?fmtDose(x):x.toFixed(d)):"—"}
+function range(v1,v2){return Math.abs(v1-v2)<.01?fmtDose(v1):fmtDose(Math.min(v1,v2))+"～"+fmtDose(Math.max(v1,v2))}
+function loadDrug(reset=true){
+ const d=DB[$("drug").value],p=$("product"),ind=$("ind");
+ p.innerHTML=Object.entries(d.products).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
+ ind.innerHTML=Object.entries(d.indications).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
+ if($("drug").value==="amox") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
+ else if(["carbo","ambro","cfpn","cdtr","cfdn","ccr","tipe","sult","faro","tran","domp","dime","vala"].includes($("drug").value)) $("freq").innerHTML='<option value="3">分3</option>';
+ else if($("drug").value==="fos") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
+ else if($("drug").value==="ery") $("freq").innerHTML='<option value="4">分4</option><option value="5">分5</option><option value="6">分6</option>';
+ else if($("drug").value==="cephalex") $("freq").innerHTML='<option value="4">分4</option>';
+ else if($("drug").value==="meto") $("freq").innerHTML='<option value="2">分2</option><option value="3">分3</option>';
+ else if($("drug").value==="txa") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
+ else if($("drug").value==="levo"){const a=+$("age").value;$("freq").innerHTML=a<1?'<option value="1">分1</option>':a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
+ else if($("drug").value==="apap") $("freq").innerHTML='<option value="1">1回</option><option value="2">2回</option><option value="3">3回</option><option value="4">4回</option><option value="5">5回</option><option value="6">6回</option>';
+ else if(["mont","desl","lora","epi","tulo","azi","lani","balo","mela","rupa"].includes($("drug").value)) $("freq").innerHTML='<option value="1">分1</option>';
+ else if(["olop","pran","fexo","meq","cpdx","tebi","tosu","keto","oxa","pemi","theo","tulooral","clem","levet"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
+ else if($("drug").value==="acy") $("freq").innerHTML='<option value="4">分4</option>';
+ else if($("drug").value==="zana") $("freq").innerHTML=$("ind").value==="prevent"?'<option value="1">分1</option>':'<option value="2">分2</option>';
+ else if($("drug").value==="osel") $("freq").innerHTML=$("ind").value==="prevent"?'<option value="1">分1</option>':'<option value="2">分2</option>';
+ else if($("drug").value==="ceti"){const a=+$("age").value;$("freq").innerHTML=a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
+ else if($("drug").value==="proc"){const a=+$("age").value;$("freq").innerHTML=a<6?'<option value="2">分2</option><option value="3">分3</option>':'<option value="1">分1</option><option value="2">分2</option>';}
+ else $("freq").innerHTML='<option value="2">分2</option><option value="3">分3</option>';
+ if(reset)$("amount").value=Object.values(d.products)[0].defaultAmount;
+ render();
+}
+function render(){
+ const key=$("drug").value,d=DB[key],p=d.products[$("product").value],ii=d.indications[$("ind").value];
+ const a=+$("age").value,w=+$("wt").value,h=+$("ht").value,q=+$("amount").value,f=+$("freq").value;
+ if(!p||!ii)return;
+ $("amountLabel").textContent="処方製剤量 "+p.unit+"/day";
+ const mg=q*p.mgPerUnit,kg=mg/w,oneMg=mg/f,oneProd=q/f;
+ const lo=ii.lo(w,a),hi=ii.hi(w,a),absoluteMax=ii.max?ii.max(w,a):hi;
+ const allowedFreq=ii.freqByAge?ii.freqByAge(a):ii.freq; const freqOK=allowedFreq.includes(f), withinUsual=Number.isFinite(lo)&&Number.isFinite(hi)?(mg>=lo-.01&&mg<=hi+.01):false, withinMax=mg<=absoluteMax+.01;
+ let cls="ok",verdict="承認された通常用量・分割の範囲内";
+ if(!freqOK||!withinUsual){cls="warn";verdict="要確認";} if(ii.perDoseLo){const pd=mg/f;if(pd<ii.perDoseLo(w,a)-.01||pd>ii.perDoseHi(w,a)+.01){cls="warn";verdict="1回量を要確認";}} if(!Number.isFinite(lo)||!Number.isFinite(hi)){cls="ng";verdict="この年齢・体重は対象外";}
+ else if(!withinMax||mg<lo*.8){cls="ng";verdict=!withinMax?"承認上限を超える":"通常用量から大きく外れる";}
+ const hasAdult=Array.isArray(d.adult); const [adLo,adHi]=hasAdult?d.adult:[NaN,NaN];
+ const calc=(adult,kind)=>{
+   if(kind==="aug")return adult*(4*a+20)/100;
+   if(kind==="young")return adult*a/(a+12);
+   if(kind==="clark")return adult*w/68;
+   if(kind==="von")return adult*vh(a);
+   const bsa=(h>0&&w>0)?Math.sqrt(h*w/3600):NaN; return Number.isFinite(bsa)?adult*bsa/1.73:NaN;
+ };
+ const rows=hasAdult?[["Augsberger-II","aug"],["Young","young"],["Clark","clark"],["von Harnack","von"],["BSA / Mosteller","bsa"]]
+  .map(([n,k])=>'<tr><td>'+n+'</td><td>'+range(calc(adLo,k),calc(adHi,k))+'</td><td>参考</td></tr>').join(""):'<tr><td colspan="3">成人標準量が設定されないため古典的換算は適用しません</td></tr>';
+ $("out").innerHTML=
+  '<div class="hero">判定：<span class="pill '+cls+'">'+verdict+'</span></div>'+
+  '<div>'+ii.desc+'</div>'+
+  '<div class="nums"><div class="num">製剤量<br><b>'+fmt(q,2)+' '+p.unit+'/day</b></div><div class="num">成分量<br><b>'+fmt(mg,1)+' mg/day</b></div><div class="num">体重換算<br><b>'+fmt(kg,1)+' mg/kg/day</b></div></div>'+
+  '<b>1回量：</b>'+fmt(oneMg,1)+' mg（製剤 '+fmt(oneProd,2)+' '+p.unit+'）× '+f+'回<br>'+
+  '<b>通常量：</b>'+range(lo,hi)+' mg/day'+(ii.max?'　<b>承認上限：</b>'+fmt(absoluteMax,0)+' mg/day':'')+
+  (PRACTICE[key]?('<div class="note" style="margin-top:8px"><b>実務目安：</b>'+PRACTICE[key].label+' → '+fmt(PRACTICE[key].dose(w,a),1)+' mg/day　<span class="pill">承認用量とは別</span><br><b>実務資料：</b>'+(PRACTICE[key].sourceUrl?'<a href="'+PRACTICE[key].sourceUrl+'" target="_blank" rel="noopener">'+PRACTICE[key].source+' ↗</a>':PRACTICE[key].source)+'（'+PRACTICE[key].sourceType+'）'+(PRACTICE[key].note?'<br>'+PRACTICE[key].note:'')+'</div>'):'')+
+  (!freqOK?' <span class="pill warn">分割回数も要確認</span>':'')+
+  '<table><thead><tr><th>補助換算</th><th>成人標準量からの推定 mg/day</th><th>位置づけ</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+  '<div class="note">'+(hasAdult?('古典的換算式は補助評価です。'+(adLo===adHi?'成人標準量 '+adLo+' mg/day':'成人標準量 '+adLo+'～'+adHi+' mg/day')+'を基準に換算し、承認された小児用量がある場合はそちらを主判定にします。'):'この薬は成人量からの古典的換算を行わず、承認された小児用量のみで監査します。')+'</div>'+
+  '<div class="note">出典：'+(d.sourceUrl?'<a href="'+d.sourceUrl+'" target="_blank" rel="noopener">'+d.source+' ↗</a>':d.source)+'。最終確認は最新電子添文・適応・患者背景に基づきます。</div>';
+}
+$("drug").onchange=()=>loadDrug(true);
+$("product").onchange=function(){const p=DB[$("drug").value].products[this.value];$("amount").value=p.defaultAmount;render()};
+$("ind").onchange=()=>{if(["osel","zana"].includes($("drug").value))loadDrug(false);else render();};["wt","ht","amount","freq"].forEach(id=>$(id).oninput=render); $("age").oninput=()=>{if(["levo","ceti","proc"].includes($("drug").value))loadDrug(false);else render();};
+loadDrug(true);
+</script><script src="image-batch-01.js"></script><script src="image-batch-02.js"></script><script src="nkdesk-batch-01.js"></script><script src="nkdesk-batch-02.js"></script><script src="nkdesk-final.js"></script><script src="image-batch-02-50.js"></script><script src="image-final.js"></script><script src="coverage-audit-2026-09.js"></script><script src="coverage-audit-local-2026-09.js"></script><script src="coverage-audit-final-fixes-2026-09.js"></script><script src="dose-audit-upgrades-2026-09.js"></script><script src="final-reconciliation-2026-09.js"></script><script src="drug-search-2026-09.js"></script><script src="formula-help-2026-09.js"></script><script src="frequency-interpretation-2026-09.js"></script><script src="oral-batch-01-2026-09.js"></script><script src="cephalexin-brands-2026-09.js"></script><script src="oral-batch-02-2026-09.js"></script><script src="pediatric-ui-clarity-2026-09.js"></script><script src="audit-dashboard-2026-09.js"></script><script src="pmda-audit-progress-2026-09.js"></script><script src="pmda-final-batch-01-2026-09.js"></script><script src="pmda-final-batch-02-2026-09.js"></script><script src="steroid-master-2026-09.js"></script><script src="pmda-final-batch-10-2026-09.js"></script><script src="pmda-final-batch-11-2026-09.js"></script><script src="pmda-final-batch-12-2026-09.js"></script><script src="pmda-final-batch-13-2026-09.js"></script><script src="pmda-final-batch-14-2026-09.js"></script>
+<script id="mobilePreviewEnhancer">
+(function(){
+  const mq=window.matchMedia("(max-width:650px)");
+  function enhance(){
+    if(!mq.matches) return;
+    const out=document.getElementById("out"); if(!out) return;
+    const nums=out.querySelector(".nums");
+    if(nums && !nums.previousElementSibling?.classList?.contains("mobileSectionLabel")){
+      const lab=document.createElement("div");
+      lab.className="mobileSectionLabel";
+      lab.textContent="今回の処方";
+      lab.style.cssText="font-weight:900;font-size:11px;margin-top:8px;margin-bottom:3px;color:#475467";
+      nums.before(lab);
+    }
+    const table=[...out.querySelectorAll("table")].find(t=>t.textContent.includes("補助換算"));
+    if(table && !table.previousElementSibling?.classList?.contains("mobileSectionLabel")){
+      const lab=document.createElement("div");
+      lab.className="mobileSectionLabel";
+      lab.textContent="補助換算｜成人標準量からの推定";
+      lab.style.cssText="font-weight:900;font-size:11px;margin-top:12px;margin-bottom:4px;color:#475467";
+      table.before(lab);
+    }
+    if(table && !table.nextElementSibling?.classList?.contains("mobileFormulaNote")){
+      const n=document.createElement("div");
+      n.className="mobileFormulaNote";
+      n.textContent="※ すべて補助的な参考値。承認小児用量を主判定に使用";
+      n.style.cssText="font-size:9px;line-height:1.4;color:#7b8794;margin:4px 2px 0";
+      table.after(n);
+    }
+  }
+  const oldRender=window.render;
+  if(typeof oldRender==="function"){
+    window.render=function(){ oldRender(); requestAnimationFrame(enhance); };
+  }
+  document.addEventListener("DOMContentLoaded",()=>setTimeout(enhance,0));
+  document.addEventListener("input",()=>setTimeout(enhance,0),true);
+  document.addEventListener("change",()=>setTimeout(enhance,0),true);
+})();
+</script>
+<script id="approvedDoseCardEnhancer">
+(function(){
+ function enhanceApproved(){
+  if(!matchMedia("(max-width:650px)").matches)return;
+  const out=document.getElementById("out"); if(!out)return;
+  const boxes=[...out.children].filter(x=>x.tagName==="DIV"&&x.textContent.includes("承認用法・用量")&&x.textContent.includes("判定の根拠"));
+  boxes.forEach(box=>{
+   if(box.dataset.mobileDone)return;
+   const d=DB[$("drug").value],ii=d.indications[$("ind").value],p=d.products[$("product").value];
+   const w=+$("wt").value,a=+$("age").value,f=+$("freq").value,q=+$("amount").value,mg=q*p.mgPerUnit;
+   const lo=ii.lo(w,a),hi=ii.hi(w,a),allowed=ii.freqByAge?ii.freqByAge(a):(ii.freq||[]);
+   const doseTxt=Number.isFinite(lo)&&Number.isFinite(hi)?(Math.abs(lo-hi)<.01?lo.toFixed(0):lo.toFixed(0)+"–"+hi.toFixed(0))+" mg":"—";
+   const absoluteDoseKeys=new Set(["dexa","beta"]);
+   const absoluteDose=absoluteDoseKeys.has($("drug").value)&&Number.isFinite(lo)&&Number.isFinite(hi);
+   const kgTxt=absoluteDose?"—":(Number.isFinite(lo)&&Number.isFinite(hi)&&w?((lo/w).toFixed(1)+(Math.abs(lo-hi)<.01?"":"–"+(hi/w).toFixed(1))):"—");
+   const freqTxt=allowed.length?allowed.map(x=>"分"+x).join("–"):"個別確認";
+   const doseOK=Number.isFinite(lo)&&Number.isFinite(hi)&&mg>=lo-.01&&mg<=hi+.01;
+   const freqOK=allowed.includes(f);
+   box.className="approvedBasisCard"; box.dataset.mobileDone="1";
+   box.innerHTML='<div class="approvedBasisTitle">承認用法・用量</div>'+
+    '<div class="approvedPremise"><div class="approvedPremiseTitle">この患者の承認量</div><div class="approvedPremiseMain">'+(absoluteDose?doseTxt+'/day（体重によらない承認1日量）':w+' kg × '+kgTxt+' mg/kg/day → '+doseTxt+'/day')+'</div></div>'+
+    '<table class="approvedCompare"><thead><tr><th></th><th>承認基準</th><th>今回</th></tr></thead><tbody>'+
+    '<tr><td>1日量</td><td>'+doseTxt+'/day</td><td class="match">'+mg.toFixed(0)+' mg/day '+(doseOK?'✓':'要確認')+'</td></tr>'+
+    '<tr><td>mg/kg/day</td><td>'+kgTxt+'</td><td class="match">'+(w?(mg/w).toFixed(absoluteDose?3:1):'—')+(absoluteDose?'（参考換算）':' '+(doseOK?'✓':'要確認'))+'</td></tr>'+
+    '<tr><td>分割</td><td>'+freqTxt+'</td><td class="match">分'+f+' '+(freqOK?'✓':'要確認')+'</td></tr>'+
+    '</tbody></table>';
+  });
+ }
+ const mo=new MutationObserver(()=>enhanceApproved());
+ document.addEventListener("DOMContentLoaded",()=>{const out=document.getElementById("out");if(out)mo.observe(out,{childList:true,subtree:false});setTimeout(enhanceApproved,0)});
+ document.addEventListener("input",()=>setTimeout(enhanceApproved,0),true);
+ document.addEventListener("change",()=>setTimeout(enhanceApproved,0),true);
+})();
+</script><script id="mobileRxAndDrugPickerJS">
+(function(){
+ function setup(){
+  const search=document.getElementById("drugSearch"), sel=document.getElementById("drug");
+  if(search && !document.getElementById("drugListBtn")){
+   const wrap=document.createElement("div");wrap.id="drugSearchWrap";wrap.style.display="flex";
+   search.parentNode.insertBefore(wrap,search);wrap.appendChild(search);
+   const b=document.createElement("button");b.id="drugListBtn";b.type="button";b.textContent="一覧から選択";wrap.appendChild(b);
+   const sheet=document.createElement("div");sheet.id="drugListSheet";sheet.innerHTML='<div id="drugListPanel"><div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 8px"><b>薬剤を選択</b><button id="drugListClose" type="button" style="border:0;background:transparent;font-size:20px">×</button></div><div id="drugCategoryTabs"></div><div id="drugListItems"></div></div>';document.body.appendChild(sheet);
+   const categoryMap={
+    cam:"抗菌薬",amox:"抗菌薬",cfpn:"抗菌薬",cdtr:"抗菌薬",cpdx:"抗菌薬",cfdn:"抗菌薬",ccr:"抗菌薬",sult:"抗菌薬",cephalex:"抗菌薬",ery:"抗菌薬",azi:"抗菌薬",faro:"抗菌薬",tebi:"抗菌薬",fos:"抗菌薬",tosu:"抗菌薬",
+    ceti:"抗アレルギー薬",mont:"抗アレルギー薬",desl:"抗アレルギー薬",olop:"抗アレルギー薬",pran:"抗アレルギー薬",lora:"抗アレルギー薬",epi:"抗アレルギー薬",fexo:"抗アレルギー薬",meq:"抗アレルギー薬",keto:"抗アレルギー薬",oxa:"抗アレルギー薬",pemi:"抗アレルギー薬",tran:"抗アレルギー薬",clem:"抗アレルギー薬",rupa:"抗アレルギー薬",
+    carbo:"呼吸器・鎮咳去痰",ambro:"呼吸器・鎮咳去痰",tipe:"呼吸器・鎮咳去痰",tulo:"呼吸器・鎮咳去痰",theo:"呼吸器・鎮咳去痰",proc:"呼吸器・鎮咳去痰",tulooral:"呼吸器・鎮咳去痰",dime:"呼吸器・鎮咳去痰",
+    apap:"解熱鎮痛・抗炎症",txa:"解熱鎮痛・抗炎症",
+    domp:"消化器",meto:"消化器",
+    acy:"抗ウイルス薬",osel:"抗ウイルス薬",lani:"抗ウイルス薬",zana:"抗ウイルス薬",balo:"抗ウイルス薬",vala:"抗ウイルス薬",
+    levet:"神経",mela:"神経",
+    pred:"ステロイド",beta:"ステロイド",dexa:"ステロイド"
+   };
+   const categoryOrder=["すべて","抗菌薬","抗アレルギー薬","呼吸器・鎮咳去痰","解熱鎮痛・抗炎症","消化器","抗ウイルス薬","ステロイド","神経","その他"];
+   const collator=new Intl.Collator("ja",{usage:"sort",sensitivity:"base"});
+   let activeCategory="すべて";
+   function renderDrugList(){
+    const opts=[...sel.options].map(o=>({value:o.value,label:o.textContent,cat:categoryMap[o.value]||"その他"})).sort((a,b)=>collator.compare(a.label,b.label));
+    const visible=activeCategory==="すべて"?opts:opts.filter(x=>x.cat===activeCategory);
+    const groups=activeCategory==="すべて"?categoryOrder.slice(1).filter(cat=>visible.some(x=>x.cat===cat)):[activeCategory];
+    document.getElementById("drugCategoryTabs").innerHTML=categoryOrder.filter(cat=>cat==="すべて"||opts.some(x=>x.cat===cat)).map(cat=>'<button type="button" class="drugCatTab'+(cat===activeCategory?' active':'')+'" data-cat="'+cat+'">'+cat+'</button>').join("");
+    document.getElementById("drugListItems").innerHTML=groups.map(cat=>'<div class="drugCatGroup"><div class="drugCatHead">'+cat+'</div>'+visible.filter(x=>x.cat===cat).map(x=>'<button type="button" data-v="'+x.value+'">'+x.label+'</button>').join("")+'</div>').join("");
+   }
+   b.onclick=()=>{activeCategory="すべて";renderDrugList();sheet.classList.add("open")};
+   sheet.onclick=e=>{if(e.target===sheet||e.target.id==="drugListClose")sheet.classList.remove("open");const cat=e.target.closest("[data-cat]");if(cat){activeCategory=cat.dataset.cat;renderDrugList();return;}const x=e.target.closest("[data-v]");if(x){sel.value=x.dataset.v;sel.dispatchEvent(new Event("change",{bubbles:true}));search.value=sel.options[sel.selectedIndex].textContent;sheet.classList.remove("open")}};
+  }
+ }
+ function enhance(){
+  if(!matchMedia("(max-width:650px)").matches)return;
+  const out=document.getElementById("out");if(!out)return;
+  const w=+document.getElementById("wt").value;
+  const d0=DB[$("drug").value],ii0=d0&&d0.indications[$("ind").value];
+  if(ii0&&ii0.desc){
+   [...out.childNodes].forEach(n=>{
+    if(n.nodeType===3 && n.textContent.trim()===String(ii0.desc).trim()) n.textContent="";
+    if(n.nodeType===1 && !n.classList.contains("rxLabelCard") && !n.classList.contains("approvedBasisCard") && n.textContent.trim()===String(ii0.desc).trim()) n.style.display="none";
+   });
+  }
+  const nums=out.querySelector(".nums");
+  if(nums&&!out.querySelector(".mobileWeightLine")){const x=document.createElement("div");x.className="mobileWeightLine";x.innerHTML='<span>体重</span><b>'+w+' kg</b>';nums.before(x)}
+  const d=DB[$("drug").value],ii=d&&d.indications[$("ind").value]; if(!d||!ii)return;
+  if(!out.querySelector(".rxLabelCard")){
+   const card=document.createElement("div");card.className="rxLabelCard";
+   card.innerHTML='<div class="rxLabelHead">添付文書の用法・用量</div><div class="rxLabelText">'+ii.desc+'</div><div class="rxLabelSource">出典：'+d.source+'</div>';
+   const basis=out.querySelector(".approvedBasisCard"); if(basis)basis.after(card); else out.appendChild(card);
+  }
+ }
+ document.addEventListener("DOMContentLoaded",()=>{setup();setTimeout(enhance,0);const out=document.getElementById("out");if(out)new MutationObserver(()=>enhance()).observe(out,{childList:true})});
+ document.addEventListener("input",()=>setTimeout(enhance,0),true);document.addEventListener("change",()=>setTimeout(enhance,0),true);
+})();
+</script><style id="steroidPracticeStyle">
+@media(max-width:650px){.practiceDoseCard{margin:8px 0;padding:10px;border:1px solid #dfe6ec;border-radius:11px;background:#fff}.practiceDoseTitle{font-size:10px;font-weight:900;color:#667085}.practiceDoseDisease{font-size:11px;font-weight:900;margin-top:3px}.practiceDoseMain{font-size:15px;font-weight:900;margin:3px 0}.practiceDoseNote{font-size:10px;line-height:1.55;color:#475467}.practiceDoseSource{font-size:9px;color:#667085;margin-top:5px}}</style>
+<script id="steroidPracticeCards">
+(function(){
+ function draw(){
+  if(!matchMedia("(max-width:650px)").matches||!window.STEROID_PRACTICE)return;
+  const out=document.getElementById("out"),key=document.getElementById("drug")?.value;if(!out)return;
+  out.querySelectorAll(".practiceDoseCard").forEach(x=>x.remove());
+  const items=window.STEROID_PRACTICE[key];if(!items)return;
+  const anchor=out.querySelector(".rxLabelCard")||out.querySelector(".approvedBasisCard");
+  items.slice().reverse().forEach(x=>{const d=document.createElement("div");d.className="practiceDoseCard";d.innerHTML='<div class="practiceDoseTitle">'+x.title+'</div>'+(x.disease?'<div class="practiceDoseDisease">'+x.disease+'</div>':'')+'<div class="practiceDoseMain">'+x.dose+'</div>'+(x.note?'<div class="practiceDoseNote">'+x.note+'</div>':'')+'<div class="practiceDoseSource">出典：'+x.source+'</div>';if(anchor)anchor.after(d);else out.appendChild(d);});
+ }
+ document.addEventListener("DOMContentLoaded",()=>{const out=document.getElementById("out");if(out)new MutationObserver(()=>setTimeout(draw,0)).observe(out,{childList:true});setTimeout(draw,50)});
+ document.addEventListener("change",()=>setTimeout(draw,0),true);
+})();
+</script></body></html>
