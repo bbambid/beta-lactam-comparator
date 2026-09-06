@@ -161,8 +161,9 @@ const PRACTICE={
  carbo:{dose:(w,a)=>30*w,freq:[3],label:"30 mg/kg/day・分3",source:"神戸市立医療センター西市民病院『小児薬用量』",sourceUrl:"https://nmc.kcho.jp/data/media/nmc-kcho/page/department/pharmacy-2/d012bf25fc1fde449f128ef5e969ebe9.pdf",sourceType:"病院薬剤部公開資料"}
 };
 function vh(a){if(a<0.08)return .125;if(a<0.75)return .2;if(a<2)return .25;if(a<5)return 1/3;if(a<10)return .5;if(a<15)return 2/3;return 1}
-function fmt(x,d=1){return Number.isFinite(x)?x.toFixed(d):"—"}
-function range(v1,v2){return Math.abs(v1-v2)<.01?fmt(v1,0):fmt(Math.min(v1,v2),0)+"～"+fmt(Math.max(v1,v2),0)}
+function fmtDose(x){if(!Number.isFinite(x))return "—";const a=Math.abs(x),d=a<.1?3:a<1?2:a<10?1:0;return String(Number(x.toFixed(d)))}
+function fmt(x,d=1){return Number.isFinite(x)?(d<=1&&x!==0&&Math.abs(x)<1?fmtDose(x):x.toFixed(d)):"—"}
+function range(v1,v2){return Math.abs(v1-v2)<.01?fmtDose(v1):fmtDose(Math.min(v1,v2))+"～"+fmtDose(Math.max(v1,v2))}
 function loadDrug(reset=true){
  const d=DB[$("drug").value],p=$("product"),ind=$("ind");
  p.innerHTML=Object.entries(d.products).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
@@ -196,8 +197,8 @@ function render(){
  const lo=ii.lo(w,a),hi=ii.hi(w,a),absoluteMax=ii.max?ii.max(w,a):hi;
  const allowedFreq=ii.freqByAge?ii.freqByAge(a):ii.freq; const freqOK=allowedFreq.includes(f), withinUsual=Number.isFinite(lo)&&Number.isFinite(hi)?(mg>=lo-.01&&mg<=hi+.01):false, withinMax=mg<=absoluteMax+.01;
  let cls="ok",verdict="承認された通常用量・分割の範囲内";
- if(!freqOK||!withinUsual){cls="warn";verdict="要確認";} if(ii.perDoseLo){const pd=mg/f;if(pd<ii.perDoseLo(w)-.01||pd>ii.perDoseHi(w)+.01){cls="warn";verdict="1回量を要確認";}} if(!Number.isFinite(lo)||!Number.isFinite(hi)){cls="ng";verdict="この年齢は対象外";}
- if(!withinMax||mg<lo*.8){cls="ng";verdict=!withinMax?"承認上限を超える":"通常用量から大きく外れる";}
+ if(!freqOK||!withinUsual){cls="warn";verdict="要確認";} if(ii.perDoseLo){const pd=mg/f;if(pd<ii.perDoseLo(w,a)-.01||pd>ii.perDoseHi(w,a)+.01){cls="warn";verdict="1回量を要確認";}} if(!Number.isFinite(lo)||!Number.isFinite(hi)){cls="ng";verdict="この年齢・体重は対象外";}
+ else if(!withinMax||mg<lo*.8){cls="ng";verdict=!withinMax?"承認上限を超える":"通常用量から大きく外れる";}
  const hasAdult=Array.isArray(d.adult); const [adLo,adHi]=hasAdult?d.adult:[NaN,NaN];
  const calc=(adult,kind)=>{
    if(kind==="aug")return adult*(4*a+12)/100;
@@ -224,4 +225,4 @@ $("drug").onchange=()=>loadDrug(true);
 $("product").onchange=function(){const p=DB[$("drug").value].products[this.value];$("amount").value=p.defaultAmount;render()};
 $("ind").onchange=()=>{if(["osel","zana"].includes($("drug").value))loadDrug(false);else render();};["wt","ht","amount","freq"].forEach(id=>$(id).oninput=render); $("age").oninput=()=>{if(["levo","ceti","proc"].includes($("drug").value))loadDrug(false);else render();};
 loadDrug(true);
-</script><script src="image-batch-01.js"></script><script src="image-batch-02.js"></script><script src="nkdesk-batch-01.js"></script><script src="nkdesk-batch-02.js"></script><script src="nkdesk-final.js"></script><script src="image-batch-02-50.js"></script><script src="image-final.js"></script><script src="coverage-audit-2026-09.js"></script><script src="coverage-audit-local-2026-09.js"></script><script src="coverage-audit-final-fixes-2026-09.js"></script><script src="dose-audit-upgrades-2026-09.js"></script><script src="final-reconciliation-2026-09.js"></script><script src="drug-search-2026-09.js"></script><script src="formula-help-2026-09.js"></script><script src="frequency-interpretation-2026-09.js"></script><script src="oral-batch-01-2026-09.js"></script><script src="cephalexin-brands-2026-09.js"></script><script src="oral-batch-02-2026-09.js"></script><script src="pediatric-ui-clarity-2026-09.js"></script><script src="audit-dashboard-2026-09.js"></script><script src="pmda-audit-progress-2026-09.js"></script></body></html>
+</script><script src="image-batch-01.js"></script><script src="image-batch-02.js"></script><script src="nkdesk-batch-01.js"></script><script src="nkdesk-batch-02.js"></script><script src="nkdesk-final.js"></script><script src="image-batch-02-50.js"></script><script src="image-final.js"></script><script src="coverage-audit-2026-09.js"></script><script src="coverage-audit-local-2026-09.js"></script><script src="coverage-audit-final-fixes-2026-09.js"></script><script src="dose-audit-upgrades-2026-09.js"></script><script src="final-reconciliation-2026-09.js"></script><script src="drug-search-2026-09.js"></script><script src="formula-help-2026-09.js"></script><script src="frequency-interpretation-2026-09.js"></script><script src="oral-batch-01-2026-09.js"></script><script src="cephalexin-brands-2026-09.js"></script><script src="oral-batch-02-2026-09.js"></script><script src="pediatric-ui-clarity-2026-09.js"></script><script src="audit-dashboard-2026-09.js"></script><script src="pmda-audit-progress-2026-09.js"></script><script src="pmda-final-batch-01-2026-09.js"></script><script src="pmda-final-batch-02-2026-09.js"></script></body></html>
