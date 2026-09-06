@@ -12,11 +12,11 @@ label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4p
 table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{padding:7px;border-bottom:1px solid #e9eef2;text-align:left}th{background:#f5f7f9}.note{font-size:9px;color:#667085;margin-top:7px;line-height:1.6}
 @media(max-width:650px){.grid,.nums{grid-template-columns:1fr}}
 </style></head><body><main class="w">
-<section class="card"><span class="tag">CAM / AMPC / CARBO / AMBRO / TXA / LEVO / APAP</span><div class="title">小児処方監査CDS</div>
-<div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPC・カルボシステイン・アンブロキソール・トラネキサム酸・レボセチリジン・アセトアミノフェンを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
+<section class="card"><span class="tag">CAM / AMPC / CARBO / AMBRO / TXA / LEVO / APAP + ALLERGY</span><div class="title">小児処方監査CDS</div>
+<div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPC・カルボシステイン・アンブロキソール・トラネキサム酸・レボセチリジン・アセトアミノフェン・セチリジン・モンテルカスト・デスロラタジン・オロパタジン・プランルカストを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
 
 <section class="card"><div class="grid">
-<div><label>薬剤</label><select id="drug"><option value="cam">クラリスロマイシン</option><option value="amox">アモキシシリン</option><option value="carbo">カルボシステイン</option><option value="ambro">アンブロキソール</option><option value="txa">トラネキサム酸</option><option value="levo">レボセチリジン</option><option value="apap">アセトアミノフェン</option></select></div>
+<div><label>薬剤</label><select id="drug"><option value="cam">クラリスロマイシン</option><option value="amox">アモキシシリン</option><option value="carbo">カルボシステイン</option><option value="ambro">アンブロキソール</option><option value="txa">トラネキサム酸</option><option value="levo">レボセチリジン</option><option value="apap">アセトアミノフェン</option><option value="ceti">セチリジン</option><option value="mont">モンテルカスト</option><option value="desl">デスロラタジン</option><option value="olop">オロパタジン</option><option value="pran">プランルカスト</option></select></div>
 <div><label>製剤・規格</label><select id="product"></select></div>
 <div><label>適応</label><select id="ind"></select></div>
 <div><label>年齢</label><select id="age">
@@ -34,7 +34,7 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
 <section class="card"><b>監査ロジック</b><div class="sub">
 ① 製剤量→成分量換算　② 薬剤固有の承認小児用量・分割・上限を判定　③ 1回量を算出　④ 成人標準量から古典的換算式を並列計算　⑤ 承認量と換算値の位置関係を補助表示。<br>
 CAM：一般感染症10–15 mg/kg/day（分2～3）、レジオネラ15 mg/kg/day、播種性MAC 15 mg/kg/day（分2）。<br>
-AMPC：ヘリコバクター・ピロリ感染を除く感染症で20–40 mg/kg/day（分3～4）、最大90 mg/kg/day。<br>カルボシステイン：幼・小児30 mg/kg/day（分3）、年齢・体重・症状により適宜増減。<br>アンブロキソール：0.9 mg/kg/day（分3）。<br>トラネキサム酸：年齢別1日量を分3～4。<br>レボセチリジン：6か月以上で年齢別固定量。<br>アセトアミノフェン：1回10～15 mg/kg、4～6時間以上あけ、1日60 mg/kgまで。
+AMPC：ヘリコバクター・ピロリ感染を除く感染症で20–40 mg/kg/day（分3～4）、最大90 mg/kg/day。<br>カルボシステイン：幼・小児30 mg/kg/day（分3）、年齢・体重・症状により適宜増減。<br>アンブロキソール：0.9 mg/kg/day（分3）。<br>トラネキサム酸：年齢別1日量を分3～4。<br>レボセチリジン：6か月以上で年齢別固定量。<br>アセトアミノフェン：1回10～15 mg/kg、4～6時間以上あけ、1日60 mg/kgまで。<br>セチリジン：2～6歳2.5mg×2、7～14歳5mg×2。<br>モンテルカスト：1～5歳4mg 1日1回。<br>デスロラタジン：12歳以上5mg 1日1回。<br>オロパタジン：2～6歳2.5mg×2、7歳以上5mg×2。<br>プランルカスト：7mg/kg/day・分2、最大10mg/kg/dayかつ450mg/day。
 </div></section>
 </main><script>
 const $=x=>document.getElementById(x);
@@ -93,7 +93,12 @@ const DB={
   products:{ds20:{label:"ドライシロップ20%",unit:"g",mgPerUnit:200,defaultAmount:1.35},syrup2:{label:"シロップ2%",unit:"mL",mgPerUnit:20,defaultAmount:13.5}},
   indications:{general:{label:"小児科領域の解熱・鎮痛",lo:(w,a)=>0,hi:(w,a)=>60*w,max:(w,a)=>60*w,freq:[1,2,3,4,5,6],perDoseLo:w=>10*w,perDoseHi:w=>15*w,desc:"1回10～15 mg/kg、投与間隔4～6時間以上、1日60 mg/kgまで"}},
   adult:[4000,4000],source:"PMDA アセトアミノフェン小児用製剤電子添文"
- }
+ },
+ ceti:{products:{ds125:{label:"ドライシロップ1.25%",unit:"g",mgPerUnit:12.5,defaultAmount:0.4}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<2?NaN:a<7?5:a<15?10:10,hi:(w,a)=>a<2?NaN:a<7?5:a<15?10:10,freqByAge:a=>a<15?[2]:[1],desc:"2～6歳：2.5mg×2、7～14歳：5mg×2"}},adult:[10,10],source:"PMDA セチリジン塩酸塩DS1.25%電子添文"},
+ mont:{products:{gran4:{label:"細粒4mg",unit:"包",mgPerUnit:4,defaultAmount:1}},indications:{asthma:{label:"気管支喘息（1歳以上6歳未満）",lo:(w,a)=>a<1||a>=6?NaN:4,hi:(w,a)=>a<1||a>=6?NaN:4,freq:[1],desc:"1歳以上6歳未満：4mg 1日1回就寝前"}},adult:[10,10],source:"PMDA モンテルカスト細粒4mg電子添文"},
+ desl:{products:{tab5:{label:"錠5mg",unit:"錠",mgPerUnit:5,defaultAmount:1}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<12?NaN:5,hi:(w,a)=>a<12?NaN:5,freq:[1],desc:"12歳以上：5mg 1日1回"}},adult:[5,5],source:"PMDA デザレックス錠5mg電子添文"},
+ olop:{products:{gran05:{label:"顆粒0.5%",unit:"g",mgPerUnit:5,defaultAmount:1}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<2?NaN:a<7?5:10,hi:(w,a)=>a<2?NaN:a<7?5:10,freq:[2],desc:"2～6歳：2.5mg×2、7歳以上：5mg×2"}},adult:[10,10],source:"PMDA オロパタジン塩酸塩顆粒0.5%電子添文"},
+ pran:{products:{ds10:{label:"ドライシロップ10%",unit:"g",mgPerUnit:100,defaultAmount:1.26}},indications:{general:{label:"気管支喘息／アレルギー性鼻炎",lo:(w,a)=>7*w,hi:(w,a)=>Math.min(10*w,450),max:(w,a)=>Math.min(10*w,450),freq:[2],desc:"通常7mg/kg/day・分2。最高10mg/kg/day、ただし450mg/dayを超えない"}},adult:[450,450],source:"PMDA プランルカストDS10%電子添文"}
 };
 function vh(a){if(a<0.08)return .125;if(a<0.75)return .2;if(a<2)return .25;if(a<5)return 1/3;if(a<10)return .5;if(a<15)return 2/3;return 1}
 function fmt(x,d=1){return Number.isFinite(x)?x.toFixed(d):"—"}
@@ -107,6 +112,9 @@ function loadDrug(reset=true){
  else if($("drug").value==="txa") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
  else if($("drug").value==="levo"){const a=+$("age").value;$("freq").innerHTML=a<1?'<option value="1">分1</option>':a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
  else if($("drug").value==="apap") $("freq").innerHTML='<option value="1">1回</option><option value="2">2回</option><option value="3">3回</option><option value="4">4回</option><option value="5">5回</option><option value="6">6回</option>';
+ else if(["mont","desl"].includes($("drug").value)) $("freq").innerHTML='<option value="1">分1</option>';
+ else if(["olop","pran"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
+ else if($("drug").value==="ceti"){const a=+$("age").value;$("freq").innerHTML=a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
  else $("freq").innerHTML='<option value="2">分2</option><option value="3">分3</option>';
  if(reset)$("amount").value=Object.values(d.products)[0].defaultAmount;
  render();
@@ -145,6 +153,6 @@ function render(){
 }
 $("drug").onchange=()=>loadDrug(true);
 $("product").onchange=function(){const p=DB[$("drug").value].products[this.value];$("amount").value=p.defaultAmount;render()};
-$("ind").onchange=render;["wt","ht","amount","freq"].forEach(id=>$(id).oninput=render); $("age").oninput=()=>{if($("drug").value==="levo")loadDrug(false);else render();};
+$("ind").onchange=render;["wt","ht","amount","freq"].forEach(id=>$(id).oninput=render); $("age").oninput=()=>{if(["levo","ceti"].includes($("drug").value))loadDrug(false);else render();};
 loadDrug(true);
 </script></body></html>
