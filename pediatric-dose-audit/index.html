@@ -223,4 +223,4 @@ $("drug").onchange=()=>loadDrug(true);
 $("product").onchange=function(){const p=DB[$("drug").value].products[this.value];$("amount").value=p.defaultAmount;render()};
 $("ind").onchange=()=>{if(["osel","zana"].includes($("drug").value))loadDrug(false);else render();};["wt","ht","amount","freq"].forEach(id=>$(id).oninput=render); $("age").oninput=()=>{if(["levo","ceti","proc"].includes($("drug").value))loadDrug(false);else render();};
 loadDrug(true);
-</script><script src="image-batch-01.js"></script><script src="nkdesk-batch-01.js"></script></body></html>
+</script><script src="image-batch-01.js"></script><script src="nkdesk-batch-01.js"></script><script src="nkdesk-batch-02.js"></script></body></html>
