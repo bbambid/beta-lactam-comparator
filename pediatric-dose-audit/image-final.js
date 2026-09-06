@@ -1,0 +1,27 @@
+// Final image-table recovery. Image values are NOT dosing sources.
+(function(){if(typeof DB==='undefined'||typeof $==='undefined')return;
+const S=$("drug");
+const A=(k,n,b,p,src,url)=>{if(!DB[b])return;DB[k]=Object.assign({},DB[b],{products:p,source:src||DB[b].source,sourceUrl:url||DB[b].sourceUrl});if(!S.querySelector('option[value="'+k+'"]')){const o=document.createElement("option");o.value=k;o.textContent=n;S.appendChild(o);}};
+const H=(k,n,p,lab,src,url)=>{DB[k]={products:p,indications:{general:{label:lab,lo:()=>NaN,hi:()=>NaN,freq:[1,2,3,4],desc:"現行電子添文の用法・用量を優先。画像表の用量値は使用しません。"}},adult:null,source:src,sourceUrl:url};if(!S.querySelector('option[value="'+k+'"]')){const o=document.createElement("option");o.value=k;o.textContent=n;S.appendChild(o);}};
+A("imgF01","リンデロンシロップ0.01%","dexa",{s:{label:"リンデロンシロップ0.01%",unit:"mL",mgPerUnit:0.1,defaultAmount:5}},"PMDA リンデロンシロップ0.01%電子添文","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2454004B1040_2?user=1");
+A("imgF02","ザジテンシロップ0.02%","keto",{s:{label:"ザジテンシロップ0.02%",unit:"mL",mgPerUnit:0.2,defaultAmount:5}},"PMDA ザジテンシロップ0.02%電子添文");
+A("imgF03","ザイザルシロップ0.05%","levo",{s:{label:"ザイザルシロップ0.05%",unit:"mL",mgPerUnit:0.5,defaultAmount:5}},"PMDA ザイザルシロップ0.05%電子添文","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4490028Q1028_1?user=1");
+H("imgF04","ポララミンシロップ0.04%",{s:{label:"ポララミンシロップ0.04%",unit:"mL",mgPerUnit:0.4,defaultAmount:5}},"アレルギー性疾患","PMDA d-クロルフェニラミンマレイン酸塩シロップ電子添文");
+A("imgF05","ゼスランシロップ0.03%","meq",{s:{label:"ゼスランシロップ0.03%",unit:"mL",mgPerUnit:0.3,defaultAmount:6}},"PMDA ゼスランシロップ0.03%電子添文");
+A("imgF06","ムコダインシロップ5%","carbo",{s:{label:"ムコダインシロップ5%",unit:"mL",mgPerUnit:50,defaultAmount:10.8}},"PMDA ムコダインシロップ5%電子添文");
+A("imgF07","ムコソルバンシロップ0.3%","ambro",{s:{label:"ムコソルバンシロップ0.3%",unit:"mL",mgPerUnit:3,defaultAmount:5.4}},"PMDA ムコソルバンシロップ0.3%電子添文");
+A("imgF08","アストミンシロップ0.25%","dime",{s:{label:"アストミンシロップ0.25%",unit:"mL",mgPerUnit:2.5,defaultAmount:3}},"PMDA アストミンシロップ0.25%電子添文");
+A("imgF09","メプチンシロップ5μg/mL","proc",{s:{label:"メプチンシロップ5μg/mL",unit:"mL",mgPerUnit:0.005,defaultAmount:3}},"PMDA メプチンシロップ5μg/mL電子添文");
+A("imgF10","アスベリンシロップ0.5%","tipe",{s:{label:"アスベリンシロップ0.5%",unit:"mL",mgPerUnit:5,defaultAmount:3}},"PMDA アスベリンシロップ0.5%電子添文");
+A("imgF11","トランサミンシロップ5%","txa",{s:{label:"トランサミンシロップ5%",unit:"mL",mgPerUnit:50,defaultAmount:10}},"PMDA トランサミンシロップ5%電子添文","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/3327002Q1062_3?user=1");
+A("imgF12","カロナールシロップ2%","apap",{s:{label:"カロナールシロップ2%",unit:"mL",mgPerUnit:20,defaultAmount:13.5}},"PMDA カロナールシロップ2%電子添文","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/1141007Q1048_5?user=1");
+A("imgF13","ベネトリンシロップ0.04%","salb",{s:{label:"ベネトリンシロップ0.04%",unit:"mL",mgPerUnit:0.4,defaultAmount:7.5}},"PMDA ベネトリンシロップ0.04%電子添文");
+A("imgF14","テオドールシロップ2%","theoS",{s:{label:"テオドールシロップ2%",unit:"mL",mgPerUnit:20,defaultAmount:4.8}},"PMDA テオドールシロップ2%電子添文");
+A("imgF15","フスコデ配合シロップ","fusk",{s:{label:"フスコデ配合シロップ",unit:"mL",mgPerUnit:1,defaultAmount:2.4}},"PMDA フスコデ配合シロップ電子添文");
+A("imgF16","メジコン配合シロップ","dextMix",{s:{label:"メジコン配合シロップ",unit:"mL",mgPerUnit:2.5,defaultAmount:3}},"PMDA メジコン配合シロップ電子添文");
+H("imgF17","セレスタミン配合シロップ",{s:{label:"セレスタミン配合シロップ",unit:"mL",mgPerUnit:1,defaultAmount:5}},"アレルギー性疾患","PMDA セレスタミン配合シロップ電子添文");
+H("imgF18","インタール吸入液1%",{a:{label:"インタール吸入液1%",unit:"アンプル",mgPerUnit:20,defaultAmount:1}},"気管支喘息","PMDA クロモグリク酸Na吸入液電子添文");
+H("imgF19","メプチン吸入液ユニット0.3mL",{a:{label:"メプチン吸入液ユニット0.3mL",unit:"個",mgPerUnit:0.03,defaultAmount:1}},"気管支喘息等","PMDA メプチン吸入液電子添文");
+H("imgF20","ガランターゼ散50%",{g:{label:"ガランターゼ散50%",unit:"g",mgPerUnit:500,defaultAmount:0.5}},"乳糖不耐症","PMDA β-ガラクトシダーゼ製剤電子添文");
+const prev=loadDrug;loadDrug=function(reset=true){prev(reset);const k=$("drug").value;const m={imgF01:[1,2,3,4],imgF02:[2],imgF03:[1,2],imgF04:[2,3],imgF05:[2],imgF06:[3],imgF07:[3],imgF08:[3],imgF09:[2,3],imgF10:[3],imgF11:[3,4],imgF12:[1,2,3,4],imgF13:[3],imgF14:[2],imgF15:[3],imgF16:[3],imgF17:[1,2,3,4],imgF18:[4],imgF19:[1,2,3,4],imgF20:[1,2,3]};if(m[k])$("freq").innerHTML=m[k].map(n=>'<option value="'+n+'">'+(n===1?'分1':'分'+n)+'</option>').join("");render();};
+})();
