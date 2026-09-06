@@ -162,15 +162,16 @@ function loadDrug(reset=true){
  p.innerHTML=Object.entries(d.products).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
  ind.innerHTML=Object.entries(d.indications).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
  if($("drug").value==="amox") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
- else if(["carbo","ambro","cfpn","cdtr","cfdn","ccr","tipe","sult","faro","tran","domp","dime"].includes($("drug").value)) $("freq").innerHTML='<option value="3">分3</option>';
+ else if(["carbo","ambro","cfpn","cdtr","cfdn","ccr","tipe","sult","faro","tran","domp","dime","vala"].includes($("drug").value)) $("freq").innerHTML='<option value="3">分3</option>';
  else if($("drug").value==="fos") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
  else if($("drug").value==="ery") $("freq").innerHTML='<option value="4">分4</option><option value="5">分5</option><option value="6">分6</option>';
  else if($("drug").value==="cephalex") $("freq").innerHTML='<option value="4">分4</option>';
+ else if($("drug").value==="meto") $("freq").innerHTML='<option value="2">分2</option><option value="3">分3</option>';
  else if($("drug").value==="txa") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
  else if($("drug").value==="levo"){const a=+$("age").value;$("freq").innerHTML=a<1?'<option value="1">分1</option>':a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
  else if($("drug").value==="apap") $("freq").innerHTML='<option value="1">1回</option><option value="2">2回</option><option value="3">3回</option><option value="4">4回</option><option value="5">5回</option><option value="6">6回</option>';
- else if(["mont","desl","lora","epi","tulo","azi","lani","balo"].includes($("drug").value)) $("freq").innerHTML='<option value="1">分1</option>';
- else if(["olop","pran","fexo","meq","cpdx","tebi","tosu","keto","oxa","pemi","theo","tulooral","clem"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
+ else if(["mont","desl","lora","epi","tulo","azi","lani","balo","mela","rupa"].includes($("drug").value)) $("freq").innerHTML='<option value="1">分1</option>';
+ else if(["olop","pran","fexo","meq","cpdx","tebi","tosu","keto","oxa","pemi","theo","tulooral","clem","levet"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
  else if($("drug").value==="acy") $("freq").innerHTML='<option value="4">分4</option>';
  else if($("drug").value==="zana") $("freq").innerHTML=$("ind").value==="prevent"?'<option value="1">分1</option>':'<option value="2">分2</option>';
  else if($("drug").value==="osel") $("freq").innerHTML=$("ind").value==="prevent"?'<option value="1">分1</option>':'<option value="2">分2</option>';
