@@ -20,6 +20,20 @@
   if(/apap|acetamin|ibuprofen|loxopro|txa|カロナール|アセトアミノフェン|イブプロフェン/.test(s))return"解熱鎮痛・抗炎症";
   return"その他";
  };
+ // Formal category batch 01 (50 ingredient records): explicit DB attributes, no name inference.
+ const formal01={
+ cam:"抗菌薬",amox:"抗菌薬",carbo:"鎮咳・去痰・呼吸器",ambro:"鎮咳・去痰・呼吸器",txa:"解熱鎮痛・抗炎症",
+ levo:"抗アレルギー・喘息",apap:"解熱鎮痛・抗炎症",ceti:"抗アレルギー・喘息",mont:"抗アレルギー・喘息",desl:"抗アレルギー・喘息",
+ olop:"抗アレルギー・喘息",pran:"抗アレルギー・喘息",lora:"抗アレルギー・喘息",epi:"抗アレルギー・喘息",fexo:"抗アレルギー・喘息",
+ meq:"抗アレルギー・喘息",tulo:"鎮咳・去痰・呼吸器",cfpn:"抗菌薬",cdtr:"抗菌薬",cpdx:"抗菌薬",
+ cfdn:"抗菌薬",ccr:"抗菌薬",tipe:"鎮咳・去痰・呼吸器",sult:"抗菌薬",cephalex:"抗菌薬",
+ ery:"抗菌薬",azi:"抗菌薬",faro:"抗菌薬",tebi:"抗菌薬",fos:"抗菌薬",tosu:"抗菌薬",
+ keto:"抗アレルギー・喘息",oxa:"抗アレルギー・喘息",pemi:"抗アレルギー・喘息",tran:"抗アレルギー・喘息",domp:"消化器",
+ acy:"抗ウイルス薬",osel:"抗ウイルス薬",lani:"抗ウイルス薬",zana:"抗ウイルス薬",balo:"抗ウイルス薬",
+ theo:"鎮咳・去痰・呼吸器",proc:"鎮咳・去痰・呼吸器",tulooral:"鎮咳・去痰・呼吸器",clem:"抗アレルギー・喘息",dime:"鎮咳・去痰・呼吸器",
+ vala:"抗ウイルス薬",levet:"神経・鎮静",mela:"神経・鎮静",rupa:"抗アレルギー・喘息"
+ };
+ Object.entries(formal01).forEach(([k,v])=>{if(DB[k]){DB[k].category=v;DB[k].categoryAudit={status:"確定",batch:"01",checked:"2026-09-06"};}});
  // Persist category on each DB record. Dashboard and future sorting read this field first.
  Object.entries(DB).forEach(([k,d])=>{if(!d.category)d.category=inferCategory(k,d);});
  // Category cleanup pass: keep "その他" exceptional, not a dumping ground.
