@@ -355,16 +355,18 @@ loadDrug(true);
    const w=+$("wt").value,a=+$("age").value,f=+$("freq").value,q=+$("amount").value,mg=q*p.mgPerUnit;
    const lo=ii.lo(w,a),hi=ii.hi(w,a),allowed=ii.freqByAge?ii.freqByAge(a):(ii.freq||[]);
    const doseTxt=Number.isFinite(lo)&&Number.isFinite(hi)?(Math.abs(lo-hi)<.01?lo.toFixed(0):lo.toFixed(0)+"–"+hi.toFixed(0))+" mg":"—";
-   const kgTxt=Number.isFinite(lo)&&Number.isFinite(hi)&&w?((lo/w).toFixed(1)+(Math.abs(lo-hi)<.01?"":"–"+(hi/w).toFixed(1))):"—";
+   const absoluteDoseKeys=new Set(["dexa","beta"]);
+   const absoluteDose=absoluteDoseKeys.has($("drug").value)&&Number.isFinite(lo)&&Number.isFinite(hi);
+   const kgTxt=absoluteDose?"—":(Number.isFinite(lo)&&Number.isFinite(hi)&&w?((lo/w).toFixed(1)+(Math.abs(lo-hi)<.01?"":"–"+(hi/w).toFixed(1))):"—");
    const freqTxt=allowed.length?allowed.map(x=>"分"+x).join("–"):"個別確認";
    const doseOK=Number.isFinite(lo)&&Number.isFinite(hi)&&mg>=lo-.01&&mg<=hi+.01;
    const freqOK=allowed.includes(f);
    box.className="approvedBasisCard"; box.dataset.mobileDone="1";
    box.innerHTML='<div class="approvedBasisTitle">承認用法・用量</div>'+
-    '<div class="approvedPremise"><div class="approvedPremiseTitle">この患者の承認量</div><div class="approvedPremiseMain">'+w+' kg × '+kgTxt+' mg/kg/day → '+doseTxt+'/day</div></div>'+
+    '<div class="approvedPremise"><div class="approvedPremiseTitle">この患者の承認量</div><div class="approvedPremiseMain">'+(absoluteDose?doseTxt+'/day（体重によらない承認1日量）':w+' kg × '+kgTxt+' mg/kg/day → '+doseTxt+'/day')+'</div></div>'+
     '<table class="approvedCompare"><thead><tr><th></th><th>承認基準</th><th>今回</th></tr></thead><tbody>'+
     '<tr><td>1日量</td><td>'+doseTxt+'/day</td><td class="match">'+mg.toFixed(0)+' mg/day '+(doseOK?'✓':'要確認')+'</td></tr>'+
-    '<tr><td>mg/kg/day</td><td>'+kgTxt+'</td><td class="match">'+(w?mg/w:0).toFixed(1)+' '+(doseOK?'✓':'要確認')+'</td></tr>'+
+    '<tr><td>mg/kg/day</td><td>'+kgTxt+'</td><td class="match">'+(w?(mg/w).toFixed(absoluteDose?3:1):'—')+(absoluteDose?'（参考換算）':' '+(doseOK?'✓':'要確認'))+'</td></tr>'+
     '<tr><td>分割</td><td>'+freqTxt+'</td><td class="match">分'+f+' '+(freqOK?'✓':'要確認')+'</td></tr>'+
     '</tbody></table>';
   });
