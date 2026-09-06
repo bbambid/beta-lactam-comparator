@@ -12,11 +12,12 @@
   const s=(k+" "+JSON.stringify(d.products||{})+" "+JSON.stringify(d.searchAliases||[])).toLowerCase();
   if(/amox|amoxic|ampicillin|cam|clarith|azi|azith|cef|cfd|cfp|cdtr|ccr|cpdx|faro|tebi|tosu|oflx|mino|sult|ery|larixin|widecillin|ワイドシリン|ミノマイシン|オゼックス|オラペネム|クラバモックス|クラリシッド|クラリス|サワシリン|ジスロマック|セフポドキシム|タリビッド|トスフロキサシン|トミロン|バナン|ケフ|セフ|抗菌/.test(s))return"抗菌薬";
   if(/osel|acy|acic|vala|valacic|zana|lani|balo|famc|amena|molnu|nirma|ritonavir|favip|タミフル|リレンザ|イナビル|ゾフルーザ|バルトレックス|ゾビラックス|ファムビル|アメナリーフ|ラゲブリオ|パキロビッド|アビガン|抗ウイルス/.test(s))return"抗ウイルス薬";
-  if(/olop|lora|fexo|keto|levo|ceti|mont|pran|epi|meq|rupa|desl|tran|アレ|ザイザル|キプレス/.test(s))return"抗アレルギー・喘息";
+  if(/olop|lora|fexo|keto|levo|ceti|mont|pran|epi|meq|rupa|desl|tran|clem|chlorphen|cypro|hydroxyz|oxatom|pemi|クレマスチン|タベジール|クロルフェニラミン|ポララミン|ペリアクチン|アタラックス|オキサトミド|セルテクト|アレ|ザイザル|キプレス/.test(s))return"抗アレルギー・喘息";
   if(/carbo|ambro|tipe|dime|proc|theo|tulo|ムコ|アスベリン|メプチン/.test(s))return"鎮咳・去痰・呼吸器";
-  if(/domp|meto|mov|酸化|整腸|ロペ|ナウゼリン/.test(s))return"消化器";
-  if(/levet|lacos|valpro|gaba|mela|diaz|clob|てんかん/.test(s))return"神経・鎮静";
-  if(/apap|txa|pred|dexa|カロナール/.test(s))return"解熱鎮痛・抗炎症";
+  if(/domp|meto|mov|magnesium|lacto|bifido|clostr|miyar|biofer|loper|lactulose|senno|pico|famot|omep|lanso|rebami|酸化|整腸|ミヤ|ビオフェルミン|ラックビー|ロペ|ラクツロース|センノ|ピコスル|ナウゼリン/.test(s))return"消化器";
+  if(/levet|lacos|valpro|gaba|mela|diaz|clob|carbamaz|phenob|clonaz|lamot|topira|zonis|てんかん|ダイアップ|デパケン|テグレトール|フェノバール|リボトリール|ラミクタール/.test(s))return"神経・鎮静";
+  if(/pred|dexa|beta.*meth|リンデロン|デキサメタゾン|プレドニ|ステロイド/.test(s))return"ステロイド";
+  if(/apap|acetamin|ibuprofen|loxopro|txa|カロナール|アセトアミノフェン|イブプロフェン/.test(s))return"解熱鎮痛・抗炎症";
   return"その他";
  };
  const kana=s=>String(s).replace(/[ァ-ン]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0x60));
