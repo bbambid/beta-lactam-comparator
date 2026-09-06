@@ -127,12 +127,15 @@ function loadDrug(reset=true){
  p.innerHTML=Object.entries(d.products).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
  ind.innerHTML=Object.entries(d.indications).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
  if($("drug").value==="amox") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
- else if(["carbo","ambro","cfpn","cdtr","cfdn","ccr","tipe"].includes($("drug").value)) $("freq").innerHTML='<option value="3">分3</option>';
+ else if(["carbo","ambro","cfpn","cdtr","cfdn","ccr","tipe","sult","faro"].includes($("drug").value)) $("freq").innerHTML='<option value="3">分3</option>';
+ else if($("drug").value==="fos") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
+ else if($("drug").value==="ery") $("freq").innerHTML='<option value="4">分4</option><option value="5">分5</option><option value="6">分6</option>';
+ else if($("drug").value==="cephalex") $("freq").innerHTML='<option value="4">分4</option>';
  else if($("drug").value==="txa") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
  else if($("drug").value==="levo"){const a=+$("age").value;$("freq").innerHTML=a<1?'<option value="1">分1</option>':a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
  else if($("drug").value==="apap") $("freq").innerHTML='<option value="1">1回</option><option value="2">2回</option><option value="3">3回</option><option value="4">4回</option><option value="5">5回</option><option value="6">6回</option>';
- else if(["mont","desl","lora","epi","tulo"].includes($("drug").value)) $("freq").innerHTML='<option value="1">分1</option>';
- else if(["olop","pran","fexo","meq","cpdx"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
+ else if(["mont","desl","lora","epi","tulo","azi"].includes($("drug").value)) $("freq").innerHTML='<option value="1">分1</option>';
+ else if(["olop","pran","fexo","meq","cpdx","tebi","tosu"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
  else if($("drug").value==="ceti"){const a=+$("age").value;$("freq").innerHTML=a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
  else $("freq").innerHTML='<option value="2">分2</option><option value="3">分3</option>';
  if(reset)$("amount").value=Object.values(d.products)[0].defaultAmount;
@@ -149,7 +152,7 @@ function render(){
  let cls="ok",verdict="承認された通常用量・分割の範囲内";
  if(!freqOK||!withinUsual){cls="warn";verdict="要確認";} if(ii.perDoseLo){const pd=mg/f;if(pd<ii.perDoseLo(w)-.01||pd>ii.perDoseHi(w)+.01){cls="warn";verdict="1回量を要確認";}} if(!Number.isFinite(lo)||!Number.isFinite(hi)){cls="ng";verdict="この年齢は対象外";}
  if(!withinMax||mg<lo*.8){cls="ng";verdict=!withinMax?"承認上限を超える":"通常用量から大きく外れる";}
- const [adLo,adHi]=d.adult;
+ const hasAdult=Array.isArray(d.adult); const [adLo,adHi]=hasAdult?d.adult:[NaN,NaN];
  const calc=(adult,kind)=>{
    if(kind==="aug")return adult*(4*a+12)/100;
    if(kind==="young")return adult*a/(a+12);
@@ -157,8 +160,8 @@ function render(){
    if(kind==="von")return adult*vh(a);
    const bsa=(h>0&&w>0)?Math.sqrt(h*w/3600):NaN; return Number.isFinite(bsa)?adult*bsa/1.73:NaN;
  };
- const rows=[["Augsberger-II","aug"],["Young","young"],["Clark","clark"],["von Harnack","von"],["BSA / Mosteller","bsa"]]
-  .map(([n,k])=>'<tr><td>'+n+'</td><td>'+range(calc(adLo,k),calc(adHi,k))+'</td><td>参考</td></tr>').join("");
+ const rows=hasAdult?[["Augsberger-II","aug"],["Young","young"],["Clark","clark"],["von Harnack","von"],["BSA / Mosteller","bsa"]]
+  .map(([n,k])=>'<tr><td>'+n+'</td><td>'+range(calc(adLo,k),calc(adHi,k))+'</td><td>参考</td></tr>').join(""):'<tr><td colspan="3">成人標準量が設定されないため古典的換算は適用しません</td></tr>';
  $("out").innerHTML=
   '<div class="hero">判定：<span class="pill '+cls+'">'+verdict+'</span></div>'+
   '<div>'+ii.desc+'</div>'+
@@ -167,7 +170,7 @@ function render(){
   '<b>通常量：</b>'+range(lo,hi)+' mg/day'+(ii.max?'　<b>承認上限：</b>'+fmt(absoluteMax,0)+' mg/day':'')+
   (!freqOK?' <span class="pill warn">分割回数も要確認</span>':'')+
   '<table><thead><tr><th>補助換算</th><th>成人標準量からの推定 mg/day</th><th>位置づけ</th></tr></thead><tbody>'+rows+'</tbody></table>'+
-  '<div class="note">古典的換算式は補助評価です。'+(adLo===adHi?'成人標準量 '+adLo+' mg/day':'成人標準量 '+adLo+'～'+adHi+' mg/day')+'を基準に換算し、承認された小児用量がある場合はそちらを主判定にします。</div>'+
+  '<div class="note">'+(hasAdult?('古典的換算式は補助評価です。'+(adLo===adHi?'成人標準量 '+adLo+' mg/day':'成人標準量 '+adLo+'～'+adHi+' mg/day')+'を基準に換算し、承認された小児用量がある場合はそちらを主判定にします。'):'この薬は成人量からの古典的換算を行わず、承認された小児用量のみで監査します。')+'</div>'+
   '<div class="note">出典：'+d.source+'。最終確認は最新電子添文・適応・患者背景に基づきます。</div>';
 }
 $("drug").onchange=()=>loadDrug(true);
