@@ -7,8 +7,11 @@
  if(old){
   old.addEventListener("click",()=>setTimeout(()=>{
    const p=old.nextElementSibling;if(!p)return;
-   const total=Object.keys(DB).length,done=Object.values(DB).filter(d=>d.pmdaAudit&&d.pmdaAudit.status!=="未突合").length;
-   const h=p.querySelector("div");if(h)h.insertAdjacentHTML("afterend",'<div style="margin:6px 0;padding:8px;background:#f5f7f9;border-radius:8px"><b>PMDA全件監査：</b>一次突合 '+done+' / '+total+' 成分DB　<span class="muted">※「一次突合済」≠最終監査完了。最終は1件ずつ製剤単位で再確認。</span></div>');
+   const totalRecords=Object.keys(DB).length;
+   const prog=window.PMDA_FINAL_PROGRESS||{done:131,total:139,status:"進行中"};
+   const h=p.querySelector("div");
+   const oldBox=p.querySelector(".pmdaProgressBox"); if(oldBox)oldBox.remove();
+   if(h)h.insertAdjacentHTML("afterend",'<div class="pmdaProgressBox" style="margin:6px 0;padding:9px;background:#f5f7f9;border-radius:8px"><b>PMDA最終突合：</b>'+prog.done+' / '+prog.total+' 監査単位（'+prog.status+'）<br><span class="muted">現在のDBレコード数：'+totalRecords+'。製剤・商品名別の別レコードを含むため、監査単位の母数とは一致しません。</span></div>');
   },0));
  }
 
