@@ -157,7 +157,7 @@ function loadDrug(reset=true){
  p.innerHTML=Object.entries(d.products).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
  ind.innerHTML=Object.entries(d.indications).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
  if($("drug").value==="amox") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
- else if(["carbo","ambro","cfpn","cdtr","cfdn","ccr","tipe","sult","faro","tran","domp"].includes($("drug").value)) $("freq").innerHTML='<option value="3">分3</option>';
+ else if(["carbo","ambro","cfpn","cdtr","cfdn","ccr","tipe","sult","faro","tran","domp","dime"].includes($("drug").value)) $("freq").innerHTML='<option value="3">分3</option>';
  else if($("drug").value==="fos") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
  else if($("drug").value==="ery") $("freq").innerHTML='<option value="4">分4</option><option value="5">分5</option><option value="6">分6</option>';
  else if($("drug").value==="cephalex") $("freq").innerHTML='<option value="4">分4</option>';
@@ -165,11 +165,12 @@ function loadDrug(reset=true){
  else if($("drug").value==="levo"){const a=+$("age").value;$("freq").innerHTML=a<1?'<option value="1">分1</option>':a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
  else if($("drug").value==="apap") $("freq").innerHTML='<option value="1">1回</option><option value="2">2回</option><option value="3">3回</option><option value="4">4回</option><option value="5">5回</option><option value="6">6回</option>';
  else if(["mont","desl","lora","epi","tulo","azi","lani","balo"].includes($("drug").value)) $("freq").innerHTML='<option value="1">分1</option>';
- else if(["olop","pran","fexo","meq","cpdx","tebi","tosu","keto","oxa","pemi"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
+ else if(["olop","pran","fexo","meq","cpdx","tebi","tosu","keto","oxa","pemi","theo","tulooral","clem"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
  else if($("drug").value==="acy") $("freq").innerHTML='<option value="4">分4</option>';
  else if($("drug").value==="zana") $("freq").innerHTML=$("ind").value==="prevent"?'<option value="1">分1</option>':'<option value="2">分2</option>';
  else if($("drug").value==="osel") $("freq").innerHTML=$("ind").value==="prevent"?'<option value="1">分1</option>':'<option value="2">分2</option>';
  else if($("drug").value==="ceti"){const a=+$("age").value;$("freq").innerHTML=a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
+ else if($("drug").value==="proc"){const a=+$("age").value;$("freq").innerHTML=a<6?'<option value="2">分2</option><option value="3">分3</option>':'<option value="1">分1</option><option value="2">分2</option>';}
  else $("freq").innerHTML='<option value="2">分2</option><option value="3">分3</option>';
  if(reset)$("amount").value=Object.values(d.products)[0].defaultAmount;
  render();
@@ -208,6 +209,6 @@ function render(){
 }
 $("drug").onchange=()=>loadDrug(true);
 $("product").onchange=function(){const p=DB[$("drug").value].products[this.value];$("amount").value=p.defaultAmount;render()};
-$("ind").onchange=()=>{if(["osel","zana"].includes($("drug").value))loadDrug(false);else render();};["wt","ht","amount","freq"].forEach(id=>$(id).oninput=render); $("age").oninput=()=>{if(["levo","ceti"].includes($("drug").value))loadDrug(false);else render();};
+$("ind").onchange=()=>{if(["osel","zana"].includes($("drug").value))loadDrug(false);else render();};["wt","ht","amount","freq"].forEach(id=>$(id).oninput=render); $("age").oninput=()=>{if(["levo","ceti","proc"].includes($("drug").value))loadDrug(false);else render();};
 loadDrug(true);
 </script></body></html>
