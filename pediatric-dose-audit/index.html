@@ -154,6 +154,11 @@ const DB={
  rupa:{products:{tab10:{label:"ルパフィン錠10mg",unit:"錠",mgPerUnit:10,defaultAmount:1}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒（12歳以上）",lo:(w,a)=>a<12?NaN:10,hi:(w,a)=>a<12?NaN:20,max:(w,a)=>20,freq:[1],desc:"12歳以上：10mg 1日1回。症状により20mgまで増量可"}},adult:[10,20],source:"PMDA ルパフィン錠10mg電子添文"},
  meto:{products:{syr01:{label:"プリンペランシロップ0.1%",unit:"mL",mgPerUnit:0.767,defaultAmount:9}},indications:{general:{label:"乳幼児嘔吐等",lo:(w,a)=>0.38*w,hi:(w,a)=>0.53*w,freq:[2,3],desc:"メトクロプラミドとして0.38～0.53mg/kg/day・分2～3。製剤量では0.5～0.7mL/kg/day"}},adult:[7.67,23.04],source:"PMDA プリンペランシロップ0.1%電子添文（2026年8月）"}
 };
+const PRACTICE={
+ tipe:{dose:(w,a)=>2*w,freq:[3],label:"2 mg/kg/day・分3を目安",source:"治療薬ハンドブック（ユーザー提示値）",sourceType:"二次資料",note:"承認用量とは別レイヤー。公開一次資料で再検証予定"},
+ ambro:{dose:(w,a)=>0.9*w,freq:[3],label:"0.9 mg/kg/day・分3",source:"神戸市立医療センター西市民病院『小児薬用量』",sourceUrl:"https://nmc.kcho.jp/data/media/nmc-kcho/page/department/pharmacy-2/d012bf25fc1fde449f128ef5e969ebe9.pdf",sourceType:"病院薬剤部公開資料"},
+ carbo:{dose:(w,a)=>30*w,freq:[3],label:"30 mg/kg/day・分3",source:"神戸市立医療センター西市民病院『小児薬用量』",sourceUrl:"https://nmc.kcho.jp/data/media/nmc-kcho/page/department/pharmacy-2/d012bf25fc1fde449f128ef5e969ebe9.pdf",sourceType:"病院薬剤部公開資料"}
+};
 function vh(a){if(a<0.08)return .125;if(a<0.75)return .2;if(a<2)return .25;if(a<5)return 1/3;if(a<10)return .5;if(a<15)return 2/3;return 1}
 function fmt(x,d=1){return Number.isFinite(x)?x.toFixed(d):"—"}
 function range(v1,v2){return Math.abs(v1-v2)<.01?fmt(v1,0):fmt(Math.min(v1,v2),0)+"～"+fmt(Math.max(v1,v2),0)}
@@ -208,6 +213,7 @@ function render(){
   '<div class="nums"><div class="num">製剤量<br><b>'+fmt(q,2)+' '+p.unit+'/day</b></div><div class="num">成分量<br><b>'+fmt(mg,1)+' mg/day</b></div><div class="num">体重換算<br><b>'+fmt(kg,1)+' mg/kg/day</b></div></div>'+
   '<b>1回量：</b>'+fmt(oneMg,1)+' mg（製剤 '+fmt(oneProd,2)+' '+p.unit+'）× '+f+'回<br>'+
   '<b>通常量：</b>'+range(lo,hi)+' mg/day'+(ii.max?'　<b>承認上限：</b>'+fmt(absoluteMax,0)+' mg/day':'')+
+  (PRACTICE[key]?('<div class="note" style="margin-top:8px"><b>実務目安：</b>'+PRACTICE[key].label+' → '+fmt(PRACTICE[key].dose(w,a),1)+' mg/day　<span class="pill">承認用量とは別</span><br><b>実務資料：</b>'+(PRACTICE[key].sourceUrl?'<a href="'+PRACTICE[key].sourceUrl+'" target="_blank" rel="noopener">'+PRACTICE[key].source+' ↗</a>':PRACTICE[key].source)+'（'+PRACTICE[key].sourceType+'）'+(PRACTICE[key].note?'<br>'+PRACTICE[key].note:'')+'</div>'):'')+
   (!freqOK?' <span class="pill warn">分割回数も要確認</span>':'')+
   '<table><thead><tr><th>補助換算</th><th>成人標準量からの推定 mg/day</th><th>位置づけ</th></tr></thead><tbody>'+rows+'</tbody></table>'+
   '<div class="note">'+(hasAdult?('古典的換算式は補助評価です。'+(adLo===adHi?'成人標準量 '+adLo+' mg/day':'成人標準量 '+adLo+'～'+adHi+' mg/day')+'を基準に換算し、承認された小児用量がある場合はそちらを主判定にします。'):'この薬は成人量からの古典的換算を行わず、承認された小児用量のみで監査します。')+'</div>'+
