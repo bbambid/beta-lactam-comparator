@@ -10,8 +10,8 @@
  const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
  const category=(k,d)=>{
   const s=(k+" "+JSON.stringify(d.products||{})+" "+JSON.stringify(d.searchAliases||[])).toLowerCase();
-  if(/amox|cam|cef|cfd|cfp|cdtr|ccr|faro|tebi|tosu|sult|ery|azi|larixin|ケフ|セフ|抗菌/.test(s))return"抗菌薬";
-  if(/osel|acy|vala|タミフル|バルトレックス|ゾビラックス/.test(s))return"抗ウイルス薬";
+  if(/amox|amoxic|ampicillin|cam|clarith|azi|azith|cef|cfd|cfp|cdtr|ccr|cpdx|faro|tebi|tosu|oflx|mino|sult|ery|larixin|widecillin|ワイドシリン|ミノマイシン|オゼックス|オラペネム|クラバモックス|クラリシッド|クラリス|サワシリン|ジスロマック|セフポドキシム|タリビッド|トスフロキサシン|トミロン|バナン|ケフ|セフ|抗菌/.test(s))return"抗菌薬";
+  if(/osel|acy|acic|vala|valacic|zana|lani|balo|famc|amena|molnu|nirma|ritonavir|favip|タミフル|リレンザ|イナビル|ゾフルーザ|バルトレックス|ゾビラックス|ファムビル|アメナリーフ|ラゲブリオ|パキロビッド|アビガン|抗ウイルス/.test(s))return"抗ウイルス薬";
   if(/olop|lora|fexo|keto|levo|ceti|mont|pran|epi|meq|rupa|desl|tran|アレ|ザイザル|キプレス/.test(s))return"抗アレルギー・喘息";
   if(/carbo|ambro|tipe|dime|proc|theo|tulo|ムコ|アスベリン|メプチン/.test(s))return"鎮咳・去痰・呼吸器";
   if(/domp|meto|mov|酸化|整腸|ロペ|ナウゼリン/.test(s))return"消化器";
