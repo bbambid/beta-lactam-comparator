@@ -22,6 +22,8 @@
  };
  // Persist category on each DB record. Dashboard and future sorting read this field first.
  Object.entries(DB).forEach(([k,d])=>{if(!d.category)d.category=inferCategory(k,d);});
+ // Category cleanup pass: keep "その他" exceptional, not a dumping ground.
+ Object.entries(DB).forEach(([k,d])=>{if(d.category==="その他"){const x=inferCategory(k,d);if(x!=="その他")d.category=x;}});
  const category=(k,d)=>d.category||inferCategory(k,d);
  const kana=s=>String(s).replace(/[ァ-ン]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0x60));
  function draw(){
