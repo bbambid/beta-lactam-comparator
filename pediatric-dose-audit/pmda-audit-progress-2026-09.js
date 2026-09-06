@@ -1,6 +1,6 @@
 // Full PMDA audit tracking layer. Audit status is intentionally conservative.
 (function(){if(typeof DB==='undefined')return;
- const verified=["cam","amox","carbo","ambro","txa","levo","apap","ceti","mont","desl","olop","pran","lora","epi","fexo","meq","tulo","cfpn","cdtr","cpdx","cfdn","ccr","tipe","sult","cephalex","ery","azi","faro","tebi","fos","tosu","keto","oxa","pemi","tran","domp","acy","osel","lani","zana","balo","theo","proc","tulooral","clem","dime","vala","levet","mela","rupa","meto"];
+ const verified=[];
  Object.entries(DB).forEach(([k,d])=>{if(!d.pmdaAudit)d.pmdaAudit={status:"未突合",checked:null,note:"全件PMDA 1対1監査対象"};});
  verified.forEach(k=>{if(DB[k])DB[k].pmdaAudit={status:"一次突合済",checked:"2026-09-06",note:"既存登録時のPMDA根拠を一次確認。最終監査で製剤・適応・年齢・用量・分割・上限を再突合"};});
  const old=document.querySelector('button.secondary');
@@ -12,7 +12,5 @@
   },0));
  }
 
- // Final audit batch 01: status promoted only after product/indication/age/dose/frequency/max/formulation reconciliation.
- const final01=["cam","amox","carbo","ambro","txa","levo","apap","ceti","mont","desl","olop","pran","lora","epi","fexo","meq","tulo","cfpn","cdtr","cpdx","cfdn","ccr","tipe","sult","cephalex","ery","azi","faro","tebi","fos","tosu","keto","oxa","pemi","tran","domp","acy","osel","lani","zana","balo","theo","proc","tulooral","clem","dime","vala","levet","mela","rupa"];
- final01.forEach(k=>{if(DB[k])DB[k].pmdaAudit={status:"PMDA最終突合済み",checked:"2026-09-06",batch:"01",note:"現行PMDA電子添文と製剤・適応・年齢条件・用法用量・分割・上限・製剤量換算を最終突合"};});
+ // Previous premature final01 promotion removed. Final status is granted only after documented one-by-one verification.
 })();
