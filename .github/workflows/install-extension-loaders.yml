@@ -1,0 +1,40 @@
+name: install-extension-loaders
+
+on:
+  push:
+    paths:
+      - '.github/workflows/install-extension-loaders.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-loaders:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Add extension script loaders
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          targets = [
+              (Path('pediatric-dose-audit/index.html'), '<script src="image-batch-01.js"></script>'),
+              (Path('antibiotic-alternative/index.html'), '<script src="caution-batch-02.js"></script>'),
+          ]
+          for path, tag in targets:
+              text = path.read_text(encoding='utf-8')
+              if tag not in text:
+                  text = text.replace('</body></html>', tag + '</body></html>')
+                  path.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit loader changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pediatric-dose-audit/index.html antibiotic-alternative/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Load pediatric image batch and CAM caution batch 02"
+            git push origin HEAD:main
+          fi
