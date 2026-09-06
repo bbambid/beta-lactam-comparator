@@ -8,7 +8,7 @@
  const panel=document.createElement("div");panel.style.cssText="display:none;margin:8px 0;padding:10px;background:#fff;border:1px solid #dbe3ea;border-radius:10px;overflow:auto";
  btn.insertAdjacentElement("afterend",panel);
  const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
- const category=(k,d)=>{
+ const inferCategory=(k,d)=>{
   const s=(k+" "+JSON.stringify(d.products||{})+" "+JSON.stringify(d.searchAliases||[])).toLowerCase();
   if(/amox|amoxic|ampicillin|cam|clarith|azi|azith|cef|cfd|cfp|cdtr|ccr|cpdx|faro|tebi|tosu|oflx|mino|sult|ery|larixin|widecillin|ワイドシリン|ミノマイシン|オゼックス|オラペネム|クラバモックス|クラリシッド|クラリス|サワシリン|ジスロマック|セフポドキシム|タリビッド|トスフロキサシン|トミロン|バナン|ケフ|セフ|抗菌/.test(s))return"抗菌薬";
   if(/osel|acy|acic|vala|valacic|zana|lani|balo|famc|amena|molnu|nirma|ritonavir|favip|タミフル|リレンザ|イナビル|ゾフルーザ|バルトレックス|ゾビラックス|ファムビル|アメナリーフ|ラゲブリオ|パキロビッド|アビガン|抗ウイルス/.test(s))return"抗ウイルス薬";
@@ -20,6 +20,9 @@
   if(/apap|acetamin|ibuprofen|loxopro|txa|カロナール|アセトアミノフェン|イブプロフェン/.test(s))return"解熱鎮痛・抗炎症";
   return"その他";
  };
+ // Persist category on each DB record. Dashboard and future sorting read this field first.
+ Object.entries(DB).forEach(([k,d])=>{if(!d.category)d.category=inferCategory(k,d);});
+ const category=(k,d)=>d.category||inferCategory(k,d);
  const kana=s=>String(s).replace(/[ァ-ン]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0x60));
  function draw(){
   const rows=Object.entries(DB).map(([k,d])=>{
