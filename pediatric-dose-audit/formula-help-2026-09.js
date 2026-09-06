@@ -46,7 +46,7 @@
    if(kind==="young"){title="Young式";formula="小児量 ＝ 成人量 × 年齢 ÷ (年齢 ＋ 12)";basis="年齢比から成人量を按分する古典的換算式。";coef=a/(a+12);}
    if(kind==="clark"){title="Clark式";formula="小児量 ＝ 成人量 × 体重[kg] ÷ 68";basis="成人体重を約150 lb（約68 kg）として体重比で按分する方法。";coef=w/68;}
    if(kind==="von"){title="von Harnack式";formula="小児量 ＝ 成人量 × 年齢区分ごとの係数";basis="係数：1か月未満 1/8、1～8か月 1/5、9～23か月 1/4、2～4歳 1/3、5～9歳 1/2、10～14歳 2/3、15歳以上 1。";coef=coefVon(a);}
-   if(kind==="bsa"){title="BSA / Mosteller";formula="BSA[m²] ＝ √(身長[cm] × 体重[kg] ÷ 3600)\n小児量 ＝ 成人量 × BSA ÷ 1.73";basis="体表面積を成人標準体表面積1.73m²と比較して按分する方法。";coef=Number.isFinite(bsa)?bsa/1.73:NaN;}
+   if(kind==="bsa"){title="BSA / Mosteller";formula="BSA[m²] ＝ √(身長[cm] × 体重[kg] ÷ 3600)\n小児量 ＝ 成人量 × BSA ÷ 1.73";basis="体表面積を成人標準体表面積1.73m²と比較して按分する方法。BSA算出には複数の式があり、Du Bois式も広く用いられる。本ツールでは簡便なMosteller式を採用。";coef=Number.isFinite(bsa)?bsa/1.73:NaN;}
    const current=Number.isFinite(coef)
      ?(kind==="bsa"?"身長 "+h+"cm・体重 "+w+"kg → BSA "+bsa.toFixed(3)+"m²、係数 "+coef.toFixed(3)+"。":"年齢/体重条件から係数 "+coef.toFixed(3)+"。")
        +" 成人標準量 "+adult+" × "+coef.toFixed(3)+" ＝ "+rng(lo*coef,hi*coef)+" mg/day"
