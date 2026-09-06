@@ -15,7 +15,7 @@ CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索�
 <div><label>CAMが使えない原因薬</label><select id="drug">
 <option value="suv">スボレキサント</option>
 <option value="aze">アゼルニジピン</option>
-<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option><option value="tada">タダラフィル（アドシルカ）</option><option value="maci">マシテンタン・タダラフィル</option><option value="tica">チカグレロル</option><option value="ibru">イブルチニブ</option><option value="iva">イバブラジン</option><option value="vene">ベネトクラクス</option><option value="lura">ルラシドン</option><option value="anam">アナモレリン</option><option value="isav">イサブコナゾニウム</option><option value="vocl">ボクロスポリン</option><option value="mava">マバカムテン</option><option value="rez">オルメサルタン・アゼルニジピン</option><option value="lona">ロナファルニブ</option>
+<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option><option value="tada">タダラフィル（アドシルカ）</option><option value="maci">マシテンタン・タダラフィル</option><option value="tica">チカグレロル</option><option value="ibru">イブルチニブ</option><option value="iva">イバブラジン</option><option value="vene">ベネトクラクス</option><option value="lura">ルラシドン</option><option value="anam">アナモレリン</option><option value="isav">イサブコナゾニウム</option><option value="vocl">ボクロスポリン</option><option value="mava">マバカムテン</option><option value="rez">オルメサルタン・アゼルニジピン</option><option value="lona">ロナファルニブ</option><option value="lofra">ロフラゼプ酸エチル</option>
 <option value="ergot">エルゴタミン／ジヒドロエルゴタミン</option>
 <option value="pim">ピモジド</option>
 <option value="war">ワルファリン（併用注意ケース）</option>
@@ -56,6 +56,7 @@ isav:{name:"イサブコナゾニウム",state:"cond",label:"条件付き候補"
 vocl:{name:"ボクロスポリン",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりボクロスポリン濃度を上昇させ副作用を増強するため併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同じ強い阻害薬カテゴリーではない。",co:"ボクロスポリンはCYP3A阻害薬で曝露が変動しうるため、腎機能・血圧等の管理が必要。",memo:"CAM禁忌回避の余地はあるが、免疫抑制薬として残存相互作用を慎重に管理する条件付き候補。"},
 mava:{name:"マバカムテン",state:"ng",label:"RXMを自動提案しない",cam:"CAMのCYP3A阻害によりマバカムテン血中濃度が上昇し、収縮機能障害による心不全リスクが高まるため併用禁忌。",rxm:"RXMにもCYP3A阻害作用があるため、治療域が狭く心機能への影響が重大なマバカムテンでは単純置換を安全とは扱わない。",co:"マバカムテン側ではCYP阻害薬・誘導薬との相互作用が治療継続や用量調整に直結する。",memo:"心不全リスクを優先し、RXMを自動代替候補にしない。処方医・循環器側で個別判断。"},
 rez:{name:"オルメサルタン・アゼルニジピン配合剤",state:"cond",label:"条件付き候補",cam:"CAMは配合成分アゼルニジピンのCYP3A代謝を阻害し血中濃度を上昇させるため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱く、CAMと同じ併用禁忌には位置付けられていない。",co:"相互作用の中心はアゼルニジピン。RXMでもCYP3A阻害による曝露増加の可能性は残る。",memo:"CAM禁忌回避の余地はあるが、血圧低下・めまい等を確認する条件付き候補。"},
+lofra:{name:"ロフラゼプ酸エチル",state:"ng",label:"RXMを自動提案しない",cam:"2026年3月改訂のCAM電子添文で併用禁忌に明記。",rxm:"RXM側の最新電子添文も確認し、単純置換で安全とは扱わない。",co:"中枢抑制・薬物動態相互作用を含め個別評価。",memo:"現行CAM電子添文10.1から追加。添付文書明記薬の取りこぼし防止対象。"},
 lona:{name:"ロナファルニブ",state:"hold",label:"要個別判断",cam:"CAMによりロナファルニブ血中濃度が著しく上昇し、副作用増強のおそれがあるため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱いものの、CYP3A基質であるロナファルニブへの影響を無視できない。",co:"ロナファルニブ側のCYP3A阻害薬に関する休薬・用量調整規定を優先する。",memo:"希少疾患治療薬で治療設計への影響が大きいため、RXMを自動提案せず個別判断。"},
 fin:{
  name:"フィネレノン",state:"cond",label:"条件付き候補",
@@ -90,7 +91,7 @@ const $=x=>document.getElementById(x);
 function badge(x){return '<span class="'+x.state+'">'+x.label+'</span>'}
 function render(){const x=DB[$("drug").value];$("out").innerHTML='<b>'+x.name+'</b> '+badge(x)+'<div class="row"><b>① CAM側</b><br>'+x.cam+'</div><div class="row"><b>② RXM側</b><br>'+x.rxm+'</div><div class="row"><b>③ 併用薬側</b><br>'+x.co+'</div><div class="row"><b>CDS判断</b><br>'+x.memo+'</div><div class="mini">治療目的が慢性副鼻腔炎の少量長期療法であることを前提。最終確認は最新電子添文と患者背景で行います。</div>'}
 $("drug").onchange=render;render();
-$("list").innerHTML=["pim","ergot","suv","dari","vor","lomi","tada","maci","tica","ibru","iva","vene","lura","anam","fin","isav","vocl","mava","aze","rez","lona"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
+$("list").innerHTML=["pim","ergot","lofra","suv","dari","vor","lomi","tada","maci","tica","ibru","iva","vene","lura","anam","fin","isav","vocl","mava","aze","rez","lona"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
 
 const CAUTION={
  theo:{name:"テオフィリン",camPK:"Cmax 1.26倍、AUC 1.19倍。クリアランス16.4%低下（健康成人、CAM 300mg併用5日目）。小児喘息患者でも血清濃度の有意上昇報告あり。",problem:"テオフィリン濃度上昇により悪心、振戦、頻脈、不整脈、痙攣などの毒性リスク。",rxm:"RXMでは複数の臨床試験でテオフィリン血中濃度に臨床的に意味のある変化を認めず、用量変更不要との報告。",judgement:"RXMへ変更する意義が比較的明確。とはいえTDM対象薬なので血中濃度・症状は確認。",sources:[["CAM電子添文","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/300119_6149003F2100_1_28"],["RXM-テオフィリン試験","https://pubmed.ncbi.nlm.nih.gov/3224399/"],["RXM相互作用試験","https://pubmed.ncbi.nlm.nih.gov/3429380/"]]},
