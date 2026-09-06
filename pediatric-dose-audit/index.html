@@ -155,6 +155,7 @@ const DB={
  meto:{products:{syr01:{label:"プリンペランシロップ0.1%",unit:"mL",mgPerUnit:0.767,defaultAmount:9}},indications:{general:{label:"乳幼児嘔吐等",lo:(w,a)=>0.38*w,hi:(w,a)=>0.53*w,freq:[2,3],desc:"メトクロプラミドとして0.38～0.53mg/kg/day・分2～3。製剤量では0.5～0.7mL/kg/day"}},adult:[7.67,23.04],source:"PMDA プリンペランシロップ0.1%電子添文（2026年8月）"}
 };
 const PRACTICE={
+ cypro:{dose:(w,a)=>0.25*w,freq:[3],label:"0.25 mg/kg/day・分3",source:"日本小児科学会『不安・不眠・夜泣きを訴える子どもへの薬剤リスト』",sourceUrl:"https://www.jpeds.or.jp/uploads/files/kodomonokokoronotaiou.pdf",sourceType:"学会公開資料",note:"PMDA承認用量とは別の実務目安。小児科領域の処方例として掲載。"},
  tipe:{dose:(w,a)=>2*w,freq:[3],label:"2 mg/kg/day・分3を目安",source:"治療薬ハンドブック（ユーザー提示値）",sourceType:"二次資料",note:"承認用量とは別レイヤー。公開一次資料で再検証予定"},
  ambro:{dose:(w,a)=>0.9*w,freq:[3],label:"0.9 mg/kg/day・分3",source:"神戸市立医療センター西市民病院『小児薬用量』",sourceUrl:"https://nmc.kcho.jp/data/media/nmc-kcho/page/department/pharmacy-2/d012bf25fc1fde449f128ef5e969ebe9.pdf",sourceType:"病院薬剤部公開資料"},
  carbo:{dose:(w,a)=>30*w,freq:[3],label:"30 mg/kg/day・分3",source:"神戸市立医療センター西市民病院『小児薬用量』",sourceUrl:"https://nmc.kcho.jp/data/media/nmc-kcho/page/department/pharmacy-2/d012bf25fc1fde449f128ef5e969ebe9.pdf",sourceType:"病院薬剤部公開資料"}
@@ -217,7 +218,7 @@ function render(){
   (!freqOK?' <span class="pill warn">分割回数も要確認</span>':'')+
   '<table><thead><tr><th>補助換算</th><th>成人標準量からの推定 mg/day</th><th>位置づけ</th></tr></thead><tbody>'+rows+'</tbody></table>'+
   '<div class="note">'+(hasAdult?('古典的換算式は補助評価です。'+(adLo===adHi?'成人標準量 '+adLo+' mg/day':'成人標準量 '+adLo+'～'+adHi+' mg/day')+'を基準に換算し、承認された小児用量がある場合はそちらを主判定にします。'):'この薬は成人量からの古典的換算を行わず、承認された小児用量のみで監査します。')+'</div>'+
-  '<div class="note">出典：'+d.source+'。最終確認は最新電子添文・適応・患者背景に基づきます。</div>';
+  '<div class="note">出典：'+(d.sourceUrl?'<a href="'+d.sourceUrl+'" target="_blank" rel="noopener">'+d.source+' ↗</a>':d.source)+'。最終確認は最新電子添文・適応・患者背景に基づきます。</div>';
 }
 $("drug").onchange=()=>loadDrug(true);
 $("product").onchange=function(){const p=DB[$("drug").value].products[this.value];$("amount").value=p.defaultAmount;render()};
