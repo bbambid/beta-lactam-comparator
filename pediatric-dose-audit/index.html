@@ -47,7 +47,7 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
 </style>
 <style id="approvedDoseCardPreview">
 @media(max-width:650px){
- .approvedBasisCard{margin:8px 0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important}
+ .approvedBasisCard{margin:8px 0!important;padding:10px!important;border:1px solid #cfdbe7!important;border-radius:12px!important;background:#fff!important}
  .approvedPremise{padding:9px 10px;border-radius:9px;background:#eef4fb;margin-bottom:8px}
  .approvedPremiseTitle{font-size:10px;font-weight:900;color:#475467;margin-bottom:2px}
  .approvedPremiseMain{font-size:13px;font-weight:900;line-height:1.4;color:#1f2933}
@@ -410,6 +410,13 @@ loadDrug(true);
   if(!matchMedia("(max-width:650px)").matches)return;
   const out=document.getElementById("out");if(!out)return;
   const w=+document.getElementById("wt").value;
+  const d0=DB[$("drug").value],ii0=d0&&d0.indications[$("ind").value];
+  if(ii0&&ii0.desc){
+   [...out.childNodes].forEach(n=>{
+    if(n.nodeType===3 && n.textContent.trim()===String(ii0.desc).trim()) n.textContent="";
+    if(n.nodeType===1 && !n.classList.contains("rxLabelCard") && !n.classList.contains("approvedBasisCard") && n.textContent.trim()===String(ii0.desc).trim()) n.style.display="none";
+   });
+  }
   const nums=out.querySelector(".nums");
   if(nums&&!out.querySelector(".mobileWeightLine")){const x=document.createElement("div");x.className="mobileWeightLine";x.textContent="体重 "+w+" kg";nums.before(x)}
   const d=DB[$("drug").value],ii=d&&d.indications[$("ind").value]; if(!d||!ii)return;
