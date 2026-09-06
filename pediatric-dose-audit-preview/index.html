@@ -394,4 +394,36 @@ loadDrug(true);
  document.addEventListener("DOMContentLoaded",()=>{setup();setTimeout(enhance,0);const out=document.getElementById("out");if(out)new MutationObserver(()=>enhance()).observe(out,{childList:true})});
  document.addEventListener("input",()=>setTimeout(enhance,0),true);document.addEventListener("change",()=>setTimeout(enhance,0),true);
 })();
+</script><script id="steroidPreviewData">
+(function(){
+ if(typeof DB==="undefined")return;
+ DB.pred={
+  searchAliases:["プレドニゾロン","プレドニゾロン散","プレドニゾロン散1%"],
+  products:{pow1:{label:"プレドニゾロン散1%",unit:"g",mgPerUnit:10,defaultAmount:2}},
+  indications:{general:{label:"副腎皮質ステロイド適応（用量は疾患・症状により調整）",lo:(w,a)=>NaN,hi:(w,a)=>NaN,freq:[1,2,3,4],desc:"添付文書の用法・用量は疾患・症状等に応じて調整。小児の実務量は別カードで参考表示します。"}},
+  adult:[5,60],source:"PMDA プレドニゾロン製剤電子添文"
+ };
+ const sel=document.getElementById("drug");
+ if(sel&&!sel.querySelector('option[value="pred"]')){const o=document.createElement("option");o.value="pred";o.textContent="プレドニゾロン";sel.appendChild(o);}
+ window.STEROID_PRACTICE={
+  pred:[{title:"実務用量｜湘南鎌倉総合病院 小児薬用量",dose:"1～2 mg/kg/day・分2",note:"最大 2 mg/kg/day",source:"参考区分C：小児の薬の選び方・使い方"}],
+  dexa:[{title:"疾患別実務用量｜治療薬ハンドブック",disease:"クループ症候群",dose:"1回 0.15～0.3 mg/kg・頓用内服",note:"シロップでは量が多いので、錠剤を粉砕し単シロップと服用させるのも有効。経口投与と筋注投与は同等の効果。",source:"治療薬ハンドブック（ユーザー提示資料）"}]
+ };
+})();
+</script>
+<style id="steroidPracticeStyle">
+@media(max-width:650px){.practiceDoseCard{margin:8px 0;padding:10px;border:1px solid #dfe6ec;border-radius:11px;background:#fff}.practiceDoseTitle{font-size:10px;font-weight:900;color:#667085}.practiceDoseDisease{font-size:11px;font-weight:900;margin-top:3px}.practiceDoseMain{font-size:15px;font-weight:900;margin:3px 0}.practiceDoseNote{font-size:10px;line-height:1.55;color:#475467}.practiceDoseSource{font-size:9px;color:#667085;margin-top:5px}}</style>
+<script id="steroidPracticeCards">
+(function(){
+ function draw(){
+  if(!matchMedia("(max-width:650px)").matches||!window.STEROID_PRACTICE)return;
+  const out=document.getElementById("out"),key=document.getElementById("drug")?.value;if(!out)return;
+  out.querySelectorAll(".practiceDoseCard").forEach(x=>x.remove());
+  const items=window.STEROID_PRACTICE[key];if(!items)return;
+  const anchor=out.querySelector(".rxLabelCard")||out.querySelector(".approvedBasisCard");
+  items.slice().reverse().forEach(x=>{const d=document.createElement("div");d.className="practiceDoseCard";d.innerHTML='<div class="practiceDoseTitle">'+x.title+'</div>'+(x.disease?'<div class="practiceDoseDisease">'+x.disease+'</div>':'')+'<div class="practiceDoseMain">'+x.dose+'</div>'+(x.note?'<div class="practiceDoseNote">'+x.note+'</div>':'')+'<div class="practiceDoseSource">出典：'+x.source+'</div>';if(anchor)anchor.after(d);else out.appendChild(d);});
+ }
+ document.addEventListener("DOMContentLoaded",()=>{const out=document.getElementById("out");if(out)new MutationObserver(()=>setTimeout(draw,0)).observe(out,{childList:true});setTimeout(draw,50)});
+ document.addEventListener("change",()=>setTimeout(draw,0),true);
+})();
 </script></body></html>
