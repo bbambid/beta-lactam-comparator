@@ -11,4 +11,8 @@
    const h=p.querySelector("div");if(h)h.insertAdjacentHTML("afterend",'<div style="margin:6px 0;padding:8px;background:#f5f7f9;border-radius:8px"><b>PMDA全件監査：</b>一次突合 '+done+' / '+total+' 成分DB　<span class="muted">※「一次突合済」≠最終監査完了。最終は1件ずつ製剤単位で再確認。</span></div>');
   },0));
  }
+
+ // Final audit batch 01: status promoted only after product/indication/age/dose/frequency/max/formulation reconciliation.
+ const final01=["cam","amox","carbo","ambro","txa","levo","apap","ceti","mont","desl","olop","pran","lora","epi","fexo","meq","tulo","cfpn","cdtr","cpdx","cfdn","ccr","tipe","sult","cephalex","ery","azi","faro","tebi","fos","tosu","keto","oxa","pemi","tran","domp","acy","osel","lani","zana","balo","theo","proc","tulooral","clem","dime","vala","levet","mela","rupa"];
+ final01.forEach(k=>{if(DB[k])DB[k].pmdaAudit={status:"PMDA最終突合済み",checked:"2026-09-06",batch:"01",note:"現行PMDA電子添文と製剤・適応・年齢条件・用法用量・分割・上限・製剤量換算を最終突合"};});
 })();
