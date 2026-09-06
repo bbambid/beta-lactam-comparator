@@ -42,7 +42,7 @@
    const bsa=(h>0&&w>0)?Math.sqrt(h*w/3600):NaN;
    const adult=lo===hi?lo.toFixed(0)+" mg/day":lo.toFixed(0)+"～"+hi.toFixed(0)+" mg/day";
    let title,formula,basis,coef;
-   if(kind==="aug"){title="Augsberger-II";formula="小児量 ＝ 成人量 × (4 × 年齢[歳] ＋ 12) ÷ 100";basis="年齢から成人量に対する割合を推定する古典的換算式。";coef=(4*a+12)/100;}
+   if(kind==="aug"){title="Augsberger-II";formula="小児量 ＝ 成人量 × (4 × 年齢[歳] ＋ 20) ÷ 100";basis="年齢から成人量に対する割合を推定する古典的換算式。";coef=(4*a+20)/100;}
    if(kind==="young"){title="Young式";formula="小児量 ＝ 成人量 × 年齢 ÷ (年齢 ＋ 12)";basis="年齢比から成人量を按分する古典的換算式。";coef=a/(a+12);}
    if(kind==="clark"){title="Clark式";formula="小児量 ＝ 成人量 × 体重[kg] ÷ 68";basis="成人体重を約150 lb（約68 kg）として体重比で按分する方法。";coef=w/68;}
    if(kind==="von"){title="von Harnack式";formula="小児量 ＝ 成人量 × 年齢区分ごとの係数";basis="係数：1か月未満 1/8、1～8か月 1/5、9～23か月 1/4、2～4歳 1/3、5～9歳 1/2、10～14歳 2/3、15歳以上 1。";coef=coefVon(a);}
