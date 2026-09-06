@@ -74,7 +74,8 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
  .rxLabelHead{font-size:11px;font-weight:900;margin-bottom:5px}
  .rxLabelText{font-size:11px;line-height:1.65;color:#344054}
  .rxLabelSource{font-size:9px;color:#667085;margin-top:5px}
- .mobileWeightLine{font-size:10px;font-weight:800;color:#475467;margin:2px 0 5px}
+ .mobileWeightLine{display:inline-flex;align-items:baseline;gap:5px;font-size:10px;font-weight:800;color:#475467;margin:6px 0 7px;padding:6px 9px;border:1px solid #dfe6ec;border-radius:9px;background:#fff}
+.mobileWeightLine b{font-size:13px;color:#1f2933}
 }
 #drugListSheet{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.35)}
 #drugListSheet.open{display:flex;align-items:flex-end}
@@ -418,7 +419,7 @@ loadDrug(true);
    });
   }
   const nums=out.querySelector(".nums");
-  if(nums&&!out.querySelector(".mobileWeightLine")){const x=document.createElement("div");x.className="mobileWeightLine";x.textContent="体重 "+w+" kg";nums.before(x)}
+  if(nums&&!out.querySelector(".mobileWeightLine")){const x=document.createElement("div");x.className="mobileWeightLine";x.innerHTML='<span>体重</span><b>'+w+' kg</b>';nums.before(x)}
   const d=DB[$("drug").value],ii=d&&d.indications[$("ind").value]; if(!d||!ii)return;
   if(!out.querySelector(".rxLabelCard")){
    const card=document.createElement("div");card.className="rxLabelCard";
