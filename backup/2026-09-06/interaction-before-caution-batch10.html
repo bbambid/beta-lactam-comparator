@@ -1,0 +1,104 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CAM代替提案CDS</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7f9;color:#1f2933;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}.w{max-width:980px;margin:auto;padding:18px}.card{background:#fff;border:1px solid #dfe6ec;border-radius:16px;padding:16px;margin-bottom:10px}.title{font-size:21px;font-weight:900}.sub{font-size:11px;color:#667085;line-height:1.7}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}select{width:100%;padding:9px;border:1px solid #d6dee8;border-radius:8px;background:#fff}.out{margin-top:10px;padding:12px;border:1px solid #dce5ed;border-radius:11px;background:#f8fafc;font-size:11px;line-height:1.7}.ok,.hold,.ng,.cond{display:inline-block;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900}.ok{background:#eaf6ee;color:#27623b}.hold,.cond{background:#fff7e6;color:#7a5a12}.ng{background:#fff0ed;color:#9b3d31}.row{padding:9px;margin-top:8px;border-radius:9px;background:#fff;border:1px solid #e3e9ef}.mini{font-size:9px;color:#667085}.tag{display:inline-block;padding:3px 7px;border-radius:999px;background:#eef4fb;font-size:9px;font-weight:900}.sectionTitle{font-size:14px;font-weight:900;margin-top:4px}.condbox{padding:10px;margin-top:9px;border:1px solid #ead8a8;background:#fffaf0;border-radius:10px}@media(max-width:650px){.grid{grid-template-columns:1fr}}</style></head>
+<body><main class="w">
+<section class="card"><span class="tag">CAM interaction DB</span><div class="title">CAM併用禁忌 → RXM代替評価</div><div class="sub">慢性副鼻腔炎の少量長期マクロライド療法を想定。「CAM側」「RXM側」「併用薬側」を分離して検証します。3方向確認済みでも、相互作用が完全消失しない場合は「条件付き候補」として残します。</div></section>
+
+<section class="card">
+<div class="sectionTitle">条件付き禁忌</div>
+<div class="condbox"><b>コルヒチン投与中 ＋ 肝機能障害または腎機能障害</b><br>
+CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索では見落としやすいため、患者背景レイヤーとして独立管理します。<br>
+<span class="mini">判定：条件成立時はCAM回避。RXMへ変更する場合もコルヒチン側・患者背景を別途確認。</span></div>
+</section>
+
+<section class="card"><div class="grid">
+<div><label>CAMが使えない原因薬</label><select id="drug">
+<option value="suv">スボレキサント</option>
+<option value="aze">アゼルニジピン</option>
+<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option><option value="tada">タダラフィル（アドシルカ）</option><option value="maci">マシテンタン・タダラフィル</option><option value="tica">チカグレロル</option><option value="ibru">イブルチニブ</option><option value="iva">イバブラジン</option><option value="vene">ベネトクラクス</option><option value="lura">ルラシドン</option><option value="anam">アナモレリン</option><option value="isav">イサブコナゾニウム</option><option value="vocl">ボクロスポリン</option><option value="mava">マバカムテン</option><option value="rez">オルメサルタン・アゼルニジピン</option><option value="lona">ロナファルニブ</option>
+<option value="ergot">エルゴタミン／ジヒドロエルゴタミン</option>
+<option value="pim">ピモジド</option>
+<option value="war">ワルファリン（併用注意ケース）</option>
+</select></div>
+<div><label>治療目的</label><select id="purpose"><option>慢性副鼻腔炎｜少量長期マクロライド療法</option></select></div>
+</div><div id="out" class="out"></div></section>
+
+<section class="card"><div class="sectionTitle">検証済みデータ</div><div class="sub">Batch 1：スボレキサント／アゼルニジピン／フィネレノン。Batch 2：ダリドレキサント／ボルノレキサント／ロミタピド。Batch 3：タダラフィル／マシテンタン・タダラフィル／チカグレロル／イブルチニブ／イバブラジン。Batch 4：ベネトクラクス／ルラシドン／アナモレリン／イサブコナゾニウム／ボクロスポリン。Batch 5：マバカムテン／オルメサルタン・アゼルニジピン／ロナファルニブ。最終突合：ピモジド／エルゴタミン系も検証済み。現行CAM電子添文10.1の禁忌群を全件突合済み。CAM→RXMで相互作用が完全消失するかではなく、禁忌を回避しつつ残存リスクを管理できるかで判定します。</div><div id="list"></div></section>
+<section class="card"><div class="sectionTitle">CAM併用注意｜定量比較ワークベンチ</div><div class="sub">CAMでどの程度曝露が変わるか、臨床的な問題、RXMへ変更した場合にどこまで相互作用が弱まるかを分けて表示します。定量データがない場合は推定せず「直接データなし」とします。</div><div id="cautionList"></div></section></main>
+<script>
+const DB={
+suv:{
+ name:"スボレキサント",state:"cond",label:"条件付き候補",
+ cam:"CAMは強いCYP3A阻害によりスボレキサント曝露を顕著に上昇させるため併用禁忌。",
+ rxm:"RXMはCAMほど強いCYP3A阻害ではなく、ミダゾラムAUC約1.47倍の弱い阻害レベル。",
+ co:"スボレキサント側は強いCYP3A阻害薬を禁忌とし、中等度阻害薬では減量等の管理が必要。RXMは強い阻害薬ではないため、CAM禁忌は回避可能。",
+ memo:"RXMへの置換余地あり。ただし鎮静増強などの臨床症状を確認し、併用薬側の最新電子添文に従う。"
+},
+aze:{
+ name:"アゼルニジピン",state:"cond",label:"条件付き候補",
+ cam:"2026年3月改訂でCAMとの併用が禁忌。CYP3A阻害によりアゼルニジピン曝露が上昇。",
+ rxm:"RXMはCYP3A阻害作用を有するがCAMより弱い。CAMと同一の併用禁忌には位置付けられていない。",
+ co:"アゼルニジピンはCYP3A阻害薬との併用で曝露上昇が問題となるため、RXMへ変更しても相互作用リスクはゼロではない。",
+ memo:"CAM禁忌は回避できるが『相互作用なし』とはしない。血圧・めまい等を含め管理する条件付き候補。"
+},
+dari:{name:"ダリドレキサント",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりダリドレキサント曝露を上昇させるため併用禁忌。",rxm:"RXMは弱いCYP3A阻害レベルで、CAMと同じ強い阻害薬には該当しない。",co:"ダリドレキサント側は中等度CYP3A阻害薬でも曝露上昇・副作用増強に注意が必要。",memo:"CAM禁忌は回避できるが、傾眠等の増強を含め残存相互作用を管理する条件付き候補。"},
+vor:{name:"ボルノレキサント",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりボルノレキサント曝露を顕著に上昇させるため併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同じ併用禁忌には位置付けられていない。",co:"ボルノレキサントは主にCYP3A4で代謝されるため、弱い阻害でも曝露増加の可能性は残る。",memo:"CAM禁忌回避としてRXMへ置換余地はあるが、自動で安全扱いせず眠気等を含め観察。"},
+lomi:{name:"ロミタピド",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりロミタピド曝露を著しく上昇させるため併用禁忌。",rxm:"RXMは弱いCYP3A阻害薬として扱われ、CAMほど強い阻害ではない。",co:"ロミタピド側では弱いCYP3A阻害薬でも曝露増加があり、減量等を含む慎重な管理が必要。",memo:"CAM禁忌は回避可能だが、RXM併用時もロミタピドの用量・副作用管理が必要な条件付き候補。"},
+tada:{name:"タダラフィル（アドシルカ）",state:"cond",label:"条件付き候補",cam:"CAMではタダラフィルのクリアランスが高度に低下し作用増強のおそれがあるため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱く、同一の併用禁忌としては扱われていない。",co:"タダラフィルはCYP3A阻害薬で曝露が増加しうるため、RXMへ変更後も血圧低下・頭痛等を含め臨床管理が必要。",memo:"CAM禁忌の回避余地はあるが、相互作用ゼロとは扱わない条件付き候補。"},
+maci:{name:"マシテンタン・タダラフィル配合剤",state:"cond",label:"条件付き候補",cam:"CAMでは配合成分タダラフィルのクリアランス低下・作用増強が問題となり併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱いが、配合剤の両成分を個別に評価する必要がある。",co:"タダラフィル曝露上昇に加え、肺高血圧症治療中という背景から血圧等の管理が必要。",memo:"単剤タダラフィルより慎重に扱い、処方医確認を前提とする条件付き候補。"},
+tica:{name:"チカグレロル",state:"cond",label:"条件付き候補",cam:"CAMではチカグレロル血漿中濃度が著しく上昇するおそれがあり併用禁忌。",rxm:"RXMはCAMほど強いCYP3A阻害ではなく、同じ併用禁忌には位置付けられていない。",co:"チカグレロルはCYP3A阻害により曝露上昇し出血リスク増加が懸念されるため、RXMでも出血徴候等を確認。",memo:"CAM禁忌回避の候補になりうるが、抗血小板作用増強を念頭に条件付き。"},
+ibru:{name:"イブルチニブ",state:"hold",label:"要個別判断",cam:"CAMではCYP3A阻害によりイブルチニブ作用が増強するため併用禁忌。",rxm:"RXMはCAMより阻害が弱いもののCYP3A阻害作用を有する。",co:"イブルチニブはCYP3A阻害薬の強度に応じた休薬・減量等の管理が治療レジメンに直結する。",memo:"単純なCAM→RXM置換を自動提案せず、イブルチニブ側の用量調整規定を確認して個別判断。"},
+iva:{name:"イバブラジン",state:"ng",label:"RXMを自動提案しない",cam:"CAMではCYP3A阻害によりイバブラジン曝露が上昇し、過度の徐脈のおそれがあるため併用禁忌。",rxm:"RXMにもCYP3A阻害作用があり、さらにQT延長リスクを持つ。",co:"イバブラジンは徐脈を生じうるため、心拍数低下・不整脈という元の安全性問題をRXMで十分回避できない。",memo:"禁忌の形式的回避だけでなく循環器リスクを優先し、RXMを自動代替候補にしない。"},
+vene:{name:"ベネトクラクス",state:"hold",label:"要個別判断",cam:"CAMは用量漸増期のベネトクラクスで腫瘍崩壊症候群リスクを増強するため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱いが、ベネトクラクスは阻害強度に応じた用量調整が必要。",co:"ベネトクラクス側では用量漸増期に中等度CYP3A阻害薬も回避または大幅減量が必要。",memo:"治療フェーズと阻害強度が処方設計に直結するため自動代替せず、ベネトクラクス側の用量調整表で個別判断。"},
+lura:{name:"ルラシドン",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりルラシドン血中濃度を上昇させるため併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同じ強い阻害薬カテゴリーではない。",co:"ルラシドンは中等度CYP3A阻害薬でも曝露が約2倍となり用量調整が必要。",memo:"CAM禁忌回避の余地はあるが、RXMでも曝露上昇の可能性を残すため条件付き候補。"},
+anam:{name:"アナモレリン",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりアナモレリンの血中濃度上昇・副作用増強のおそれがあり併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同一の併用禁忌には位置付けられていない。",co:"アナモレリンはCYP3A基質であり、弱い阻害でも曝露上昇の可能性を考慮する。",memo:"CAM禁忌は回避可能だが、食欲増進薬の副作用・QT等も含め観察する条件付き候補。"},
+isav:{name:"イサブコナゾニウム",state:"cond",label:"条件付き候補",cam:"CAMとの併用でイサブコナゾール曝露上昇が懸念され併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱く、強い阻害薬には該当しない。",co:"イサブコナゾールはCYP3Aを介した相互作用が多く、併用薬側の相互作用管理が必要。",memo:"CAM禁忌回避の候補にはなりうるが、多剤相互作用を再評価する条件付き候補。"},
+vocl:{name:"ボクロスポリン",state:"cond",label:"条件付き候補",cam:"CAMは強いCYP3A阻害によりボクロスポリン濃度を上昇させ副作用を増強するため併用禁忌。",rxm:"RXMはCAMより弱いCYP3A阻害で、同じ強い阻害薬カテゴリーではない。",co:"ボクロスポリンはCYP3A阻害薬で曝露が変動しうるため、腎機能・血圧等の管理が必要。",memo:"CAM禁忌回避の余地はあるが、免疫抑制薬として残存相互作用を慎重に管理する条件付き候補。"},
+mava:{name:"マバカムテン",state:"ng",label:"RXMを自動提案しない",cam:"CAMのCYP3A阻害によりマバカムテン血中濃度が上昇し、収縮機能障害による心不全リスクが高まるため併用禁忌。",rxm:"RXMにもCYP3A阻害作用があるため、治療域が狭く心機能への影響が重大なマバカムテンでは単純置換を安全とは扱わない。",co:"マバカムテン側ではCYP阻害薬・誘導薬との相互作用が治療継続や用量調整に直結する。",memo:"心不全リスクを優先し、RXMを自動代替候補にしない。処方医・循環器側で個別判断。"},
+rez:{name:"オルメサルタン・アゼルニジピン配合剤",state:"cond",label:"条件付き候補",cam:"CAMは配合成分アゼルニジピンのCYP3A代謝を阻害し血中濃度を上昇させるため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱く、CAMと同じ併用禁忌には位置付けられていない。",co:"相互作用の中心はアゼルニジピン。RXMでもCYP3A阻害による曝露増加の可能性は残る。",memo:"CAM禁忌回避の余地はあるが、血圧低下・めまい等を確認する条件付き候補。"},
+lona:{name:"ロナファルニブ",state:"hold",label:"要個別判断",cam:"CAMによりロナファルニブ血中濃度が著しく上昇し、副作用増強のおそれがあるため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱いものの、CYP3A基質であるロナファルニブへの影響を無視できない。",co:"ロナファルニブ側のCYP3A阻害薬に関する休薬・用量調整規定を優先する。",memo:"希少疾患治療薬で治療設計への影響が大きいため、RXMを自動提案せず個別判断。"},
+fin:{
+ name:"フィネレノン",state:"cond",label:"条件付き候補",
+ cam:"CAMは強いCYP3A阻害薬としてフィネレノンとの併用禁忌。",
+ rxm:"RXMは弱いCYP3A阻害レベルで、CAMと同じ強い阻害薬カテゴリーではない。",
+ co:"フィネレノンは弱～中等度CYP3A阻害薬でも曝露上昇が起こりうるため、血清K値や腎機能を含むモニタリングが必要。",
+ memo:"CAMの禁忌は回避可能だが、RXMでも残存相互作用を管理する前提。自動で『安全』とは表示しない。"
+},
+ergot:{
+ name:"エルゴタミン／ジヒドロエルゴタミン",state:"ng",label:"RXMでは回避不可",
+ cam:"CAMで併用禁忌：血管攣縮等の重篤な副作用のおそれ。",
+ rxm:"RXMでも併用禁忌。",
+ co:"代替候補評価不要。",
+ memo:"CAM→RXM置換は相互作用回避にならない。"
+},
+pim:{
+ name:"ピモジド",state:"ng",label:"RXMを自動提案しない",
+ cam:"CAMで併用禁忌：QT延長・心室性不整脈。",
+ rxm:"RXMにもQT延長リスクがあり、同じ安全性問題を残しうる。",
+ co:"ピモジド側も含め個別評価。",
+ memo:"元の問題がQT/不整脈なので、単純置換しない。"
+},
+war:{
+ name:"ワルファリン",state:"ng",label:"単純置換で解決しない",
+ cam:"CAMでは併用注意として抗凝固作用増強に注意。",
+ rxm:"RXMでもワルファリン作用増強の併用注意。",
+ co:"INR等を含む臨床管理が必要。",
+ memo:"禁忌回避ではなく相互作用管理の問題。"
+}
+};
+const $=x=>document.getElementById(x);
+function badge(x){return '<span class="'+x.state+'">'+x.label+'</span>'}
+function render(){const x=DB[$("drug").value];$("out").innerHTML='<b>'+x.name+'</b> '+badge(x)+'<div class="row"><b>① CAM側</b><br>'+x.cam+'</div><div class="row"><b>② RXM側</b><br>'+x.rxm+'</div><div class="row"><b>③ 併用薬側</b><br>'+x.co+'</div><div class="row"><b>CDS判断</b><br>'+x.memo+'</div><div class="mini">治療目的が慢性副鼻腔炎の少量長期療法であることを前提。最終確認は最新電子添文と患者背景で行います。</div>'}
+$("drug").onchange=render;render();
+$("list").innerHTML=["pim","ergot","suv","dari","vor","lomi","tada","maci","tica","ibru","iva","vene","lura","anam","fin","isav","vocl","mava","aze","rez","lona"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
+
+const CAUTION={
+ theo:{name:"テオフィリン",camPK:"Cmax 1.26倍、AUC 1.19倍。クリアランス16.4%低下（健康成人、CAM 300mg併用5日目）。小児喘息患者でも血清濃度の有意上昇報告あり。",problem:"テオフィリン濃度上昇により悪心、振戦、頻脈、不整脈、痙攣などの毒性リスク。",rxm:"RXMでは複数の臨床試験でテオフィリン血中濃度に臨床的に意味のある変化を認めず、用量変更不要との報告。",judgement:"RXMへ変更する意義が比較的明確。とはいえTDM対象薬なので血中濃度・症状は確認。",sources:[["CAM電子添文","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/300119_6149003F2100_1_28"],["RXM-テオフィリン試験","https://pubmed.ncbi.nlm.nih.gov/3224399/"],["RXM相互作用試験","https://pubmed.ncbi.nlm.nih.gov/3429380/"]]},
+ dig:{name:"ジゴキシン",camPK:"CAMは腸内細菌叢への影響とP-gp阻害によりジゴキシン濃度を上昇させる。現行電子添文に具体的AUC倍率の記載なし。",problem:"嘔気・嘔吐、不整脈などジゴキシン中毒。",rxm:"in vitroではRXMもCAMと同様にジゴキシンのP-gp輸送を強く阻害。RXMなら安全とは判定できない。",judgement:"CAM→RXMの単純置換で相互作用回避とはしない。ジゴキシン濃度・ECG・症状を優先。",sources:[["CAM電子添文","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/300119_6149003F2100_1_28"],["マクロライド-P-gp研究","https://pubmed.ncbi.nlm.nih.gov/20724802/"]]},
+ cyclo:{name:"シクロスポリン",camPK:"CAMはCYP3A阻害によりシクロスポリン血中濃度を上昇させる。現行電子添文に統一したAUC倍率の記載なし。",problem:"腎障害、血圧上昇、神経毒性など濃度依存性副作用。",rxm:"心移植患者8例でRXM 150mg×2投与時、シクロスポリン濃度は軽度・非有意の上昇で用量調整不要との報告。",judgement:"RXMでは相互作用が弱い可能性が高いが、免疫抑制薬なのでTDM前提の条件付き候補。",sources:[["CAM電子添文","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/300119_6149003F2100_1_28"],["RXM-シクロスポリン試験","https://pubmed.ncbi.nlm.nih.gov/2292171/"]]},
+ tac:{name:"タクロリムス",camPK:"CAMはCYP3A阻害によりタクロリムス血中濃度を上昇させる。現行電子添文に統一したAUC倍率の記載なし。",problem:"腎毒性、神経毒性、高K血症など。",rxm:"RXMにもCYP3A阻害作用があり、タクロリムスとの直接定量比較データは今回確認できず。",judgement:"RXMへ変更しても『相互作用なし』とはしない。TDM必須の個別判断。",sources:[["CAM電子添文","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/300119_6149003F2100_1_28"],["RXM-CYP3A指標試験","https://pubmed.ncbi.nlm.nih.gov/7995324/"]]},
+ ator:{name:"アトルバスタチン",camPK:"CAMはCYP3A阻害によりアトルバスタチン曝露を上昇させ、横紋筋融解症が報告されている。現行電子添文に統一したAUC倍率の記載なし。",problem:"筋障害、CK上昇、横紋筋融解症。腎機能障害患者では特に注意。",rxm:"RXMはCAMよりCYP3A阻害が弱い。アトルバスタチン直接比較データは今回確認できず。ロバスタチンではRXM併用で臨床的に用量調整を要する影響はないとの試験あり。",judgement:"RXMの方が相互作用は弱い可能性があるが、アトルバスタチン直接データではないため条件付き。",sources:[["CAM電子添文","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/300119_6149003F2100_1_28"],["RXM-ロバスタチン試験","https://pubmed.ncbi.nlm.nih.gov/11868800/"]]}
+};
+const cl=document.getElementById("cautionList");
+if(cl) cl.innerHTML=Object.values(CAUTION).map(x=>'<div class="row"><b>'+x.name+'</b><br><b>CAM：</b>'+x.camPK+'<br><b>問題：</b>'+x.problem+'<br><b>RXMなら：</b>'+x.rxm+'<br><b>CDS判断：</b>'+x.judgement+'<div class="mini" style="margin-top:5px">根拠：'+x.sources.map(s=>'<a href="'+s[1]+'" target="_blank" rel="noopener">'+s[0]+' ↗</a>').join(' ／ ')+'</div></div>').join("");
+</script></body></html>
