@@ -80,6 +80,12 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
 #drugListSheet.open{display:flex;align-items:flex-end}
 #drugListPanel{background:#fff;width:100%;max-height:75vh;border-radius:18px 18px 0 0;padding:12px;overflow:auto}
 #drugListPanel button{display:block;width:100%;padding:11px;border:0;border-bottom:1px solid #edf1f4;background:#fff;text-align:left}
+#drugCategoryTabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 9px;scrollbar-width:none}
+#drugCategoryTabs::-webkit-scrollbar{display:none}
+#drugCategoryTabs .drugCatTab{display:inline-block;width:auto;flex:0 0 auto;padding:7px 10px;border:1px solid #dfe6ec;border-radius:999px;background:#fff;font-size:10px;font-weight:800;white-space:nowrap;color:#475467}
+#drugCategoryTabs .drugCatTab.active{background:#eef4fb;border-color:#9db9d4;color:#2f5d8a}
+.drugCatHead{position:sticky;top:0;background:#f6f8fa;padding:7px 10px;font-size:10px;font-weight:900;color:#667085;border-bottom:1px solid #e8edf2;z-index:1}
+.drugCatGroup>button{padding-left:16px!important;font-size:12px;color:#1f2933}
 </style></head><body><main class="w">
 <section class="card"><span class="tag">CAM / AMPC / CARBO / AMBRO / TXA / LEVO / APAP + ALLERGY</span><div class="title">小児処方監査CDS</div>
 <div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPC・カルボシステイン・アンブロキソール・トラネキサム酸・レボセチリジン・アセトアミノフェン・セチリジン・モンテルカスト・デスロラタジン・オロパタジン・プランルカストを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
@@ -373,9 +379,29 @@ loadDrug(true);
    const wrap=document.createElement("div");wrap.id="drugSearchWrap";wrap.style.display="flex";
    search.parentNode.insertBefore(wrap,search);wrap.appendChild(search);
    const b=document.createElement("button");b.id="drugListBtn";b.type="button";b.textContent="一覧から選択";wrap.appendChild(b);
-   const sheet=document.createElement("div");sheet.id="drugListSheet";sheet.innerHTML='<div id="drugListPanel"><div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 8px"><b>薬剤を選択</b><button id="drugListClose" type="button" style="border:0;background:transparent;font-size:20px">×</button></div><div id="drugListItems"></div></div>';document.body.appendChild(sheet);
-   b.onclick=()=>{document.getElementById("drugListItems").innerHTML=[...sel.options].map(o=>'<button type="button" data-v="'+o.value+'">'+o.textContent+'</button>').join("");sheet.classList.add("open")};
-   sheet.onclick=e=>{if(e.target===sheet||e.target.id==="drugListClose")sheet.classList.remove("open");const x=e.target.closest("[data-v]");if(x){sel.value=x.dataset.v;sel.dispatchEvent(new Event("change",{bubbles:true}));search.value=sel.options[sel.selectedIndex].textContent;sheet.classList.remove("open")}};
+   const sheet=document.createElement("div");sheet.id="drugListSheet";sheet.innerHTML='<div id="drugListPanel"><div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 8px"><b>薬剤を選択</b><button id="drugListClose" type="button" style="border:0;background:transparent;font-size:20px">×</button></div><div id="drugCategoryTabs"></div><div id="drugListItems"></div></div>';document.body.appendChild(sheet);
+   const categoryMap={
+    cam:"抗菌薬",amox:"抗菌薬",cfpn:"抗菌薬",cdtr:"抗菌薬",cpdx:"抗菌薬",cfdn:"抗菌薬",ccr:"抗菌薬",sult:"抗菌薬",cephalex:"抗菌薬",ery:"抗菌薬",azi:"抗菌薬",faro:"抗菌薬",tebi:"抗菌薬",fos:"抗菌薬",tosu:"抗菌薬",
+    ceti:"抗アレルギー薬",mont:"抗アレルギー薬",desl:"抗アレルギー薬",olop:"抗アレルギー薬",pran:"抗アレルギー薬",lora:"抗アレルギー薬",epi:"抗アレルギー薬",fexo:"抗アレルギー薬",meq:"抗アレルギー薬",keto:"抗アレルギー薬",oxa:"抗アレルギー薬",pemi:"抗アレルギー薬",tran:"抗アレルギー薬",clem:"抗アレルギー薬",rupa:"抗アレルギー薬",
+    carbo:"呼吸器・鎮咳去痰",ambro:"呼吸器・鎮咳去痰",tipe:"呼吸器・鎮咳去痰",tulo:"呼吸器・鎮咳去痰",theo:"呼吸器・鎮咳去痰",proc:"呼吸器・鎮咳去痰",tulooral:"呼吸器・鎮咳去痰",dime:"呼吸器・鎮咳去痰",
+    apap:"解熱鎮痛・抗炎症",txa:"解熱鎮痛・抗炎症",
+    domp:"消化器",meto:"消化器",
+    acy:"抗ウイルス薬",osel:"抗ウイルス薬",lani:"抗ウイルス薬",zana:"抗ウイルス薬",balo:"抗ウイルス薬",vala:"抗ウイルス薬",
+    levet:"神経",mela:"神経",
+    pred:"ステロイド"
+   };
+   const categoryOrder=["すべて","抗菌薬","抗アレルギー薬","呼吸器・鎮咳去痰","解熱鎮痛・抗炎症","消化器","抗ウイルス薬","ステロイド","神経","その他"];
+   const collator=new Intl.Collator("ja",{usage:"sort",sensitivity:"base"});
+   let activeCategory="すべて";
+   function renderDrugList(){
+    const opts=[...sel.options].map(o=>({value:o.value,label:o.textContent,cat:categoryMap[o.value]||"その他"})).sort((a,b)=>collator.compare(a.label,b.label));
+    const visible=activeCategory==="すべて"?opts:opts.filter(x=>x.cat===activeCategory);
+    const groups=activeCategory==="すべて"?categoryOrder.slice(1).filter(cat=>visible.some(x=>x.cat===cat)):[activeCategory];
+    document.getElementById("drugCategoryTabs").innerHTML=categoryOrder.filter(cat=>cat==="すべて"||opts.some(x=>x.cat===cat)).map(cat=>'<button type="button" class="drugCatTab'+(cat===activeCategory?' active':'')+'" data-cat="'+cat+'">'+cat+'</button>').join("");
+    document.getElementById("drugListItems").innerHTML=groups.map(cat=>'<div class="drugCatGroup"><div class="drugCatHead">'+cat+'</div>'+visible.filter(x=>x.cat===cat).map(x=>'<button type="button" data-v="'+x.value+'">'+x.label+'</button>').join("")+'</div>').join("");
+   }
+   b.onclick=()=>{activeCategory="すべて";renderDrugList();sheet.classList.add("open")};
+   sheet.onclick=e=>{if(e.target===sheet||e.target.id==="drugListClose")sheet.classList.remove("open");const cat=e.target.closest("[data-cat]");if(cat){activeCategory=cat.dataset.cat;renderDrugList();return;}const x=e.target.closest("[data-v]");if(x){sel.value=x.dataset.v;sel.dispatchEvent(new Event("change",{bubbles:true}));search.value=sel.options[sel.selectedIndex].textContent;sheet.classList.remove("open")}};
   }
  }
  function enhance(){
