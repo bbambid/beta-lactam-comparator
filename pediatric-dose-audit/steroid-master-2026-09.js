@@ -25,15 +25,28 @@
    pow01:{label:"リンデロン散0.1%",unit:"g",mgPerUnit:1,defaultAmount:0.5},
    tab05:{label:"リンデロン錠0.5mg",unit:"錠",mgPerUnit:0.5,defaultAmount:1}
   },
-  indications:{general:{label:"副腎皮質ステロイド適応",lo:()=>NaN,hi:()=>NaN,freq:[1,2,3,4],referenceOnly:true,desc:"添付文書の用量は疾患・年齢・症状等により調整する。小児の疾患別実務量は別レイヤーで扱う。"}},
+  indications:{
+   syrup:{label:"リンデロンシロップ0.01%（小児）",lo:()=>0.15,hi:()=>4,freq:[1,2,3,4],desc:"小児にはベタメタゾンとして1日0.15～4mgを1～4回に分割経口投与。年齢・症状により適宜増減"},
+   solid:{label:"リンデロン錠0.5mg／散0.1%",lo:()=>NaN,hi:()=>NaN,freq:[1,2,3,4],referenceOnly:true,desc:"錠剤・散剤は通常成人0.5～8mg/dayを1～4回に分割。年齢・症状により適宜増減。小児の固定承認量は設定されていない"}
+  },
   adult:null,
-  source:"PMDA リンデロン錠0.5mg／散0.1%／シロップ0.01%",
+  source:"PMDA リンデロン錠0.5mg／散0.1%／シロップ0.01%（2026年3月改訂）",
   sourceUrl:"https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2454004B1040_2?user=1",
   searchAliases:["リンデロン","リンデロンシロップ","リンデロン散","ベタメタゾン"],
   category:"ステロイド",
-  auditStatus:"PMDA現行製剤確認済み"
+  auditStatus:"PMDA最終突合済み",
+  auditDate:"2026-09-07"
  };
+ // Old product-name-only record is removed; generic-name parent is canonical.
+ delete DB.aud_lindelonPow;
+ const oldL=S.querySelector('option[value="aud_lindelonPow"]');if(oldL)oldL.remove();
  opt("beta","ベタメタゾン");
+ // Keep indication synchronized with the selected formulation.
+ document.getElementById("product")?.addEventListener("change",()=>{
+   if(document.getElementById("drug")?.value!=="beta")return;
+   const ind=document.getElementById("ind"),p=document.getElementById("product")?.value;
+   if(ind){ind.value=p==="syrup001"?"syrup":"solid"; if(typeof render==="function")render();}
+ });
 
  DB.dexa=Object.assign({},DB.dexa||{},{
   products:Object.assign({},(DB.dexa&&DB.dexa.products)||{},{
