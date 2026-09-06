@@ -21,4 +21,8 @@
  // PMDA final audit batch 02 (records 11-20).
  const final20=["olop","pran","lora","epi","fexo","meq","tulo","cfpn","cdtr","cpdx"];
  final20.forEach(k=>{if(DB[k])DB[k].pmdaAudit={status:"PMDA最終突合済み",checked:"2026-09-06",batch:"11-20",note:"現行PMDA電子添文を再確認し、製剤/規格・小児適応・年齢/体重条件・承認用量・分割・上限/増量条件・製剤量換算を突合"};});
+
+ // PMDA final audit batch 03 (records 21-30).
+ const final30=["cfdn","ccr","tipe","sult","cephalex","ery","azi","faro","tebi","fos"];
+ final30.forEach(k=>{if(DB[k])DB[k].pmdaAudit={status:"PMDA最終突合済み",checked:"2026-09-06",batch:"21-30",note:"現行PMDA電子添文を再確認。製剤・規格→小児適応→年齢/体重条件→1回量→1日量→分割→最大量/増量条件→製剤固有条件→DB計算→製剤量換算を順に突合"};});
 })();
