@@ -201,7 +201,7 @@ function render(){
  else if(!withinMax||mg<lo*.8){cls="ng";verdict=!withinMax?"承認上限を超える":"通常用量から大きく外れる";}
  const hasAdult=Array.isArray(d.adult); const [adLo,adHi]=hasAdult?d.adult:[NaN,NaN];
  const calc=(adult,kind)=>{
-   if(kind==="aug")return adult*(4*a+12)/100;
+   if(kind==="aug")return adult*(4*a+20)/100;
    if(kind==="young")return adult*a/(a+12);
    if(kind==="clark")return adult*w/68;
    if(kind==="von")return adult*vh(a);
