@@ -16,7 +16,7 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
 <div class="sub">処方箋に記載された「製剤量」をそのまま入力。CAM・AMPC・カルボシステイン・アンブロキソール・トラネキサム酸・レボセチリジン・アセトアミノフェン・セチリジン・モンテルカスト・デスロラタジン・オロパタジン・プランルカストを製剤/規格ごとに扱い、含量から成分量へ換算して承認小児用量を最優先で監査します。Augsberger / von Harnack / Young / Clark / BSA は補助的な妥当性確認として並列表示し、換算式だけで適否を決めません。</div></section>
 
 <section class="card"><div class="grid">
-<div><label>薬剤</label><select id="drug"><option value="cam">クラリスロマイシン</option><option value="amox">アモキシシリン</option><option value="carbo">カルボシステイン</option><option value="ambro">アンブロキソール</option><option value="txa">トラネキサム酸</option><option value="levo">レボセチリジン</option><option value="apap">アセトアミノフェン</option><option value="ceti">セチリジン</option><option value="mont">モンテルカスト</option><option value="desl">デスロラタジン</option><option value="olop">オロパタジン</option><option value="pran">プランルカスト</option><option value="lora">ロラタジン</option><option value="epi">エピナスチン</option><option value="fexo">フェキソフェナジン</option><option value="meq">メキタジン</option><option value="tulo">ツロブテロール</option></select></div>
+<div><label>薬剤</label><select id="drug"><option value="cam">クラリスロマイシン</option><option value="amox">アモキシシリン</option><option value="carbo">カルボシステイン</option><option value="ambro">アンブロキソール</option><option value="txa">トラネキサム酸</option><option value="levo">レボセチリジン</option><option value="apap">アセトアミノフェン</option><option value="ceti">セチリジン</option><option value="mont">モンテルカスト</option><option value="desl">デスロラタジン</option><option value="olop">オロパタジン</option><option value="pran">プランルカスト</option><option value="lora">ロラタジン</option><option value="epi">エピナスチン</option><option value="fexo">フェキソフェナジン</option><option value="meq">メキタジン</option><option value="tulo">ツロブテロール</option><option value="cfpn">セフカペン</option><option value="cdtr">セフジトレン</option><option value="cpdx">セフポドキシム</option><option value="cfdn">セフジニル</option><option value="ccr">セファクロル</option><option value="tipe">チペピジン（アスベリン）</option></select></div>
 <div><label>製剤・規格</label><select id="product"></select></div>
 <div><label>適応</label><select id="ind"></select></div>
 <div><label>年齢</label><select id="age">
@@ -103,7 +103,13 @@ const DB={
  epi:{products:{ds1:{label:"ドライシロップ1%",unit:"g",mgPerUnit:10,defaultAmount:1}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>0.25*w,hi:(w,a)=>0.5*w,freq:[1],desc:"通常0.25～0.5mg/kg/day・分1"}},adult:[20,20],source:"PMDA エピナスチン塩酸塩小児用製剤電子添文"},
  fexo:{products:{ds5:{label:"ドライシロップ5%",unit:"g",mgPerUnit:50,defaultAmount:1.2}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹・そう痒",lo:(w,a)=>a<0.5?NaN:a<2?30:a<7?60:a<12?60:120,hi:(w,a)=>a<0.5?NaN:a<2?30:a<7?60:a<12?60:120,freq:[2],desc:"6か月～1歳：15mg×2、2～11歳：30mg×2、12歳以上：60mg×2"}},adult:[120,120],source:"PMDA フェキソフェナジン塩酸塩DS5%電子添文"},
  meq:{products:{syr003:{label:"小児用シロップ0.03%",unit:"mL",mgPerUnit:0.3,defaultAmount:6},gran06:{label:"小児用細粒0.6%",unit:"g",mgPerUnit:6,defaultAmount:0.3}},indications:{general:{label:"アレルギー性鼻炎／蕁麻疹等",lo:(w,a)=>0.12*w,hi:(w,a)=>0.12*w,freq:[2],desc:"通常0.12mg/kg/day・分2"}},adult:[6,6],source:"PMDA メキタジン小児用製剤電子添文"},
- tulo:{products:{patch05:{label:"テープ0.5mg",unit:"枚",mgPerUnit:0.5,defaultAmount:1},patch1:{label:"テープ1mg",unit:"枚",mgPerUnit:1,defaultAmount:1},patch2:{label:"テープ2mg",unit:"枚",mgPerUnit:2,defaultAmount:1}},indications:{general:{label:"気管支喘息／急性・慢性気管支炎等",lo:(w,a)=>a<0.5?NaN:a<3?0.5:a<9?1:2,hi:(w,a)=>a<0.5?NaN:a<3?0.5:a<9?1:2,freq:[1],desc:"0.5～2歳：0.5mg、3～8歳：1mg、9歳以上：2mg 1日1回貼付"}},adult:[2,2],source:"PMDA ツロブテロールテープ電子添文"}
+ tulo:{products:{patch05:{label:"テープ0.5mg",unit:"枚",mgPerUnit:0.5,defaultAmount:1},patch1:{label:"テープ1mg",unit:"枚",mgPerUnit:1,defaultAmount:1},patch2:{label:"テープ2mg",unit:"枚",mgPerUnit:2,defaultAmount:1}},indications:{general:{label:"気管支喘息／急性・慢性気管支炎等",lo:(w,a)=>a<0.5?NaN:a<3?0.5:a<9?1:2,hi:(w,a)=>a<0.5?NaN:a<3?0.5:a<9?1:2,freq:[1],desc:"0.5～2歳：0.5mg、3～8歳：1mg、9歳以上：2mg 1日1回貼付"}},adult:[2,2],source:"PMDA ツロブテロールテープ電子添文"},
+ cfpn:{products:{gran10:{label:"小児用細粒10%",unit:"g",mgPerUnit:100,defaultAmount:1.62}},indications:{general:{label:"一般感染症",lo:(w,a)=>9*w,hi:(w,a)=>9*w,freq:[3],desc:"通常1回3mg/kgを1日3回"},severe:{label:"難治性・効果不十分",lo:(w,a)=>13.5*w,hi:(w,a)=>18*w,freq:[3],desc:"必要に応じ1回4.5～6mg/kgを1日3回"}},adult:[300,300],source:"PMDA セフカペン ピボキシル小児用細粒10%電子添文"},
+ cdtr:{products:{gran10:{label:"小児用細粒10%",unit:"g",mgPerUnit:100,defaultAmount:1.62}},indications:{general:{label:"一般感染症",lo:(w,a)=>9*w,hi:(w,a)=>9*w,freq:[3],desc:"通常1回3mg/kgを1日3回"},resp:{label:"肺炎・中耳炎・副鼻腔炎",lo:(w,a)=>18*w,hi:(w,a)=>18*w,freq:[3],desc:"通常1回6mg/kgを1日3回"}},adult:[300,300],source:"PMDA セフジトレン ピボキシル小児用細粒10%電子添文"},
+ cpdx:{products:{ds5:{label:"ドライシロップ5%",unit:"g",mgPerUnit:50,defaultAmount:3.6}},indications:{general:{label:"一般感染症",lo:(w,a)=>6*w,hi:(w,a)=>6*w,freq:[2,3],desc:"通常1回3mg/kgを1日2～3回"}},adult:[200,400],source:"PMDA セフポドキシム プロキセチルDS5%電子添文"},
+ cfdn:{products:{gran10:{label:"細粒10%",unit:"g",mgPerUnit:100,defaultAmount:1.62}},indications:{general:{label:"一般感染症",lo:(w,a)=>9*w,hi:(w,a)=>18*w,freq:[3],desc:"通常1回3～6mg/kgを1日3回"}},adult:[300,300],source:"PMDA セフジニル細粒10%小児用電子添文"},
+ ccr:{products:{gran20:{label:"細粒小児用20%",unit:"g",mgPerUnit:200,defaultAmount:1.8}},indications:{general:{label:"一般感染症",lo:(w,a)=>20*w,hi:(w,a)=>40*w,freq:[3],desc:"通常20～40mg/kg/dayを3回に分割"}},adult:[750,750],source:"PMDA セファクロル細粒小児用20%電子添文"},
+ tipe:{products:{syr05:{label:"シロップ0.5%",unit:"mL",mgPerUnit:5,defaultAmount:9},pow10:{label:"散10%",unit:"g",mgPerUnit:100,defaultAmount:0.45}},indications:{general:{label:"鎮咳・去痰",lo:(w,a)=>a<1?5:a<3?15:a<6?20:a<15?30:60,hi:(w,a)=>a<1?20:a<3?45:a<6?60:a<15?90:120,freq:[3],desc:"年齢別1日量を3回に分割。年齢・症状により適宜増減"}},adult:[60,120],source:"PMDA アスベリン（チペピジンヒベンズ酸塩）電子添文"}
 };
 function vh(a){if(a<0.08)return .125;if(a<0.75)return .2;if(a<2)return .25;if(a<5)return 1/3;if(a<10)return .5;if(a<15)return 2/3;return 1}
 function fmt(x,d=1){return Number.isFinite(x)?x.toFixed(d):"—"}
@@ -113,12 +119,12 @@ function loadDrug(reset=true){
  p.innerHTML=Object.entries(d.products).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
  ind.innerHTML=Object.entries(d.indications).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
  if($("drug").value==="amox") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
- else if(["carbo","ambro"].includes($("drug").value)) $("freq").innerHTML='<option value="3">分3</option>';
+ else if(["carbo","ambro","cfpn","cdtr","cfdn","ccr","tipe"].includes($("drug").value)) $("freq").innerHTML='<option value="3">分3</option>';
  else if($("drug").value==="txa") $("freq").innerHTML='<option value="3">分3</option><option value="4">分4</option>';
  else if($("drug").value==="levo"){const a=+$("age").value;$("freq").innerHTML=a<1?'<option value="1">分1</option>':a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
  else if($("drug").value==="apap") $("freq").innerHTML='<option value="1">1回</option><option value="2">2回</option><option value="3">3回</option><option value="4">4回</option><option value="5">5回</option><option value="6">6回</option>';
  else if(["mont","desl","lora","epi","tulo"].includes($("drug").value)) $("freq").innerHTML='<option value="1">分1</option>';
- else if(["olop","pran","fexo","meq"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
+ else if(["olop","pran","fexo","meq","cpdx"].includes($("drug").value)) $("freq").innerHTML='<option value="2">分2</option>';
  else if($("drug").value==="ceti"){const a=+$("age").value;$("freq").innerHTML=a<15?'<option value="2">分2</option>':'<option value="1">分1</option>';}
  else $("freq").innerHTML='<option value="2">分2</option><option value="3">分3</option>';
  if(reset)$("amount").value=Object.values(d.products)[0].defaultAmount;
