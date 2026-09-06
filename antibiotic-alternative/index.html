@@ -15,7 +15,7 @@ CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索�
 <div><label>CAMが使えない原因薬</label><select id="drug">
 <option value="suv">スボレキサント</option>
 <option value="aze">アゼルニジピン</option>
-<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option><option value="tada">タダラフィル（アドシルカ）</option><option value="maci">マシテンタン・タダラフィル</option><option value="tica">チカグレロル</option><option value="ibru">イブルチニブ</option><option value="iva">イバブラジン</option><option value="vene">ベネトクラクス</option><option value="lura">ルラシドン</option><option value="anam">アナモレリン</option><option value="isav">イサブコナゾニウム</option><option value="vocl">ボクロスポリン</option><option value="mava">マバカムテン</option><option value="rez">オルメサルタン・アゼルニジピン</option><option value="lona">ロナファルニブ</option><option value="rilp">リルピビリン</option><option value="statincombo">ロスバスタチン・エゼチミブ配合錠</option>
+<option value="fin">フィネレノン</option><option value="dari">ダリドレキサント</option><option value="vor">ボルノレキサント</option><option value="lomi">ロミタピド</option><option value="tada">タダラフィル（アドシルカ）</option><option value="maci">マシテンタン・タダラフィル</option><option value="tica">チカグレロル</option><option value="ibru">イブルチニブ</option><option value="iva">イバブラジン</option><option value="vene">ベネトクラクス</option><option value="lura">ルラシドン</option><option value="anam">アナモレリン</option><option value="isav">イサブコナゾニウム</option><option value="vocl">ボクロスポリン</option><option value="mava">マバカムテン</option><option value="rez">オルメサルタン・アゼルニジピン</option><option value="lona">ロナファルニブ</option>
 <option value="ergot">エルゴタミン／ジヒドロエルゴタミン</option>
 <option value="pim">ピモジド</option>
 <option value="war">ワルファリン（併用注意ケース）</option>
@@ -23,7 +23,7 @@ CAMはこの患者背景では禁忌。単純な「併用薬だけ」の検索�
 <div><label>治療目的</label><select id="purpose"><option>慢性副鼻腔炎｜少量長期マクロライド療法</option></select></div>
 </div><div id="out" class="out"></div></section>
 
-<section class="card"><div class="sectionTitle">検証済みデータ</div><div class="sub">Batch 1：スボレキサント／アゼルニジピン／フィネレノン。Batch 2：ダリドレキサント／ボルノレキサント／ロミタピド。Batch 3：タダラフィル／マシテンタン・タダラフィル／チカグレロル／イブルチニブ／イバブラジン。Batch 4：ベネトクラクス／ルラシドン／アナモレリン／イサブコナゾニウム／ボクロスポリン。Batch 5：マバカムテン／オルメサルタン・アゼルニジピン／ロナファルニブ／リルピビリン／ロスバスタチン・エゼチミブ配合錠。CAM→RXMで相互作用が完全消失するかではなく、禁忌を回避しつつ残存リスクを管理できるかで判定します。</div><div id="list"></div></section>
+<section class="card"><div class="sectionTitle">検証済みデータ</div><div class="sub">Batch 1：スボレキサント／アゼルニジピン／フィネレノン。Batch 2：ダリドレキサント／ボルノレキサント／ロミタピド。Batch 3：タダラフィル／マシテンタン・タダラフィル／チカグレロル／イブルチニブ／イバブラジン。Batch 4：ベネトクラクス／ルラシドン／アナモレリン／イサブコナゾニウム／ボクロスポリン。Batch 5：マバカムテン／オルメサルタン・アゼルニジピン／ロナファルニブ。最終突合：ピモジド／エルゴタミン系も検証済み。現行CAM電子添文10.1の禁忌群を全件突合済み。CAM→RXMで相互作用が完全消失するかではなく、禁忌を回避しつつ残存リスクを管理できるかで判定します。</div><div id="list"></div></section>
 </main>
 <script>
 const DB={
@@ -57,8 +57,6 @@ vocl:{name:"ボクロスポリン",state:"cond",label:"条件付き候補",cam:"
 mava:{name:"マバカムテン",state:"ng",label:"RXMを自動提案しない",cam:"CAMのCYP3A阻害によりマバカムテン血中濃度が上昇し、収縮機能障害による心不全リスクが高まるため併用禁忌。",rxm:"RXMにもCYP3A阻害作用があるため、治療域が狭く心機能への影響が重大なマバカムテンでは単純置換を安全とは扱わない。",co:"マバカムテン側ではCYP阻害薬・誘導薬との相互作用が治療継続や用量調整に直結する。",memo:"心不全リスクを優先し、RXMを自動代替候補にしない。処方医・循環器側で個別判断。"},
 rez:{name:"オルメサルタン・アゼルニジピン配合剤",state:"cond",label:"条件付き候補",cam:"CAMは配合成分アゼルニジピンのCYP3A代謝を阻害し血中濃度を上昇させるため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱く、CAMと同じ併用禁忌には位置付けられていない。",co:"相互作用の中心はアゼルニジピン。RXMでもCYP3A阻害による曝露増加の可能性は残る。",memo:"CAM禁忌回避の余地はあるが、血圧低下・めまい等を確認する条件付き候補。"},
 lona:{name:"ロナファルニブ",state:"hold",label:"要個別判断",cam:"CAMによりロナファルニブ血中濃度が著しく上昇し、副作用増強のおそれがあるため併用禁忌。",rxm:"RXMはCAMよりCYP3A阻害が弱いものの、CYP3A基質であるロナファルニブへの影響を無視できない。",co:"ロナファルニブ側のCYP3A阻害薬に関する休薬・用量調整規定を優先する。",memo:"希少疾患治療薬で治療設計への影響が大きいため、RXMを自動提案せず個別判断。"},
-rilp:{name:"リルピビリン",state:"ng",label:"RXMを自動提案しない",cam:"一部CAM製剤の最新電子添文で併用禁忌として記載される。CYP3A阻害による曝露上昇とQT関連リスクを考慮する。",rxm:"RXMにもCYP3A阻害・QT延長の懸念があるため、単純なマクロライド置換で安全性問題が消えるとは扱わない。",co:"抗HIV療法全体の相互作用評価が必要。",memo:"抗HIVレジメンを含むため自動代替せず、併用薬全体を個別確認。"},
-statincombo:{name:"ロスバスタチン・エゼチミブ配合錠",state:"hold",label:"製剤差を要確認",cam:"2026年3月のCAM電子添文には製品により禁忌欄の収載内容に差がみられるため、採用品の最新電子添文確認が必要。",rxm:"RXMへの置換可否だけでなく、スタチン側のトランスポーター等を含む相互作用評価が必要。",co:"配合剤側の最新電子添文と、実際に使用するCAM製剤の記載を突合する。",memo:"CAM製品間の最新記載差が確認されるため、現時点では自動判定せず『製剤差を要確認』として保持。"},
 fin:{
  name:"フィネレノン",state:"cond",label:"条件付き候補",
  cam:"CAMは強いCYP3A阻害薬としてフィネレノンとの併用禁忌。",
@@ -92,5 +90,5 @@ const $=x=>document.getElementById(x);
 function badge(x){return '<span class="'+x.state+'">'+x.label+'</span>'}
 function render(){const x=DB[$("drug").value];$("out").innerHTML='<b>'+x.name+'</b> '+badge(x)+'<div class="row"><b>① CAM側</b><br>'+x.cam+'</div><div class="row"><b>② RXM側</b><br>'+x.rxm+'</div><div class="row"><b>③ 併用薬側</b><br>'+x.co+'</div><div class="row"><b>CDS判断</b><br>'+x.memo+'</div><div class="mini">治療目的が慢性副鼻腔炎の少量長期療法であることを前提。最終確認は最新電子添文と患者背景で行います。</div>'}
 $("drug").onchange=render;render();
-$("list").innerHTML=["suv","aze","fin","dari","vor","lomi","tada","maci","tica","ibru","iva","vene","lura","anam","isav","vocl","mava","rez","lona","rilp","statincombo"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
+$("list").innerHTML=["pim","ergot","suv","dari","vor","lomi","tada","maci","tica","ibru","iva","vene","lura","anam","fin","isav","vocl","mava","aze","rez","lona"].map(k=>{const x=DB[k];return '<div class="row"><b>'+x.name+'</b> '+badge(x)+'<br><span class="mini">'+x.memo+'</span></div>'}).join("");
 </script></body></html>
