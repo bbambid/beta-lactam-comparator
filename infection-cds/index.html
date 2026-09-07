@@ -993,24 +993,15 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <section id="utiCds" class="uti-cds">
- <div class="branch-title">尿路感染症｜薬局処方監査</div>
- <div class="branch-sub">入力するのは判断が変わる項目だけ。まず「膀胱炎」として処方された患者に、上部尿路感染・無症候性細菌尿・培養確認など別の評価が必要なサインがないか確認します。</div>
+ <div class="branch-title">急性単純性膀胱炎｜抗菌薬適応と代替薬</div>
+ <div class="branch-sub">症状・上部尿路感染のサイン・患者区分・尿所見から、抗菌薬を使う場面と候補薬を比較します。</div>
  <div class="uti-grid">
   <div class="uti-field"><label>尿路症状</label><select id="utiSymptoms"><option value="yes">排尿痛・頻尿・尿意切迫などあり</option><option value="none">尿路症状なし</option><option value="unknown">不明</option></select></div>
   <div class="uti-field"><label>発熱 / 悪寒 / 側腹部・背部痛</label><select id="utiUpper"><option value="no">なし</option><option value="yes">あり</option><option value="unknown">不明</option></select></div>
-  <div class="uti-field" id="utiPregWrap" style="display:none"><label>妊娠</label><select id="utiPreg"><option value="no">妊娠していない</option><option value="yes">妊娠中</option><option value="unknown">不明</option></select></div>
-  <div class="uti-field" id="utiCultureWrap" style="display:none"><label>尿培養・感受性</label><select id="utiCulture"><option value="unknown">未確認 / 不明</option><option value="pending">採取済み・結果待ち</option><option value="known">結果確認済み</option></select></div>
+  <div class="uti-field"><label>患者区分</label><select id="utiPatient"><option value="uncomplicated">非妊娠・成人女性／単純性として評価</option><option value="pregnant">妊娠中</option><option value="other">男性・小児・尿路基礎疾患あり</option><option value="unknown">不明</option></select></div>
+  <div class="uti-field"><label>尿所見・培養</label><select id="utiOrganism"><option value="unknown">原因菌不明</option><option value="gnr">GNRを疑う／検出</option><option value="gpc">GPCを疑う／検出</option><option value="esbl">ESBL産生菌を検出</option><option value="known">その他：培養・感受性あり</option></select></div>
  </div>
  <div id="utiResult" class="uti-check"></div>
- <div class="uti-advanced">
-  <div class="uti-advanced-title">高度監査｜薬歴・検査結果を使う</div>
-  <div class="uti-advanced-grid">
-   <div><label>過去の尿培養でESBL / 耐性菌</label><select id="utiResistance"><option value="unknown">不明 / なし</option><option value="yes">あり</option></select></div>
-   <div id="utiCurrentDrugWrap" style="display:none"><label>今回の抗菌薬</label><select id="utiCurrentDrug"><option value="unknown">不明 / その他</option><option value="oral_ceph">経口セフェム</option><option value="fq">フルオロキノロン</option><option value="st">ST合剤</option><option value="fos">ホスホマイシン</option><option value="other">その他</option></select></div>
-   <div><label>今回の尿培養・感受性</label><select id="utiAdvancedCulture"><option value="unknown">未確認 / 不明</option><option value="pending">採取済み・結果待ち</option><option value="known">結果あり</option></select></div>
-   <div><label>腎機能情報</label><select id="utiRenal"><option value="unknown">不明</option><option value="normal">大きな低下なし</option><option value="reduced">低下あり</option></select></div>
-  </div>
- </div>
 </section>
 <section id="capCds" class="cap-cds">
  <div class="branch-title">成人市中肺炎｜病型から抗菌薬を比較</div>
@@ -2333,36 +2324,24 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 
   function renderUtiAudit(){
     const out=$("utiResult"); if(!out)return;
-    const s=$("utiSymptoms")?.value||"yes", u=$("utiUpper")?.value||"no", p=$("utiPreg")?.value||"no", cul=$("utiCulture")?.value||"unknown";
-    if($("utiPregWrap")) $("utiPregWrap").style.display=s==="none"?"block":"none";
-    if($("utiCultureWrap")) $("utiCultureWrap").style.display=u==="yes"?"block":"none";
-    let title="単純性膀胱炎としての監査",body="尿路症状があり、発熱・悪寒・側腹部/背部痛がなければ、まず下部尿路感染として処方内容を確認します。",alerts="";
+    const s=$("utiSymptoms")?.value||"yes", u=$("utiUpper")?.value||"no", p=$("utiPatient")?.value||"uncomplicated", org=$("utiOrganism")?.value||"unknown";
+    let title="急性単純性膀胱炎として比較",body="尿路症状があり、上部尿路感染のサインがない非妊娠成人女性を対象に候補薬を表示します。",alerts="";
     if(u==="yes"){
       title="⚠ 腎盂腎炎を考えるサイン";
       body="発熱・悪寒・側腹部/背部痛がある場合、単純性膀胱炎として処方だけを見るのではなく上部尿路感染としての評価状況を確認します。";
-      if(cul==="unknown") alerts+="<div class='uti-alert'><b>尿培養を確認</b>腎盂腎炎が疑われる場面では、培養・感受性結果が後の抗菌薬選択を変え得ます。採取状況を確認。</div>";
-      if(cul==="known") alerts+="<div class='uti-alert'><b>感受性結果あり</b>empiric therapyのままではなく、培養・感受性に合わせた治療になっているか確認。</div>";
+      alerts+="<div class='uti-alert'><b>この画面の対象外</b>腎盂腎炎モジュールで培養・重症度・診療場所を確認します。</div>";
     }else if(s==="none"){
       title="抗菌薬を始める前に確認";
       body="尿路症状がない場合は、細菌尿があるだけで治療対象とは限りません。";
-      if(p==="yes") alerts+="<div class='uti-alert'><b>妊娠中</b>無症候性細菌尿でも扱いが異なるため、培養結果と治療方針を確認します。</div>";
-      else if(p==="no") alerts+="<div class='uti-alert uti-critical'><b>⚠ 無症候性細菌尿の可能性</b>妊娠など治療対象となる例外がなければ、抗菌薬適応そのものを確認したい場面です。</div>";
-      else alerts+="<div class='uti-alert'><b>妊娠の有無を確認</b>無症候性細菌尿では、この情報によって抗菌薬適応の判断が変わります。</div>";
+      alerts+=p==="pregnant"?"<div class='uti-alert'><b>妊娠中</b>無症候性細菌尿でも扱いが異なるため、培養結果と治療方針を確認します。</div>":"<div class='uti-alert uti-critical'><b>無症候性細菌尿の可能性</b>治療対象となる例外がなければ、抗菌薬適応そのものを確認します。</div>";
     }else if(s==="unknown"){
       title="まず症状を1点確認";
       body="尿検査陽性だけでは感染症として治療すべきか判断できません。排尿痛・頻尿・尿意切迫などの症状の有無を確認します。";
     }
-    const res=$("utiResistance")?.value||"unknown", drug=$("utiCurrentDrug")?.value||"unknown", ac=$("utiAdvancedCulture")?.value||"unknown", renal=$("utiRenal")?.value||"unknown";
-    if($("utiCurrentDrugWrap")) $("utiCurrentDrugWrap").style.display=res==="yes"?"block":"none";
-    if(res==="yes"){
-      alerts+="<div class='uti-alert uti-critical'><b>⚠ 過去にESBL / 耐性菌歴あり</b>過去の培養結果は今回の初期抗菌薬選択を変え得る重要情報です。今回の培養・感受性と処方選択を照合します。</div>";
-      if(drug==="oral_ceph") alerts+="<div class='uti-alert uti-critical'><b>経口セフェム処方を確認</b>ESBLは通常、第1〜3世代セファロスポリンを分解します。過去菌の感受性、今回の培養結果、別菌種・別病態の可能性を確認します。</div>";
-    }
-    if(ac==="known") alerts+="<div class='uti-alert'><b>培養結果を処方に反映できる段階</b>感受性が判明しているなら、初期治療のまま漫然継続せず、狭域化・経口薬への切替を含め結果と処方を照合します。</div>";
-    else if((u==="yes"||res==="yes")&&ac==="unknown") alerts+="<div class='uti-alert'><b>培養情報を確認</b>腎盂腎炎を疑う場合や耐性菌既往がある場合は、培養結果が薬剤選択を大きく変えます。</div>";
-    if(renal==="reduced") alerts+="<div class='uti-alert'><b>腎機能による用量監査</b>抗菌薬によって腎機能に応じた用量・投与間隔調整が必要です。次段階で薬剤別の腎機能監査につなげます。</div>";
-    if(drug==="fq") alerts+="<div class='uti-alert'><b>フルオロキノロン使用</b>第四版では大腸菌の高い耐性率や重大な有害事象、抗結核作用などから温存すべき薬剤とされています。培養・患者背景・選択理由を確認します。</div>";
-    out.innerHTML="<b>"+title+"</b>"+body+alerts+'<div class="branch-source">Evidence：厚労省 抗微生物薬適正使用の手引き 第四版 医科・外来編 p.45（腎盂腎炎・培養、フルオロキノロン）／医科・入院編 UTI項／薬剤耐性菌感染症編 ESBL産生腸内細菌目細菌。詳細薬剤選択はJAID/JSC感染症治療ガイド2023も参照。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+    if(p!=="uncomplicated") alerts+="<div class='uti-alert'><b>単純性膀胱炎の比較範囲外</b>妊娠、男性、小児、尿路基礎疾患では適応・薬剤選択を個別に評価します。</div>";
+    if(org==="esbl") alerts+="<div class='uti-alert uti-critical'><b>ESBL産生菌</b>経口セフェムを候補から外し、感受性に基づくFOM／FRPM等のdefinitive therapyを確認します。</div>";
+    out.innerHTML="<b>"+title+"</b>"+body+alerts+'<div class="branch-source">根拠：JAID/JSC感染症治療ガイド2023の公表要約／同2015公開GL。年代の異なる推奨と感受性データは分けて表示。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+    if(select.value==="cystitis")renderDecisionZone(D.syndromes.find(x=>x.id==="cystitis"));
   }
 
   function renderCapReverse(){
@@ -2491,6 +2470,35 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   }
 
   function renderDecisionZone(x){
+    if(x.id==="cystitis"){
+      const axis=(mark,text,cls="")=>`<div class="aom-axis ${cls}"><span class="aom-axis-mark">${mark}</span><span>${text}</span></div>`;
+      const links=items=>`<div class="aom-source-links">${items.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")}</div>`;
+      const card=(name,role,axes,summary,structure="",sources=[])=>`<article class="aom-drug-card"><div class="aom-drug-name"><span>${name}</span><span class="aom-drug-role">${role}</span></div><div class="aom-axis-list">${axes.join("")}</div><div class="aom-card-summary">→ ${summary}</div>${links(sources)}${structure?`<a class="aom-structure-link" href="${esc(D.comparatorUrl)}?drugA=${encodeURIComponent(structure)}">βラクタム構造比較へ →</a>`:""}</article>`;
+      const guide="https://www.chemotherapy.or.jp/uploads/files/meeting/west_abstract_71.pdf";
+      const oldGuide="https://www.kansensho.or.jp/uploads/files/guidelines/guideline_JAID-JSC_2015_urinary-tract.pdf";
+      const cvaPmda="https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/340278_6139100F1048_1_18";
+      const s=$("utiSymptoms")?.value||"yes", upper=$("utiUpper")?.value||"no", patient=$("utiPatient")?.value||"uncomplicated", org=$("utiOrganism")?.value||"unknown";
+      const current=upper==="yes"?["腎盂腎炎を疑う","この膀胱炎比較より腎盂腎炎評価を優先"]:s==="none"?["尿路症状なし","無症候性細菌尿として抗菌薬適応を再確認"]:patient!=="uncomplicated"?["単純性の範囲外","妊娠・男性・小児・尿路基礎疾患は個別評価"]:["急性単純性膀胱炎として比較",org==="unknown"?"原因菌不明：CVA/AMPCを最初に比較":org==="gnr"?"GNR：ESBL非産生なら経口セフェムを比較":org==="gpc"?"GPC：CVA/AMPC感受性とFQの必要性を比較":org==="esbl"?"ESBL：FOM／FRPMを感受性に基づき比較":"培養・感受性に合わせて狭域化"];
+      const noAbx=card("抗菌薬なし／再評価","適応確認",[
+        axis("✓","尿路症状がなければ無症候性細菌尿を考える"),axis("△","妊娠など治療対象となる例外は別評価","caution"),axis("△","発熱・悪寒・側腹部痛があれば腎盂腎炎を優先","caution")
+      ],"薬剤比較の前に、下部尿路感染として治療する場面かを確認。","",[["JAID/JSC 2015公開GL",oldGuide]]);
+      const cva=card("CVA/AMPC","原因菌不明時の第一比較",[
+        axis("✓","JAID/JSC感染症治療ガイド2023：閉経前・閉経後を問わず原因菌不明時の第一選択"),axis("✓","E. coliに加えS. saprophyticusも意識"),axis("✓","電子添文に膀胱炎適応あり"),axis("✓","8時間尿中排泄率：AMPC約67%、CVA約35%"),axis("△","腎機能、下痢、肝障害、ワルファリン等を確認","caution")
+      ],"尿中移行と適応は明確。原因菌不明時の2023年の位置づけを軸にする。","AMPC",[["JAID/JSCガイド2023公表要約",guide],["PMDA CVA/AMPC",cvaPmda]]);
+      const ceph=card("経口セフェム系","ESBL非産生GNRで候補",[
+        axis("✓","2023ガイド要約：ESBL非産生GNRを疑う／検出時の第二選択"),axis("✓","CFPN・CFDN・CPDX等は膀胱炎適応あり"),axis("△","薬剤ごとにE. coli感受性と尿中排泄率が異なる","caution"),axis("△","ESBL産生菌には通常期待しにくい","caution"),axis("△","尿中移行の統一比較値は薬剤別に追補中","missing")
+      ],"“経口セフェム”で一括せず、培養・感受性と個別の尿中排泄を照合。","CFPN",[["JAID/JSCガイド2023公表要約",guide]]);
+      const fq=card("フルオロキノロン系","GPC等で条件付き",[
+        axis("△","2023ガイド要約：CVA/AMPC非感受性GPCを疑う／検出時に候補","caution"),axis("△","2020国内サーベイランス：E. coliキノロン耐性は閉経前9～10%、閉経後20～30%","caution"),axis("✓","薬剤により高い尿中排泄と膀胱炎適応"),axis("△","全例の経験的第一選択にはしない","caution"),axis("△","腱障害、QT延長、結核診断遅延等を確認","caution")
+      ],"尿中移行が良くても、耐性率と安全性から温存理由を明確にする。","",[["JAID/JSCガイド2023公表要約",guide]]);
+      const esbl=card("FOM／FRPM","ESBL definitive therapy",[
+        axis("✓","2023ガイド要約：ESBL産生E. coliの確定治療候補"),axis("✓","βラクタム／キノロン耐性時の経口選択肢になり得る"),axis("△","経験的に一律使用せず培養・感受性を確認","caution"),axis("△","薬剤ごとの用法、腎機能、相互作用を確認","caution"),axis("△","尿中排泄の比較可能な数値は追補中","missing")
+      ],"ESBLという条件が確認されたときに意味のある代替。","",[["JAID/JSCガイド2023公表要約",guide]]);
+      const resistance=`<section class="aom-number-panel"><h4>国内耐性データ｜年代を明示</h4><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>集団</th><th>ESBL産生E. coli</th><th>キノロン耐性E. coli</th></tr></thead><tbody><tr><th>閉経前女性</th><td>7～8%</td><td>9～10%</td></tr><tr><th>閉経後女性</th><td>10～15%</td><td>20～30%</td></tr></tbody></table></div><p class="aom-number-footnote">2018年UTI共同研究会全国サーベイランス／2020年3学会サーベイランスを、JAID/JSCガイド2023公表要約が引用した値。地域・施設・患者個人の感受性率ではありません。</p></section>`;
+      const urine=`<section class="aom-number-panel"><h4>尿中移行｜まず数値が確認できた薬剤</h4><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>薬剤</th><th>尿中排泄</th><th>扱い</th></tr></thead><tbody><tr><th>CVA/AMPC</th><td>投与後8時間：AMPC約67%、CVA約35%</td><td>直接数値あり</td></tr><tr><th>経口セフェム各剤</th><td>薬剤別の統一表を追補中</td><td>未比較</td></tr><tr><th>FQ各剤</th><td>薬剤差あり</td><td>未比較</td></tr><tr><th>FOM／FRPM</th><td>薬剤別の統一表を追補中</td><td>未比較</td></tr></tbody></table></div><p class="aom-number-footnote">尿中排泄率だけで順位は作りません。感受性、原因菌、腎機能、適応、安全性と独立して表示します。</p></section>`;
+      $("decisionZone").innerHTML=`<section class="aom-candidate-board"><header class="aom-candidate-head"><div><h3>急性単純性膀胱炎｜原因菌と尿中移行から比較</h3><p>2023年の位置づけ、国内耐性、尿中排泄、適応を別軸で表示します。</p></div><span class="aom-no-score">総合点なし</span></header><section class="aom-number-panel"><h4>現在の入力</h4><p><strong>${current[0]}</strong>｜${current[1]}</p></section><section class="aom-tier first"><div class="aom-tier-title">適応確認と最初の候補</div><div class="aom-drug-grid">${noAbx}${cva}</div></section><section class="aom-tier conditional"><div class="aom-tier-title">菌種・感受性で条件付き候補</div><div class="aom-drug-grid">${ceph}${fq}${esbl}</div></section>${resistance}${urine}<div class="aom-board-note">過去の尿培養、直近の抗菌薬、腎機能が分かる場合は個別の候補順位が変わります。培養結果があるときは経験的治療のままにせず、感受性に合わせて再評価します。</div></section>`;
+      return;
+    }
     if(x.id==="chronic_sinus"){
       const axis=(mark,text,cls="")=>`<div class="aom-axis ${cls}"><span class="aom-axis-mark">${mark}</span><span>${text}</span></div>`;
       const links=items=>`<div class="aom-source-links">${items.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")}</div>`;
@@ -2749,7 +2757,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
     ["phFever","phNoCough","phNodes","phExudate","phGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynx;});
     ["capPattern","capChronic","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
-    ["utiSymptoms","utiUpper","utiPreg","utiCulture","utiResistance","utiCurrentDrug","utiAdvancedCulture","utiRenal"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
+    ["utiSymptoms","utiUpper","utiPatient","utiOrganism"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
     $("allergySelect").onchange=renderAllergy;
     // Preview mode: start with the AOM module and keep every evidence section visible.
     document.body.classList.remove("compact-view");
