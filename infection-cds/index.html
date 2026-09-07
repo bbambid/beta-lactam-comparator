@@ -436,6 +436,172 @@ h1,h2,h3,h4,h5,h6,
   background: #f3f5f7;
 }
 
+
+/* UI concept preview: 30-second clinical reading path */
+@media(min-width:701px){
+  .clinical-flow{grid-template-columns:1.05fr .95fr}
+}
+.clinical-flow{display:grid;gap:12px;margin-bottom:12px}
+.decision-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+.decision-card.primary{border-top:4px solid var(--green)}
+.decision-card.alt{border-top:4px solid var(--violet)}
+.decision-label{font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.decision-content{font-size:14px;line-height:1.65;color:#344054}
+.decision-content .drug-item{margin-bottom:7px}
+.reading-path{display:flex;align-items:center;gap:7px;overflow:auto;scrollbar-width:none;margin:0 0 12px;padding:2px}
+.reading-path::-webkit-scrollbar{display:none}
+.reading-step{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;border:1px solid #dce4ee;background:#fff;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:900;color:#475467}
+.reading-step b{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--navy);color:#fff;font-size:9px}
+.reading-arrow{color:#98a2b3;font-weight:900}
+.quick-conclusion{margin-bottom:12px;padding:14px 16px;border-radius:var(--radius);background:linear-gradient(135deg,#102a43,#1d4d73);color:#fff;box-shadow:var(--shadow)}
+.quick-conclusion .qc-kicker{font-size:10px;letter-spacing:.1em;font-weight:900;opacity:.72}
+.quick-conclusion .qc-title{font-size:17px;font-weight:900;margin:4px 0 6px}
+.quick-conclusion .qc-text{font-size:12px;line-height:1.65;color:#e6eef5}
+
+/* concept v2: guideline-first decision cards */
+.decision-zone{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 0 12px}
+.decision-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow);min-width:0}
+.decision-panel.primary{border-top:4px solid #08755b}
+.decision-panel.alternative{border-top:4px solid #6d3fc0}
+.decision-panel.target{border-top:4px solid #2563eb}
+.decision-panel .dp-label{font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.decision-panel .dp-main{font-size:14px;font-weight:900;line-height:1.5}
+.decision-panel .dp-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:5px}
+.decision-panel .dp-item{padding:8px 0;border-top:1px solid #edf1f5}
+.decision-panel .dp-item:first-of-type{border-top:0;padding-top:0}
+.dp-tag{display:inline-flex;margin-left:5px;border-radius:999px;padding:2px 6px;font-size:9px;font-weight:900;background:#eef4fb;color:#29445f;vertical-align:1px}
+.guideline-rule{font-size:11px;line-height:1.55;color:#667085;margin:-3px 2px 12px;padding:9px 11px;background:#f8fafc;border:1px solid #e6ebf1;border-radius:11px}
+@media(max-width:700px){.decision-zone{grid-template-columns:1fr}.decision-panel{padding:13px}}
+
+/* AOM candidate board: evidence axes stay separate; no composite score */
+.aom-candidate-board{grid-column:1/-1;display:grid;gap:10px}
+.aom-candidate-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;padding:2px 2px 4px}
+.aom-candidate-head h3{margin:0;font-size:17px;color:#183247}
+.aom-candidate-head p{margin:4px 0 0;font-size:11px;line-height:1.55;color:#667085}
+.aom-no-score{flex:0 0 auto;border:1px solid #d7e0e8;border-radius:999px;background:#f8fafc;padding:5px 9px;font-size:9px;font-weight:900;color:#526273}
+.aom-tier{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.aom-tier-title{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:12px;font-weight:900}
+.aom-tier.first .aom-tier-title{background:#eaf7f1;color:#0b684f;border-left:4px solid #08755b}
+.aom-tier.conditional .aom-tier-title{background:#f3effb;color:#623aa6;border-left:4px solid #7650b4}
+.aom-tier.low .aom-tier-title{background:#f6f7f8;color:#586474;border-left:4px solid #8b96a3}
+.aom-drug-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+.aom-drug-card{padding:13px;border-top:1px solid #e9edf2;min-width:0}
+.aom-drug-card:nth-child(even){border-left:1px solid #e9edf2}
+.aom-drug-name{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:14px;font-weight:900;color:#1d2939}
+.aom-drug-role{font-size:9px;border-radius:999px;padding:3px 7px;background:#eef3f8;color:#44566c;white-space:nowrap}
+.aom-axis-list{display:grid;gap:5px}
+.aom-axis{display:grid;grid-template-columns:18px 1fr;gap:5px;font-size:11px;line-height:1.45;color:#475467}
+.aom-axis-mark{font-weight:900;color:#08755b;text-align:center}
+.aom-axis.caution .aom-axis-mark{color:#9a6700}.aom-axis.missing .aom-axis-mark{color:#98a2b3}
+.aom-card-summary{margin-top:9px;padding-top:8px;border-top:1px dashed #d7dfe7;font-size:11px;font-weight:800;line-height:1.5;color:#344054}
+.aom-structure-link{display:inline-flex;margin-top:9px;border:1px solid #9bb4c7;border-radius:8px;padding:7px 9px;background:#f5f9fc;color:#183f5c;font-size:10px;font-weight:900;text-decoration:none}
+.aom-source-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.aom-source-links a{font-size:10px;font-weight:800;color:#315f7d;text-underline-offset:2px}
+.aom-number-panel{border:1px solid #cfd9e2;border-radius:12px;background:#f8fafc;padding:12px;overflow:hidden}
+.aom-number-panel h4{margin:0;font-size:13px;color:#183247}.aom-number-panel>p{margin:3px 0 9px;font-size:10px;line-height:1.5;color:#667085}
+.aom-number-scroll{overflow:auto;border:1px solid #dbe2e8;border-radius:8px;background:#fff}
+.aom-number-table{width:100%;min-width:720px;border-collapse:collapse;font-size:10px}.aom-number-table th,.aom-number-table td{padding:7px 8px;border-bottom:1px solid #e7ebef;text-align:left;vertical-align:top}
+.aom-number-table thead th{background:#e9eef3;color:#263d4c}.aom-number-table tbody th{white-space:nowrap;color:#183247}.aom-number-table strong{color:#08755b}
+.aom-number-foot{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}.aom-number-foot a{font-size:9px;font-weight:800;color:#315f7d}
+.aom-gl-panel{border:1px solid #cfd9e2;border-radius:12px;background:#fff;padding:12px}.aom-gl-panel h4{margin:0;font-size:13px;color:#183247}.aom-gl-panel>p{margin:3px 0 9px;font-size:10px;line-height:1.5;color:#667085}
+.aom-gl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.aom-gl-card{border:1px solid #dbe2e8;border-radius:9px;overflow:hidden}.aom-gl-card h5{margin:0;padding:8px 9px;background:#eef3f6;font-size:11px;color:#183247}.aom-gl-step{padding:8px 9px;border-top:1px solid #e7ebef;font-size:10px;line-height:1.45;color:#475467}.aom-gl-step b{display:block;color:#273b4b}.aom-gl-limits{margin-top:9px;padding:8px 9px;background:#fff8df;border-radius:8px;font-size:10px;line-height:1.5;color:#604d1b}
+@media(max-width:700px){.aom-gl-grid{grid-template-columns:1fr}}
+.aom-board-note{font-size:10px;line-height:1.55;color:#667085;padding:0 2px}
+@media(max-width:700px){
+  .aom-candidate-head{display:block}.aom-no-score{display:inline-flex;margin-top:8px}
+  .aom-drug-grid{grid-template-columns:1fr}.aom-drug-card:nth-child(even){border-left:0}
+}
+
+/* concept v3: progressive disclosure */
+.detail-togglebar{display:flex;gap:8px;align-items:center;margin:0 0 12px}
+.detail-togglebar button{border:1px solid #d6dee8;background:#fff;color:#344054;border-radius:10px;padding:8px 11px;font-size:11px;font-weight:900;cursor:pointer}
+.detail-togglebar .hint{font-size:10px;color:#667085}
+.deep-section{transition:opacity .18s ease}
+body.compact-view .deep-section{display:none}
+@media(max-width:700px){.detail-togglebar{align-items:flex-start;flex-direction:column}}
+
+.sinus-branch{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.sinus-branch.show{display:block}.branch-title{font-size:13px;font-weight:900}.branch-sub{font-size:10px;color:var(--muted);margin:3px 0 10px}
+.branch-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.branch-field label{display:block;font-size:10px;font-weight:900;color:#667085;margin-bottom:5px}
+.branch-seg{display:flex;gap:5px;background:#f3f6f9;border-radius:10px;padding:4px}.branch-seg button{flex:1;border:0;background:transparent;border-radius:7px;padding:8px 7px;font-size:11px;font-weight:900;color:#667085}
+.branch-seg button.active{background:#fff;color:#102a43;box-shadow:0 1px 4px #102a4320}.branch-result{margin-top:10px;border-radius:12px;padding:12px 13px;background:#f7fafc;border:1px solid #e5ebf1}
+.br-label{font-size:9px;font-weight:900;letter-spacing:.08em;color:#667085}.br-main{font-size:15px;font-weight:900;margin-top:4px;line-height:1.45}.br-note{font-size:11px;color:#667085;line-height:1.55;margin-top:4px}.branch-source{font-size:9px;color:#667085;margin-top:7px}
+@media(max-width:700px){.branch-controls{grid-template-columns:1fr}}
+
+.sinus-score{margin-top:12px;border-top:1px solid #e5ebf1;padding-top:11px}
+.score-title{font-size:11px;font-weight:900;margin-bottom:3px}.score-sub{font-size:9px;color:#667085;line-height:1.45;margin-bottom:8px}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.score-item{min-width:0}.score-item label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}
+.score-item select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px 7px;font-size:10px;color:#344054}
+.score-summary{display:flex;align-items:center;gap:8px;margin-top:9px;padding:8px 10px;border-radius:9px;background:#eef4fb}
+.score-number{font-size:20px;font-weight:900;color:#102a43}.score-grade{font-size:11px;font-weight:900}.score-note{font-size:9px;color:#667085;margin-left:auto}
+@media(max-width:700px){.score-grid{grid-template-columns:1fr}.score-summary{align-items:flex-start}.score-note{margin-left:0}}
+
+.child-check{margin-top:12px;border-top:1px solid #e5ebf1;padding-top:11px}
+.child-check-title{font-size:11px;font-weight:900;margin-bottom:3px}.child-check-sub{font-size:9px;color:#667085;line-height:1.5;margin-bottom:8px}
+.child-q{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-top:1px solid #edf1f5}.child-q:first-of-type{border-top:0}
+.child-q input{margin-top:2px;transform:scale(1.12)}.child-q label{font-size:10px;line-height:1.5;color:#344054}
+.child-result{margin-top:8px;padding:10px 11px;border-radius:10px;background:#f7fafc;border:1px solid #e5ebf1}
+.child-result strong{display:block;font-size:13px}.child-result span{display:block;font-size:10px;color:#667085;line-height:1.5;margin-top:3px}
+
+.evidence-group{margin:2px 0 14px}
+.evidence-group-title{font-size:12px;font-weight:900;color:#23384d;margin:0 0 7px;padding:7px 9px;border-left:4px solid #6f879b;background:#f7f9fb;border-radius:5px}
+.evidence-group-sub{font-size:9px;font-weight:600;color:#7b8794;margin-left:6px}
+.evidence-jump{display:flex;justify-content:flex-end;margin-top:9px}
+.evidence-jump button{border:0;background:transparent;color:#315f7d;font-size:10px;font-weight:900;padding:3px 0;cursor:pointer}
+.conditional-note{margin-top:8px;padding:8px 9px;border-radius:9px;background:#fffaf0;border:1px solid #ead9ad;font-size:10px;line-height:1.55;color:#5f512c}
+
+.aom-branch{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.aom-branch.show{display:block}.aom-mode{display:flex;gap:6px;margin:9px 0}.aom-mode button{border:1px solid #d6dee8;background:#f7f9fb;border-radius:9px;padding:8px 10px;font-size:10px;font-weight:900}.aom-mode button.active{background:#fff;box-shadow:0 1px 4px #102a4320}
+.aom-box{padding:11px;border:1px solid #e5ebf1;border-radius:11px;background:#f8fafc}.aom-box strong{font-size:13px}.aom-box p{font-size:10px;line-height:1.55;color:#667085;margin:5px 0 0}.aom-alert{margin-top:8px;padding:8px 9px;border-radius:9px;background:#fffaf0;border:1px solid #ead9ad;font-size:10px;line-height:1.55}
+
+.aom-reverse{margin-top:11px;padding-top:10px;border-top:1px solid #e5ebf1}
+.aom-reverse-title{font-size:11px;font-weight:900;margin-bottom:7px}
+.aom-reverse-grid{display:grid;grid-template-columns:1.2fr .8fr 1fr;gap:7px}
+.aom-reverse label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}
+.aom-reverse select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px 6px;font-size:10px}
+.aom-position{margin-top:9px;padding:10px;border-radius:10px;background:#eef4fb;border:1px solid #dce7f2;font-size:10px;line-height:1.55}
+.aom-position b{display:block;font-size:12px;margin-bottom:3px}
+@media(max-width:700px){.aom-reverse-grid{grid-template-columns:1fr}}
+
+.aom-flow{margin-top:10px;padding-top:10px;border-top:1px solid #dfe6ed}
+.aom-flow-title{font-size:10px;font-weight:900;color:#526577;margin-bottom:7px}
+.aom-flow-track{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr;align-items:stretch;gap:4px}
+.aom-flow-node{border:1px solid #d9e1e9;border-radius:10px;background:#fff;padding:9px;min-height:70px;opacity:.58}
+.aom-flow-node.active{opacity:1;border-width:2px;box-shadow:0 2px 8px #102a4318}
+.aom-flow-node.done{opacity:.75;background:#f7faf8}
+.aom-flow-node .fn-step{font-size:8px;font-weight:900;color:#7b8794;letter-spacing:.06em}.aom-flow-node b{display:block;font-size:10px;line-height:1.4;margin-top:3px}.aom-flow-node span{display:block;font-size:9px;color:#667085;line-height:1.4;margin-top:3px}
+.aom-flow-arrow{display:flex;align-items:center;justify-content:center;font-size:16px;color:#8a99a8;font-weight:900}
+.aom-flow-here{display:inline-flex;margin-top:5px;border-radius:999px;padding:2px 6px;font-size:8px;font-weight:900;background:#e9f2fb;color:#315f7d}
+.aom-next{margin-top:7px;font-size:9px;line-height:1.5;color:#667085}
+@media(max-width:700px){.aom-flow-track{grid-template-columns:1fr}.aom-flow-arrow{transform:rotate(90deg);height:18px}}
+
+.aom-fullscore{display:none;margin-top:10px;padding:11px;border:1px solid #e1e8ef;border-radius:11px;background:#fbfcfd}
+.aom-fullscore.show{display:block}.aom-scoregrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.aom-scoregrid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.aom-scoregrid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px 6px;font-size:10px}
+.aom-score-result{margin-top:9px;padding:10px;border-radius:10px;background:#eef4fb}.aom-score-result b{font-size:14px}.aom-score-result span{display:block;font-size:10px;color:#667085;line-height:1.5;margin-top:3px}
+@media(max-width:700px){.aom-scoregrid{grid-template-columns:1fr}}
+
+.aom-entry{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0 4px}
+.aom-entry button{border:1px solid #d7e0e8;background:#fff;border-radius:13px;padding:13px;text-align:left;cursor:pointer}
+.aom-entry button.active{border:2px solid #5d7890;background:#f6f9fc;box-shadow:0 2px 8px #102a4314}
+.aom-entry b{display:block;font-size:12px}.aom-entry span{display:block;font-size:9px;line-height:1.45;color:#667085;margin-top:4px}
+@media(max-width:700px){.aom-entry{grid-template-columns:1fr}}
+
+.pharynx-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.pharynx-cds.show{display:block}.ph-qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}.ph-q{display:flex;gap:7px;align-items:flex-start;border:1px solid #e4eaf0;border-radius:10px;padding:9px;background:#fafbfd}.ph-q label{font-size:10px;line-height:1.45}.ph-result{margin-top:9px;padding:10px;border-radius:10px;background:#eef4fb}.ph-result b{font-size:13px}.ph-result span{display:block;font-size:10px;line-height:1.5;color:#667085;margin-top:3px}.ph-test{margin-top:9px}.ph-test select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}
+@media(max-width:700px){.ph-qgrid{grid-template-columns:1fr}}
+
+.ph-reverse{margin-top:11px;padding-top:10px;border-top:1px solid #e3e9ef}.ph-reverse-title{font-size:11px;font-weight:900;margin-bottom:7px}.ph-reverse-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}.ph-reverse label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.ph-reverse select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.ph-reverse-result{margin-top:8px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.ph-reverse-result b{display:block;font-size:12px;margin-bottom:3px}@media(max-width:700px){.ph-reverse-grid{grid-template-columns:1fr}}
+
+.cap-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.cap-cds.show{display:block}.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.cap-field label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.cap-field select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.cap-result{margin-top:9px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.cap-result b{display:block;font-size:12px;margin-bottom:3px}.cap-warn{margin-top:7px;padding:8px;border-radius:8px;background:#fffaf0;border:1px solid #ead9ad}@media(max-width:700px){.cap-grid{grid-template-columns:1fr}}
+
+.aom-audit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.aom-audit-grid .full{grid-column:1/-1}.aom-audit-summary{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:9px;padding:9px 10px;border-radius:10px;background:#eef4fb;border:1px solid #cfdae6}.aom-audit-summary strong{font-size:12px}.aom-audit-badge{padding:3px 7px;border-radius:999px;background:#fff;font-size:9px;font-weight:900}.aom-audit-badge.warn{color:#795b00;border:1px solid #e2ca82}.aom-audit-badge.danger{color:#9f3428;border:1px solid #e9b8b0}.aom-audit-note{margin-top:8px;padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#f8fafc;font-size:10px;line-height:1.55}.aom-audit-note b{display:block;font-size:11px;margin-bottom:2px}.aom-audit-note.warn{background:#fffaf0;border-color:#ead9ad}.aom-audit-note.danger{background:#fff4f2;border-color:#efc9c3}.aom-dose-line{display:flex;gap:7px;align-items:center}.aom-dose-line input{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.aom-structure-audit{display:inline-flex;margin-top:6px;padding:6px 8px;border:1px solid #9bb4c7;border-radius:7px;background:#fff;color:#183f5c;font-size:9px;font-weight:900;text-decoration:none}@media(max-width:700px){.aom-audit-grid{grid-template-columns:1fr}.aom-audit-grid .full{grid-column:auto}}
+
+.uti-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.uti-cds.show{display:block}.uti-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.uti-field label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.uti-field select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.uti-check{margin-top:9px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.uti-check b{display:block;font-size:12px;margin-bottom:3px}.uti-alert{margin-top:7px;padding:8px;border-radius:8px;background:#fffaf0;border:1px solid #ead9ad}.uti-critical{background:#fff4f2;border-color:#e9c4bd}@media(max-width:700px){.uti-grid{grid-template-columns:1fr}}
+
+.uti-advanced{margin-top:10px;padding-top:10px;border-top:1px solid #e3e9ef}.uti-advanced-title{font-size:11px;font-weight:900;margin-bottom:7px}.uti-advanced-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.uti-advanced-grid>div{border:1px solid #e3e9ef;border-radius:10px;padding:9px;background:#fbfcfd}.uti-advanced-grid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.uti-advanced-grid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}@media(max-width:700px){.uti-advanced-grid{grid-template-columns:1fr}}
+
+.alt-cds{margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.alt-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.alt-badge{font-size:8px;font-weight:900;padding:4px 7px;border-radius:999px;background:#eef4fb;color:#405b73}.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.alt-grid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.alt-grid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.alt-result{margin-top:10px;padding:11px;border:1px solid #dce5ed;border-radius:11px;background:#f8fafc;font-size:10px;line-height:1.55}.alt-result>strong{display:block;font-size:13px;margin-bottom:5px}.alt-candidate{margin-top:8px;padding:9px;border-radius:9px;background:#eef6f1;border:1px solid #d3e4d8}.alt-stop{margin-top:8px;padding:9px;border-radius:9px;background:#fff4f2;border:1px solid #e9c4bd}@media(max-width:700px){.alt-grid{grid-template-columns:1fr}}
 </style>
 
 
@@ -811,13 +977,103 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     <div id="quickTabs" class="quick-tabs" aria-label="感染症候のクイック選択"></div>
   </section>
 
+  <div class="reading-path" aria-label="この画面の読み方">
+    <span class="reading-step"><b>1</b>結論</span><span class="reading-arrow">→</span>
+    <span class="reading-step"><b>2</b>標的菌</span><span class="reading-arrow">→</span>
+    <span class="reading-step"><b>3</b>薬剤</span><span class="reading-arrow">→</span>
+    <span class="reading-step"><b>4</b>根拠</span>
+  </div>
+
   <section id="summaryHero" class="summary-hero" aria-live="polite"></section>
 
-  <section class="step-grid">
+  <section class="quick-conclusion">
+    <div class="qc-kicker">30-SECOND VIEW</div>
+    <div class="qc-title">まず、この疾患で何を考えるか</div>
+    <div class="qc-text">下の「標的菌」と「βラクタムの位置づけ」を先に確認し、必要なときだけ比較表・アレルギー・Evidenceへ進みます。薬剤の順位は各疾患データに登録されたガイドライン上の位置づけをそのまま表示し、根拠のない順位づけは行いません。</div>
+  </section>
+
+  <section id="utiCds" class="uti-cds">
+ <div class="branch-title">尿路感染症｜薬局処方監査</div>
+ <div class="branch-sub">入力するのは判断が変わる項目だけ。まず「膀胱炎」として処方された患者に、上部尿路感染・無症候性細菌尿・培養確認など別の評価が必要なサインがないか確認します。</div>
+ <div class="uti-grid">
+  <div class="uti-field"><label>尿路症状</label><select id="utiSymptoms"><option value="yes">排尿痛・頻尿・尿意切迫などあり</option><option value="none">尿路症状なし</option><option value="unknown">不明</option></select></div>
+  <div class="uti-field"><label>発熱 / 悪寒 / 側腹部・背部痛</label><select id="utiUpper"><option value="no">なし</option><option value="yes">あり</option><option value="unknown">不明</option></select></div>
+  <div class="uti-field" id="utiPregWrap" style="display:none"><label>妊娠</label><select id="utiPreg"><option value="no">妊娠していない</option><option value="yes">妊娠中</option><option value="unknown">不明</option></select></div>
+  <div class="uti-field" id="utiCultureWrap" style="display:none"><label>尿培養・感受性</label><select id="utiCulture"><option value="unknown">未確認 / 不明</option><option value="pending">採取済み・結果待ち</option><option value="known">結果確認済み</option></select></div>
+ </div>
+ <div id="utiResult" class="uti-check"></div>
+ <div class="uti-advanced">
+  <div class="uti-advanced-title">高度監査｜薬歴・検査結果を使う</div>
+  <div class="uti-advanced-grid">
+   <div><label>過去の尿培養でESBL / 耐性菌</label><select id="utiResistance"><option value="unknown">不明 / なし</option><option value="yes">あり</option></select></div>
+   <div id="utiCurrentDrugWrap" style="display:none"><label>今回の抗菌薬</label><select id="utiCurrentDrug"><option value="unknown">不明 / その他</option><option value="oral_ceph">経口セフェム</option><option value="fq">フルオロキノロン</option><option value="st">ST合剤</option><option value="fos">ホスホマイシン</option><option value="other">その他</option></select></div>
+   <div><label>今回の尿培養・感受性</label><select id="utiAdvancedCulture"><option value="unknown">未確認 / 不明</option><option value="pending">採取済み・結果待ち</option><option value="known">結果あり</option></select></div>
+   <div><label>腎機能情報</label><select id="utiRenal"><option value="unknown">不明</option><option value="normal">大きな低下なし</option><option value="reduced">低下あり</option></select></div>
+  </div>
+ </div>
+</section>
+<section id="capCds" class="cap-cds">
+ <div class="branch-title">成人市中肺炎｜病型から抗菌薬を比較</div>
+ <div class="branch-sub">外来治療を想定し、典型細菌・非定型病原体・Legionella・慢性呼吸器疾患を分けて候補を表示します。</div>
+ <div class="cap-grid">
+  <div class="cap-field"><label>想定する病原体パターン</label><select id="capPattern"><option value="typical">典型細菌性肺炎を疑う</option><option value="atypical">非定型肺炎を疑う</option><option value="unclear">典型／非定型の鑑別が難しい</option><option value="legionella">Legionellaを疑う</option></select></div>
+  <div class="cap-field"><label>慢性呼吸器疾患</label><select id="capChronic"><option value="no">なし</option><option value="yes">あり</option><option value="unknown">不明</option></select></div>
+  <div class="cap-field"><label>BLNARを考慮する情報</label><select id="capBlnar"><option value="unknown">不明</option><option value="yes">あり</option><option value="no">なし</option></select></div>
+  <div class="cap-field"><label>結核の可能性</label><select id="capTb"><option value="low">低い／評価済み</option><option value="unknown">不明</option><option value="suspect">疑いあり</option></select></div>
+ </div>
+ <div id="capResult" class="cap-result"></div>
+</section>
+<section id="pharynxCds" class="pharynx-cds">
+  <div class="branch-title">急性咽頭炎｜薬局で確認できるGAS評価</div>
+  <div class="branch-sub">CentorはGASの可能性を考える補助。スコアだけで抗菌薬適応を決めず、検査結果と合わせて確認します。</div>
+  <div class="ph-qgrid">
+    <div class="ph-q"><input id="phFever" type="checkbox"><label for="phFever">38℃以上の発熱 ＋1</label></div>
+    <div class="ph-q"><input id="phNoCough" type="checkbox"><label for="phNoCough">咳がない ＋1</label></div>
+    <div class="ph-q"><input id="phNodes" type="checkbox"><label for="phNodes">圧痛を伴う前頸部リンパ節腫脹 ＋1</label></div>
+    <div class="ph-q"><input id="phExudate" type="checkbox"><label for="phExudate">白苔を伴う扁桃炎 ＋1</label></div>
+  </div>
+  <div class="ph-test"><label>GAS迅速抗原検査 / 培養</label><select id="phGas"><option value="unknown">未実施・不明</option><option value="positive">GAS陽性</option><option value="negative">GAS陰性</option></select></div>
+  <div id="phResult" class="ph-result"></div>
+</section>
+<section id="aomBranch" class="aom-branch">
+  <div class="branch-title">小児急性中耳炎｜抗菌薬適応の確認</div>
+  <div class="branch-sub">軽症では抗菌薬を使わない選択肢があります。正式な重症度判定には鼓膜所見が必要です。</div>
+  <div id="aomResult" class="branch-result"></div>
+</section>
+<section id="sinusBranch" class="sinus-branch"><div class="branch-title">急性鼻副鼻腔炎｜治療分岐</div><div class="branch-sub">年齢区分と重症度を選ぶと、最初に見る治療方針を切り替えます。</div><div class="branch-controls"><div class="branch-field"><label>対象</label><div class="branch-seg" id="sinusAge"><button type="button" data-v="adult" class="active">成人</button><button type="button" data-v="child">学童期以降の小児</button></div></div><div class="branch-field"><label>重症度</label><div class="branch-seg" id="sinusSeverity"><button type="button" data-v="mild">軽症</button><button type="button" data-v="moderate" class="active">中等症</button><button type="button" data-v="severe">重症</button></div></div></div><div id="sinusBranchResult" class="branch-result"></div>
+<div id="sinusScore" class="sinus-score">
+  <div class="score-title">成人｜重症度スコア自動判定</div>
+  <div class="score-sub">鼻漏 0–2点＋顔面痛/前頭部痛 0–2点＋鼻汁/後鼻漏 0・2・4点。合計から重症度を自動判定し、上の重症度ボタンと治療方針を連動します。</div>
+  <div class="score-grid">
+    <div class="score-item"><label>鼻漏</label><select id="scoreRhinorrhea"><option value="0">なし：0</option><option value="1">軽度 / 少量：1</option><option value="2">中等以上：2</option></select></div>
+    <div class="score-item"><label>顔面痛・前頭部痛</label><select id="scorePain"><option value="0">なし：0</option><option value="1">軽度：1</option><option value="2">中等以上：2</option></select></div>
+    <div class="score-item"><label>鼻汁・後鼻漏</label><select id="scoreDischarge"><option value="0">なし / 漿液性：0</option><option value="2">粘膿性 少量：2</option><option value="4">中等量以上：4</option></select></div>
+  </div>
+  <div class="score-summary"><div id="scoreNumber" class="score-number">0</div><div><div id="scoreGrade" class="score-grade">0点</div><div class="score-note">1–3 軽症 / 4–6 中等症 / 7–8 重症</div></div></div>
+</div>
+<div id="sinusChildCheck" class="child-check" style="display:none">
+  <div class="child-check-title">学童期以降の小児｜抗菌薬適応チェック</div>
+  <div class="child-check-sub">以下のいずれか1つでも該当すれば「遷延性又は重症」と判定します。</div>
+  <div class="child-q"><input id="childQ1" type="checkbox"><label for="childQ1">10日間以上続く鼻汁・後鼻漏、または日中の咳がある</label></div>
+  <div class="child-q"><input id="childQ2" type="checkbox"><label for="childQ2">39℃以上の発熱＋膿性鼻汁が少なくとも3日以上続き、重症感がある</label></div>
+  <div class="child-q"><input id="childQ3" type="checkbox"><label for="childQ3">感冒に引き続き、約1週間後に再度の発熱、または日中の鼻汁・咳が増悪した</label></div>
+  <div id="childCheckResult" class="child-result"></div>
+  <div class="branch-source">根拠：抗微生物薬適正使用の手引き 第四版 医科・外来編｜p.30｜表4「小児の急性鼻副鼻腔炎に係る判定基準」</div>
+</div></section>
+<section id="decisionZone" class="decision-zone" aria-label="治療の要点"></section>
+  <div class="guideline-rule">薬剤の「第一選択・代替・条件付き」は、各疾患データに登録されたガイドライン上の位置づけを表示します。順位が明示されない場合は、無理に第一選択へ分類しません。</div>
+
+  <section class="clinical-flow">
     <article class="step-card" id="pathogenCard"></article>
     <article class="step-card" id="betaCard"></article>
   </section>
 
+  <div class="detail-togglebar">
+    <button id="detailToggle" type="button">詳しい比較・根拠を表示</button>
+    <span class="hint">普段は結論と標的菌だけ。必要なときに比較表・アレルギー・Evidenceを開きます。</span>
+  </div>
+
+  <div id="deepSections" class="deep-section">
   <section id="nonBetaCard" class="wide-card"></section>
   <section id="warningCard" class="wide-card warning-card"></section>
 
@@ -846,25 +1102,25 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       <div>
         <div class="section-label">EVIDENCE / REFERENCES</div>
         <h3 id="evidenceTitle">📖 Evidence / References</h3>
-        <p>この画面の判断に使用している根拠を、Layer 1 → Layer 2 → Layer 3 → Historical → Sanford の順に確認できます。</p>
+        <p>根拠を役割別に整理しています。スペクトルの根拠と、疾患別の治療推奨は分けて確認できます。</p>
       </div>
     </div>
     <div id="evidenceBody" class="details-body">
       <div class="evidence-loading">出典を読み込み中…</div>
     </div>
   </section>
+  </div>
 
   <footer>
-    Clinical Reference UI v0.10.7 / Editable
-  </footer>
+    Clinical Reference UI concept / indication, susceptibility, tissue penetration and alternatives</footer>
 </main>
 
 <div class="modal-backdrop" id="aboutModal" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
     <button id="closeAbout" class="modal-close" aria-label="閉じる">×</button>
     <h2 id="aboutTitle">このモジュールの役割</h2>
-    <p>本モジュールは、抗菌薬全般を網羅する選択ツールではなく、<b>βラクタム系抗菌薬を主役として深く理解する</b>ための感染症CDSです。</p>
-    <p>非βラクタム薬は、その疾患でβラクタムの位置づけを理解するために重要な場合のみ、参考選択肢として表示します。構造比較・側鎖類似性は既存Comparatorの別モジュールへ渡します。</p>
+    <p>本モジュールは、疾患ごとに<b>抗菌薬の適応、ガイドライン上の位置、感受性、組織移行性、国内適応</b>を分けて確認する臨床リファレンスです。</p>
+    <p>βラクタム・非βラクタムを同じ根拠軸で比較します。βラクタムアレルギーを検討する場合は、反応型を確認したうえで既存の構造比較モジュールへ接続します。</p>
   </div>
 </div>
 
@@ -873,18 +1129,20 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   syndromes: [
     {
       id:"sinus", short:"鼻副鼻腔炎", name:"急性鼻副鼻腔炎",
-      lead:"抗菌薬が必要な病型かをまず確認し、必要時にAMPCを軸として考える。",
-      chips:["抗菌薬不要の分岐が重要","小児：遷延/重症でAMPC"],
+      lead:"まず抗菌薬が必要かを判断する。成人の中等症・重症ではAMPCを第一選択として考える。",
+      chips:["成人：軽症は原則抗菌薬なし","中等症・重症：AMPC第一選択","主標的：肺炎球菌 / H. influenzae / M. catarrhalis"],
       pathogens:[
-        ["肺炎球菌（S. pneumoniae）","感染部位・症候から想定される主な標的菌"],
-        ["インフルエンザ菌（H. influenzae）","BLNARを含む耐性機序に注意"],
-        ["モラクセラ（M. catarrhalis）","主な標的菌の一つ"]
+        ["肺炎球菌（S. pneumoniae）","主要原因菌。ペニシリン系を治療の軸として考える。"],
+        ["インフルエンザ菌（H. influenzae）","主要原因菌。BLNARなど耐性背景に注意。"],
+        ["モラクセラ（M. catarrhalis）","主要原因菌の一つ。βラクタマーゼ産生を考慮する。"]
       ],
       beta:[
-        {name:"AMPC",status:"軸",note:"小児では遷延性または重症で30–50 mg/kg/日 分3、7–10日。"}
+        {name:"AMPC",status:"第一選択",note:"成人の中等症・重症で第一選択。抗微生物薬適正使用の手引きでは5–7日間。"},
+        {name:"CDTR-PI / CFPN-PI / CFTM-PI",status:"代替・エスカレーション",note:"旧・急性鼻副鼻腔炎診療ガイドラインでは重症度や初期治療不応に応じた選択肢。現行第一選択と同列には扱わない。"},
+        {name:"CTRX",status:"重症・不応時",note:"旧ガイドラインでは重症例の治療不応時に、感受性を考慮した選択肢として位置づけ。"}
       ],
-      nonbeta:{title:"主要な非βラクタム選択肢",body:"現行の主根拠から無理に標準薬を補完しない。必要な場合のみ別ガイドラインで追加する。",pills:[]},
-      warning:{title:"最初に確認",text:"症状だけから原因菌を確定しない。鼻汁の色だけで細菌性とは判断しない。"},
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"レスピラトリーキノロン等は旧ガイドラインで重症度・治療経過に応じた選択肢。βラクタムアレルギーでは国内の耐性背景も踏まえ、安易に一律代替とせず専門医相談も考慮する。",pills:["レスピラトリーキノロン（条件付き）"]},
+      warning:{title:"最初に確認：抗菌薬は本当に必要？",text:"成人では軽症例に抗菌薬をルーチン投与せず経過観察を基本とする。中等症・重症で抗菌薬を検討し、AMPCを第一選択とする。"},
       spectrum:[
         ["AMPC × S. pneumoniae","Layer 1","第一選択薬","l1"],
         ["AMPC × H. influenzae","Layer 1","第一選択薬","l1"],
@@ -892,9 +1150,10 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       ],
       compare:["AMPC","CCL","CDTR"],
       evidence:[
-        ["SINUS-MHLW4-PED-01","厚労省 抗微生物薬適正使用の手引き 第四版","p.60 / PDF p.60","小児急性鼻副鼻腔炎：抗菌薬を投与しない分岐。","https://www.mhlw.go.jp/content/10906000/001575216.pdf#page=60"],
-        ["SINUS-MHLW4-PED-02","厚労省 抗微生物薬適正使用の手引き 第四版","p.61 / PDF p.61","遷延性または重症でAMPC 30–50 mg/kg/日 分3、7–10日。","https://www.mhlw.go.jp/content/10906000/001575216.pdf#page=61"],
-        ["SINUS-JRS2010-SURV2007-01","急性鼻副鼻腔炎診療ガイドライン2010年版","紙面 p.59 / PDF p.61","2007年全国サーベイランス（検出菌・薬剤感受性／MIC）のHistorical evidence。現在の感受性率・治療推奨としては使用しない。","https://minds.jcqhc.or.jp/common/wp-content/plugins/pdfjs-viewer-shortcode/pdfjs/web/viewer.php?file=https://minds.jcqhc.or.jp/common/summary/pdf/c00181.pdf&dButton=false&pButton=false&oButton=false&sButton=true#page=61&zoom=auto&pagemode=none"]
+        ["SINUS-AMR-ADULT","抗微生物薬適正使用の手引き 第四版 医科・外来編","p.29–30（急性鼻副鼻腔炎／表3・表4）","成人：軽症は抗菌薬なし、中等症・重症ではAMPCを第一選択として5–7日間。成人重症度スコアと小児の判定基準も掲載。","https://www.mhlw.go.jp/content/10906000/001575216.pdf#page=29"],
+        ["SINUS-JRS2014","急性鼻副鼻腔炎診療ガイドライン2010年版","p.43–44（CQ13-8：スコアリングと重症度分類）","成人・小児のスコアリングと軽症1–3点／中等症4–6点／重症7–8点の分類。追補版の治療アルゴリズムと併せて参照。","https://minds.jcqhc.or.jp/common/summary/pdf/c00181.pdf#page=45"],
+        ["SINUS-JRS2024-HANDBOOK","鼻副鼻腔炎診療の手引き","2024;63(1):1-85","日本鼻科学会の2024年手引き。疾患全体の最新の専門学会資料として参照。","https://www.jstage.jst.go.jp/article/jjrhi/63/1/63_1/_article/-char/ja"],
+        ["SINUS-JRS2010-SURV2007-01","急性鼻副鼻腔炎診療ガイドライン2010年版","紙面 p.59 / PDF p.61","2007年全国サーベイランスはHistorical evidence。現在の感受性率として扱わない。","https://minds.jcqhc.or.jp/common/summary/pdf/c00181.pdf"]
       ]
     },
     {
@@ -907,19 +1166,45 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       warning:{title:"アレルギー代替で注意",text:"CEXを単純な代替にしない。AMPC/ABPCとアミノ側鎖が近く、反応型を確認して構造Comparatorへ。"},
       spectrum:[["AMPC × GAS","Layer 3","GAS検出時の治療軸","l3"]],
       compare:["AMPC","CEX","CCL"],
-      evidence:[["PHARYNX-MHLW4","厚労省 抗微生物薬適正使用の手引き 第四版","ページ最終監査待ち","GAS検出時のAMPC治療。","https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000120172.html"]]
+      evidence:[
+        ["PHARYNX-MHLW4-A","抗微生物薬適正使用の手引き 第四版 医科・外来編","成人：誌面 p.24–27（表2 Centor/McIsaac）","GASの可能性評価、検査診断、GAS未検出では抗菌薬なし、GAS検出時はAMPC 10日間。","https://www.mhlw.go.jp/content/10900000/001630903.pdf#page=24"],
+        ["PHARYNX-MHLW4-P","抗微生物薬適正使用の手引き 第四版 医科・外来編","小児：誌面 p.63–65（表3・表4）","小児ではスコアのみでGASと判断せず検査診断を重視。GAS検出時の治療を記載。","https://www.mhlw.go.jp/content/10900000/001630903.pdf#page=63"]
+      ]
+    },
+    {
+      id:"chronic_sinus", short:"慢性副鼻腔炎", name:"慢性副鼻腔炎",
+      lead:"病型を見極めたうえで治療する。非好酸球性ではマクロライド少量長期療法が選択肢となるが、急性増悪時は漫然と少量投与を続けない。",
+      chips:["病型評価が先","CAM少量長期は非好酸球性が中心","急性増悪は常用量/他剤を再評価"],
+      pathogens:[
+        ["病型評価","慢性期は感染だけで説明せず、好酸球性副鼻腔炎・鼻茸など病態を確認する。"],
+        ["急性増悪時の細菌","増悪時は急性感染の要素を再評価し、必要時に抗菌薬を選択する。"]
+      ],
+      beta:[
+        {name:"βラクタム",status:"急性増悪時に再評価",note:"慢性期の少量長期療法の主役ではない。急性増悪時は急性副鼻腔炎に準じ、病態・重症度・培養等を踏まえて選択する。"}
+      ],
+      nonbeta:{title:"マクロライド少量長期療法",body:"非好酸球性を中心に、クラリスロマイシン等を常用量の半量で長期投与する考え方がある。症状が強い場合は常用量から開始して改善後に半量へ、少量療法中の急性増悪では常用量への切替または他の抗菌薬への変更を検討する。漫然投与は避け、原則3か月を目安に効果判定する。",pills:["CAM：少量長期療法","急性増悪：常用量へ / 他剤へ"]},
+      warning:{title:"最初に確認：病型",text:"好酸球性副鼻腔炎などではマクロライド少量長期療法の効果が乏しいことがあり、慢性副鼻腔炎＝CAM長期投与と単純化しない。"},
+      spectrum:[],
+      allergy:{title:"βラクタムアレルギー",text:"急性増悪でβラクタムを検討する場合は、反応型・重症度・側鎖を確認する。"},
+      evidence:[
+        ["CRS-MACROLIDE-01","副鼻腔炎の診断と治療","日本耳鼻咽喉科学会会報 2010;113:614-618","慢性副鼻腔炎のマクロライド療法：常用量の半量、症状が強い場合は常用量から開始、急性増悪時は常用量への切替または他抗菌薬への変更、原則3か月を目安。","https://www.jstage.jst.go.jp/article/jibiinkoka/113/7/113_7_614/_article/-char/ja/"],
+        ["CRS-JRS2024","鼻副鼻腔炎診療の手引き","2024;63(1):1-85","慢性副鼻腔炎を含む最新の専門学会手引き。病型・治療全体の参照資料。","https://www.jstage.jst.go.jp/article/jjrhi/63/1/63_1/_article/-char/ja/"]
+      ]
     },
     {
       id:"aom", short:"小児中耳炎", name:"小児急性中耳炎",
-      lead:"重症度と前治療を踏まえ、AMPCを軸にCVA/AMPC、CDTR-PIなどへ展開する。",
-      chips:["重症度で分岐","TFLXは後方選択肢"],
+      lead:"ガイドライン、主要起炎菌への感受性、組織移行性、国内適応を別々に確認し、候補薬の位置づけを読む。",
+      chips:["独自スコアなし","根拠ごとに表示","βラクタムは構造比較へ"],
       pathogens:[["インフルエンザ菌（H. influenzae）","主要標的"],["肺炎球菌（S. pneumoniae）","主要標的"],["モラクセラ（M. catarrhalis）","主要標的"]],
       beta:[{name:"AMPC",status:"軸",note:"軽症〜重症の重症度アルゴリズムで位置づけ。"},{name:"CVA/AMPC",status:"状況依存",note:"重症度・前治療等で選択。"},{name:"CDTR-PI",status:"代替",note:"重症度・治療経過に応じた選択肢。"}],
       nonbeta:{title:"主要な非βラクタム選択肢",body:"βラクタム治療の経過や重症度に応じ、TFLXが後方選択肢となる。",pills:["TFLX"]},
       warning:{title:"小児での注意",text:"ピボキシル基を持つ薬剤では低カルニチン血症に注意。キノロンも安易な第一選択にはしない。"},
       spectrum:[["AMPC × H. influenzae","Layer 3","治療の軸","l3"],["CDTR × H. influenzae","Layer 2/3","薬剤特性と臨床位置づけを分けて表示","l2"]],
-      compare:["AMPC","CDTR","CCL"],
-      evidence:[["AOM2024","小児急性中耳炎診療ガイドライン2024","p.94–97","軽症・中等症・重症の治療アルゴリズム。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf#page=94"]]
+      compare:["AMPC","CVA/AMPC","CDTR","CFPN","CPDX"],
+      evidence:[
+        ["AOM2024-ALG","小児急性中耳炎診療ガイドライン2024年版","誌面 p.85–90","軽症・中等症・重症の治療アルゴリズム。鼓膜所見を含む正式な重症度に基づいて治療段階を選択する。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf#page=87"],
+        ["AOM2024-CQ31","小児急性中耳炎診療ガイドライン2024年版","CQ3-1 / 治療章","抗菌薬を使用する場合の選択。2024年版では高用量AMPCを第1選択とし、3〜5日後に効果判定する。","https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf"]
+      ]
     },
     {
       id:"cap", short:"市中肺炎", name:"成人市中肺炎（CAP）",
@@ -2032,23 +2317,471 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
   const statusClass = s => s === "代替" ? " alt" : "";
 
+  let sinusAge="adult", sinusSeverity="moderate";
+  const SINUS_BRANCH={
+    adult:{
+      mild:{main:"抗菌薬は原則投与せず、まず経過観察",note:"軽症では抗菌薬非投与を基本とする。改善しない場合は再評価する。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22 / 急性鼻副鼻腔炎診療ガイドライン2010年版 p.43–44"},
+      moderate:{main:"AMPCを第一選択として検討",note:"成人の基本はAMPC 5–7日間。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22"},
+      severe:{main:"抗菌薬治療＋治療反応を早めに再評価",note:"AMPCを軸に治療。旧専門GLでは重症度・感受性に応じた追加選択肢がある。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22 / 急性鼻副鼻腔炎診療ガイドライン2010年版・追補版（治療アルゴリズム）"}
+    },
+    child:{
+      mild:{main:"抗菌薬を投与しない",note:"学童期以降では、遷延性または重症を除き抗菌薬を行わない。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22"},
+      moderate:{main:"遷延性を確認して抗菌薬適応を判断",note:"小児では重症度に加えて遷延性が重要。必要な場合の基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22"},
+      severe:{main:"AMPCを基本に抗菌薬治療を検討",note:"学童期以降の遷延性または重症では抗菌薬を検討。基本はAMPC 7–10日間。",src:"抗微生物薬適正使用の手引き 第四版 医科・外来編 p.20–22"}
+    }
+  };
+
+  function renderUtiAudit(){
+    const out=$("utiResult"); if(!out)return;
+    const s=$("utiSymptoms")?.value||"yes", u=$("utiUpper")?.value||"no", p=$("utiPreg")?.value||"no", cul=$("utiCulture")?.value||"unknown";
+    if($("utiPregWrap")) $("utiPregWrap").style.display=s==="none"?"block":"none";
+    if($("utiCultureWrap")) $("utiCultureWrap").style.display=u==="yes"?"block":"none";
+    let title="単純性膀胱炎としての監査",body="尿路症状があり、発熱・悪寒・側腹部/背部痛がなければ、まず下部尿路感染として処方内容を確認します。",alerts="";
+    if(u==="yes"){
+      title="⚠ 腎盂腎炎を考えるサイン";
+      body="発熱・悪寒・側腹部/背部痛がある場合、単純性膀胱炎として処方だけを見るのではなく上部尿路感染としての評価状況を確認します。";
+      if(cul==="unknown") alerts+="<div class='uti-alert'><b>尿培養を確認</b>腎盂腎炎が疑われる場面では、培養・感受性結果が後の抗菌薬選択を変え得ます。採取状況を確認。</div>";
+      if(cul==="known") alerts+="<div class='uti-alert'><b>感受性結果あり</b>empiric therapyのままではなく、培養・感受性に合わせた治療になっているか確認。</div>";
+    }else if(s==="none"){
+      title="抗菌薬を始める前に確認";
+      body="尿路症状がない場合は、細菌尿があるだけで治療対象とは限りません。";
+      if(p==="yes") alerts+="<div class='uti-alert'><b>妊娠中</b>無症候性細菌尿でも扱いが異なるため、培養結果と治療方針を確認します。</div>";
+      else if(p==="no") alerts+="<div class='uti-alert uti-critical'><b>⚠ 無症候性細菌尿の可能性</b>妊娠など治療対象となる例外がなければ、抗菌薬適応そのものを確認したい場面です。</div>";
+      else alerts+="<div class='uti-alert'><b>妊娠の有無を確認</b>無症候性細菌尿では、この情報によって抗菌薬適応の判断が変わります。</div>";
+    }else if(s==="unknown"){
+      title="まず症状を1点確認";
+      body="尿検査陽性だけでは感染症として治療すべきか判断できません。排尿痛・頻尿・尿意切迫などの症状の有無を確認します。";
+    }
+    const res=$("utiResistance")?.value||"unknown", drug=$("utiCurrentDrug")?.value||"unknown", ac=$("utiAdvancedCulture")?.value||"unknown", renal=$("utiRenal")?.value||"unknown";
+    if($("utiCurrentDrugWrap")) $("utiCurrentDrugWrap").style.display=res==="yes"?"block":"none";
+    if(res==="yes"){
+      alerts+="<div class='uti-alert uti-critical'><b>⚠ 過去にESBL / 耐性菌歴あり</b>過去の培養結果は今回の初期抗菌薬選択を変え得る重要情報です。今回の培養・感受性と処方選択を照合します。</div>";
+      if(drug==="oral_ceph") alerts+="<div class='uti-alert uti-critical'><b>経口セフェム処方を確認</b>ESBLは通常、第1〜3世代セファロスポリンを分解します。過去菌の感受性、今回の培養結果、別菌種・別病態の可能性を確認します。</div>";
+    }
+    if(ac==="known") alerts+="<div class='uti-alert'><b>培養結果を処方に反映できる段階</b>感受性が判明しているなら、初期治療のまま漫然継続せず、狭域化・経口薬への切替を含め結果と処方を照合します。</div>";
+    else if((u==="yes"||res==="yes")&&ac==="unknown") alerts+="<div class='uti-alert'><b>培養情報を確認</b>腎盂腎炎を疑う場合や耐性菌既往がある場合は、培養結果が薬剤選択を大きく変えます。</div>";
+    if(renal==="reduced") alerts+="<div class='uti-alert'><b>腎機能による用量監査</b>抗菌薬によって腎機能に応じた用量・投与間隔調整が必要です。次段階で薬剤別の腎機能監査につなげます。</div>";
+    if(drug==="fq") alerts+="<div class='uti-alert'><b>フルオロキノロン使用</b>第四版では大腸菌の高い耐性率や重大な有害事象、抗結核作用などから温存すべき薬剤とされています。培養・患者背景・選択理由を確認します。</div>";
+    out.innerHTML="<b>"+title+"</b>"+body+alerts+'<div class="branch-source">Evidence：厚労省 抗微生物薬適正使用の手引き 第四版 医科・外来編 p.45（腎盂腎炎・培養、フルオロキノロン）／医科・入院編 UTI項／薬剤耐性菌感染症編 ESBL産生腸内細菌目細菌。詳細薬剤選択はJAID/JSC感染症治療ガイド2023も参照。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+  }
+
+  function renderCapReverse(){
+    const out=$("capResult"); if(!out)return;
+    const p=$("capPattern")?.value||"typical", chronic=$("capChronic")?.value||"no", bl=$("capBlnar")?.value||"unknown", tb=$("capTb")?.value||"low";
+    let title="",body="",alert="";
+    if(p==="typical"){
+      title=bl==="yes"?"典型細菌＋BLNARを考慮":"典型細菌性肺炎を想定";
+      body=bl==="yes"?"CVA/AMPC＋高用量AMPCに加え、GL注釈の高用量CDTR-PIを比較。どちらも非定型病原体はカバーしません。":"CVA/AMPC＋高用量AMPCを中心に比較。βラクタム単独ではMycoplasma・Legionellaをカバーしません。";
+    }else if(p==="atypical"){
+      title="非定型肺炎を想定";body="マクロライド系またはテトラサイクリン系を中心に比較。βラクタムは細胞壁を持たないMycoplasmaには無効です。";
+    }else if(p==="legionella"){
+      title="Legionellaを想定";body="レスピラトリーキノロンまたは適切なマクロライド系を比較。βラクタム単独は選択肢になりません。";
+    }else{
+      title="典型／非定型の鑑別が難しい";body="両者をカバーできるレスピラトリーキノロン、または病状・診療場所に応じたβラクタム＋非βラクタムの位置づけを確認します。";
+    }
+    if(chronic==="yes") alert+="<div class='cap-warn'><b>慢性呼吸器疾患あり</b>原因菌や耐性背景が変わり得るため、培養歴・増悪歴・直近の抗菌薬を確認。</div>";
+    if(["unclear","legionella"].includes(p)&&tb!=="low") alert+="<div class='cap-warn'><b>キノロン選択前に結核を評価</b>抗結核作用で症状や検査所見が一時的に改善し、診断が遅れる可能性があります。</div>";
+    if(tb==="suspect") alert+="<div class='cap-warn'><b>結核疑いあり</b>通常のCAPとして経験的にキノロンを開始する前に、結核の検査・感染対策を優先。</div>";
+    out.innerHTML="<b>"+title+"</b><div>"+body+"</div>"+alert+'<div class="branch-source">根拠：成人肺炎診療ガイドライン2024｜CAPエンピリック治療 図4・誌面 p.35。</div>';
+    if($("syndromeSelect")?.value==="cap") renderDecisionZone(window.CDS_DATA.syndromes.find(s=>s.id==="cap"));
+  }
+
+  function renderPharynxReverse(){
+    const out=$("phReverseResult"); if(!out)return;
+    const drug=$("phDrug")?.value||"none", days=$("phDays")?.value||"unknown", gas=$("phReverseGas")?.value||"unknown";
+    const dn={none:"抗菌薬なし",ampc:"AMPC",other_beta:"その他βラクタム",macrolide:"マクロライド系",cldm:"CLDM",other:"その他"}[drug];
+    let body="";
+    if(gas==="negative"){
+      body=drug==="none"?"GAS未検出＋抗菌薬なし：第四版の推奨と整合します。":"GAS未検出例では第四版は抗菌薬を投与しないことを推奨。GAS以外の診断・適応理由がないか確認したい処方です。";
+    }else if(gas==="positive"){
+      if(drug==="ampc"&&days==="ten") body="GAS陽性＋AMPC 10日：第四版の基本推奨と整合します。";
+      else if(drug==="ampc") body="GAS陽性でAMPCは第四版の基本推奨。ただし第四版の推奨期間は10日間なので、処方日数と意図を確認します。";
+      else if(drug==="none") body="GAS陽性ですが抗菌薬なし。第四版では抗菌薬を投与する場合AMPC 10日間を推奨しており、治療方針の確認対象です。";
+      else body="GAS陽性ですが第四版の基本推奨AMPC 10日とは異なる処方です。アレルギー、既往、他の診断など選択理由を確認します。代替薬をツール側で推測はしません。";
+    }else{
+      body=drug==="ampc"?"AMPC処方あり。急性咽頭炎としては、まずGAS迅速抗原検査または培養の結果を確認したいところです。GAS未検出なら第四版は抗菌薬なしを推奨します。":drug==="none"?"抗菌薬なし。GAS未検出例では第四版の推奨と整合します。GASが疑われる場合は検査結果の有無を確認します。":"抗菌薬処方あり・GAS結果不明。急性咽頭炎としての抗菌薬適応を判断する前にGAS検査結果や別診断を確認します。";
+    }
+    out.innerHTML="<b>"+dn+"｜逆引き結果</b>"+body+'<div class="branch-source">根拠：抗微生物薬適正使用の手引き 第四版 医科・外来編｜成人 p.24–27／小児 p.63–65</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+  }
+
+  function renderPharynx(){
+    const ids=["phFever","phNoCough","phNodes","phExudate"]; if(ids.some(id=>!$(id)))return;
+    const score=ids.reduce((n,id)=>n+($(id).checked?1:0),0), gas=$("phGas")?.value||"unknown";
+    let title=score+"点｜Centor",body="";
+    if(gas==="positive") body="GASが検出されています。第四版では抗菌薬を投与する場合、AMPC 10日間経口投与を推奨。";
+    else if(gas==="negative") body="GASは検出されていません。第四版ではGAS未検出の急性咽頭炎に抗菌薬を投与しないことを推奨。";
+    else if(score<=2) body="第四版ではCentor 2点以下ではGAS迅速抗原検査は不要とする海外指針を紹介。ただしGAS曝露歴など別の根拠があれば検査を考慮。抗菌薬適応はスコアだけで決めません。";
+    else body="GASの可能性を考え、迅速抗原検査または培養結果を確認したい領域です。スコアのみでGASと診断・抗菌薬投与はしません。";
+    $("phResult").innerHTML="<b>"+title+"</b><span>"+body+"</span><div class=\"branch-source\">根拠：抗微生物薬適正使用の手引き 第四版 医科・外来編｜成人 p.24–27（表2 Centor/McIsaac）・小児 p.63–65（表3・4）</div><div class=\"evidence-jump\"><button type=\"button\" onclick=\"jumpToEvidence()\">根拠を見る ↓</button></div>";
+    renderPharynxReverse();
+    if($("syndromeSelect")?.value==="pharynx") renderDecisionZone(window.CDS_DATA.syndromes.find(s=>s.id==="pharynx"));
+  }
+
+  function calcChildSinus(){
+    const qs=["childQ1","childQ2","childQ3"].map(id=>$(id)).filter(Boolean);
+    if(!qs.length)return;
+    const positive=qs.some(q=>q.checked);
+    const r=$("childCheckResult"); if(!r)return;
+    if(positive){
+      sinusSeverity="severe";
+      r.innerHTML="<strong>遷延性又は重症に該当</strong><span>抗菌薬投与を検討。基本はAMPC 7–10日間経口投与。</span>";
+    }else{
+      sinusSeverity="mild";
+      r.innerHTML="<strong>現時点では3基準に該当なし</strong><span>原則として抗菌薬を投与せず経過観察。臨床経過や合併症があれば再評価する。</span>";
+    }
+    renderSinusBranch(false);
+  }
+
+  function calcSinusScore(){
+    if(sinusAge!=="adult") return;
+    const ids=["scoreRhinorrhea","scorePain","scoreDischarge"];
+    if(ids.some(id=>!$(id))) return;
+    const score=ids.reduce((n,id)=>n+Number($(id).value||0),0);
+    let grade,sev;
+    if(score===0){grade="0点｜所見なし";sev="mild";}
+    else if(score<=3){grade=score+"点｜軽症";sev="mild";}
+    else if(score<=6){grade=score+"点｜中等症";sev="moderate";}
+    else{grade=score+"点｜重症";sev="severe";}
+    $("scoreNumber").textContent=score;
+    $("scoreGrade").textContent=grade;
+    sinusSeverity=sev;
+    renderSinusBranch(false);
+  }
+
+  function renderSinusBranch(updateScore=true){
+    const r=$("sinusBranchResult"); if(!r)return;
+    const d=SINUS_BRANCH[sinusAge][sinusSeverity];
+    if($("sinusScore")) $("sinusScore").style.display=sinusAge==="adult"?"block":"none";
+    if($("sinusChildCheck")) $("sinusChildCheck").style.display=sinusAge==="child"?"block":"none";
+    if(sinusAge==="child" && $("childCheckResult") && !$("childCheckResult").innerHTML) calcChildSinus();
+    r.innerHTML=`<div class="br-label">CURRENT PATH</div><div class="br-main">${esc(d.main)}</div><div class="br-note">${esc(d.note)}</div><div class="branch-source">根拠：${esc(d.src)}</div>`;
+    document.querySelectorAll("#sinusAge button").forEach(b=>b.classList.toggle("active",b.dataset.v===sinusAge));
+    document.querySelectorAll("#sinusSeverity button").forEach(b=>b.classList.toggle("active",b.dataset.v===sinusSeverity));
+    if(typeof renderDecisionZone==="function" && $("syndromeSelect") && $("syndromeSelect").value==="sinus") renderDecisionZone(window.CDS_DATA.syndromes.find(s=>s.id==="sinus"));
+  }
+
+  function getSinusDecision(){
+    if(sinusAge==="adult"){
+      if(sinusSeverity==="mild") return {
+        primary:[],
+        alt:[{name:"抗菌薬なし",status:"第一選択",note:"成人軽症：抗菌薬を投与せず5日間経過観察。"}],
+        source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜誌面 p.29–31（表3を含む）",
+        conditional:"改善しない場合は診断・重症度を再評価。軽症のまま機械的に抗菌薬へ切り替える設計にはしません。"
+      };
+      const alt=sinusSeverity==="severe"
+        ? [{name:"フルオロキノロン系",status:"重症例の第二選択",note:"第四版はJAID/JSC指針を引用し、成人重症例の第二選択肢として記載（誌面 p.31）。"}]
+        : [];
+      return {
+        primary:[{name:"AMPC",status:"第一選択",note:"成人の中等症・重症：AMPCを基本に5–7日間経口投与。"}],
+        alt,
+        source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜誌面 p.29–31",
+        conditional:"AMPC不応時の一律な次剤は第四版に明示されていません。まず診断・合併症・服薬状況・重症度を再評価。ペニシリンアレルギー時の代替薬も副鼻腔炎項では明示されないため、反応型を確認してアレルギーモジュールへ。"
+      };
+    }
+    const positive=["childQ1","childQ2","childQ3"].some(id=>$(id)?.checked);
+    return positive ? {
+      primary:[{name:"AMPC",status:"第一選択",note:"学童期以降：遷延性又は重症に該当する場合、AMPC 7–10日間経口投与を検討。"}],
+      alt:[],
+      source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜誌面 p.61（小児急性鼻副鼻腔炎）", conditional:"ペニシリンアレルギー時は一律の代替薬を自動表示せず、反応型・重症度を確認してアレルギーモジュールへ。"
+    } : {
+      primary:[],
+      alt:[{name:"抗菌薬なし",status:"第一選択",note:"学童期以降：遷延性又は重症に該当しない場合は抗菌薬を投与しない。"}],
+      source:"抗微生物薬適正使用の手引き 第四版 医科・外来編｜誌面 p.61（小児急性鼻副鼻腔炎）", conditional:"抗菌薬適応に該当しない場合は経過観察。病状変化や合併症があれば再評価。"
+    };
+  }
+
+  function renderDecisionZone(x){
+    if(x.id==="chronic_sinus"){
+      const axis=(mark,text,cls="")=>`<div class="aom-axis ${cls}"><span class="aom-axis-mark">${mark}</span><span>${text}</span></div>`;
+      const links=items=>`<div class="aom-source-links">${items.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")}</div>`;
+      const card=(name,role,axes,summary,sources=[])=>`<article class="aom-drug-card"><div class="aom-drug-name"><span>${name}</span><span class="aom-drug-role">${role}</span></div><div class="aom-axis-list">${axes.join("")}</div><div class="aom-card-summary">→ ${summary}</div>${links(sources)}</article>`;
+      const review="https://www.jstage.jst.go.jp/article/jibiinkoka/113/7/113_7_614/_article/-char/ja/";
+      const handbook="https://www.jstage.jst.go.jp/article/jjrhi/63/1/63_1/_article/-char/ja";
+      const noAbx=card("抗菌薬なし／病型再評価","好酸球性・鼻茸など",[
+        axis("✓","慢性副鼻腔炎を感染症だけで説明しない"),axis("✓","好酸球性副鼻腔炎などは少量マクロライドの効果が乏しいことがある"),axis("△","鼻茸、喘息、嗅覚障害、手術歴を確認","caution"),axis("△","急性増悪の所見があれば別の治療分岐","caution")
+      ],"薬を比べる前に、少量長期療法が合う病型かを確認。",[["鼻副鼻腔炎診療の手引き2024",handbook]]);
+      const cam=card("クラリスロマイシン（CAM）","少量長期療法の中心候補",[
+        axis("✓","非好酸球性を中心に少量長期療法の選択肢"),axis("✓","上顎洞粘膜への移行データあり"),axis("△","抗菌活性の強さではなく、慢性炎症・分泌への作用を意図","caution"),axis("△","CYP3A阻害、QT延長、併用薬を確認","caution"),axis("△","原則3か月を目安に効果判定し、漫然継続しない","caution")
+      ],"処方日数だけでなく、病型・目的・評価時期・相互作用をセットで確認。",[["慢性副鼻腔炎の診断と治療",review],["鼻副鼻腔炎診療の手引き2024",handbook]]);
+      const otherMacro=card("EM／RXMなどの14員環マクロライド","代替を検討する枠",[
+        axis("✓","少量長期療法は14員環マクロライドのクラスで検討される"),axis("△","薬剤ごとの用量・エビデンス・国内適応は同一ではない","caution"),axis("△","相互作用、消化器症状、QT延長などを薬剤別に確認","caution"),axis("△","CAMからの機械的置換ではなく、置換理由を明確にする","caution")
+      ],"“同じマクロライド”で一括せず、添付文書・相互作用・治療目的を再確認。",[["慢性副鼻腔炎の診断と治療",review]]);
+      const flare=card("常用量マクロライド／別系統抗菌薬","急性増悪時",[
+        axis("✓","少量療法中の急性増悪では常用量への切替または他剤変更を検討"),axis("✓","急性副鼻腔炎として重症度・起炎菌・前治療を再評価"),axis("△","少量CAMをそのまま漫然継続しない","caution"),axis("△","βラクタムを使う場合は急性副鼻腔炎モジュールで適応・感受性・移行性を比較","caution")
+      ],"慢性期の維持処方と、急性増悪の抗菌薬治療を分けて考える。",[["慢性副鼻腔炎の診断と治療",review]]);
+      const safety=`<section class="aom-number-panel"><h4>薬局で確認する4点</h4><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>確認</th><th>意味</th></tr></thead><tbody><tr><th>病型</th><td>非好酸球性か、好酸球性・鼻茸・喘息合併か</td></tr><tr><th>治療目的</th><td>少量長期療法か、急性増悪への抗菌治療か</td></tr><tr><th>評価時期</th><td>原則3か月を目安に有効性を判定しているか</td></tr><tr><th>安全性</th><td>CYP3A相互作用、QT延長、肝機能、下気道の抗酸菌症リスクを確認</td></tr></tbody></table></div><p class="aom-number-footnote">慢性期はMICや組織濃度の高さだけで順位づけしません。抗菌作用以外を含む治療目的と病型適合性を優先します。</p></section>`;
+      $("decisionZone").innerHTML=`<section class="aom-candidate-board"><header class="aom-candidate-head"><div><h3>慢性副鼻腔炎｜病型と治療目的から比較</h3><p>少量長期療法と急性増悪を分離し、非βラクタムを主役として評価します。</p></div><span class="aom-no-score">総合点なし</span></header><section class="aom-tier first"><div class="aom-tier-title">最初に確認</div><div class="aom-drug-grid">${noAbx}${cam}</div></section><section class="aom-tier conditional"><div class="aom-tier-title">条件付き候補・代替</div><div class="aom-drug-grid">${otherMacro}${flare}</div></section>${safety}<div class="aom-board-note">下気道症状、気管支拡張症、抗酸菌培養歴がある場合は、マクロライド単剤長期投与の前に肺NTM症を含む評価状況を確認します。</div></section>`;
+      return;
+    }
+    if(x.id==="cap"){
+      const axis=(mark,text,cls="")=>`<div class="aom-axis ${cls}"><span class="aom-axis-mark">${mark}</span><span>${text}</span></div>`;
+      const links=items=>`<div class="aom-source-links">${items.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")}</div>`;
+      const card=(name,role,axes,summary,structure="",sources=[])=>`<article class="aom-drug-card"><div class="aom-drug-name"><span>${name}</span><span class="aom-drug-role">${role}</span></div><div class="aom-axis-list">${axes.join("")}</div><div class="aom-card-summary">→ ${summary}</div>${links(sources)}${structure?`<a class="aom-structure-link" href="${esc(D.comparatorUrl)}?drugA=${encodeURIComponent(structure)}">βラクタム構造比較へ →</a>`:""}</article>`;
+      const gl="https://www.jrs.or.jp/publication/file/adult_pneumonia_2024v5.pdf#page=60";
+      const p=$("capPattern")?.value||"typical", chronic=$("capChronic")?.value||"no", bl=$("capBlnar")?.value||"unknown", tb=$("capTb")?.value||"low";
+      const path={typical:["典型細菌性肺炎","βラクタム中心"],atypical:["非定型肺炎","マクロライド／テトラサイクリン系"],unclear:["典型／非定型の鑑別困難","両者をカバーする選択肢"],legionella:["Legionella疑い","レスピラトリーキノロン／適切なマクロライド"]}[p];
+      const cva=card("CVA/AMPC＋高用量AMPC","典型細菌の軸",[
+        axis("✓","成人肺炎GL2024：細菌性肺炎を疑う外来CAPの選択肢"),axis("✓","肺炎球菌・H. influenzaeなど典型細菌を想定"),axis("✓","βラクタマーゼ産生H. influenzaeをCVAで考慮"),axis("△","Mycoplasma・Chlamydia・Legionellaはカバーしない","caution"),axis("✓","CVA/AMPCは喀痰への移行が認められている"),axis("△","比較可能な肺内濃度の数値は本文に未掲載","missing")
+      ],"典型細菌性と判断できる場面で中心。非定型を疑う情報があれば単独では完結しない。","AMPC",[["成人肺炎GL2024",gl],["PMDA CVA/AMPC","https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139100F1037?user=1"]]);
+      const cdtr=card("高用量CDTR-PI","BLNAR考慮時",[
+        axis("✓","成人肺炎GL2024：H. influenzaeのBLNARを考慮する場合の注釈"),axis("✓","肺炎球菌・H. influenzaeが適応菌種"),axis("✓","患者喀痰への移行が認められている"),axis("△","喀痰濃度の比較可能な数値は本文に未掲載","missing"),axis("△","非定型病原体はカバーしない","caution"),axis("△","高用量を選ぶ臨床的理由を確認","caution")
+      ],"BLNARを考慮する情報があるときに意味がある。単なる“広めの経口セフェム”として置かない。","CDTR",[["成人肺炎GL2024",gl],["PMDA CDTR-PI","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/300119_6132015C1120_1_05"]]);
+      const macro=card("マクロライド系","非定型病原体を担当",[
+        axis("✓","Mycoplasma・Chlamydia・Legionellaなど細胞内／非定型病原体を考慮"),axis("✓","CAM：喀痰・気管支分泌物で血清と同等またはそれ以上"),axis("△","肺炎球菌など典型細菌の単剤経験治療では耐性を考慮","caution"),axis("△","CAMはCYP3A阻害、薬剤ごとにQT延長など相互作用を確認","caution"),axis("△","Legionellaでは重症度・薬剤選択を個別評価","caution")
+      ],"組織移行は良好だが、典型細菌への感受性と相互作用を別に評価する。","",[["成人肺炎GL2024",gl],["PMDA CAM","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/400278_6149003F1236_1_08"]]);
+      const mino=card("ミノサイクリン（MINO）","非定型で候補",[
+        axis("✓","非定型肺炎を疑う場合の非βラクタム選択肢"),axis("✓","Mycoplasma・Chlamydiaを考慮"),axis("△","典型細菌と非定型の鑑別困難時に単独で十分かは病像で判断","caution"),axis("△","めまい、肝障害、妊娠等の患者背景を確認","caution"),axis("△","比較可能な肺内移行の統一数値は現在未掲載","missing")
+      ],"マクロライド以外の非定型カバー。患者背景による使い分けが重要。","",[["成人肺炎GL2024",gl]]);
+      const fq=card("レスピラトリーキノロン","両群・Legionellaをカバー",[
+        axis("✓","典型／非定型の鑑別困難、Legionella疑い、慢性呼吸器疾患などで重要"),axis("✓","典型細菌と非定型病原体の双方を考慮"),axis("✓","LSFX：肺胞上皮被覆液／血漿濃度比15.0～22.4"),axis("✓","LSFX：肺胞マクロファージ／血漿比18.5～56.4"),axis("△","高い肺移行性だけで全例の第一選択にはしない","caution"),axis("△","結核診断遅延、腱障害、QT延長等を確認","caution")
+      ],"カバーと肺移行性は強み。ただし結核評価と安全性を含む条件付き候補。","",[["成人肺炎GL2024",gl],["PMDA LSFX","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/231099_6241019F1021_2_04"]]);
+      const combo=card("βラクタム＋非βラクタム","両群を別々にカバー",[
+        axis("✓","βラクタム側で典型細菌、マクロライド等で非定型病原体を補完"),axis("△","外来／入院、重症度、患者背景で位置づけが変わる","caution"),axis("△","重複する有害事象・相互作用・服薬負担を確認","caution"),axis("△","単剤で両群をカバーできるFQとの利点・不利益を比較","caution")
+      ],"“広くする”のではなく、典型菌と非定型菌を誰が担当するかを明示。","AMPC",[["成人肺炎GL2024",gl]]);
+      const cfpn=card("CFPN-PI","薬剤データ比較枠",[
+        axis("✓","肺炎球菌・H. influenzaeが適応菌種、肺炎適応あり"),axis("✓","成人で喀痰・肺組織・胸水への移行は良好"),axis("△","GLの主要外来候補としてCDTR高用量と同列には置かない","caution"),axis("△","数値ではなく定性的な移行記載","caution"),axis("△","ピボキシル基の安全性を確認","caution")
+      ],"適応と移行性はあるが、GL上の役割とは別枠で比較。","CFPN",[["PMDA CFPN-PI","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/480235_6132016F1120_1_02"]]);
+      const status=`<section class="aom-number-panel"><h4>現在の入力から先に見るもの</h4><p><strong>${path[0]}</strong>｜${path[1]}${bl==="yes"?"。BLNARを考慮するため高用量CDTR-PIも比較":""}${chronic==="yes"?"。慢性呼吸器疾患があり、培養歴・増悪歴も確認":""}</p>${(["unclear","legionella"].includes(p)&&tb!=="low")?'<p class="aom-number-footnote"><strong>注意：</strong>キノロン選択前に結核の可能性を評価。</p>':''}</section>`;
+      const tissue=`<section class="aom-number-panel"><h4>呼吸器移行性｜同じ“良好”でもデータの質が違う</h4><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>薬剤</th><th>検体・数値</th><th>比較上の扱い</th></tr></thead><tbody><tr><th>CVA/AMPC</th><td>喀痰への移行あり</td><td>定性</td></tr><tr><th>CDTR-PI</th><td>患者喀痰への移行あり</td><td>定性</td></tr><tr><th>CFPN-PI</th><td>成人の喀痰・肺組織・胸水への移行良好</td><td>定性</td></tr><tr><th>CAM</th><td>喀痰・気管支分泌物で血清と同等またはそれ以上</td><td>半定量的記載</td></tr><tr><th>LSFX 75 mg</th><td>ELF／血漿比15.0～22.4、肺胞マクロファージ／血漿比18.5～56.4</td><td>直接数値あり</td></tr></tbody></table></div><p class="aom-number-footnote">検体、投与量、採取時点が異なるため、濃度比だけで薬剤順位は作りません。移行性は感受性・GL上の位置・患者背景と独立して表示します。</p></section>`;
+      const typicalCards=bl==="yes"?cva+cdtr:cva+cdtr;
+      $("decisionZone").innerHTML=`<section class="aom-candidate-board"><header class="aom-candidate-head"><div><h3>成人市中肺炎｜病原体カバーから代替薬まで</h3><p>典型菌・非定型菌・肺移行性・安全性を別軸で比較します。</p></div><span class="aom-no-score">総合点なし</span></header>${status}<section class="aom-tier first"><div class="aom-tier-title">典型細菌を主に考える候補</div><div class="aom-drug-grid">${typicalCards}</div></section><section class="aom-tier conditional"><div class="aom-tier-title">非定型病原体／両群を考える候補</div><div class="aom-drug-grid">${macro}${mino}${fq}${combo}</div></section>${tissue}<section class="aom-tier conditional"><div class="aom-tier-title">適応・薬剤データ比較枠</div><div class="aom-drug-grid">${cfpn}</div></section><div class="aom-board-note">この画面は成人外来CAPの比較を中心にしています。重症度が高い、酸素化不良、循環不安定、経口摂取困難などでは外来経口薬の比較より診療場所の再評価を優先します。</div></section>`;
+      return;
+    }
+    if(x.id==="pharynx"){
+      const axis=(mark,text,cls="")=>`<div class="aom-axis ${cls}"><span class="aom-axis-mark">${mark}</span><span>${text}</span></div>`;
+      const links=items=>`<div class="aom-source-links">${items.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")}</div>`;
+      const card=(name,role,axes,summary,structure="",sources=[])=>`<article class="aom-drug-card"><div class="aom-drug-name"><span>${name}</span><span class="aom-drug-role">${role}</span></div><div class="aom-axis-list">${axes.join("")}</div><div class="aom-card-summary">→ ${summary}</div>${links(sources)}${structure?`<a class="aom-structure-link" href="${esc(D.comparatorUrl)}?drugA=${encodeURIComponent(structure)}">側鎖を構造比較する →</a>`:""}</article>`;
+      const mhlw="https://www.mhlw.go.jp/content/10900000/001630903.pdf#page=32";
+      const gas=$("phGas")?.value||"unknown";
+      const status=gas==="positive"
+        ? ["GAS陽性","抗菌薬を検討：AMPC 10日間"]
+        : gas==="negative"
+          ? ["GAS陰性","抗菌薬を投与しない"]
+          : ["GAS未確認","スコアのみで抗菌薬を開始せず、迅速抗原検査または培養を確認"];
+      const noAbx=card("抗菌薬なし","GAS未検出なら第一選択",[
+        axis("✓","迅速抗原検査・培養でGAS未検出なら抗菌薬を投与しない"),axis("✓","急性咽頭炎の多くはウイルス性"),axis("△","CentorスコアだけではGAS感染を確定しない","caution"),axis("△","扁桃周囲膿瘍、ジフテリア、伝染性単核球症など別病態は再評価","caution")
+      ],"薬剤比較より先に、GASが検出されているかを確認。","",[["厚労省 適正使用の手引き第四版",mhlw]]);
+      const ampc=card("アモキシシリン（AMPC）","GAS陽性時の第一選択",[
+        axis("✓","成人・小児ともGAS陽性時の基本薬"),axis("✓","推奨期間は10日間"),axis("✓","狭域性を含めペニシリン系が第一選択"),axis("✓","電子添文に咽頭・喉頭炎、扁桃炎、猩紅熱の適応あり"),axis("△","比較可能な扁桃組織濃度の直接値は現在未確認","missing")
+      ],"GAS陽性なら、まずAMPC 10日を基準に比較する。","AMPC",[["厚労省 適正使用の手引き第四版",mhlw],["PMDA AMPC","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6131001C1210_2?user=1"]]);
+      const cex=card("セファレキシン（CEX）","軽症ペニシリンアレルギーで候補",[
+        axis("✓","第四版が引用するIDSA：軽症ペニシリンアレルギー時の代替"),axis("✓","国内で咽頭炎・扁桃炎の適応あり"),axis("△","AMPC／ABPCとアミノ側鎖が近く、アレルギー反応型の確認が重要","caution"),axis("△","即時型反応や重症薬疹で機械的に代替しない","caution"),axis("△","扁桃移行の比較可能な直接値は現在未確認","missing")
+      ],"“ペニシリンアレルギーだからCEX”ではなく、軽症反応であることと側鎖を確認。","CEX",[["厚労省 適正使用の手引き第四版",mhlw], ["PMDA CEX","https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132002?user=1"]]);
+      const cldm=card("クリンダマイシン（CLDM）","重症ペニシリンアレルギーで候補",[
+        axis("✓","第四版が引用するIDSA：アナフィラキシー・重症薬疹等で代替候補"),axis("✓","βラクタムと異なる構造・作用機序"),axis("✓","国内で咽頭炎・扁桃炎・猩紅熱の適応あり"),axis("△","地域・個別株の感受性を考慮","caution"),axis("△","C. difficile感染症を含む消化管リスクに注意","caution")
+      ],"非βラクタムの実質的な代替候補。ただし耐性と有害事象を確認。","",[["厚労省 適正使用の手引き第四版",mhlw],["PMDA CLDM","https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6112001M1058?user=1"]]);
+      const fq=card("フルオロキノロン系","限定的な代替",[
+        axis("△","第四版が引用するJAID/JSC指針ではペニシリンアレルギー時の候補","caution"),axis("△","GASに対して必要以上に広域になりやすい","caution"),axis("△","重篤な副作用、耐性選択、結核診断遅延などを考慮","caution"),axis("△","小児では通常の代替として扱わない","caution")
+      ],"CLDM等と同列の自動代替にはせず、患者背景と他の選択肢を確認。","",[["厚労省 適正使用の手引き第四版",mhlw]]);
+      const macro=card("マクロライド系","通常は優先しにくい",[
+        axis("✓","βラクタムとは異なる構造"),axis("✓","製剤により咽頭炎・扁桃炎の国内適応あり"),axis("△","GASのマクロライド耐性を考慮","caution"),axis("△","CYP3A阻害・QT延長など薬剤ごとの相互作用がある","caution"),axis("△","第四版の基本・主要代替としては示されない","caution")
+      ],"アレルギーだけを理由に一律選択せず、感受性と相互作用まで確認。","",[["厚労省 適正使用の手引き第四版",mhlw]]);
+      const evidence=`<section class="aom-number-panel"><h4>治療成績と組織移行性を分けて読む</h4><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>比較項目</th><th>データ</th><th>実務上の読み方</th></tr></thead><tbody><tr><th>AMPC vs セフェム</th><td>成人の症状軽快：有意差なし（OR 0.79、95%CI 0.55–1.12）</td><td>セフェムが第一選択を上回る根拠ではない</td></tr><tr><th>臨床的再燃</th><td>セフェム群で少ないがNNT 50</td><td>絶対差は大きくなく、狭域性を含めペニシリンを優先</td></tr><tr><th>小児の除菌率</th><td>AMPC 10日 91.7% vs セフェム5日 82.0%（p=0.01）</td><td>短期セフェムへ機械的に置換しない</td></tr><tr><th>CEX</th><td>扁桃の比較可能な直接濃度を未確認</td><td>移行性ではなく軽症アレルギー時の代替根拠で評価</td></tr><tr><th>CLDM</th><td>比較可能な扁桃濃度を未確認</td><td>重症アレルギー時の非βラクタム候補として評価</td></tr></tbody></table></div><p class="aom-number-footnote">GASでは「組織へ入るか」だけでなく、検査陽性、10日間治療、狭域性、アレルギー反応型が薬剤選択を左右します。</p></section>`;
+      const current=`<section class="aom-number-panel"><h4>現在の入力</h4><p><strong>${status[0]}</strong>｜${status[1]}</p></section>`;
+      $("decisionZone").innerHTML=`<section class="aom-candidate-board"><header class="aom-candidate-head"><div><h3>急性咽頭炎｜GAS確認から代替薬まで</h3><p>検査結果、推奨、感受性、適応、アレルギー構造を別々に確認します。</p></div><span class="aom-no-score">総合点なし</span></header>${current}<section class="aom-tier first"><div class="aom-tier-title">適応判断と第一選択</div><div class="aom-drug-grid">${noAbx}${ampc}</div></section><section class="aom-tier conditional"><div class="aom-tier-title">アレルギー時の条件付き候補</div><div class="aom-drug-grid">${cex}${cldm}${fq}</div></section>${evidence}<section class="aom-tier low"><div class="aom-tier-title">通常は優先しにくい</div><div class="aom-drug-grid">${macro}</div></section><div class="aom-board-note">アレルギー代替は構造類似度だけで決めません。軽症皮疹、即時型反応、SCAR等を分け、CEXでは側鎖比較を追加情報として使います。</div></section>`;
+      return;
+    }
+    if(x.id==="sinus"){
+      const axis=(mark,text,cls="")=>`<div class="aom-axis ${cls}"><span class="aom-axis-mark">${mark}</span><span>${text}</span></div>`;
+      const links=items=>`<div class="aom-source-links">${items.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")}</div>`;
+      const card=(name,role,axes,summary,structure="",sources=[])=>`<article class="aom-drug-card"><div class="aom-drug-name"><span>${name}</span><span class="aom-drug-role">${role}</span></div><div class="aom-axis-list">${axes.join("")}</div><div class="aom-card-summary">→ ${summary}</div>${links(sources)}${structure?`<a class="aom-structure-link" href="${esc(D.comparatorUrl)}?drugA=${encodeURIComponent(structure)}">アレルギー時の構造比較へ →</a>`:""}</article>`;
+      const mhlw="https://www.mhlw.go.jp/content/10900000/001630903.pdf#page=29";
+      const oldGl="https://minds.jcqhc.or.jp/common/summary/pdf/c00181.pdf";
+      const noAbx=card("抗菌薬なし","適応外なら第一選択",[
+        axis("✓","成人軽症：原則として抗菌薬を投与せず5日間経過観察"),axis("✓","学童期以降：遷延性又は重症の基準に該当しなければ抗菌薬なし"),axis("△","眼窩・頭蓋内合併症を疑う所見や病状悪化は別途評価","caution")
+      ],"薬剤比較の前に、細菌性として抗菌薬が必要な病像かを確認。","",[["厚労省 適正使用の手引き第四版",mhlw]]);
+      const ampc=card("アモキシシリン（AMPC）","抗菌薬を使う場合の軸",[
+        axis("✓","成人中等症・重症：第一選択、5～7日"),axis("✓","学童期以降の遷延性又は重症：基本薬、7～10日"),axis("✓","肺炎球菌を主要標的として考えやすい"),axis("△","比較可能な上顎洞粘膜・貯留液の直接数値は現在未確認","missing"),axis("△","電子添文上の副鼻腔炎適応はないが、保険審査上は原則認められる","caution")
+      ],"移行量の数値より先に、現行の適正使用手引きで第一選択に位置づくことを重視。適応欄と保険審査上の扱いは分けて表示。","AMPC",[["厚労省 適正使用の手引き第四版",mhlw],["PMDA AMPC","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6131001C1210_2?user=1"]]);
+      const cva=card("アモキシシリン／クラブラン酸","耐性菌リスク等で条件付き",[
+        axis("△","現行の厚労省手引きではAMPCと同列の第一選択として明示されない","caution"),axis("✓","βラクタマーゼ産生H. influenzae／M. catarrhalisを考慮"),axis("✓","電子添文：上顎洞粘膜への移行が認められている"),axis("△","本文に横比較可能な組織濃度値は未掲載","missing"),axis("✓","電子添文に副鼻腔炎適応あり")
+      ],"AMPCから広げる理由を明確にして使う比較候補。","AMPC",[["PMDA CVA/AMPC","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/340278_6139100F1048_1_18"],["旧・急性鼻副鼻腔炎GL",oldGl]]);
+      const cdtr=card("セフジトレン ピボキシル","旧GLで条件付き",[
+        axis("△","旧GLで重症度・初期治療不応に応じた選択肢","caution"),axis("✓","H. influenzae、肺炎球菌、M. catarrhalisが適応菌種"),axis("△","2007年耳鼻科サーベイランスは現在値ではなくHistorical evidence","caution"),axis("△","比較可能な上顎洞組織濃度の直接値は現在未確認","missing"),axis("✓","電子添文に副鼻腔炎適応あり")
+      ],"感受性上の候補でも、現行第一選択と同列には置かない。","CDTR",[["旧・急性鼻副鼻腔炎GL",oldGl],["PMDA CDTR-PI","https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132015C1103?user=1"]]);
+      const cfpn=card("セフカペン ピボキシル","薬剤データ比較枠",[
+        axis("△","現行手引きの第一選択ではない","caution"),axis("✓","電子添文：成人で上顎洞粘膜・貯留液への移行は良好"),axis("△","数値ではなく定性的記載","caution"),axis("✓","電子添文に副鼻腔炎適応あり"),axis("△","ピボキシル基の安全性を確認","caution")
+      ],"組織移行の記載はあるが、推奨順位とは別に表示。","CFPN",[["PMDA CFPN-PI","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/480235_6132016C1140_1_02"]]);
+      const fq=card("レスピラトリーキノロン","成人重症で第二選択",[
+        axis("✓","厚労省手引き：JAID/JSC指針を引用し、成人重症例の第二選択肢"),axis("✓","βラクタムとは異なる作用機序で非定型菌も含む広いカバー"),axis("△","クラス内で適応・PK・安全性が異なるため一括順位化しない","caution"),axis("△","重篤な副作用、耐性選択、結核診断遅延などを考慮","caution")
+      ],"非βラクタムも正式な比較候補。ただし成人重症という条件を外さない。","",[["厚労省 適正使用の手引き第四版",mhlw]]);
+      const cam=card("クラリスロマイシン（CAM）","通常は優先しにくい",[
+        axis("✓","上顎洞粘膜濃度は多くの例で血清濃度を大きく上回る"),axis("✓","電子添文に副鼻腔炎適応あり"),axis("△","良好な組織移行＝経験的第一選択ではない","caution"),axis("△","肺炎球菌などのマクロライド耐性と相互作用を考慮","caution")
+      ],"移行性は良好でも、感受性・推奨・相互作用を合わせると通常の優先候補にはしにくい。","",[["PMDA CAM","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/400059_6149003F2038_1_38"]]);
+      const current=getSinusDecision();
+      const status=`<section class="aom-number-panel"><h4>現在の入力から先に見るもの</h4><p><strong>${esc(current.primary[0]?.name||current.alt[0]?.name||"再評価")}</strong>｜${esc(current.primary[0]?.note||current.alt[0]?.note||current.conditional)}</p><p class="aom-number-footnote">この判定と、下の感受性・組織移行性・適応データを混ぜて総合点にはしません。</p></section>`;
+      const tissue=`<section class="aom-number-panel"><h4>副鼻腔移行性｜データの質を含めて比較</h4><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>薬剤</th><th>上顎洞データ</th><th>比較上の扱い</th></tr></thead><tbody><tr><th>AMPC</th><td>比較可能な直接値を未確認</td><td>GL推奨を主根拠にする</td></tr><tr><th>CVA/AMPC</th><td>上顎洞粘膜へ移行（定性）</td><td>数値比較しない</td></tr><tr><th>CDTR-PI</th><td>比較可能な直接値を未確認</td><td>欠測</td></tr><tr><th>CFPN-PI</th><td>成人で上顎洞粘膜・貯留液への移行良好</td><td>定性・成人データ</td></tr><tr><th>CAM</th><td>上顎洞粘膜濃度が多くの例で血清を大きく上回る</td><td>移行良好。ただし耐性・推奨とは別</td></tr><tr><th>レスピラトリーキノロン</th><td>薬剤ごとの直接値を個別確認中</td><td>クラス一括の数値にしない</td></tr></tbody></table></div><p class="aom-number-footnote">「移行性が良い」だけで順位は上げません。感受性、現行GL上の位置、国内適応を独立して読みます。</p></section>`;
+      $("decisionZone").innerHTML=`<section class="aom-candidate-board"><header class="aom-candidate-head"><div><h3>急性鼻副鼻腔炎｜適応から代替薬まで</h3><p>βラクタム・非βラクタムを同じ4軸で比較します。</p></div><span class="aom-no-score">総合点なし</span></header>${status}<section class="aom-tier first"><div class="aom-tier-title">適応判断と第一選択</div><div class="aom-drug-grid">${noAbx}${ampc}</div></section><section class="aom-tier conditional"><div class="aom-tier-title">条件付き候補</div><div class="aom-drug-grid">${cva}${cdtr}${fq}</div></section>${tissue}<section class="aom-tier conditional"><div class="aom-tier-title">薬剤データ比較枠</div><div class="aom-drug-grid">${cfpn}</div></section><section class="aom-tier low"><div class="aom-tier-title">通常は優先しにくい</div><div class="aom-drug-grid">${cam}</div></section><div class="aom-board-note">現行の厚労省手引きを推奨の主軸にし、旧GLの薬剤選択と2007年感受性データはHistorical evidenceとして分離しています。</div></section>`;
+      return;
+    }
+    if(x.id==="aom"){
+      const axis=(mark,text,cls="")=>`<div class="aom-axis ${cls}"><span class="aom-axis-mark">${mark}</span><span>${text}</span></div>`;
+      const sourceLinks=links=>links?.length?`<div class="aom-source-links">${links.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")}</div>`:"";
+      const card=(name,role,axes,summary,structure="",links=[])=>`<article class="aom-drug-card"><div class="aom-drug-name"><span>${name}</span><span class="aom-drug-role">${role}</span></div><div class="aom-axis-list">${axes.join("")}</div><div class="aom-card-summary">→ ${summary}</div>${sourceLinks(links)}${structure?`<a class="aom-structure-link" href="${esc(D.comparatorUrl)}?drugA=${encodeURIComponent(structure)}">ペニシリンアレルギーあり？ 構造比較へ →</a>`:""}</article>`;
+      const guidelineUrl="https://www.otology.gr.jp/common/pdf/guideline_otitis2024.pdf";
+      const ampc=card("アモキシシリン（AMPC）","第一選択の軸",[
+        axis("✓","2024年版GL：抗菌薬を用いる場合の第1選択"), axis("✓","肺炎球菌を主要標的として評価"), axis("✓","小児AOM：25 mg/kg単回後の中耳貯留液推定ピーク約3時間、平均約9.5 μg/mL"), axis("△","中耳貯留液濃度の範囲は検出不能～20.6 μg/mLと個体差が大きい","caution"), axis("✓","電子添文に中耳炎の適応あり"), axis("✓","小児用製剤あり")
+      ],"単剤でも中耳貯留液の数値データあり。軽症では抗菌薬非投与も含めて重症度を確認。","AMPC",[["2024年版GL",guidelineUrl],["AMPC中耳貯留液PK（PubMed）","https://pubmed.ncbi.nlm.nih.gov/9493813/"],["PMDA サワシリン","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6131001C1210_2?user=1"]]);
+      const cva=card("アモキシシリン／クラブラン酸","耐性菌リスク等で検討",[
+        axis("✓","2024年版GL：重症例やAMPCで改善しない段階の選択肢"), axis("✓","βラクタマーゼ産生 H. influenzae / M. catarrhalis を考慮"), axis("✓","小児中耳炎：AMPC中耳分泌液濃度 平均3.2／3.3／5.8 μg/mL（投与1／2／3時間、外国人データ）"), axis("✓","中耳分泌液／血漿濃度比 平均0.32／0.21／0.53"), axis("✓","小児用配合ドライシロップに中耳炎適応あり")
+      ],"具体的な中耳分泌液データあり。GL上の治療段階を確認して用いる。","AMPC",[["2024年版GL",guidelineUrl],["PMDA クラバモックス","https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139100R1036?user=1"]]);
+      const cdtr=card("セフジトレン ピボキシル","条件付き",[
+        axis("✓","2024年版GL：重症度・治療反応に応じた選択肢"), axis("✓","肺炎球菌・H. influenzae・M. catarrhalis が適応菌種"), axis("✓","GL掲載2017年H. influenzae MIC90：CDTR 0.25、CFPN 2、CVA/AMPC 8 μg/mL"), axis("△","MIC90はin vitro抗菌力。臨床効果・中耳移行性・個別株の感受性とは別","caution"), axis("△","現在確認した電子添文・IFでは中耳分泌液の直接濃度データを確認できず","missing"), axis("✓","小児用細粒に中耳炎適応あり"), axis("△","ピボキシル基：低カルニチン血症・低血糖に注意","caution")
+      ],"BLNARを含むH. influenzaeに対し、CDTRはin vitroでは比較的良好な抗菌力を示す候補。GL本文もCFPNよりMIC評価が良好と記載。ただし中耳移行性を含めて判断する。","CDTR",[["2024年版GL 表8",guidelineUrl+"#page=23"],["PMDA メイアクトMS","https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132015C1103?user=1"]]);
+      const tbpm=card("テビペネム ピボキシル","後段で条件付き",[
+        axis("✓","2024年版GL：中等症の三次選択、重症の三次選択などに位置づけ"), axis("✓","GL掲載2017年H. influenzae MIC90：1 μg/mL"), axis("✓","電子添文：小児の中耳分泌液への移行が認められた"), axis("△","電子添文本文に比較可能な中耳分泌液濃度の数値は未掲載","caution"), axis("△","原則として感受性確認、投与は7日以内を目安","caution"), axis("△","ピボキシル基：低カルニチン血症・低血糖に注意","caution")
+      ],"小児中耳分泌液への到達は確認できるが、数値で他剤と直接比較できない。治療段階と感受性確認が重要。","TBPM",[["2024年版GL",guidelineUrl],["PMDA オラペネム","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/780009_6139002C1026_1_13"]]);
+      const tflx=card("トスフロキサシン","後段で条件付き",[
+        axis("✓","2024年版GL：重症度・治療反応に応じた選択肢"), axis("✓","GL掲載2017年MIC90：肺炎球菌0.25、H. influenzae ≤0.06 μg/mL"), axis("△","現在確認した電子添文・審査資料では比較可能な小児中耳分泌液濃度を確認できず","missing"), axis("✓","小児用細粒に中耳炎適応あり"), axis("△","キノロン系として適応・安全性・治療段階を確認","caution")
+      ],"in vitro抗菌力は強いが、中耳移行量の数値がないためMIC90だけで優先順位を決めない。","",[["2024年版GL 表7・8",guidelineUrl+"#page=23"],["PMDA オゼックス審査報告書","https://www.pmda.go.jp/drugs/2009/P200900055/480297000_22100AMX02267000_A100_1.pdf"]]);
+      const cfpn=card("セフカペン ピボキシル（CFPN-PI）","比較データ枠",[
+        axis("△","2024年版GLの主要治療アルゴリズム掲載薬ではない","caution"), axis("✓","肺炎球菌・H. influenzae・M. catarrhalis が適応菌種"), axis("✓","成人投与時に中耳分泌液への移行は「良好」と電子添文に記載"), axis("△","小児中耳炎の数値データではない","caution"), axis("△","小児用細粒あり／ピボキシル安全性を確認","caution")
+      ],"適応・移行性データはあるが、GL推奨薬と同列には置かない。","CFPN",[["PMDA フロモックス","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132016F1023_1?user=1"]]);
+      const cpdx=card("セフポドキシム プロキセチル（CPDX-PR）","比較データ枠",[
+        axis("△","2024年版GLの主要治療アルゴリズム掲載薬ではない","caution"), axis("✓","肺炎球菌・H. influenzae・M. catarrhalis が適応菌種"), axis("△","中耳分泌液・中耳粘膜の直接移行データは現在未確認","missing"), axis("✓","小児用ドライシロップに中耳炎適応あり")
+      ],"国内適応と感受性は比較できるが、移行性を根拠に優先とは表示しない。","CPDX",[["PMDA バナンDS","https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132011R1078?user=1"]]);
+      const macro=card("マクロライド系","通常は優先しにくい",[
+        axis("△","ガイドライン上の使用場面は限定的","caution"), axis("△","肺炎球菌・H. influenzae の耐性を考慮","caution"), axis("—","βラクタム構造比較の対象外","missing")
+      ],"βラクタムアレルギーという理由だけで機械的に選ばず、反応型と代替根拠を確認。","");
+      const numbers=`<section class="aom-number-panel"><h4>菌別数値比較｜国内GL掲載サーベイランス</h4><p>MIC90（μg/mL）は小さいほどin vitro抗菌力が強い指標。組織濃度・臨床効果とは別に読みます。</p><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>菌種／データ</th><th>年・株数</th><th>AMPC/CVA</th><th>CDTR</th><th>CFPN</th><th>TBPM</th><th>TFLX</th><th>マクロライド</th><th>読み方</th></tr></thead><tbody><tr><th>肺炎球菌 MIC90</th><td>2017年・n=88</td><td>AMPC 1<br>CVA/AMPC 1</td><td><strong>0.5</strong></td><td>1</td><td>—</td><td><strong>0.25</strong></td><td>CAM ≥128<br>AZM ≥128</td><td>PRSP 5.7%、PISP 28.4%、PSSP 65.9%</td></tr><tr><th>H. influenzae MIC90</th><td>2017年・n=147</td><td>ABPC 8<br>CVA/AMPC 8</td><td><strong>0.25</strong></td><td>2</td><td>1</td><td><strong>≤0.06</strong></td><td>CAM 16<br>AZM 2</td><td>BLNAR 34.0%。GL本文もCDTRがCFPNを上回ると評価</td></tr><tr><th>M. catarrhalis MIC90</th><td>国際2002–03年</td><td>CVA/AMPC 0.25</td><td>0.5</td><td>—</td><td>—</td><td>—</td><td>—</td><td>国内GL同一サーベイランス値ではない</td></tr><tr><th>中耳液由来株の感受性</th><td>海外小児AOM・2006–11年</td><td>—</td><td>H. influenzae 100%<br>M. catarrhalis 90%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>CDTR感受性。日本の現在値ではない</td></tr></tbody></table></div><h4 style="margin-top:13px">中耳移行性｜全候補のデータ状態</h4><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>薬剤</th><th>対象・検体</th><th>直接値／記載</th><th>比較上の扱い</th></tr></thead><tbody><tr><th>AMPC</th><td>小児AOM・中耳貯留液</td><td><strong>平均 約9.5 μg/mL</strong>（25 mg/kg単回、推定ピーク約3時間、範囲 検出不能～20.6）</td><td>直接数値あり</td></tr><tr><th>CVA/AMPC</th><td>外国人小児・中耳分泌液</td><td>AMPC平均3.2／3.3／5.8 μg/mL（1／2／3時間）、血漿比0.32／0.21／0.53</td><td>直接数値あり・別試験</td></tr><tr><th>CDTR-PI</th><td>—</td><td>比較可能な直接値を未確認</td><td>欠測として表示</td></tr><tr><th>CFPN-PI</th><td>成人・中耳分泌液</td><td>電子添文に「移行は良好」</td><td>定性、数値比較しない</td></tr><tr><th>CFTM-PI</th><td>—</td><td>比較可能な直接値を未確認</td><td>欠測として表示</td></tr><tr><th>TBPM-PI</th><td>小児・中耳分泌液</td><td>電子添文に「移行が認められた」</td><td>定性、数値比較しない</td></tr><tr><th>TFLX</th><td>—</td><td>比較可能な小児中耳分泌液濃度を未確認</td><td>欠測として表示</td></tr></tbody></table></div><div class="aom-number-foot"><a href="${guidelineUrl}#page=23" target="_blank" rel="noopener">2024年GL 表7・8 ↗</a><a href="https://pubmed.ncbi.nlm.nih.gov/19321284/" target="_blank" rel="noopener">Moraxella比較 ↗</a><a href="https://doi.org/10.1159/000371836" target="_blank" rel="noopener">中耳液由来株研究 ↗</a><a href="https://pubmed.ncbi.nlm.nih.gov/9493813/" target="_blank" rel="noopener">AMPC中耳貯留液PK ↗</a><a href="https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/780009_6139002C1026_1_13" target="_blank" rel="noopener">PMDA TBPM-PI ↗</a></div><p class="aom-number-footnote">異なる投与量・採取時点・患者集団の濃度を、MIC90で単純に割って順位化はしません。数値がない薬は0ではなく「欠測」です。</p></section>`;
+      const glPath=`<section class="aom-gl-panel"><h4>2024年GL｜重症度別の治療段階</h4><p>処方決定の自動化ではなく、処方がどの段階に位置するかを確認するための表示です。</p><div class="aom-gl-grid"><article class="aom-gl-card"><h5>軽症｜5点以下</h5><div class="aom-gl-step"><b>開始</b>抗菌薬なしで3日間経過観察</div><div class="aom-gl-step"><b>改善なし</b>AMPC高用量を3～5日間</div><div class="aom-gl-step"><b>さらに改善なし</b>感受性を考慮しCVA/AMPC 1：14 またはCDTR-PI高用量を3～5日間</div></article><article class="aom-gl-card"><h5>中等症｜6～11点</h5><div class="aom-gl-step"><b>一次選択</b>AMPC高用量を3～5日間。鼓膜切開も検討</div><div class="aom-gl-step"><b>二次選択</b>CVA/AMPC 1：14 またはCDTR-PI高用量</div><div class="aom-gl-step"><b>三次選択</b>CVA/AMPC、CDTR-PI高用量、TBPM-PI常用量、TFLX常用量から感受性を考慮</div></article><article class="aom-gl-card"><h5>重症｜12点以上</h5><div class="aom-gl-step"><b>一次選択</b>AMPC高用量 またはCVA/AMPC 1：14</div><div class="aom-gl-step"><b>二次選択</b>CVA/AMPC、CDTR-PI高用量、TFLX常用量</div><div class="aom-gl-step"><b>三次選択</b>TBPM-PI高用量、TFLX、またはABPC／CTRX静注。鼓膜切開を検討</div></article></div><div class="aom-gl-limits"><b>GL記載の上限：</b>AMPC 45 mg/kg/回・90 mg/kg/day、CDTR-PI 200 mg/回・600 mg/day。CDTR-PI高用量の電子添文用量は6 mg/kg/回・分3。CVA/AMPC 1：14はAMPC 90＋CVA 6.4 mg/kg/day・分2、食直前。</div><div class="aom-number-foot"><a href="${guidelineUrl}#page=95" target="_blank" rel="noopener">2024年GL 治療アルゴリズム ↗</a><a href="https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132015C1103?user=1" target="_blank" rel="noopener">PMDA CDTR-PI ↗</a><a href="https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139100R1036?user=1" target="_blank" rel="noopener">PMDA CVA/AMPC ↗</a></div></section>`;
+      $("decisionZone").innerHTML=`<section class="aom-candidate-board"><header class="aom-candidate-head"><div><h3>候補薬を、根拠ごとに見る</h3><p>点数化せず、各根拠の有無とガイドライン上の位置づけを分けて表示します。</p></div><span class="aom-no-score">総合点は算出しません</span></header>${glPath}<section class="aom-tier first"><div class="aom-tier-title">第一に検討しやすい候補</div><div class="aom-drug-grid">${ampc}</div></section><section class="aom-tier conditional"><div class="aom-tier-title">条件付きで候補</div><div class="aom-drug-grid">${cva}${cdtr}${tbpm}${tflx}</div></section>${numbers}<section class="aom-tier conditional"><div class="aom-tier-title">国内適応・薬剤データを比較する枠（GL推奨候補とは別）</div><div class="aom-drug-grid">${cfpn}${cpdx}</div></section><section class="aom-tier low"><div class="aom-tier-title">通常は優先しにくい</div><div class="aom-drug-grid">${macro}</div></section><div class="aom-board-note">表示区分は独自スコアではありません。ガイドラインに明示されない治療分岐は補完せず、感受性・移行性・適応はそれぞれの一次資料を独立して表示します。</div></section>`;
+      return;
+    }
+    const primaryWords=/第一選択|推奨|軸/;
+    const altWords=/代替|第二選択|状況依存|条件/;
+    let primary=x.beta.filter(d=>primaryWords.test(d.status));
+    let alternatives=x.beta.filter(d=>!primary.includes(d) && altWords.test(d.status));
+    let unranked=x.beta.filter(d=>!primary.includes(d) && !alternatives.includes(d));
+    let source="";
+    if(x.id==="sinus"){
+      const d=getSinusDecision(); primary=d.primary; alternatives=d.alt; unranked=[]; source=d.source;
+    }
+    const drugRows=(arr,empty)=>arr.length?arr.map(d=>`<div class="dp-item"><div class="dp-main">${esc(d.name)}<span class="dp-tag">${esc(d.status)}</span></div><div class="dp-note">${esc(d.note)}</div></div>`).join(""):`<div class="dp-note">${empty}</div>`;
+    $("decisionZone").innerHTML=`
+      <article class="decision-panel primary"><div class="dp-label">FIRST / CORE</div>${drugRows(primary,"ガイドライン上、第一選択として単純化できる薬剤は設定していません。")}${source?`<div class="dp-note" style="margin-top:8px">根拠：${esc(source)}</div>`:""}${x.id==="sinus"?`<div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>`:""}</article>
+      <article class="decision-panel alternative"><div class="dp-label">ALTERNATIVE / CONDITIONAL</div>${drugRows([...alternatives,...unranked],"明示された代替・条件付き薬はありません。")}${x.id==="sinus"&&getSinusDecision().conditional?`<div class="conditional-note">${esc(getSinusDecision().conditional)}</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>`:""}</article>
+      <article class="decision-panel target"><div class="dp-label">MAIN TARGETS</div>${x.pathogens.length?x.pathogens.map(p=>`<div class="dp-item"><div class="dp-main">${esc(p[0])}</div><div class="dp-note">${esc(p[1])}</div></div>`).join(""):`<div class="dp-note">標的菌を一律には設定していません。</div>`}</article>`;
+  }
+
+  function renderAomReverse(){
+    const out=$("aomPosition"); if(!out)return;
+    const drug=$("aomDrug")?.value||"none", w=Number($("aomWeight")?.value||0), mg=Number($("aomDailyMg")?.value||0);
+    const freq=$("aomFrequency")?.value||"unknown", days=$("aomDays")?.value||"unknown", previous=$("aomPrevious")?.value||"unknown", response=$("aomResponse")?.value||"unknown", allergy=$("aomAllergy")?.value||"none";
+    const piv=["cdtr","cfpn","cftm","tbpm"].includes(drug), recent=$("aomPivRecent")?.value||"unknown", m6=$("aom6m")?.value||"unknown", m12=$("aom12m")?.value||"unknown";
+    if($("aomPivWrap")) $("aomPivWrap").style.display=piv?"block":"none";
+    if($("aomDoseWrap")) $("aomDoseWrap").style.display=drug==="none"?"none":"block";
+    const names={none:"抗菌薬なし",ampc:"AMPC",cva:"CVA/AMPC",cdtr:"CDTR-PI",cfpn:"CFPN-PI",cftm:"CFTM-PI",tbpm:"TBPM-PI",tflx:"TFLX",other:"その他"};
+    const refs={
+      ampc:{target:"承認用量20～40 mg/kg/day・分3～4。GL高用量は80 mg/kg/dayを軸に、上限90 mg/kg/day",freq:[3,4],lo:20,hi:90,ideal:[20,40,80,90],maxDay:w=>90*w,maxDose:w=>45*w},
+      cva:{target:"小児用配合剤はAMPC 90＋CVA 6.4 mg/kg/day（合計96.4）・分2、食直前",freq:[2],lo:96.4,hi:96.4,maxDay:w=>96.4*w},
+      cdtr:{target:"中耳炎は6 mg/kg/回・分3（18 mg/kg/day）。1回200 mg・1日600 mg上限",freq:[3],lo:18,hi:18,maxDay:w=>Math.min(18*w,600),maxDose:w=>Math.min(6*w,200)},
+      cfpn:{target:"通常3 mg/kg/回・分3（9 mg/kg/day）。難治・効果不十分では4.5～6 mg/kg/回・分3",freq:[3],lo:9,hi:18},
+      tbpm:{target:"通常4 mg/kg/回・分2（8 mg/kg/day）、必要時6 mg/kg/回・分2（12 mg/kg/day）",freq:[2],lo:8,hi:12,maxDay:w=>Math.min(12*w,600),maxDose:w=>Math.min(6*w,300)},
+      tflx:{target:"6 mg/kg/回・分2（12 mg/kg/day）。1回180 mg・1日360 mg上限",freq:[2],lo:12,hi:12,maxDay:w=>Math.min(12*w,360),maxDose:w=>Math.min(6*w,180)}
+    };
+    let cards="", warnings=0, critical=0;
+    const add=(title,body,kind="")=>{cards+='<div class="aom-audit-note '+kind+'"><b>'+title+'</b>'+body+'</div>';if(kind==="warn")warnings++;if(kind==="danger")critical++;};
+    if(drug!=="none"){
+      const ref=refs[drug];
+      if(w>0&&mg>0){
+        const kgd=mg/w, perDose=freq!=="unknown"?mg/Number(freq):null, kgDose=perDose?perDose/w:null;
+        let kind="";
+        if(ref){
+          if(ref.maxDay&&mg>ref.maxDay(w)+.01) kind="danger";
+          else if(kgd<ref.lo*.9||kgd>ref.hi*1.1) kind="warn";
+          if(freq!=="unknown"&&!ref.freq.includes(Number(freq))) kind=kind||"warn";
+        }
+        let body='処方：<strong>'+kgd.toFixed(1)+' mg/kg/day</strong>'+(kgDose?'（'+kgDose.toFixed(1)+' mg/kg/回、'+Number(freq)+'回/日）':'')+'。';
+        body+=ref?' 照合基準：'+ref.target+'。':' この薬剤は自動照合対象外のため、製品ごとの電子添文を確認。';
+        if(ref?.maxDose&&perDose&&perDose>ref.maxDose(w)+.01) kind="danger";
+        add("① 用量・分割監査",body,kind);
+      }else add("① 用量・分割監査","体重と抗菌薬の1日量を入力すると、mg/kg/dayとmg/kg/回を承認用量・GL記載量に照合します。","warn");
+      if(ref&&freq==="unknown") add("② 分割数が未確認","1日量だけでは1回量上限を監査できません。分割数を確認してください。","warn");
+    }
+    const advanced=["cdtr","tbpm","tflx"].includes(drug);
+    if(advanced&&previous==="none") add("③ 治療段階の確認",names[drug]+"はGLで重症度や前治療反応に応じて位置づけられます。初回から選択された理由（重症所見、耐性菌リスク、培養等）を処方医へ確認できる状態に。","warn");
+    else if(previous==="ampc"&&response==="no"&&["cva","cdtr","tbpm","tflx"].includes(drug)) add("③ 治療段階","AMPCで改善なし後の変更としてGLの段階と整合し得ます。鼓膜所見・重症度・感受性を含む処方理由は別途確認します。");
+    else if(previous!=="unknown"&&response==="unknown"&&previous!=="none") add("③ 前治療反応が未確認","変更理由を判断するため、直前薬を3～5日使用した時点の改善有無を確認。","warn");
+    else add("③ 治療段階","前治療と反応を入力すると、GL上の一次・二次・三次選択との整合を確認できます。");
+    if(days==="unknown") add("④ 日数・再評価","初期治療は3～5日で効果を再評価するため、処方日数と再診予定を確認。","warn");
+    else if(Number(days)>5) add("④ 日数・再評価",days+"日処方です。GLの3～5日再評価点を越えるため、途中の効果確認・再診予定があるか確認。","warn");
+    else add("④ 日数・再評価",days+"日処方。GLの3～5日での効果再評価時期に収まります。再診予定も確認します。");
+    if(drug==="cva") add("⑤ 服用時点","小児用CVA/AMPC配合剤は食直前。入力する1日量はAMPC量だけでなく、配合剤総量（AMPC＋CVA）として照合しています。","warn");
+    if(drug==="cdtr") add("⑤ 服用時点","CDTR-PIは食後投与。用法欄も確認します。");
+    if(piv){
+      add("⑥ ピボキシル安全性","低カルニチン血症とそれに伴う低血糖に注意。小児では他のピボキシル系を含む薬歴を確認します。","warn");
+      if(recent==="repeat") add("反復使用を検出","最近もピボキシル系を使用。前回薬・投与期間、摂取不良、嘔吐、低血糖症状、必要に応じカルニチン評価の要否を確認。","danger");
+    }
+    if(m6==="3"||m12==="4") add("⑦ 反復性中耳炎の可能性","6か月で3回以上または12か月で4回以上に該当。単発AOMの反復処方だけとして扱わず、耳鼻科での評価状況を確認。","warn");
+    else add("⑦ 反復性中耳炎","6か月・12か月の回数を薬歴から入力すると、反復性の可能性を拾えます。");
+    const beta=["ampc","cva","cdtr","cfpn","cftm","tbpm"].includes(drug);
+    const structure={ampc:"AMPC",cva:"AMPC",cdtr:"CDTR",cfpn:"CFPN",cftm:"CFTM",tbpm:"TBPM"}[drug];
+    if(beta&&allergy==="unknown") add("⑧ アレルギー反応型が不明","薬剤名だけでなく、発現時間・症状・重症度・再投与歴を確認。構造類似性だけで可否を決めません。","warn");
+    if(beta&&allergy==="mild") add("⑧ 遅発性・軽症皮疹など","側鎖を含む構造比較を追加情報として確認できます。反応型・経過・再投与歴を優先し、構造一致だけで安全とは判定しません。"+(structure?'<a class="aom-structure-audit" href="'+esc(D.comparatorUrl)+'?drugA='+encodeURIComponent(structure)+'">構造比較を開く →</a>':''));
+    if(beta&&allergy==="immediate") add("⑧ 即時型反応の疑い","アナフィラキシー等が疑われる場合は、構造比較のみで代替可否を決めず、処方医への確認と緊急性評価を優先。","danger");
+    if(beta&&allergy==="severe") add("⑧ 重症遅発型反応の疑い","SCAR等の既往では安易な同系統代替を行わず、処方医・専門医へ確認。","danger");
+    const summary='<div class="aom-audit-summary"><strong>監査サマリー</strong><span class="aom-audit-badge danger">至急確認 '+critical+'件</span><span class="aom-audit-badge warn">要確認 '+warnings+'件</span></div>';
+    out.innerHTML="<b>"+names[drug]+"｜薬局処方監査</b>"+summary+cards+'<div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版、各薬剤のPMDA電子添文・安全性情報。GL治療段階は参照表示しますが、鼓膜所見なしに正式な重症度は算出しません。本表示は処方監査支援であり、処方変更を自動決定しません。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">感受性・中耳移行性・出典を見る ↓</button></div>';
+  }
+
+  let aomMode="pharmacy";
+  function renderAomBranch(){
+    const r=$("aomResult"); if(!r)return;
+    r.innerHTML='<strong>適応判断を先に確認</strong><p>2024年GLでは軽症（5点以下）で抗菌薬を投与せず3日間経過観察する経路があります。中等症・重症では、下の治療段階と薬剤比較を参照します。</p><div class="aom-alert">症状だけでなく鼓膜発赤・膨隆・耳漏を含む診察が必要なため、この画面では重症度を自動算出しません。</div><div class="branch-source">根拠：小児急性中耳炎診療ガイドライン2024年版｜重症度分類・治療アルゴリズム</div>';
+  }
+
+  window.jumpToEvidence=function(){
+    document.body.classList.remove("compact-view");
+    const btn=$("detailToggle"); if(btn)btn.textContent="詳しい比較・根拠を閉じる";
+    setTimeout(()=>document.getElementById("evidenceDetails")?.scrollIntoView({behavior:"smooth",block:"start"}),30);
+  };
+
   function init(){
     D.syndromes.forEach((x,i)=>{
       const o=document.createElement("option");o.value=x.id;o.textContent=x.name;select.appendChild(o);
       const b=document.createElement("button");b.className="quick-tab";b.type="button";b.dataset.id=x.id;b.textContent=x.short;b.onclick=()=>{select.value=x.id;render(x.id)};tabs.appendChild(b);
     });
     select.onchange=()=>render(select.value);
+    document.querySelectorAll("#sinusAge button").forEach(b=>b.onclick=()=>{sinusAge=b.dataset.v;renderSinusBranch();});
+    document.querySelectorAll("#sinusSeverity button").forEach(b=>b.onclick=()=>{sinusSeverity=b.dataset.v;renderSinusBranch();});
+    ["scoreRhinorrhea","scorePain","scoreDischarge"].forEach(id=>{if($(id))$(id).onchange=calcSinusScore;});
+    ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
+    ["phFever","phNoCough","phNodes","phExudate","phGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynx;});
+    ["capPattern","capChronic","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
+    ["utiSymptoms","utiUpper","utiPreg","utiCulture","utiResistance","utiCurrentDrug","utiAdvancedCulture","utiRenal"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
     $("allergySelect").onchange=renderAllergy;
+    // Preview mode: start with the AOM module and keep every evidence section visible.
+    document.body.classList.remove("compact-view");
+    const detailToggle=$("detailToggle");
+    if(detailToggle) detailToggle.onclick=()=>{
+      const compact=document.body.classList.toggle("compact-view");
+      detailToggle.textContent=compact?"詳しい比較・根拠を表示":"詳しい比較・根拠を閉じる";
+    };
     $("aboutBtn").onclick=()=>$("aboutModal").hidden=false;
     $("closeAbout").onclick=()=>$("aboutModal").hidden=true;
     $("aboutModal").onclick=e=>{if(e.target===$("aboutModal"))$("aboutModal").hidden=true};
-    render(D.syndromes[0].id);
+    const previewDisease=new URLSearchParams(location.search).get("disease");
+    const initialDisease=D.syndromes.some(s=>s.id===previewDisease)?previewDisease:"aom";
+    select.value=initialDisease;
+    render(initialDisease);
+    document.querySelectorAll("details.deep-card, details.layer2-collapsible").forEach(d=>d.open=true);
+    document.querySelectorAll(".extra-spectrum-row").forEach(r=>r.classList.remove("hidden"));
+    const previewMoreBtn=$("moreSpectrumBtn"); if(previewMoreBtn) previewMoreBtn.textContent="− 追加薬を閉じる";
+    if(detailToggle) detailToggle.textContent="詳しい比較・根拠を閉じる";
   }
 
   function render(id){
     const x=D.syndromes.find(s=>s.id===id)||D.syndromes[0];
     document.querySelectorAll('.quick-tab').forEach(b=>b.classList.toggle('active',b.dataset.id===x.id));
+    $("sinusBranch").classList.toggle("show",x.id==="sinus"); if(x.id==="sinus")renderSinusBranch();
+    $("aomBranch").classList.toggle("show",x.id==="aom"); if(x.id==="aom")renderAomBranch();
+    $("pharynxCds").classList.toggle("show",x.id==="pharynx"); if(x.id==="pharynx")renderPharynx();
+    $("capCds").classList.toggle("show",x.id==="cap"); if(x.id==="cap")renderCapReverse();
+    $("utiCds").classList.toggle("show",x.id==="cystitis"||x.id==="pyelo"); if(x.id==="cystitis"||x.id==="pyelo")renderUtiAudit();
     $("summaryHero").innerHTML=`<div class="summary-kicker">CURRENT SYNDROME</div><h2>${esc(x.name)}</h2><div class="summary-line">${esc(x.lead)}</div><div class="summary-chiprow">${x.chips.map((c,i)=>`<span class="chip ${i===0?'good':'warn'}">${esc(c)}</span>`).join('')}</div>`;
+
+    renderDecisionZone(x);
     $("pathogenCard").innerHTML=`<div class="step-head"><div class="step-num">1</div><div><div class="step-title">主な標的菌</div><div class="step-sub">感染部位・症候から想定</div></div></div><div class="organism-list">${x.pathogens.map(p=>`<div class="organism"><b>${esc(p[0])}</b><small>${esc(p[1])}</small></div>`).join('')}</div>`;
     $("betaCard").innerHTML=`<div class="step-head"><div class="step-num">2</div><div><div class="step-title">βラクタムの位置づけ</div><div class="step-sub">疾患GL上の役割</div></div></div><div class="drug-list">${x.beta.map(d=>`<div class="drug-item"><b>${esc(d.name)}</b><span class="drug-status${statusClass(d.status)}">${esc(d.status)}</span><small>${esc(d.note)}</small></div>`).join('')}</div>`;
     $("nonBetaCard").innerHTML=`<div class="section-label">REFERENCE / NON-β-LACTAM</div><div class="nonbeta-title">${esc(x.nonbeta.title)}</div><div class="nonbeta-body">${esc(x.nonbeta.body)}</div>${x.nonbeta.pills.length?`<div class="nonbeta-pills">${x.nonbeta.pills.map(p=>`<span class="pill">${esc(p)}</span>`).join('')}</div>`:''}`;
@@ -2435,58 +3168,28 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   function renderSourceList(x,drugs){
     const ev=[...x.evidence];
     const hasKyoto=drugs.some(d=>KYOTO[d]);
+    const card=e=>`<div class="evidence-card"><div class="evidence-top"><span class="evidence-kind">${esc(sourceTypeLabel(e))}</span><b>${esc(e[1])}</b></div><div class="evidence-meta">${esc(e[0])} ・ ${esc(e[2])}</div><div class="evidence-why">${esc(e[3])}</div><a href="${e[4]}" target="_blank" rel="noopener">該当ページ / 公式資料を開く ↗</a></div>`;
+    const historical=ev.filter(e=>/Historical|SURV|2010/i.test(e[0]) || /Historical|2007年全国サーベイランス/.test(e[3]));
+    const disease=ev.filter(e=>!historical.includes(e));
     let cards="";
-    if(hasKyoto){
-      cards+=`<div class="evidence-card">
-        <div class="evidence-top"><span class="evidence-kind layer1-kind">Layer 1｜基本スペクトル</span><b>${esc(KYOTO_SOURCE.title)}</b></div>
-        <div class="evidence-meta">${esc(KYOTO_SOURCE.section)} ・ ${esc(KYOTO_SOURCE.page)}</div>
-        <div class="evidence-why">表中の「第一選択」「感受性あり」のLayer 1根拠。</div>
-        <a href="${KYOTO_SOURCE.url}" target="_blank" rel="noopener">該当ページを開く ↗</a>
-      </div>`;
-    }
-    ev.forEach(e=>{
-      cards+=`<div class="evidence-card">
-        <div class="evidence-top"><span class="evidence-kind">${esc(sourceTypeLabel(e))}</span><b>${esc(e[1])}</b></div>
-        <div class="evidence-meta">${esc(e[0])} ・ ${esc(e[2])}</div>
-        <div class="evidence-why">${esc(e[3])}</div>
-        <a href="${e[4]}" target="_blank" rel="noopener">該当ページ / 公式資料を開く ↗</a>
-      </div>`;
-    });
+    cards+=`<section class="evidence-group"><div class="evidence-group-title">基本スペクトル｜京都 <span class="evidence-group-sub">菌に対する基本的な活性の参照</span></div>`;
+    if(hasKyoto) cards+=`<div class="evidence-card"><div class="evidence-top"><span class="evidence-kind layer1-kind">Layer 1</span><b>${esc(KYOTO_SOURCE.title)}</b></div><div class="evidence-meta">${esc(KYOTO_SOURCE.section)} ・ ${esc(KYOTO_SOURCE.page)}</div><div class="evidence-why">「第一選択」「感受性あり」等の基本スペクトル参照。疾患別の推奨順位とは別データです。</div><a href="${KYOTO_SOURCE.url}" target="_blank" rel="noopener">該当ページを開く ↗</a></div>`;
+    else cards+=`<div class="evidence-empty">この疾患で表示中の薬剤に京都Layer 1登録はありません。</div>`;
+    cards+=`</section>`;
+
     const A=window.APPROVAL_DATA||{};
-    cards+=`<details class="drug-source-block layer2-block layer2-collapsible">
-      <summary>
-        <span><b>Layer 2｜国内承認情報 添付文書・IF</b><small>${drugs.length}薬剤</small></span>
-        <em>タップして展開</em>
-      </summary>
-      <div class="layer2-content">
-        <p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。</p>
-        <div class="layer2-drug-grid">${drugs.map(d=>{const a=A[d];return a?`<a class="layer2-drug-card" href="${a.url}" target="_blank" rel="noopener" title="${esc(a.note||a.source)}"><b>${esc(d)}</b><span>${a.verified?"電子添文 ✓":"要確認"}</span><small>${esc(a.source)}</small></a>`:`<div class="layer2-drug-card muted"><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div>
-        <small class="pending-note">「該当記載なし」は承認範囲の話で、抗菌活性がないことを意味しません。「要確認」は未監査です。</small>
-      </div>
-    </details>`;
+    cards+=`<section class="evidence-group"><div class="evidence-group-title">薬剤固有データ｜PMDA・IF・MIC <span class="evidence-group-sub">承認情報・薬剤そのもののデータ</span></div><details class="drug-source-block layer2-block layer2-collapsible"><summary><span><b>Layer 2｜国内承認情報 添付文書・IF</b><small>${drugs.length}薬剤</small></span><em>タップして展開</em></summary><div class="layer2-content"><p>各薬剤の電子添文「4. 効能又は効果」にある〈適応菌種〉〈適応症〉を別フィールドで保持します。</p><div class="layer2-drug-grid">${drugs.map(d=>{const a=A[d];return a?`<a class="layer2-drug-card" href="${a.url}" target="_blank" rel="noopener" title="${esc(a.note||a.source)}"><b>${esc(d)}</b><span>${a.verified?"電子添文 ✓":"要確認"}</span><small>${esc(a.source)}</small></a>`:`<div class="layer2-drug-card muted"><b>${esc(d)}</b><span>未登録</span></div>`}).join("")}</div><small class="pending-note">「該当記載なし」は承認範囲の話で、抗菌活性がないことを意味しません。「要確認」は未監査です。</small></div></details></section>`;
+
+    cards+=`<section class="evidence-group" id="diseaseEvidenceGroup"><div class="evidence-group-title">この疾患での推奨｜厚労省第四版・専門GL <span class="evidence-group-sub">治療選択・重症度・投与期間</span></div>${disease.length?disease.map(card).join(""):`<div class="evidence-empty">疾患別推奨の出典は未登録です。</div>`}</section>`;
+    cards+=`<section class="evidence-group"><div class="evidence-group-title">Historical｜旧GL・旧サーベイランス <span class="evidence-group-sub">現在の推奨と混同しない参照資料</span></div>${historical.length?historical.map(card).join(""):`<div class="evidence-empty">Historical資料はありません。</div>`}</section>`;
+
     const sf=(window.SANFORD_SPECTRUM||{})[x.id];
+    cards+=`<section class="evidence-group"><div class="evidence-group-title">Sanford｜独立検証 <span class="evidence-group-sub">既存Layerを上書きしない補助参照</span></div>`;
     if(sf){
-      const sfRows=drugs.map(d=>{
-        const v=sf.drugs[d];
-        if(!v) return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未登録</span></div>`;
-        if(v.status!=="verified") return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未確認・後日確認</span></div>`;
-        const labels={sp:"S. pneumoniae",hi:"H. influenzae",mc:"M. catarrhalis",gas:"GAS",mp:"M. pneumoniae",leg:"Legionella",ec:"E. coli",ss:"S. saprophyticus",pm:"P. mirabilis",sa:"S. aureus (MSSA)",oralstrep:"Viridans streptococci",prev:"Prevotella",pepto:"Peptostreptococcus"};
-        const vals=["sp","hi","mc","gas","mp","leg","ec","ss","pm","sa","oralstrep","prev","pepto"].filter(k=>v[k]!==undefined&&v[k]!==null).map(k=>`<span>${labels[k]} <strong>${esc(v[k])}</strong></span>`).join("");
-        return `<div class="sanford-drug-row"><b>${esc(d)}</b>${vals}</div>`;
-      }).join("");
-      cards+=`<div class="sanford-source-block">
-        <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜独立検証</span><b>${esc(SANFORD_SOURCE.title)}</b></div>
-        <div class="evidence-meta">更新 ${esc(SANFORD_SOURCE.updated)}</div>
-        <div class="evidence-why">${x.id==="aspiration"?"誤嚥性肺炎は症候だけで原因菌を固定しないため、Sanfordの菌種別 0 / ± / + / ++ を単一の標的菌セルへ割り当てません。":(x.id==="sinus"?"副鼻腔炎の主な標的菌3菌":"この疾患の主な標的菌")+"について、Sanford原表の 0 / ± / + / ++ をそのまま保持。"}Layer 1・2・3の判定は変更・上書きしません。</div>
-        <div class="sanford-spectrum-grid">${sfRows}</div>
-        <small class="pending-note">${esc(sf.note)}</small>
-      </div>`;
-    }else{
-      cards+=`<div class="sanford-source-block">
-        <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford｜独立検証</span><b>Sanford Guide</b></div>
-        <div class="evidence-why">この疾患のSanfordスペクトラムはまだマスタ未登録です。既存Layerは変更しません。</div>
-      </div>`;
-    }
+      const sfRows=drugs.map(d=>{const v=sf.drugs[d];if(!v)return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未登録</span></div>`;if(v.status!=="verified")return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未確認・後日確認</span></div>`;const labels={sp:"S. pneumoniae",hi:"H. influenzae",mc:"M. catarrhalis",gas:"GAS",mp:"M. pneumoniae",leg:"Legionella",ec:"E. coli",ss:"S. saprophyticus",pm:"P. mirabilis",sa:"S. aureus (MSSA)",oralstrep:"Viridans streptococci",prev:"Prevotella",pepto:"Peptostreptococcus"};const vals=["sp","hi","mc","gas","mp","leg","ec","ss","pm","sa","oralstrep","prev","pepto"].filter(k=>v[k]!==undefined&&v[k]!==null).map(k=>`<span>${labels[k]} <strong>${esc(v[k])}</strong></span>`).join("");return `<div class="sanford-drug-row"><b>${esc(d)}</b>${vals}</div>`}).join("");
+      cards+=`<div class="sanford-source-block"><div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford</span><b>${esc(SANFORD_SOURCE.title)}</b></div><div class="evidence-meta">更新 ${esc(SANFORD_SOURCE.updated)}</div><div class="evidence-why">原表の 0 / ± / + / ++ をそのまま保持。Layer 1・2・3の判定は変更・上書きしません。</div><div class="sanford-spectrum-grid">${sfRows}</div><small class="pending-note">${esc(sf.note)}</small></div>`;
+    }else cards+=`<div class="sanford-source-block"><div class="evidence-why">この疾患のSanfordスペクトラムはまだマスタ未登録です。</div></div>`;
+    cards+=`</section>`;
     return cards;
   }
 

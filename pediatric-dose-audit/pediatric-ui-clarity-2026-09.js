@@ -35,6 +35,7 @@
    oldRender();
    const out=$("out"),d=DB[sel.value],ii=d&&d.indications[$("ind").value],p=d&&d.products[$("product").value];
    if(!out||!d||!ii||!p)return;
+   if(out.querySelector(".dose-comparison-card"))return;
    const w=+$("wt").value,a=+$("age").value,f=+$("freq").value,q=+$("amount").value,mg=q*p.mgPerUnit;
    const lo=ii.lo(w,a),hi=ii.hi(w,a),allowed=ii.freqByAge?ii.freqByAge(a):(ii.freq||[]);
    const box=document.createElement("div");box.style.cssText="margin:10px 0;padding:12px;border:1px solid #cfdbe7;border-radius:10px;background:#fff";

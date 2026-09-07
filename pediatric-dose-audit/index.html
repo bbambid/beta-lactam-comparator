@@ -10,6 +10,7 @@ label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4p
 .tag,.pill{display:inline-block;padding:3px 7px;border-radius:999px;background:#eef4fb;font-size:9px;font-weight:900}.ok{background:#eaf6ee;color:#27623b}.warn{background:#fff7e6;color:#7a5a12}.ng{background:#fff0ed;color:#9b3d31}
 .hero{font-size:18px;font-weight:900;margin-bottom:3px}.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:9px 0}.num{padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#fff}.num b{font-size:15px}
 table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{padding:7px;border-bottom:1px solid #e9eef2;text-align:left}th{background:#f5f7f9}.note{font-size:9px;color:#667085;margin-top:7px;line-height:1.6}
+.dose-stack{display:grid;gap:9px}.dose-panel{background:#fff;border:1px solid #d8e1e8;border-radius:12px;padding:12px}.dose-panel-title{font-size:12px;font-weight:900;color:#263746;margin-bottom:6px}.dose-label-card{background:#fffbea;border-color:#cabf91}.dose-label-main{font-size:13px;font-weight:800;line-height:1.65}.dose-label-source{font-size:9px;color:#667085;margin-top:6px}.dose-patient-card{display:flex;flex-wrap:wrap;gap:7px;padding:9px 11px}.dose-patient-chip{display:inline-flex;align-items:baseline;gap:5px;padding:5px 8px;border:1px solid #e1e7ec;border-radius:8px;background:#f8fafc;font-size:10px;color:#667085}.dose-patient-chip b{font-size:13px;color:#1f2933}.dose-comparison-card{border-width:2px;border-color:#9fb3c4}.dose-comparison-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.dose-compare-box{padding:10px;border-radius:10px;background:#f3f7fb;border:1px solid #dbe4ec}.dose-compare-label{font-size:9px;font-weight:900;color:#667085}.dose-compare-main{font-size:15px;font-weight:900;line-height:1.35;margin-top:2px}.dose-compare-sub{font-size:10px;color:#667085;margin-top:3px}.dose-interpretation{background:#f8fafc}.dose-one-line{font-size:12px;line-height:1.65}.dose-support table{margin-top:4px}
 @media(max-width:650px){.grid,.nums{grid-template-columns:1fr}}
 </style>
 <style id="mobilePreviewStyle">
@@ -30,6 +31,7 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
   .num{padding:8px 6px;border-radius:10px;text-align:center;min-width:0}
   .num b{font-size:14px;line-height:1.25;display:block;overflow-wrap:anywhere}
   .note{font-size:10px;line-height:1.55}
+  .dose-stack{gap:8px}.dose-panel{padding:10px;border-radius:11px}.dose-panel-title{font-size:11px}.dose-label-main{font-size:13px}.dose-patient-card{display:flex!important;margin:0!important;background:#fff!important}.dose-comparison-grid{grid-template-columns:1fr 1fr;gap:6px}.dose-compare-box{padding:8px}.dose-compare-main{font-size:14px}.dose-interpretation{font-size:11px}.dose-support{padding-bottom:8px}
   table{display:block;margin-top:6px;font-size:11px}
   thead{display:none}
   tbody{display:block;background:#fff;border:1px solid #e3e9ef;border-radius:11px;overflow:hidden}
@@ -287,17 +289,15 @@ function render(){
  };
  const rows=hasAdult?[["Augsberger-II","aug"],["Young","young"],["Clark","clark"],["von Harnack","von"],["BSA / Mosteller","bsa"]]
   .map(([n,k])=>'<tr><td>'+n+'</td><td>'+range(calc(adLo,k),calc(adHi,k))+'</td><td>参考</td></tr>').join(""):'<tr><td colspan="3">成人標準量が設定されないため古典的換算は適用しません</td></tr>';
- $("out").innerHTML=
-  '<div class="hero">判定：<span class="pill '+cls+'">'+verdict+'</span></div>'+
-  '<div>'+ii.desc+'</div>'+
-  '<div class="nums"><div class="num">製剤量<br><b>'+fmt(q,2)+' '+p.unit+'/day</b></div><div class="num">成分量<br><b>'+fmt(mg,1)+' mg/day</b></div><div class="num">体重換算<br><b>'+fmt(kg,1)+' mg/kg/day</b></div></div>'+
-  '<b>1回量：</b>'+fmt(oneMg,1)+' mg（製剤 '+fmt(oneProd,2)+' '+p.unit+'）× '+f+'回<br>'+
-  '<b>通常量：</b>'+range(lo,hi)+' mg/day'+(ii.max?'　<b>承認上限：</b>'+fmt(absoluteMax,0)+' mg/day':'')+
-  (PRACTICE[key]?('<div class="note" style="margin-top:8px"><b>実務目安：</b>'+PRACTICE[key].label+' → '+fmt(PRACTICE[key].dose(w,a),1)+' mg/day　<span class="pill">承認用量とは別</span><br><b>実務資料：</b>'+(PRACTICE[key].sourceUrl?'<a href="'+PRACTICE[key].sourceUrl+'" target="_blank" rel="noopener">'+PRACTICE[key].source+' ↗</a>':PRACTICE[key].source)+'（'+PRACTICE[key].sourceType+'）'+(PRACTICE[key].note?'<br>'+PRACTICE[key].note:'')+'</div>'):'')+
-  (!freqOK?' <span class="pill warn">分割回数も要確認</span>':'')+
-  '<table><thead><tr><th>補助換算</th><th>成人標準量からの推定 mg/day</th><th>位置づけ</th></tr></thead><tbody>'+rows+'</tbody></table>'+
-  '<div class="note">'+(hasAdult?('古典的換算式は補助評価です。'+(adLo===adHi?'成人標準量 '+adLo+' mg/day':'成人標準量 '+adLo+'～'+adHi+' mg/day')+'を基準に換算し、承認された小児用量がある場合はそちらを主判定にします。'):'この薬は成人量からの古典的換算を行わず、承認された小児用量のみで監査します。')+'</div>'+
-  '<div class="note">出典：'+(d.sourceUrl?'<a href="'+d.sourceUrl+'" target="_blank" rel="noopener">'+d.source+' ↗</a>':d.source)+'。最終確認は最新電子添文・適応・患者背景に基づきます。</div>';
+ const approvedDose=Number.isFinite(lo)&&Number.isFinite(hi)?range(lo,hi)+' mg/day':'—';
+ const approvedKg=Number.isFinite(lo)&&Number.isFinite(hi)&&w?range(lo/w,hi/w)+' mg/kg/day':'—';
+ const prescribedStatus=withinUsual&&freqOK?'承認範囲内':'要確認';
+ $("out").innerHTML='<div class="dose-stack">'+
+  '<section class="dose-panel dose-label-card rxLabelCard"><div class="dose-panel-title">添付文書の用法・用量</div><div class="dose-label-main">'+ii.desc+'</div><div class="dose-label-source">出典：'+(d.sourceUrl?'<a href="'+d.sourceUrl+'" target="_blank" rel="noopener">'+d.source+' ↗</a>':d.source)+'</div></section>'+
+  '<section class="dose-panel dose-patient-card mobileWeightLine"><span class="dose-patient-chip">年齢 <b>'+a+'歳</b></span><span class="dose-patient-chip">体重 <b>'+w+' kg</b></span>'+(h?'<span class="dose-patient-chip">身長 <b>'+fmt(h,1)+' cm</b></span>':'')+'<span class="dose-patient-chip">適応 <b>'+ii.label+'</b></span></section>'+
+  '<section class="dose-panel dose-comparison-card"><div class="hero">判定：<span class="pill '+cls+'">'+verdict+'</span></div><div class="dose-panel-title">適応どおりの理論値と処方量</div><div class="dose-comparison-grid"><div class="dose-compare-box"><div class="dose-compare-label">この患者の承認量</div><div class="dose-compare-main">'+approvedDose+'</div><div class="dose-compare-sub">'+approvedKg+(ii.max?'／上限 '+fmt(absoluteMax,0)+' mg/day':'')+'</div></div><div class="dose-compare-box"><div class="dose-compare-label">今回の処方</div><div class="dose-compare-main">'+fmt(mg,1)+' mg/day</div><div class="dose-compare-sub">'+fmt(kg,1)+' mg/kg/day・分'+f+'｜'+prescribedStatus+'</div></div></div><div class="nums"><div class="num">製剤量<br><b>'+fmt(q,2)+' '+p.unit+'/day</b></div><div class="num">成分量<br><b>'+fmt(mg,1)+' mg/day</b></div><div class="num">体重換算<br><b>'+fmt(kg,1)+' mg/kg/day</b></div></div></section>'+
+  '<section class="dose-panel dose-interpretation"><div class="dose-panel-title">処方設計の解釈</div><div class="dose-one-line"><b>1回量：</b>'+fmt(oneMg,1)+' mg（製剤 '+fmt(oneProd,2)+' '+p.unit+'）× '+f+'回<br><b>承認上の通常量：</b>'+approvedDose+(ii.max?'　<b>承認上限：</b>'+fmt(absoluteMax,0)+' mg/day':'')+(!freqOK?' <span class="pill warn">分割回数も要確認</span>':'')+'</div>'+(PRACTICE[key]?('<div class="note"><b>実務目安：</b>'+PRACTICE[key].label+' → '+fmt(PRACTICE[key].dose(w,a),1)+' mg/day　<span class="pill">承認用量とは別</span><br><b>実務資料：</b>'+(PRACTICE[key].sourceUrl?'<a href="'+PRACTICE[key].sourceUrl+'" target="_blank" rel="noopener">'+PRACTICE[key].source+' ↗</a>':PRACTICE[key].source)+'（'+PRACTICE[key].sourceType+'）'+(PRACTICE[key].note?'<br>'+PRACTICE[key].note:'')+'</div>'):'')+'</section>'+
+  '<section class="dose-panel dose-support"><div class="dose-panel-title">補助換算</div><table><thead><tr><th>換算式</th><th>成人標準量からの推定 mg/day</th><th>位置づけ</th></tr></thead><tbody>'+rows+'</tbody></table><div class="note">'+(hasAdult?('古典的換算式は補助評価です。'+(adLo===adHi?'成人標準量 '+adLo+' mg/day':'成人標準量 '+adLo+'～'+adHi+' mg/day')+'を基準に換算し、承認された小児用量がある場合はそちらを主判定にします。'):'この薬は成人量からの古典的換算を行わず、承認された小児用量のみで監査します。')+'</div><div class="note">最終確認は最新電子添文・適応・患者背景に基づきます。</div></section></div>';
 }
 $("drug").onchange=()=>loadDrug(true);
 $("product").onchange=function(){const p=DB[$("drug").value].products[this.value];$("amount").value=p.defaultAmount;render()};
