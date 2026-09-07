@@ -598,6 +598,7 @@ body.compact-view .deep-section{display:none}
 .aom-audit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.aom-audit-grid .full{grid-column:1/-1}.aom-audit-summary{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:9px;padding:9px 10px;border-radius:10px;background:#eef4fb;border:1px solid #cfdae6}.aom-audit-summary strong{font-size:12px}.aom-audit-badge{padding:3px 7px;border-radius:999px;background:#fff;font-size:9px;font-weight:900}.aom-audit-badge.warn{color:#795b00;border:1px solid #e2ca82}.aom-audit-badge.danger{color:#9f3428;border:1px solid #e9b8b0}.aom-audit-note{margin-top:8px;padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#f8fafc;font-size:10px;line-height:1.55}.aom-audit-note b{display:block;font-size:11px;margin-bottom:2px}.aom-audit-note.warn{background:#fffaf0;border-color:#ead9ad}.aom-audit-note.danger{background:#fff4f2;border-color:#efc9c3}.aom-dose-line{display:flex;gap:7px;align-items:center}.aom-dose-line input{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.aom-structure-audit{display:inline-flex;margin-top:6px;padding:6px 8px;border:1px solid #9bb4c7;border-radius:7px;background:#fff;color:#183f5c;font-size:9px;font-weight:900;text-decoration:none}@media(max-width:700px){.aom-audit-grid{grid-template-columns:1fr}.aom-audit-grid .full{grid-column:auto}}
 
 .uti-cds{display:none;margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.uti-cds.show{display:block}.uti-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.uti-field label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.uti-field select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.uti-check{margin-top:9px;padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e3e9ef;font-size:10px;line-height:1.55}.uti-check b{display:block;font-size:12px;margin-bottom:3px}.uti-alert{margin-top:7px;padding:8px;border-radius:8px;background:#fffaf0;border:1px solid #ead9ad}.uti-critical{background:#fff4f2;border-color:#e9c4bd}@media(max-width:700px){.uti-grid{grid-template-columns:1fr}}
+.uti-redflag{margin-top:8px;padding:8px 10px;border-left:4px solid #c07b18;border-radius:8px;background:#fff8e8;font-size:10px;line-height:1.5;color:#654b18}.uti-reason-label{margin-top:10px;font-size:9px;font-weight:900;color:#667085}.uti-reasons{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}.uti-reasons button{border:1px solid #d4dde5;border-radius:999px;background:#fff;padding:7px 9px;color:#475467;font-size:10px;font-weight:800;cursor:pointer}.uti-reasons button.active{border-color:#587b96;background:#eaf2f8;color:#173f5b}.uti-delta{margin-top:7px;padding:8px 9px;border-radius:8px;background:#eef4fb;border:1px solid #d6e1eb;font-size:10px;line-height:1.5;color:#344054}.uti-delta b{color:#183247}.uti-stock{display:inline-flex;margin-top:6px;padding:3px 7px;border:1px dashed #aab7c2;border-radius:999px;font-size:9px;font-weight:800;color:#667085}
 
 .uti-advanced{margin-top:10px;padding-top:10px;border-top:1px solid #e3e9ef}.uti-advanced-title{font-size:11px;font-weight:900;margin-bottom:7px}.uti-advanced-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.uti-advanced-grid>div{border:1px solid #e3e9ef;border-radius:10px;padding:9px;background:#fbfcfd}.uti-advanced-grid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.uti-advanced-grid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}@media(max-width:700px){.uti-advanced-grid{grid-template-columns:1fr}}
 
@@ -993,14 +994,11 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   </section>
 
   <section id="utiCds" class="uti-cds">
- <div class="branch-title">急性単純性膀胱炎｜抗菌薬適応と代替薬</div>
- <div class="branch-sub">症状・上部尿路感染のサイン・患者区分・尿所見から、抗菌薬を使う場面と候補薬を比較します。</div>
- <div class="uti-grid">
-  <div class="uti-field"><label>尿路症状</label><select id="utiSymptoms"><option value="yes">排尿痛・頻尿・尿意切迫などあり</option><option value="none">尿路症状なし</option><option value="unknown">不明</option></select></div>
-  <div class="uti-field"><label>発熱 / 悪寒 / 側腹部・背部痛</label><select id="utiUpper"><option value="no">なし</option><option value="yes">あり</option><option value="unknown">不明</option></select></div>
-  <div class="uti-field"><label>患者区分</label><select id="utiPatient"><option value="uncomplicated">非妊娠・成人女性／単純性として評価</option><option value="pregnant">妊娠中</option><option value="other">男性・小児・尿路基礎疾患あり</option><option value="unknown">不明</option></select></div>
-  <div class="uti-field"><label>尿所見・培養</label><select id="utiOrganism"><option value="unknown">原因菌不明</option><option value="gnr">GNRを疑う／検出</option><option value="gpc">GPCを疑う／検出</option><option value="esbl">ESBL産生菌を検出</option><option value="known">その他：培養・感受性あり</option></select></div>
- </div>
+ <div class="branch-title">急性単純性膀胱炎｜薬局で代替薬を展開</div>
+ <div class="branch-sub">比較ボードはそのまま読めます。処方薬と代替理由を選ぶと、候補ごとの「変わる点」だけを追加表示します。</div>
+ <div class="uti-redflag"><b>この画面より先に確認：</b>発熱・悪寒・側腹部痛があれば腎盂腎炎へ。尿路症状がなければ無症候性細菌尿の治療適応を再確認。妊娠、男性、小児、尿路基礎疾患は個別評価。</div>
+ <div class="uti-grid"><div class="uti-field"><label>現在の処方薬（任意）</label><select id="utiCurrent"><option value="none">未選択／まず一覧を見る</option><option value="cva">CVA/AMPC</option><option value="ceph">経口セフェム系</option><option value="fom">FOM</option><option value="frpm">FRPM</option><option value="fq">フルオロキノロン系</option><option value="st">ST合剤</option><option value="other">その他</option></select></div></div>
+ <div class="uti-reason-label">代替を考える理由（1つ選択）</div><div id="utiReasons" class="uti-reasons"><button type="button" data-reason="stock" class="active">在庫・供給</button><button type="button" data-reason="allergy">アレルギー</button><button type="button" data-reason="adverse">副作用</button><button type="button" data-reason="interaction">相互作用</button><button type="button" data-reason="adherence">服薬しやすさ</button><button type="button" data-reason="susceptibility">感受性</button><button type="button" data-reason="renal">腎機能</button></div>
  <div id="utiResult" class="uti-check"></div>
 </section>
 <section id="capCds" class="cap-cds">
@@ -2322,25 +2320,14 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     }
   };
 
+  let utiReason="stock";
   function renderUtiAudit(){
     const out=$("utiResult"); if(!out)return;
-    const s=$("utiSymptoms")?.value||"yes", u=$("utiUpper")?.value||"no", p=$("utiPatient")?.value||"uncomplicated", org=$("utiOrganism")?.value||"unknown";
-    let title="急性単純性膀胱炎として比較",body="尿路症状があり、上部尿路感染のサインがない非妊娠成人女性を対象に候補薬を表示します。",alerts="";
-    if(u==="yes"){
-      title="⚠ 腎盂腎炎を考えるサイン";
-      body="発熱・悪寒・側腹部/背部痛がある場合、単純性膀胱炎として処方だけを見るのではなく上部尿路感染としての評価状況を確認します。";
-      alerts+="<div class='uti-alert'><b>この画面の対象外</b>腎盂腎炎モジュールで培養・重症度・診療場所を確認します。</div>";
-    }else if(s==="none"){
-      title="抗菌薬を始める前に確認";
-      body="尿路症状がない場合は、細菌尿があるだけで治療対象とは限りません。";
-      alerts+=p==="pregnant"?"<div class='uti-alert'><b>妊娠中</b>無症候性細菌尿でも扱いが異なるため、培養結果と治療方針を確認します。</div>":"<div class='uti-alert uti-critical'><b>無症候性細菌尿の可能性</b>治療対象となる例外がなければ、抗菌薬適応そのものを確認します。</div>";
-    }else if(s==="unknown"){
-      title="まず症状を1点確認";
-      body="尿検査陽性だけでは感染症として治療すべきか判断できません。排尿痛・頻尿・尿意切迫などの症状の有無を確認します。";
-    }
-    if(p!=="uncomplicated") alerts+="<div class='uti-alert'><b>単純性膀胱炎の比較範囲外</b>妊娠、男性、小児、尿路基礎疾患では適応・薬剤選択を個別に評価します。</div>";
-    if(org==="esbl") alerts+="<div class='uti-alert uti-critical'><b>ESBL産生菌</b>経口セフェムを候補から外し、感受性に基づくFOM／FRPM等のdefinitive therapyを確認します。</div>";
-    out.innerHTML="<b>"+title+"</b>"+body+alerts+'<div class="branch-source">根拠：JAID/JSC感染症治療ガイド2023の公表要約／同2015公開GL。年代の異なる推奨と感受性データは分けて表示。</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>';
+    const drug=$("utiCurrent")?.value||"none";
+    const names={none:"処方薬未選択",cva:"CVA/AMPC",ceph:"経口セフェム系",fom:"FOM",frpm:"FRPM",fq:"フルオロキノロン系",st:"ST合剤",other:"その他"};
+    const reasons={stock:"在庫・供給",allergy:"アレルギー",adverse:"副作用",interaction:"相互作用",adherence:"服薬しやすさ",susceptibility:"感受性",renal:"腎機能"};
+    document.querySelectorAll("#utiReasons button").forEach(b=>b.classList.toggle("active",b.dataset.reason===utiReason));
+    out.innerHTML='<b>'+names[drug]+'から展開｜'+reasons[utiReason]+'</b><div>'+(drug==="none"?'まず下の一覧を比較。処方薬を選ぶと、代替時に増えるカバー・失うカバー・確認事項を表示します。':'各候補カードに、'+names[drug]+'から変更したときの差分を表示しています。')+'</div><div class="branch-source">在庫状況は薬局ごとに異なるため自動判定せず、「採用・在庫未登録」と表示します。</div>';
     if(select.value==="cystitis")renderDecisionZone(D.syndromes.find(x=>x.id==="cystitis"));
   }
 
@@ -2473,12 +2460,21 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     if(x.id==="cystitis"){
       const axis=(mark,text,cls="")=>`<div class="aom-axis ${cls}"><span class="aom-axis-mark">${mark}</span><span>${text}</span></div>`;
       const links=items=>`<div class="aom-source-links">${items.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")}</div>`;
-      const card=(name,role,axes,summary,structure="",sources=[])=>`<article class="aom-drug-card"><div class="aom-drug-name"><span>${name}</span><span class="aom-drug-role">${role}</span></div><div class="aom-axis-list">${axes.join("")}</div><div class="aom-card-summary">→ ${summary}</div>${links(sources)}${structure?`<a class="aom-structure-link" href="${esc(D.comparatorUrl)}?drugA=${encodeURIComponent(structure)}">βラクタム構造比較へ →</a>`:""}</article>`;
       const guide="https://www.chemotherapy.or.jp/uploads/files/meeting/west_abstract_71.pdf";
       const oldGuide="https://www.kansensho.or.jp/uploads/files/guidelines/guideline_JAID-JSC_2015_urinary-tract.pdf";
       const cvaPmda="https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/340278_6139100F1048_1_18";
-      const s=$("utiSymptoms")?.value||"yes", upper=$("utiUpper")?.value||"no", patient=$("utiPatient")?.value||"uncomplicated", org=$("utiOrganism")?.value||"unknown";
-      const current=upper==="yes"?["腎盂腎炎を疑う","この膀胱炎比較より腎盂腎炎評価を優先"]:s==="none"?["尿路症状なし","無症候性細菌尿として抗菌薬適応を再確認"]:patient!=="uncomplicated"?["単純性の範囲外","妊娠・男性・小児・尿路基礎疾患は個別評価"]:["急性単純性膀胱炎として比較",org==="unknown"?"原因菌不明：CVA/AMPCを最初に比較":org==="gnr"?"GNR：ESBL非産生なら経口セフェムを比較":org==="gpc"?"GPC：CVA/AMPC感受性とFQの必要性を比較":org==="esbl"?"ESBL：FOM／FRPMを感受性に基づき比較":"培養・感受性に合わせて狭域化"];
+      const currentDrug=$("utiCurrent")?.value||"none";
+      const drugNames={none:"未選択",cva:"CVA/AMPC",ceph:"経口セフェム系",fom:"FOM",frpm:"FRPM",fq:"フルオロキノロン系",st:"ST合剤",other:"その他"};
+      const reasonNames={stock:"在庫・供給",allergy:"アレルギー",adverse:"副作用",interaction:"相互作用",adherence:"服薬しやすさ",susceptibility:"感受性",renal:"腎機能"};
+      const targetKey=name=>name.startsWith("CVA")?"cva":name.startsWith("経口セフェム")?"ceph":name.startsWith("FOM")?"fom":name.startsWith("フルオロ")?"fq":name.startsWith("ST")?"st":"other";
+      const delta=name=>{
+        if(currentDrug==="none")return "";
+        const same=currentDrug===targetKey(name)||(currentDrug==="frpm"&&name.startsWith("FOM"));
+        if(same)return `<div class="uti-delta"><b>現在薬：</b>変更しない場合も、感受性・副作用・供給状況を再確認。</div>`;
+        const text={stock:"採用規格、必要数量、入荷時期を確認。抗菌スペクトルが同じとは限りません。",allergy:"反応型を確認。βラクタム間は側鎖構造、非βラクタムは感受性と別の副作用を確認。",adverse:"原因となった副作用が回避できるか、新たに増える副作用は何かを比較。",interaction:"併用薬を具体的に照合し、相互作用を避けても感受性を失わないか確認。",adherence:"1日回数、食前・食後、治療日数、錠数が実際に改善するか確認。",susceptibility:"過去菌ではなく今回の培養を優先。未判明なら地域耐性と既往歴を併記。",renal:"腎機能で用量・間隔・使用可否が変わるため、単純な同用量置換はしない。"}[utiReason];
+        return `<div class="uti-delta"><b>${esc(drugNames[currentDrug])}から変更：</b>${text}</div>`;
+      };
+      const card=(name,role,axes,summary,structure="",sources=[])=>`<article class="aom-drug-card"><div class="aom-drug-name"><span>${name}</span><span class="aom-drug-role">${role}</span></div><div class="aom-axis-list">${axes.join("")}</div><div class="aom-card-summary">→ ${summary}</div>${delta(name)}<span class="uti-stock">採用・在庫未登録</span>${links(sources)}${structure?`<a class="aom-structure-link" href="${esc(D.comparatorUrl)}?drugA=${encodeURIComponent(structure)}">βラクタム構造比較へ →</a>`:""}</article>`;
       const noAbx=card("抗菌薬なし／再評価","適応確認",[
         axis("✓","尿路症状がなければ無症候性細菌尿を考える"),axis("△","妊娠など治療対象となる例外は別評価","caution"),axis("△","発熱・悪寒・側腹部痛があれば腎盂腎炎を優先","caution")
       ],"薬剤比較の前に、下部尿路感染として治療する場面かを確認。","",[["JAID/JSC 2015公開GL",oldGuide]]);
@@ -2494,9 +2490,12 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       const esbl=card("FOM／FRPM","ESBL definitive therapy",[
         axis("✓","2023ガイド要約：ESBL産生E. coliの確定治療候補"),axis("✓","βラクタム／キノロン耐性時の経口選択肢になり得る"),axis("△","経験的に一律使用せず培養・感受性を確認","caution"),axis("△","薬剤ごとの用法、腎機能、相互作用を確認","caution"),axis("△","尿中排泄の比較可能な数値は追補中","missing")
       ],"ESBLという条件が確認されたときに意味のある代替。","",[["JAID/JSCガイド2023公表要約",guide]]);
+      const st=card("ST合剤","感受性確認時の比較枠",[
+        axis("✓","E. coliが感受性なら経口治療の選択肢になり得る"),axis("✓","βラクタムと異なる構造・作用機序"),axis("△","2023ガイド公表要約の原因菌不明時第一選択ではない","caution"),axis("△","腎機能、高K血症、血球減少、妊娠、MTX・ワルファリン等を確認","caution"),axis("△","国内耐性と今回の感受性を確認","caution")
+      ],"在庫があっても自動代替せず、感受性と患者背景が揃う場合に比較。","",[["JAID/JSC 2015公開GL",oldGuide]]);
       const resistance=`<section class="aom-number-panel"><h4>国内耐性データ｜年代を明示</h4><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>集団</th><th>ESBL産生E. coli</th><th>キノロン耐性E. coli</th></tr></thead><tbody><tr><th>閉経前女性</th><td>7～8%</td><td>9～10%</td></tr><tr><th>閉経後女性</th><td>10～15%</td><td>20～30%</td></tr></tbody></table></div><p class="aom-number-footnote">2018年UTI共同研究会全国サーベイランス／2020年3学会サーベイランスを、JAID/JSCガイド2023公表要約が引用した値。地域・施設・患者個人の感受性率ではありません。</p></section>`;
       const urine=`<section class="aom-number-panel"><h4>尿中移行｜まず数値が確認できた薬剤</h4><div class="aom-number-scroll"><table class="aom-number-table"><thead><tr><th>薬剤</th><th>尿中排泄</th><th>扱い</th></tr></thead><tbody><tr><th>CVA/AMPC</th><td>投与後8時間：AMPC約67%、CVA約35%</td><td>直接数値あり</td></tr><tr><th>経口セフェム各剤</th><td>薬剤別の統一表を追補中</td><td>未比較</td></tr><tr><th>FQ各剤</th><td>薬剤差あり</td><td>未比較</td></tr><tr><th>FOM／FRPM</th><td>薬剤別の統一表を追補中</td><td>未比較</td></tr></tbody></table></div><p class="aom-number-footnote">尿中排泄率だけで順位は作りません。感受性、原因菌、腎機能、適応、安全性と独立して表示します。</p></section>`;
-      $("decisionZone").innerHTML=`<section class="aom-candidate-board"><header class="aom-candidate-head"><div><h3>急性単純性膀胱炎｜原因菌と尿中移行から比較</h3><p>2023年の位置づけ、国内耐性、尿中排泄、適応を別軸で表示します。</p></div><span class="aom-no-score">総合点なし</span></header><section class="aom-number-panel"><h4>現在の入力</h4><p><strong>${current[0]}</strong>｜${current[1]}</p></section><section class="aom-tier first"><div class="aom-tier-title">適応確認と最初の候補</div><div class="aom-drug-grid">${noAbx}${cva}</div></section><section class="aom-tier conditional"><div class="aom-tier-title">菌種・感受性で条件付き候補</div><div class="aom-drug-grid">${ceph}${fq}${esbl}</div></section>${resistance}${urine}<div class="aom-board-note">過去の尿培養、直近の抗菌薬、腎機能が分かる場合は個別の候補順位が変わります。培養結果があるときは経験的治療のままにせず、感受性に合わせて再評価します。</div></section>`;
+      $("decisionZone").innerHTML=`<section class="aom-candidate-board"><header class="aom-candidate-head"><div><h3>急性単純性膀胱炎｜薬局で使える代替薬ボード</h3><p>ガイドライン、感受性、尿中移行、適応、副作用、服薬性を別軸で比較します。</p></div><span class="aom-no-score">総合点なし</span></header><section class="aom-number-panel"><h4>現在の比較条件</h4><p><strong>${esc(drugNames[currentDrug])}</strong>から展開｜理由：${esc(reasonNames[utiReason])}</p></section><section class="aom-tier first"><div class="aom-tier-title">最初に比較する候補</div><div class="aom-drug-grid">${cva}</div></section><section class="aom-tier conditional"><div class="aom-tier-title">菌種・感受性・患者背景で条件付き候補</div><div class="aom-drug-grid">${ceph}${esbl}${fq}${st}</div></section>${resistance}${urine}<div class="aom-board-note">このボードは代替処方を自動決定しません。「現在薬から何を失い、何を得るか」を処方医へ短く提示するための比較資料です。在庫情報は今後、薬局ごとの登録機能へ接続できます。</div></section>`;
       return;
     }
     if(x.id==="chronic_sinus"){
@@ -2757,7 +2756,8 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     ["childQ1","childQ2","childQ3"].forEach(id=>{if($(id))$(id).onchange=calcChildSinus;});
     ["phFever","phNoCough","phNodes","phExudate","phGas"].forEach(id=>{if($(id))$(id).onchange=renderPharynx;});
     ["capPattern","capChronic","capBlnar","capTb"].forEach(id=>{if($(id))$(id).onchange=renderCapReverse;});
-    ["utiSymptoms","utiUpper","utiPatient","utiOrganism"].forEach(id=>{if($(id))$(id).onchange=renderUtiAudit;});
+    if($("utiCurrent"))$("utiCurrent").onchange=renderUtiAudit;
+    document.querySelectorAll("#utiReasons button").forEach(b=>b.onclick=()=>{utiReason=b.dataset.reason;renderUtiAudit();});
     $("allergySelect").onchange=renderAllergy;
     // Preview mode: start with the AOM module and keep every evidence section visible.
     document.body.classList.remove("compact-view");
