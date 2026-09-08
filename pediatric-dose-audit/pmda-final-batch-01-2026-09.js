@@ -35,7 +35,7 @@
 
   mark(['txa','imgF11','ob01_txaS','ob02_txaS','ob02_txaPow'],
     'https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/650037_3327002Q1062_3_03',
-    '1歳以下、2～3歳、4～6歳、7～14歳、15歳以上の年齢別1日量と分3～4を突合。');
+    '1歳以下、2～3歳、4～6歳、7～14歳、15歳以上の年齢別1日量と分3～4を突合。承認判定は年齢区分を使用し、体重換算は承認基準として扱わない。');
 
   mark(['levo','imgF03','ob01_levoS','ob01_levoDS','ob02_levo'],
     'https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/340278_4490028Q1028_1_10',

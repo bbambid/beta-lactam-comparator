@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-08",
+  "scope": "小児用経口薬の製品別・メーカー別の味／香り公式資料台帳",
+  "displayPolicy": {
+    "directStatement": "公式資料に味または香りの直接記載がある場合だけ、その表現を表示する",
+    "additivesOnly": "香料などの添加物から味・香りを推定せず、『直接記載なし』と表示する",
+    "pending": "公式資料は特定済みだが本文抽出未完了。画面には未掲載とする"
+  },
+  "products": [
+    {
+      "ingredient": "セフジトレン ピボキシル",
+      "product": "メイアクトMS小児用細粒10%",
+      "manufacturer": "Meiji Seika ファルマ",
+      "status": "direct_statement",
+      "taste": "甘く、わずかに苦い",
+      "aroma": "芳香あり",
+      "appearance": "だいだい色",
+      "detail": "添加物として香料、バニリン、エチルバニリン等の記載あり",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/780009_6132015C1103_1_01A_1F.pdf"
+    },
+    {
+      "ingredient": "アモキシシリン水和物",
+      "product": "サワシリン細粒10%",
+      "manufacturer": "LTLファーマ",
+      "status": "direct_statement",
+      "taste": "甘い",
+      "aroma": "芳香あり",
+      "appearance": "うすいだいだい色",
+      "detail": null,
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/171911_6131001C1210_2_008_1F.pdf"
+    },
+    {
+      "ingredient": "セフカペン ピボキシル塩酸塩水和物",
+      "product": "フロモックス小児用細粒100mg",
+      "manufacturer": "塩野義製薬",
+      "status": "additives_only",
+      "taste": null,
+      "aroma": null,
+      "appearance": "赤白色の細粒",
+      "detail": "味・香りの直接記載は確認できず。添加物としてエチルバニリン、l-メントール、バニリン、香料等の記載あり",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/340018_6132016C1027_1_021_1F.pdf"
+    },
+    {
+      "ingredient": "セフジトレン ピボキシル",
+      "product": "セフジトレン ピボキシル小児用細粒10%「SW」",
+      "manufacturer": "沢井製薬",
+      "status": "direct_statement",
+      "taste": "甘く、わずかに苦い",
+      "aroma": "バナナ様の芳香",
+      "appearance": "だいだい色",
+      "detail": "甘味とわずかな苦味は添加物由来とする記載あり",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/300119_6132015C1146_1_081_1F.pdf"
+    },
+    {
+      "ingredient": "セフジトレン ピボキシル",
+      "product": "セフジトレン ピボキシル小児用細粒10%「OK」",
+      "manufacturer": "大蔵製薬（販売：Meiji Seika ファルマ）",
+      "status": "pending",
+      "taste": null,
+      "aroma": null,
+      "appearance": null,
+      "detail": "公式インタビューフォーム特定済み。味・香りの本文抽出待ち",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/180024_6132015C1138_1_001_1F.pdf"
+    },
+    {
+      "ingredient": "セフカペン ピボキシル塩酸塩水和物",
+      "product": "セフカペン ピボキシル塩酸塩小児用細粒10%「SW」",
+      "manufacturer": "沢井製薬",
+      "status": "additives_only",
+      "taste": null,
+      "aroma": null,
+      "appearance": null,
+      "detail": "味・香りの直接記載は確認できず。添加物としてエチルバニリン、l-メントール、バニリン、香料等の記載あり",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/300119_6132016C1159_1_071_1F.pdf"
+    },
+    {
+      "ingredient": "セフカペン ピボキシル塩酸塩水和物",
+      "product": "セフカペン ピボキシル塩酸塩細粒小児用10%「CH」",
+      "manufacturer": "長生堂製薬（販売：日本ジェネリック）",
+      "status": "additives_only",
+      "taste": null,
+      "aroma": null,
+      "appearance": "赤白色の細粒（白色の粒を含む）",
+      "detail": "味・香りの直接記載は確認できず。添加物として香料の記載あり",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/450064_6132016C1035_2_017_1F.pdf"
+    },
+    {
+      "ingredient": "セフカペン ピボキシル塩酸塩水和物",
+      "product": "セフカペン ピボキシル塩酸塩細粒小児用10%「TW」",
+      "manufacturer": "東和薬品",
+      "status": "direct_statement",
+      "taste": null,
+      "aroma": "芳香あり",
+      "appearance": "赤白色の細粒",
+      "detail": "ゼリーとの配合試験における通常時のにおいとして芳香の記載あり。添加物としてエチルバニリン、l-メントール、バニリン、香料等の記載あり",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/480235_6132016C1140_1_061_1F.pdf"
+    },
+    {
+      "ingredient": "クラリスロマイシン",
+      "product": "クラリスロマイシンDS10%小児用「トーワ」",
+      "manufacturer": "東和薬品",
+      "status": "direct_statement",
+      "taste": "甘い。苦味を抑えた製剤設計だが、酸性飲料等との混合で苦味が現れることがある",
+      "aroma": "特異な芳香",
+      "appearance": "白色の懸濁液となるドライシロップ",
+      "detail": null,
+      "sourceType": "メーカー医療関係者向け製品資料",
+      "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=28851&t=0"
+    },
+    {
+      "ingredient": "アモキシシリン水和物",
+      "product": "アモキシシリン細粒10%／20%「TCK」",
+      "manufacturer": "辰巳化学",
+      "status": "additives_only",
+      "taste": null,
+      "aroma": null,
+      "appearance": "橙赤色の細粒",
+      "detail": "味・香りの直接記載は確認できず。添加物として白糖、サッカリンナトリウム水和物、香料等の記載あり",
+      "sourceType": "PMDA製品ページ",
+      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6131001C2119?user=1"
+    },
+    {
+      "ingredient": "セフポドキシム プロキセチル",
+      "product": "バナンドライシロップ5%",
+      "manufacturer": "第一三共",
+      "status": "direct_statement",
+      "taste": "原薬の苦味を抑え、小児が服用しやすいよう設計",
+      "aroma": null,
+      "appearance": null,
+      "detail": "製剤開発の経緯に、エステル型セフェムの苦味を抑えたドライシロップである旨の記載あり",
+      "sourceType": "PMDA製品ページ掲載インタビューフォーム",
+      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132011R1078?user=1"
+    },
+    {
+      "ingredient": "セフジニル",
+      "product": "セフゾン細粒小児用10%",
+      "manufacturer": "LTLファーマ",
+      "status": "direct_statement",
+      "taste": "甘い",
+      "aroma": "芳香あり",
+      "appearance": "淡赤白色の細粒",
+      "detail": null,
+      "sourceType": "PMDA製品ページ掲載インタビューフォーム",
+      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132013C1031?user=1"
+    },
+    {
+      "ingredient": "セファクロル",
+      "product": "ケフラール細粒小児用100mg",
+      "manufacturer": "共和薬品工業",
+      "status": "direct_statement",
+      "taste": "甘く、わずかに苦い",
+      "aroma": "わずかにオレンジ様のにおい",
+      "appearance": "うすい黄色の細粒",
+      "detail": "添加物として香料の記載あり",
+      "sourceType": "PMDA製品ページ掲載インタビューフォーム／電子添文",
+      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132005C1053?user=1"
+    },
+    {
+      "ingredient": "トラネキサム酸",
+      "product": "トランサミンシロップ5%",
+      "manufacturer": "ニプロファーマ（販売：ニプロ）",
+      "status": "direct_statement",
+      "taste": null,
+      "aroma": "芳香（オレンジ臭）",
+      "appearance": "淡赤色の溶液",
+      "detail": "味の直接記載は確認できず。添加物として香料の記載あり",
+      "sourceType": "PMDA電子添文",
+      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/650037_3327002Q1062_3_03"
+    }
+  ]
+}

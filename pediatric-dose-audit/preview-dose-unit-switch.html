@@ -11,7 +11,7 @@ label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4p
 .hero{font-size:18px;font-weight:900;margin-bottom:3px}.nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:9px 0}.metric-group{display:grid;grid-template-rows:auto 1fr 1fr;gap:6px;min-width:0}.metric-group-title{font-size:10px;font-weight:900;color:#667085;padding-left:3px}.product-num{grid-column:1/-1}.num{padding:9px;border:1px solid #e3e9ef;border-radius:9px;background:#fff}.num b{font-size:15px}
 table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{padding:7px;border-bottom:1px solid #e9eef2;text-align:left}th{background:#f5f7f9}.note{font-size:9px;color:#667085;margin-top:7px;line-height:1.6}
 .dose-stack{display:grid;gap:9px}.dose-panel{background:#fff;border:1px solid #d8e1e8;border-radius:12px;padding:12px}.dose-panel-title{font-size:12px;font-weight:900;color:#263746;margin-bottom:6px}.dose-label-card{background:#fffbea;border-color:#cabf91}.dose-label-main{font-size:13px;font-weight:800;line-height:1.65}.dose-label-source{font-size:9px;color:#667085;margin-top:6px}.dose-patient-card{display:flex;flex-wrap:wrap;gap:7px;padding:9px 11px}.dose-patient-chip{display:inline-flex;align-items:baseline;gap:5px;padding:5px 8px;border:1px solid #e1e7ec;border-radius:8px;background:#f8fafc;font-size:10px;color:#667085}.dose-patient-chip b{font-size:13px;color:#1f2933}.dose-comparison-card{border-width:2px;border-color:#9fb3c4}.dose-judgment-detail{font-size:11px;line-height:1.55;color:#475467;margin:2px 0 8px}.dose-judgment-detail b{color:#1f2933}.dose-comparison-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.dose-compare-box{padding:10px;border-radius:10px;background:#f3f7fb;border:1px solid #dbe4ec}.dose-compare-label{font-size:9px;font-weight:900;color:#667085}.dose-compare-main{font-size:15px;font-weight:900;line-height:1.35;margin-top:2px}.dose-compare-sub{font-size:10px;color:#667085;margin-top:3px}.dose-interpretation{background:#f8fafc}.dose-one-line{font-size:12px;line-height:1.65}.dose-support table{margin-top:4px}
-.amount-entry{display:grid;grid-template-columns:1fr;gap:6px}.amount-entry #amountMode,#freq{display:none}.choice-tiles{display:grid;gap:7px}.amount-mode-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.frequency-tiles{grid-template-columns:repeat(4,minmax(0,1fr))}.choice-tile{min-height:44px;border:2px solid #d6dee8;border-radius:10px;background:#fff;color:#475467;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation}.choice-tile.active{border-color:#3972a5;background:#eef6ff;color:#214f78;box-shadow:0 0 0 1px #3972a5 inset}.choice-tile.active::after{content:" ✓"}.choice-tile:disabled{opacity:.42;cursor:not-allowed}.frequency-extra{display:none;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:7px}.frequency-extra.show{display:grid}.dose-comparison-grid.single{grid-template-columns:1fr}.dose-comparison-grid.single .dose-compare-box{max-width:100%}.dose-inner-card{padding:10px;border:1px solid #d8e1e8;border-radius:10px;margin:7px 0}.dose-current-card{background:#f4f8fc;border-color:#b9cbda}.dose-current-main{font-size:14px;font-weight:900;line-height:1.5}.dose-support caption{display:none}.kampo-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.kampo-link{display:inline-block;padding:7px 10px;border:1px solid #b8c9d8;border-radius:8px;background:#fff;color:#2f5d8a;font-weight:900;text-decoration:none}
+.amount-entry{display:grid;grid-template-columns:1fr;gap:6px}.amount-entry #amountMode,#freq{display:none}.choice-tiles{display:grid;gap:7px}.amount-mode-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.frequency-tiles{grid-template-columns:repeat(4,minmax(0,1fr))}.choice-tile{min-height:44px;border:2px solid #d6dee8;border-radius:10px;background:#fff;color:#475467;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation}.choice-tile.active{border-color:#3972a5;background:#eef6ff;color:#214f78;box-shadow:0 0 0 1px #3972a5 inset}.choice-tile.active::after{content:" ✓"}.choice-tile:disabled{opacity:.42;cursor:not-allowed}.frequency-extra{display:none;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:7px}.frequency-extra.show{display:grid}.dose-comparison-grid.single{grid-template-columns:1fr}.dose-comparison-grid.single .dose-compare-box{max-width:100%}.dose-inner-card{padding:10px;border:1px solid #d8e1e8;border-radius:10px;margin:7px 0}.dose-current-card{background:#fffbea;border-color:#cabf91}.dose-current-main{font-size:14px;font-weight:900;line-height:1.5}.dose-support caption{display:none}.kampo-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.kampo-link{display:inline-block;padding:7px 10px;border:1px solid #b8c9d8;border-radius:8px;background:#fff;color:#2f5d8a;font-weight:900;text-decoration:none}
 @media(max-width:650px){.grid,.nums{grid-template-columns:1fr}}
 </style>
 <style id="mobilePreviewStyle">
@@ -72,7 +72,10 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
 @media(max-width:650px){
  #drug{display:none!important}
  #drugSearchWrap{display:flex!important;gap:6px;align-items:stretch}
- #drugSearch{flex:1;min-width:0}
+ #drugSearchInputShell{position:relative;flex:1;min-width:0}
+ #drugSearch{width:100%;min-width:0;margin-bottom:0!important;padding-right:38px}
+ #drugSearchClear{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:30px;height:30px;border:0;border-radius:50%;background:#eef1f4;color:#667085;font-size:18px;line-height:1;font-weight:700;touch-action:manipulation}
+ #drugSearchClear[hidden]{display:none}
  #drugListBtn{border:1px solid #cfdbe7;background:#fff;border-radius:9px;padding:0 10px;font-size:10px;font-weight:800;white-space:nowrap}
  .rxLabelCard{margin:8px 0;padding:10px;border:2px solid #aebdca;border-radius:11px;background:#fffdf2}
  .rxLabelHead{font-size:12px;font-weight:900;margin-bottom:6px}
@@ -81,6 +84,7 @@ table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px}th,td{pa
  .mobileWeightLine{display:inline-flex;align-items:baseline;gap:5px;font-size:10px;font-weight:800;color:#475467;margin:6px 0 7px;padding:6px 9px;border:1px solid #dfe6ec;border-radius:9px;background:#fff}
 .mobileWeightLine b{font-size:13px;color:#1f2933}
 }
+#drugSearchInputShell{position:relative;flex:1;min-width:0}#drugSearchInputShell #drugSearch{width:100%;min-width:0;margin-bottom:0!important;padding-right:38px}#drugSearchClear{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:30px;height:30px;border:0;border-radius:50%;background:#eef1f4;color:#667085;font-size:18px;line-height:1;font-weight:700;touch-action:manipulation}#drugSearchClear[hidden]{display:none}
 #drugListSheet{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.35)}
 #drugListSheet.open{display:flex;align-items:flex-end}
 #drugListPanel{background:#fff;width:100%;max-height:75vh;min-height:46vh;border-radius:18px 18px 0 0;padding:12px;overflow:auto}
@@ -163,8 +167,10 @@ const DB={
  },
  txa:{
   products:{syrup5:{label:"シロップ5%",unit:"mL",mgPerUnit:50,defaultAmount:10}},
-  indications:{general:{label:"トラネキサム酸の承認適応",lo:(w,a)=>a<2?75:a<4?150:a<7?250:a<15?400:750,hi:(w,a)=>a<2?200:a<4?350:a<7?650:a<15?1000:2000,freq:[3,4],desc:"年齢別承認1日量・分3～4"}},
-  adult:[750,2000],source:"PMDA トラネキサム酸シロップ5%電子添文"
+  indications:{general:{label:"トラネキサム酸の承認適応",lo:(w,a)=>a<2?75:a<4?150:a<7?250:a<15?400:750,hi:(w,a)=>a<2?200:a<4?350:a<7?650:a<15?1000:2000,freq:[3,4],desc:"～1歳：75～200mg（1.5～4mL）、2～3歳：150～350mg（3～7mL）、4～6歳：250～650mg（5～13mL）、7～14歳：400～1,000mg（8～20mL）、15歳以上：750～2,000mg（15～40mL）を1日3～4回に分割。症状により適宜増減"}},
+  doseBasis:"age_fixed",
+  weightEvidence:{text:"国内承認は年齢区分別で、体重換算値は承認上の判定基準ではありません。国内学会資料で確認できた経口の体重別用量は、血友病の粘膜出血・抜歯などに対する止血補助の15～25mg/kg/回・1日2～3回です。一般的な扁桃炎・咽喉頭炎に対する25mg/kg/dayは、判定に採用できる一次資料・学会資料を確認できていません。",label:"日本血栓止血学会 血友病患者に対する止血治療ガイドライン",url:"https://www.jstage.jst.go.jp/article/jjsth/27/1/27_107/_pdf/-char/en"},
+  adult:[750,2000],source:"PMDA トランサミンシロップ5%電子添文",sourceUrl:"https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/650037_3327002Q1062_3_03"
  },
  levo:{
   products:{syrup005:{label:"シロップ0.05%",unit:"mL",mgPerUnit:0.5,defaultAmount:5},ds05:{label:"ドライシロップ0.5%",unit:"g",mgPerUnit:5,defaultAmount:0.5},tab25:{label:"錠/OD錠2.5mg",unit:"錠",mgPerUnit:2.5,defaultAmount:2},tab5:{label:"錠5mg",unit:"錠",mgPerUnit:5,defaultAmount:1}},
@@ -316,7 +322,10 @@ function render(){
   .map(([n,k])=>'<tr><td>'+n+'</td><td>'+range(calc(adLo,k),calc(adHi,k))+'</td><td>参考</td></tr>').join(""):'<tr><td colspan="3">成人標準量が設定されないため古典的換算は適用しません</td></tr>';
  const isKampo=!!d.referenceOnly;
  const approvedDose=Number.isFinite(lo)&&Number.isFinite(hi)?(isKampo?range(lo/1000,hi/1000)+' g/day':range(lo,hi)+' mg/day'):'—';
+ const ageFixed=d.doseBasis==="age_fixed";
  const approvedKg=Number.isFinite(lo)&&Number.isFinite(hi)&&w?(isKampo?range(lo/w/1000,hi/w/1000)+' g/kg/day':range(lo/w,hi/w)+' mg/kg/day'):'—';
+ const approvedProduct=Number.isFinite(lo)&&Number.isFinite(hi)?range(lo/p.mgPerUnit,hi/p.mgPerUnit)+' '+p.unit+'/day':'—';
+ const weightEvidenceHtml=d.weightEvidence?'<div class="note"><b>体重別用量資料の位置づけ：</b>'+d.weightEvidence.text+' <a href="'+d.weightEvidence.url+'" target="_blank" rel="noopener">'+d.weightEvidence.label+' ↗</a></div>':'';
  const currentDoseText=isKampo?(fmt(q,2)+' g/day・分'+f):(fmt(mg,1)+' mg/day（製剤 '+fmt(q,2)+' '+p.unit+'/day）・分'+f);
  if(isKampo){cls=withinUsual&&freqOK?"ok":"warn";verdict=withinUsual&&freqOK?"参考量と一致":"参考量との差を確認";doseDetail=withinUsual?"体重比例の参考量と一致":"体重比例の参考量との差を確認";}
  $("out").innerHTML='<div class="dose-stack">'+
@@ -324,8 +333,8 @@ function render(){
   '<section class="dose-panel dose-comparison-card"><div class="hero">'+(isKampo?'参考比較':'判定')+'：<span class="pill '+cls+'">'+verdict+'</span></div>'+
   '<div class="dose-inner-card dose-label-card rxLabelCard"><div class="dose-panel-title">'+(isKampo?'漢方の小児参考量':'添付文書の用法・用量')+'</div><div class="dose-label-main">'+ii.desc+'</div><div class="dose-label-source">出典：'+(d.sourceUrl?'<a href="'+d.sourceUrl+'" target="_blank" rel="noopener">'+d.source+' ↗</a>':d.source)+(isKampo?'<br>※個別製品の電子添文・証・含有生薬の重複を別途確認':'')+'</div>'+(isKampo?'<div class="kampo-links"><a class="kampo-link" href="'+d.sourceUrl+'" target="_blank" rel="noopener">メーカー医療者向け資料を開く ↗</a>'+(d.labelUrl?'<a class="kampo-link" href="'+d.labelUrl+'" target="_blank" rel="noopener">PMDA電子添文を開く ↗</a>':'')+'</div>':'')+'</div>'+
   '<div class="dose-inner-card dose-current-card"><div class="dose-panel-title">今回の用法・用量</div><div class="dose-current-main">'+currentDoseText+'</div></div>'+
-  '<div class="dose-judgment-detail"><b>'+doseDetail+'</b><br>分割：分'+f+' '+(freqOK?'✓':'要確認')+(perDoseOK?'':'／1回量も要確認')+'</div><div class="dose-panel-title">'+(isKampo?'小児参考量と処方量':'適応どおりの理論値と処方量')+'</div><div class="dose-comparison-grid single"><div class="dose-compare-box"><div class="dose-compare-label">'+(isKampo?'体重からみた参考投与量':'適応どおりの投与量見込み')+'</div><div class="dose-compare-main">'+approvedDose+'</div><div class="dose-compare-sub">'+approvedKg+(ii.max?'／上限 '+fmt(absoluteMax,0)+' mg/day':'')+'</div></div></div><div class="nums"><div class="num product-num">製剤量<br><b>'+fmt(q,2)+' '+p.unit+'/day</b></div><div class="metric-group"><div class="metric-group-title">1日量</div><div class="num">'+(isKampo?'製剤量':'力価量')+'<br><b>'+(isKampo?fmt(q,2)+' g/day':fmt(mg,1)+' mg/day')+'</b></div><div class="num">体重換算'+(isKampo?'量':'力価量')+'<br><b>'+(isKampo?fmt(q/w,3)+' g/kg/day':fmt(kg,1)+' mg/kg/day')+'</b></div></div><div class="metric-group"><div class="metric-group-title">1回量</div><div class="num">1回あたり'+(isKampo?'量':'力価')+'<br><b>'+(isKampo?fmt(oneProd,2)+' g/回':fmt(oneMg,1)+' mg/回')+'</b></div><div class="num">1回体重あたり'+(isKampo?'量':'力価')+'<br><b>'+(isKampo?fmt(oneProd/w,3)+' g/kg/回':fmt(oneMg/w,2)+' mg/kg/回')+'</b></div></div></div></section>'+
-  '<section class="dose-panel dose-interpretation"><div class="dose-panel-title">処方設計の解釈</div><div class="dose-one-line">'+(isKampo?('<b>1回量：</b>'+fmt(oneProd,2)+' g × '+f+'回<br><b>体重比例の参考量：</b>'+approvedDose+'（承認小児用量ではありません）'):('<b>1回量：</b>'+fmt(oneMg,1)+' mg（製剤 '+fmt(oneProd,2)+' '+p.unit+'）× '+f+'回<br><b>承認上の通常量：</b>'+approvedDose+(ii.max?'　<b>承認上限：</b>'+fmt(absoluteMax,0)+' mg/day':'')+(!freqOK?' <span class="pill warn">分割回数も要確認</span>':'')))+'</div>'+(PRACTICE[key]?('<div class="note"><b>実務目安：</b>'+PRACTICE[key].label+' → '+fmt(PRACTICE[key].dose(w,a),1)+' mg/day　<span class="pill">承認用量とは別</span><br><b>実務資料：</b>'+(PRACTICE[key].sourceUrl?'<a href="'+PRACTICE[key].sourceUrl+'" target="_blank" rel="noopener">'+PRACTICE[key].source+' ↗</a>':PRACTICE[key].source)+'（'+PRACTICE[key].sourceType+'）'+(PRACTICE[key].note?'<br>'+PRACTICE[key].note:'')+'</div>'):'')+'</section>'+
+  '<div class="dose-judgment-detail"><b>'+doseDetail+'</b><br>分割：分'+f+' '+(freqOK?'✓':'要確認')+(perDoseOK?'':'／1回量も要確認')+'</div><div class="dose-panel-title">'+(isKampo?'小児参考量と処方量':ageFixed?'年齢区分による承認量と処方量':'適応どおりの理論値と処方量')+'</div><div class="dose-comparison-grid single"><div class="dose-compare-box"><div class="dose-compare-label">'+(isKampo?'体重からみた参考投与量':ageFixed?'年齢区分による承認1日量':'適応どおりの投与量見込み')+'</div><div class="dose-compare-main">'+approvedDose+'</div><div class="dose-compare-sub">'+(ageFixed?'製剤量 '+approvedProduct+'／入力体重 '+w+'kg で割ると '+approvedKg+'（単純換算・承認基準ではない）':approvedKg+(ii.max?'／上限 '+fmt(absoluteMax,0)+' mg/day':''))+'</div></div></div><div class="nums"><div class="num product-num">製剤量<br><b>'+fmt(q,2)+' '+p.unit+'/day</b></div><div class="metric-group"><div class="metric-group-title">1日量</div><div class="num">'+(isKampo?'製剤量':'力価量')+'<br><b>'+(isKampo?fmt(q,2)+' g/day':fmt(mg,1)+' mg/day')+'</b></div><div class="num">体重換算'+(isKampo?'量':'力価量')+'<br><b>'+(isKampo?fmt(q/w,3)+' g/kg/day':fmt(kg,1)+' mg/kg/day')+'</b></div></div><div class="metric-group"><div class="metric-group-title">1回量</div><div class="num">1回あたり'+(isKampo?'量':'力価')+'<br><b>'+(isKampo?fmt(oneProd,2)+' g/回':fmt(oneMg,1)+' mg/回')+'</b></div><div class="num">1回体重あたり'+(isKampo?'量':'力価')+'<br><b>'+(isKampo?fmt(oneProd/w,3)+' g/kg/回':fmt(oneMg/w,2)+' mg/kg/回')+'</b></div></div></div></section>'+
+  '<section class="dose-panel dose-interpretation"><div class="dose-panel-title">処方設計の解釈</div><div class="dose-one-line">'+(isKampo?('<b>1回量：</b>'+fmt(oneProd,2)+' g × '+f+'回<br><b>体重比例の参考量：</b>'+approvedDose+'（承認小児用量ではありません）'):('<b>1回量：</b>'+fmt(oneMg,1)+' mg（製剤 '+fmt(oneProd,2)+' '+p.unit+'）× '+f+'回<br><b>承認上の通常量：</b>'+approvedDose+(ii.max?'　<b>承認上限：</b>'+fmt(absoluteMax,0)+' mg/day':'')+(!freqOK?' <span class="pill warn">分割回数も要確認</span>':'')))+'</div>'+weightEvidenceHtml+(PRACTICE[key]?('<div class="note"><b>実務目安：</b>'+PRACTICE[key].label+' → '+fmt(PRACTICE[key].dose(w,a),1)+' mg/day　<span class="pill">承認用量とは別</span><br><b>実務資料：</b>'+(PRACTICE[key].sourceUrl?'<a href="'+PRACTICE[key].sourceUrl+'" target="_blank" rel="noopener">'+PRACTICE[key].source+' ↗</a>':PRACTICE[key].source)+'（'+PRACTICE[key].sourceType+'）'+(PRACTICE[key].note?'<br>'+PRACTICE[key].note:'')+'</div>'):'')+'</section>'+
   (isKampo?'':'<section class="dose-panel dose-support"><div class="dose-panel-title">補助換算</div><table><caption>補助換算</caption><thead><tr><th>換算式</th><th>成人標準量からの推定 mg/day</th><th>位置づけ</th></tr></thead><tbody>'+rows+'</tbody></table><div class="note">'+(hasAdult?('古典的換算式は補助評価です。'+(adLo===adHi?'成人標準量 '+adLo+' mg/day':'成人標準量 '+adLo+'～'+adHi+' mg/day')+'を基準に換算し、承認された小児用量がある場合はそちらを主判定にします。'):'この薬は成人量からの古典的換算を行わず、承認された小児用量のみで監査します。')+'</div><div class="note">最終確認は最新電子添文・適応・患者背景に基づきます。</div></section>')+'</div>';
 }
 $("drug").onchange=()=>loadDrug(true);
@@ -414,7 +423,12 @@ loadDrug(true);
   const search=document.getElementById("drugSearch"), sel=document.getElementById("drug");
   if(search && !document.getElementById("drugListBtn")){
    const wrap=document.createElement("div");wrap.id="drugSearchWrap";wrap.style.display="flex";
-   search.parentNode.insertBefore(wrap,search);wrap.appendChild(search);
+   search.parentNode.insertBefore(wrap,search);
+   const shell=document.createElement("div");shell.id="drugSearchInputShell";wrap.appendChild(shell);shell.appendChild(search);
+   const clear=document.createElement("button");clear.id="drugSearchClear";clear.type="button";clear.setAttribute("aria-label","検索文字を消去");clear.textContent="×";shell.appendChild(clear);
+   const syncClear=()=>{clear.hidden=!search.value};syncClear();
+   search.addEventListener("input",syncClear);
+   clear.onclick=()=>{search.value="";search.dispatchEvent(new Event("input",{bubbles:true}));search.focus()};
    const b=document.createElement("button");b.id="drugListBtn";b.type="button";b.textContent="一覧から選択";wrap.appendChild(b);
    const sheet=document.createElement("div");sheet.id="drugListSheet";sheet.innerHTML='<div id="drugListPanel"><div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 8px"><b>薬剤を選択</b><button id="drugListClose" type="button" style="border:0;background:transparent;font-size:20px">×</button></div><div id="drugCategoryTabs"></div><div id="drugListItems"></div></div>';document.body.appendChild(sheet);
    const categoryMap={
@@ -439,7 +453,7 @@ loadDrug(true);
     document.getElementById("drugListItems").innerHTML=groups.map(cat=>'<div class="drugCatGroup"><div class="drugCatHead">'+cat+'</div>'+visible.filter(x=>x.cat===cat).map(x=>'<button type="button" data-v="'+x.value+'">'+x.label+'</button>').join("")+'</div>').join("");
    }
    b.onclick=()=>{activeCategory="すべて";renderDrugList();sheet.classList.add("open")};
-   sheet.onclick=e=>{if(e.target===sheet||e.target.id==="drugListClose")sheet.classList.remove("open");const cat=e.target.closest("[data-cat]");if(cat){activeCategory=cat.dataset.cat;renderDrugList();return;}const x=e.target.closest("[data-v]");if(x){sel.value=x.dataset.v;sel.dispatchEvent(new Event("change",{bubbles:true}));search.value=sel.options[sel.selectedIndex].textContent;sheet.classList.remove("open")}};
+   sheet.onclick=e=>{if(e.target===sheet||e.target.id==="drugListClose")sheet.classList.remove("open");const cat=e.target.closest("[data-cat]");if(cat){activeCategory=cat.dataset.cat;renderDrugList();return;}const x=e.target.closest("[data-v]");if(x){sel.value=x.dataset.v;sel.dispatchEvent(new Event("change",{bubbles:true}));search.value=sel.options[sel.selectedIndex].textContent;syncClear();sheet.classList.remove("open")}};
   }
  }
  function enhance(){
@@ -484,7 +498,7 @@ loadDrug(true);
 <style id="formulaHelpEmphasis">
 .formulaHelp{border:2px solid #3972a5!important;background:#eef6ff!important;color:#1f2933!important;padding:14px!important;box-shadow:0 3px 10px rgba(31,78,120,.10)}
 .formulaHelp .formulaHelpTitle{font-size:15px;font-weight:900;color:#214f78;margin-bottom:7px}.formulaHelp .formulaEquation{margin:7px 0;padding:10px;border-radius:9px;background:#fff;border:1px solid #bfd1e1;font-size:13px;font-weight:900;line-height:1.65}.formulaHelp .formulaResult{font-size:13px;font-weight:900;color:#214f78}
-.formulaReference{margin-top:10px;padding:10px;border-radius:9px;background:#fff;border:1px solid #bfd1e1}.formulaReferenceTitle{font-size:12px;font-weight:900;color:#214f78;margin-bottom:6px}.formulaReference table{margin:0;font-size:10px}.formulaReference th,.formulaReference td{padding:6px;text-align:center}.formulaReference .currentRow td{background:#fff6d8;font-weight:900;color:#6f5310}.formulaReferenceNote{font-size:9px;color:#667085;margin-top:6px;line-height:1.55}
+.formulaReference{margin-top:8px;padding:8px;border-radius:9px;background:#fff;border:1px solid #bfd1e1}.formulaReferenceTitle{font-size:11px;font-weight:900;color:#214f78;margin-bottom:5px}.formulaReference table{width:100%;table-layout:fixed;margin:0;font-size:8px;line-height:1.15}.formulaReference th,.formulaReference td{padding:4px 1px;text-align:center;white-space:nowrap}.formulaReference .currentCell{background:#fff1b8;font-weight:900;color:#6f5310}.formulaReferenceNote{font-size:8px;color:#667085;margin-top:5px;line-height:1.4}
 </style>
 <script id="formulaHelpSubstitution">
 (function(){
@@ -492,8 +506,8 @@ loadDrug(true);
  const rng=(lo,hi)=>Math.abs(lo-hi)<.01?f(lo):f(Math.min(lo,hi))+"～"+f(Math.max(lo,hi));
  const vonInfo=a=>a<.08?[.125,"1/8"]:a<.75?[.2,"1/5"]:a<2?[.25,"1/4"]:a<5?[1/3,"1/3"]:a<10?[.5,"1/2"]:a<15?[2/3,"2/3"]:[1,"1"];
  const vonTable=a=>{
-  const rows=[["1か月未満","1/8",a<.08],["1～8か月","1/5",a>=.08&&a<.75],["9～23か月","1/4",a>=.75&&a<2],["2～4歳","1/3",a>=2&&a<5],["5～9歳","1/2",a>=5&&a<10],["10～14歳","2/3",a>=10&&a<15],["15歳以上","1",a>=15]];
-  return '<div class="formulaReference"><div class="formulaReferenceTitle">von Harnackの年齢別簡便表</div><table><thead><tr><th>年齢</th><th>成人量に掛ける割合</th></tr></thead><tbody>'+rows.map(r=>'<tr'+(r[2]?' class="currentRow"':'')+'><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>').join('')+'</tbody></table><div class="formulaReferenceNote">黄色は今回の患者が該当する区分です。境界は月齢を年齢入力へ換算して判定します。</div></div>';
+  const cols=[["&lt;1月","1/8",a<.08],["1–8月","1/5",a>=.08&&a<.75],["9–23月","1/4",a>=.75&&a<2],["2–4歳","1/3",a>=2&&a<5],["5–9歳","1/2",a>=5&&a<10],["10–14歳","2/3",a>=10&&a<15],["≥15歳","1",a>=15]];
+  return '<div class="formulaReference"><div class="formulaReferenceTitle">von Harnack 年齢別簡便表</div><table aria-label="von Harnack年齢別割合"><tbody><tr>'+cols.map(c=>'<th class="'+(c[2]?'currentCell':'')+'">'+c[0]+'</th>').join('')+'</tr><tr>'+cols.map(c=>'<td class="'+(c[2]?'currentCell':'')+'">'+c[1]+'</td>').join('')+'</tr></tbody></table><div class="formulaReferenceNote">上段：年齢／下段：成人量に掛ける割合。黄色が今回の区分。</div></div>';
  };
  function substitution(kind){
   const d=DB[$("drug").value];if(!d||!Array.isArray(d.adult))return null;
@@ -508,4 +522,4 @@ loadDrug(true);
  }
  document.addEventListener("click",e=>{const b=e.target.closest(".formulaBtn");if(!b)return;const x=substitution(b.dataset.formula),box=$("formulaHelp");if(!x||!box)return;box.innerHTML='<div class="formulaHelpTitle">'+x.title+'</div><b>計算式</b><div class="formulaEquation">'+x.formula+'<br><br>'+x.equation+'<br>＝ <span class="formulaResult">'+x.result+'</span></div>'+x.reference+'<div style="margin-top:10px"><span class="pill warn">承認小児用量の代わりではなく補助評価</span></div>';box.style.display="block";});
 })();
-</script></body></html>
+</script><script src="palatability-preview-2026-09.js"></script></body></html>
