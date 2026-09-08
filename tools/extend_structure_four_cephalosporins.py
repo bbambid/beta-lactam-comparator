@@ -96,13 +96,54 @@ def rotate_ceph_core(molecule: Chem.Mol) -> None:
         conf.SetAtomPosition(i, p)
 
 
-def svg64(smiles: str, *, full: bool) -> str:
+def reflect_cefminox_core(molecule: Chem.Mol) -> None:
+    """Mirror cefminox so its four beta-lactam vertices follow the fixed app layout.
+
+    The reflection axis connects the R1-amide-bearing carbon (upper left) and
+    the ring nitrogen (lower right). This places the beta-lactam carbonyl carbon
+    at lower left and the fused-ring carbon at upper right.
+    """
+    ring = next(
+        (tuple(r) for r in molecule.GetRingInfo().AtomRings()
+         if len(r) == 4 and any(molecule.GetAtomWithIdx(i).GetAtomicNum() == 7 for i in r)),
+        None,
+    )
+    if ring is None:
+        return
+    ring_set = set(ring)
+    nitrogen = next(i for i in ring if molecule.GetAtomWithIdx(i).GetAtomicNum() == 7)
+    amide_carbon = next(
+        i for i in ring
+        if molecule.GetAtomWithIdx(i).GetAtomicNum() == 6
+        and any(
+            neighbor.GetAtomicNum() == 7 and neighbor.GetIdx() not in ring_set
+            for neighbor in molecule.GetAtomWithIdx(i).GetNeighbors()
+        )
+    )
+    conf = molecule.GetConformer()
+    p0 = conf.GetAtomPosition(amide_carbon)
+    p1 = conf.GetAtomPosition(nitrogen)
+    dx, dy = p1.x - p0.x, p1.y - p0.y
+    length = math.hypot(dx, dy)
+    ux, uy = dx / length, dy / length
+    for i in range(molecule.GetNumAtoms()):
+        p = conf.GetAtomPosition(i)
+        qx, qy = p.x - p0.x, p.y - p0.y
+        projection = qx * ux + qy * uy
+        p.x = p0.x + 2 * projection * ux - qx
+        p.y = p0.y + 2 * projection * uy - qy
+        conf.SetAtomPosition(i, p)
+
+
+def svg64(smiles: str, *, full: bool, key: str | None = None) -> str:
     if not full and smiles == "[H]":
         svg = "<svg xmlns='http://www.w3.org/2000/svg' width='320' height='180' viewBox='0 0 320 180'><rect width='320' height='180' fill='#fff'/><text x='160' y='103' text-anchor='middle' font-family='Arial,sans-serif' font-size='46' fill='#000'>H</text></svg>"
         return base64.b64encode(svg.encode()).decode()
     molecule = mol(smiles)
     if full:
         rotate_ceph_core(molecule)
+        if key == "cefminox":
+            reflect_cefminox_core(molecule)
         width, height = 620, 390
     else:
         rdDepictor.Compute2DCoords(molecule)
@@ -229,7 +270,7 @@ def build(source: Path, output: Path) -> None:
         drug = dict(spec)
         atoms, bonds = fragment_mapping(drug["smiles"], drug["r1"])
         drug["sims"] = {}
-        drug["svg"] = svg64(drug["smiles"], full=True)
+        drug["svg"] = svg64(drug["smiles"], full=True, key=drug["key"])
         drug["r1Atoms"] = atoms
         drug["r1Bonds"] = bonds
         drug["r3svg"] = svg64(drug["r3"], full=False)
