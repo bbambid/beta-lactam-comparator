@@ -19,6 +19,24 @@
  const norm=s=>String(s||"").normalize("NFKC").toLowerCase().replace(/[\s　・‐－ー%％()（）「」\[\]【】]/g,"");
  const dosageWord=/(シロップ|ドライシロップ|DS|細粒|顆粒|散|錠|カプセル|チュアブル|レディタブ|液|吸入|坐剤|テープ|クリーム|軟膏|小児用|mg|μg|%)/i;
  const optLabel=k=>sel.querySelector('option[value="'+CSS.escape(k)+'"]')?.textContent||k;
+ const displayNames={cam:"クラリス（クラリスロマイシン）",carbo:"ムコダイン（カルボシステイン）",proc:"メプチン（プロカテロール）",pred:"プレドニゾロン"};
+ const unitKey=u=>String(u||"").normalize("NFKC").toLowerCase()==="ml"?"mL":String(u||"").normalize("NFKC");
+ function formulationKind(label,unit){
+   const s=String(label||"").normalize("NFKC");
+   if(/(?:ドライシロップ|\bDS\b|DS(?=\d)|シロップ用細粒)/i.test(s))return "dry-syrup";
+   if(/シロップ|エリキシル/i.test(s))return "syrup";
+   if(/OD錠/i.test(s))return "od-tablet";if(/チュアブル|レディタブ/i.test(s))return "chewable";if(/ミニ錠/i.test(s))return "mini-tablet";
+   if(/錠/.test(s))return "tablet";if(/カプセル/.test(s))return "capsule";if(/細粒/.test(s))return "fine-granules";if(/顆粒/.test(s))return "granules";if(/散/.test(s))return "powder";
+   if(/坐剤|坐薬|サポ/.test(s))return "suppository";if(/テープ/.test(s))return "tape";if(/吸入/.test(s))return "inhalation";if(/点眼/.test(s))return "eye-drops";if(/点鼻|パウダースプレー/.test(s))return "nasal";if(/軟膏|クリーム/.test(s))return "topical";
+   return "unit-"+unitKey(unit);
+ }
+ function formulationSignature(p){return [formulationKind(p.label,p.unit),unitKey(p.unit),Number(p.mgPerUnit).toPrecision(12)].join("|");}
+ function formulationLabel(p){
+   let s=String(p.label||"").normalize("NFKC").replace(/「[^」]+」/g,"").replace(/【[^】]+】/g,"").replace(/相当製剤/g,"").replace(/（1包[^)]*）/g,"").trim();
+   const patterns=[/ドライシロップ/i,/DS(?=\d|\s|$)/i,/シロップ用細粒/i,/小児用細粒/i,/細粒/i,/顆粒/i,/散/i,/OD錠/i,/チュアブル錠/i,/レディタブ錠/i,/ミニ錠/i,/錠/i,/カプセル/i,/シロップ/i,/エリキシル/i,/坐剤/i,/坐薬/i,/テープ/i,/吸入/i,/点眼/i,/点鼻/i,/軟膏/i,/クリーム/i];
+   let at=-1;patterns.forEach(re=>{const m=s.search(re);if(m>=0&&(at<0||m<at))at=m;});if(at>0)s=s.slice(at);
+   return s.replace(/^DS/i,"ドライシロップ").replace(/シロップ用細粒/i,"ドライシロップ").replace(/小児用/g,"").replace(/\s+/g," ").trim()||String(p.label||"");
+ }
 
  // Preserve the explicitly requested canonical formulation sets.
  if(DB.cam){DB.cam.products=Object.assign({},DB.cam.products||{}, {
@@ -99,76 +117,66 @@
  function formulations(g){
    const rows=[],seen=new Set();
    g.members.forEach(k=>{
-     const d=DB[k]; if(!d?.products)return;
+     const d=DB[k];if(!d?.products)return;
      Object.entries(d.products).forEach(([pk,p])=>{
        if(pk.startsWith("__grp__")||!p?.label)return;
-       const nk=norm(p.label); if(seen.has(nk))return; seen.add(nk);
-       rows.push({drug:k,product:pk,label:p.label});
+       const signature=formulationSignature(p);if(seen.has(signature))return;seen.add(signature);
+       let label=formulationLabel(p);
+       if(g.canonical==="pred"){if(formulationKind(p.label,p.unit)==="powder")label="散「タケダ」1%";if(formulationKind(p.label,p.unit)==="tablet")label="錠5mg";}
+       rows.push({drug:g.canonical,sourceDrug:k,sourceProduct:pk,signature,label,rawLabel:p.label,productData:Object.assign({},p)});
      });
    });
    return rows;
  }
  function genericLabel(g){
+   if(displayNames[g.canonical])return displayNames[g.canonical];
    const c=optLabel(g.canonical);
    return dosageWord.test(c)?(DB[g.canonical]?.searchAliases?.find(x=>!dosageWord.test(x))||c):c;
  }
 
- // Remove duplicate sibling options from the base selector/list; formulations remain reachable via product selector/search.
- groups.forEach(g=>g.members.forEach(k=>{if(k!==g.canonical)sel.querySelector('option[value="'+CSS.escape(k)+'"]')?.remove();}));
+ // Merge equivalent records into one stable drug record. Form changes now update synchronously;
+ // no hidden switch to a sibling drug record remains to leave the previous unit behind.
+ groups.forEach(g=>{
+   const d=DB[g.canonical];if(!d)return;
+   const rows=formulations(g),merged={};
+   rows.forEach((r,i)=>{let key=r.sourceDrug===g.canonical&&!merged[r.sourceProduct]?r.sourceProduct:"form"+String(i+1).padStart(2,"0");while(merged[key])key+="x";merged[key]=Object.assign({},r.productData,{label:r.label,_searchLabel:r.rawLabel,_signature:r.signature});r.product=key;});
+   if(rows.length){d.products=merged;d._familyFormulations=rows;d.preferredProductKey=rows[0].product;}
+   d.familyBase=g.canonical;d.displayName=genericLabel(g);
+   d.searchAliases=[...new Set(g.members.flatMap(k=>[optLabel(k),...(DB[k]?.searchAliases||[]),...Object.values(DB[k]?.products||{}).flatMap(p=>[p.label,p._searchLabel].filter(Boolean))]))];
+   const option=sel.querySelector('option[value="'+CSS.escape(g.canonical)+'"]');if(option)option.textContent=d.displayName;
+   g.members.forEach(k=>{if(k!==g.canonical)sel.querySelector('option[value="'+CSS.escape(k)+'"]')?.remove();});
+ });
 
- function decorateProducts(){
-   const key=sel.value,g=groupByKey[key]; if(!g)return;
-   const d=DB[key]; if(!d?.products)return;
-   const current=product.value;
-   const seen=new Set([...product.options].map(o=>norm(o.textContent)));
-   formulations(g).forEach(r=>{
-     if(r.drug===key&&r.product===current)return;
-     const nl=norm(r.label); if(seen.has(nl))return; seen.add(nl);
-     const sk="__grp__"+r.drug+"__"+r.product;
-     d.products[sk]=Object.assign({},DB[r.drug].products[r.product],{_groupTarget:{drug:r.drug,product:r.product}});
-     const o=document.createElement("option");o.value=sk;o.textContent=r.label;product.appendChild(o);
-   });
- }
- document.addEventListener("change",e=>{
-   if(e.target!==product)return;
-   const d=DB[sel.value],p=d?.products?.[product.value],t=p?._groupTarget;
-   if(!t)return;
-   e.stopImmediatePropagation();
-   sel.value=t.drug;
-   if(typeof loadDrug==="function")loadDrug(false);else sel.dispatchEvent(new Event("change",{bubbles:true}));
-   setTimeout(()=>{product.value=t.product;product.dispatchEvent(new Event("change",{bubbles:true}));decorateProducts();},0);
- },true);
- document.addEventListener("change",e=>{if(e.target===sel)setTimeout(decorateProducts,0);},true);
- document.addEventListener("DOMContentLoaded",()=>setTimeout(decorateProducts,0));
- setTimeout(decorateProducts,0);
-
- // Replace search results with one generic row + one row per unique formulation for every group.
+ // Search is formulation-specific, but the selected drug field shows only the canonical drug name.
  function installSearch(){
-   const inp=document.getElementById("drugSearch"),box=document.getElementById("drugSuggest");
-   if(!inp||!box||inp.dataset.globalGroups==="1")return;
-   inp.dataset.globalGroups="1";
+   const oldInp=document.getElementById("drugSearch"),oldBox=document.getElementById("drugSuggest");
+   if(!oldInp||!oldBox||oldInp.dataset.globalGroups==="1")return;
+   const inp=oldInp.cloneNode(true),box=oldBox.cloneNode(false);oldInp.replaceWith(inp);oldBox.replaceWith(box);inp.dataset.globalGroups="1";
    const render=()=>{
-     const q=norm(inp.value);if(q.length<2)return;
+     const q=norm(inp.value);if(q.length<2){box.style.display="none";return;}
      const hits=[];
      groups.forEach(g=>{
-       const labels=[genericLabel(g),...g.members.map(optLabel),...g.members.flatMap(k=>DB[k]?.searchAliases||[]),...formulations(g).map(x=>x.label)];
+       const d=DB[g.canonical],forms=d?._familyFormulations||[];
+       const labels=[genericLabel(g),...g.members.map(optLabel),...(d?.searchAliases||[]),...forms.flatMap(x=>[x.label,x.rawLabel])];
        if(!labels.some(x=>norm(x).includes(q)))return;
-       hits.push({label:genericLabel(g),drug:g.canonical,product:null});
-       formulations(g).forEach(x=>hits.push(x));
+       forms.forEach(x=>hits.push({label:genericLabel(g)+" "+x.label,drug:g.canonical,product:x.product}));
      });
-     const seen=new Set();box._globalRows=hits.filter(r=>{const k=norm(r.label);if(seen.has(k))return false;seen.add(k);return true;}).slice(0,20);
-     if(!box._globalRows.length)return;
+     const seen=new Set();box._globalRows=hits.filter(r=>{const k=r.drug+"|"+r.product;if(seen.has(k))return false;seen.add(k);return true;}).slice(0,20);
+     if(!box._globalRows.length){box.innerHTML='<div style="padding:9px;font-size:10px;color:#667085">候補なし</div>';box.style.display="block";return;}
      box.innerHTML=box._globalRows.map((r,i)=>'<button type="button" data-global-row="'+i+'" style="display:block;width:100%;border:0;border-bottom:1px solid #eef1f4;background:#fff;padding:9px;text-align:left;font-size:11px;cursor:pointer">'+r.label+'</button>').join("");
      box.style.display="block";
    };
-   inp.addEventListener("input",()=>setTimeout(render,0));
+   inp.addEventListener("input",render);
    box.addEventListener("click",e=>{
      const b=e.target.closest("[data-global-row]");if(!b)return;
-     e.preventDefault();e.stopImmediatePropagation();
+     e.preventDefault();
      const r=(box._globalRows||[])[+b.dataset.globalRow];if(!r)return;
-     sel.value=r.drug;if(typeof loadDrug==="function")loadDrug(false);else sel.dispatchEvent(new Event("change",{bubbles:true}));
-     setTimeout(()=>{if(r.product)product.value=r.product;product.dispatchEvent(new Event("change",{bubbles:true}));decorateProducts();inp.value=r.label;box.style.display="none";},0);
-   },true);
+     sel.value=r.drug;if(typeof loadDrug==="function")loadDrug(true);else sel.dispatchEvent(new Event("change",{bubbles:true}));
+     if(r.product&&product.querySelector('option[value="'+CSS.escape(r.product)+'"]')){product.value=r.product;product.dispatchEvent(new Event("change",{bubbles:true}));}
+     inp.value=DB[r.drug]?.displayName||genericLabel(groupByKey[r.drug]);box.style.display="none";
+   });
+   sel.addEventListener("change",()=>{inp.value=DB[sel.value]?.displayName||optLabel(sel.value);box.style.display="none";});
+   document.addEventListener("click",e=>{if(e.target!==inp&&!box.contains(e.target))box.style.display="none";});
  }
  document.addEventListener("DOMContentLoaded",()=>setTimeout(installSearch,0));setTimeout(installSearch,0);
 
