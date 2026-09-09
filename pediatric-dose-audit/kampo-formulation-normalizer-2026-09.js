@@ -94,6 +94,12 @@
    // Re-running after any calculation should not duplicate the block.
    card.querySelectorAll('.kampo-augsberger-box,.kampo-dual-note').forEach(n=>n.remove());
 
+   const cfg=configs[product.value]||configs[activeConfig]||configs.k75;
+   const adultMg=Number(cfg?.src?.adult?.[0]);
+   const adultG=Number.isFinite(adultMg)?adultMg/1000:NaN;
+   const augsG=(age>=2&&Number.isFinite(adultG))?adultG*((age*4+20)/100):NaN;
+   const diff=(Number.isFinite(augsG)&&Number.isFinite(amount))?amount-augsG:NaN;
+
    // Make the upper Kampo reference card scannable: adult standard and g/kg/day are the visual anchors.
    const rateByConfig={k75:0.15,k90:0.18,k150:0.30,k180:0.36};
    const rate=rateByConfig[product.value]??rateByConfig[activeConfig]??0.15;
@@ -122,11 +128,6 @@
    const hero=card.querySelector('.hero');
    if(hero)hero.innerHTML='参考比較：<span class="pill">2つの指標を併記</span>';
 
-   const cfg=configs[product.value]||configs[activeConfig]||configs.k75;
-   const adultMg=Number(cfg?.src?.adult?.[0]);
-   const adultG=Number.isFinite(adultMg)?adultMg/1000:NaN;
-   const augsG=(age>=2&&Number.isFinite(adultG))?adultG*((age*4+20)/100):NaN;
-   const diff=(Number.isFinite(augsG)&&Number.isFinite(amount))?amount-augsG:NaN;
 
    const grid=card.querySelector('.dose-comparison-grid');
    if(grid){
