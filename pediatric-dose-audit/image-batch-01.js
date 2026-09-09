@@ -36,9 +36,9 @@
     adult:null,source:"PMDA/MHLW ダイアップ坐剤"
   };
   DB.mgo={
-    products:{gran83:{label:"マグミット細粒83%",unit:"g",mgPerUnit:830,defaultAmount:0.87},tab100:{label:"マグミット錠100mg",unit:"錠",mgPerUnit:100,defaultAmount:4},tab200:{label:"マグミット錠200mg",unit:"錠",mgPerUnit:200,defaultAmount:2},tab250:{label:"マグミット錠250mg",unit:"錠",mgPerUnit:250,defaultAmount:2},tab330:{label:"マグミット錠330mg",unit:"錠",mgPerUnit:330,defaultAmount:2},tab500:{label:"マグミット錠500mg",unit:"錠",mgPerUnit:500,defaultAmount:1}},
-    indications:{lax:{label:"緩下剤（1歳以上）",lo:(w,a)=>a<1?NaN:20*w,hi:(w,a)=>a<1?NaN:80*w,freq:[2],desc:"1歳以上：酸化Mg 20～80mg/kg/dayを食後分2。開始量の目安は40mg/kg/day。"}},
-    adult:[500,2000],source:"PMDA マグミット細粒83%／錠 2025年小児用量追加",warning:"高Mg血症に注意。腎機能・長期投与・高用量では特に慎重に。"
+    products:{gran83:{label:"マグミット細粒83%",unit:"g",mgPerUnit:833,defaultAmount:0.87},tab100:{label:"マグミット錠100mg",unit:"錠",mgPerUnit:100,defaultAmount:4},tab200:{label:"マグミット錠200mg",unit:"錠",mgPerUnit:200,defaultAmount:2},tab250:{label:"マグミット錠250mg",unit:"錠",mgPerUnit:250,defaultAmount:2},tab330:{label:"マグミット錠330mg",unit:"錠",mgPerUnit:330,defaultAmount:2},tab500:{label:"マグミット錠500mg",unit:"錠",mgPerUnit:500,defaultAmount:1}},
+    indications:{lax:{label:"便秘症・緩下剤（1歳以上15歳未満）",lo:(w,a)=>a<1||a>=15?NaN:20*w,hi:(w,a)=>a<1||a>=15?NaN:80*w,max:(w,a)=>a<1||a>=15?NaN:80*w,freq:[2],desc:"通常、1歳以上の小児には酸化マグネシウムとして1日20～80mg/kgを食後の2回に分割経口投与する。小児は1日40mg/kgを開始用量の目安とし、患者の状態に応じて適宜増減する。（マグミット添付文書参照）",clinicalNote:"高マグネシウム血症、腎機能、長期投与、併用薬との服用間隔を確認する。"}},
+    adult:[500,2000],source:"PMDA マグミット細粒83%／錠 電子添文（2025年8月改訂）",sourceUrl:"https://www.pmda.go.jp/PmdaSearch/iyakuDetail/731040_2344009C1055_4_04",warning:"高Mg血症に注意。腎機能・長期投与・高用量では特に慎重に。"
   };
   DB.mediconCombo={
     products:{syr:{label:"メジコン配合シロップ",unit:"mL",mgPerUnit:2.5,defaultAmount:6}},
