@@ -114,7 +114,7 @@
 
      const main1=referencePanel.querySelector('.dose-label-main')||referencePanel;
      main1.innerHTML='ツムラ医療用漢方の成人標準1日量 <b>'+fmt(adultG,1)+' g/dayタイプ</b><br>'+
-       '<div style="margin-top:10px"><span style="font-size:.9em;font-weight:800;color:#556575">小児でよく用いられる参考量</span><br>'+
+       '<div style="margin-top:10px;text-align:center"><span style="font-size:.9em;font-weight:800;color:#556575">小児でよく用いられる参考量</span><br>'+
        '<span style="display:inline-block;margin-top:4px;font-size:1.7em;font-weight:900;line-height:1.05;color:#173f62">'+fmt(rate,2)+' g/kg/day</span></div>'+
        '<div style="text-align:center;margin:9px 0 4px;font-size:1.55em;font-weight:900;color:#556575;line-height:1">↓</div>'+
        '<div style="text-align:center;font-size:.9em;font-weight:800;color:#556575">今回の体重 '+(Number.isFinite(wt)?fmt(wt,1)+' kg':'—')+' での1日量</div>'+
@@ -128,7 +128,7 @@
        '<div class="dose-label-main"><b>Augsberger換算</b><br>'+
        (Number.isFinite(augsG)
          ? '成人標準1日量 <b>'+fmt(adultG,1)+' g/day</b> ×（年齢×4＋20）/100'+
-           '<div style="margin-top:10px"><span style="font-size:.9em;font-weight:800;color:#556575">年齢ベースの参考量</span><br>'+
+           '<div style="margin-top:10px;text-align:center"><span style="font-size:.9em;font-weight:800;color:#556575">年齢ベースの参考量</span><br>'+
            '<span style="display:inline-block;margin-top:4px;font-size:1.7em;font-weight:900;line-height:1.05;color:#173f62">'+fmt(rate2,2)+' g/kg/day</span></div>'+
            '<div style="text-align:center;margin:9px 0 4px;font-size:1.55em;font-weight:900;color:#556575;line-height:1">↓</div>'+
            '<div style="text-align:center;font-size:.9em;font-weight:800;color:#556575">今回の体重 '+(Number.isFinite(wt)?fmt(wt,1)+' kg':'—')+' での1日量</div>'+
@@ -144,30 +144,15 @@
    if(hero)hero.innerHTML='参考比較：<span class="pill">2つの指標を併記</span>';
 
 
+   // The two yellow reference cards above now contain both the reference rate and the calculated daily amount.
+   // Hide the older gray comparison section to avoid duplicating the same information.
    const grid=card.querySelector('.dose-comparison-grid');
    if(grid){
-     // Stack the two references vertically. Reuse the first box as reference ① and append ② with identical styling.
-     grid.style.display='grid';grid.style.gridTemplateColumns='1fr';grid.style.gap='12px';
-     const firstBox=grid.querySelector('.dose-compare-box');
-     if(firstBox){firstBox.style.width='100%';const l=firstBox.querySelector('.dose-compare-label');if(l)l.textContent='漢方の小児参考量①　ツムラ由来の体重比例';}
-     const box=document.createElement('div');
-     box.className='dose-compare-box kampo-augsberger-box';
-     box.style.width='100%';
-     box.innerHTML='<div class="dose-compare-label">漢方の小児参考量②　Augsberger換算</div>'+
-       '<div class="dose-compare-main">'+(Number.isFinite(augsG)?fmt(augsG,2)+' g/day':'2歳未満は算出対象外')+'</div>'+
-       '<div class="dose-compare-sub">'+(Number.isFinite(augsG)?('成人標準 '+fmt(adultG,1)+' g/day × ((年齢×4＋20)/100)'+(Number.isFinite(diff)?'／処方量との差 '+(diff>=0?'+':'')+fmt(diff,2)+' g/day':'')):'Augsberger式は2歳以上の参考換算として表示')+'</div>';
-     grid.appendChild(box);
+     const section=grid.closest('.dose-inner-card,.dose-panel,.comparison-section')||grid;
+     const sectionText=String(section.textContent||'');
+     if(/小児参考量|処方量/.test(sectionText)) section.style.display='none';
+     else grid.style.display='none';
    }
-
-   const note=document.createElement('div');
-   note.className='note kampo-dual-note';
-   note.innerHTML='<b>参考量①：</b>ツムラ医療用漢方の成人標準量を基にした体重比例の参考換算。<br>'+
-     '<b>参考量②：</b>Augsberger式（2歳以上）＝成人量×（年齢×4＋20）/100。'+
-     '<br>※①②はいずれも承認小児用量ではなく、処方妥当性を単独で決める基準ではありません。'+
-     '<br><a href="https://www.mhlw.go.jp/content/10800000/001001698.pdf" target="_blank" rel="noopener">Augsberger式：厚生労働省資料 ↗</a>　'+
-     '<a href="https://www.shindan.co.jp/np/isbn/9784787825926/" target="_blank" rel="noopener">新 小児薬用量 改訂第10版（診断と治療社）↗</a>';
-   const gridParent=grid?.parentElement||card;
-   gridParent.appendChild(note);
  }
 
  // Re-augment after the app redraws its result for age/weight/amount/frequency changes.
