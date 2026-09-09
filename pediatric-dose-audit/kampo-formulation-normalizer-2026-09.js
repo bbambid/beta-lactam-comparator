@@ -148,10 +148,9 @@
    // Hide the older gray comparison section to avoid duplicating the same information.
    const grid=card.querySelector('.dose-comparison-grid');
    if(grid){
-     const section=grid.closest('.dose-inner-card,.dose-panel,.comparison-section')||grid;
-     const sectionText=String(section.textContent||'');
-     if(/小児参考量|処方量/.test(sectionText)) section.style.display='none';
-     else grid.style.display='none';
+     // Hide only the redundant gray comparison grid. Never hide its parent card,
+     // because the yellow reference cards live in that same parent.
+     grid.style.display='none';
    }
  }
 
