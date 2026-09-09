@@ -92,7 +92,7 @@
    if(!card)return;
 
    // Re-running after any calculation should not duplicate the block.
-   card.querySelectorAll('.kampo-augsberger-box,.kampo-dual-note').forEach(n=>n.remove());
+   card.querySelectorAll('.kampo-augsberger-box,.kampo-dual-note,.kampo-reference-yellow-2').forEach(n=>n.remove());
 
    const cfg=configs[product.value]||configs[activeConfig]||configs.k75;
    const adultMg=Number(cfg?.src?.adult?.[0]);
@@ -103,7 +103,7 @@
    // Make the upper Kampo reference card scannable: adult standard and g/kg/day are the visual anchors.
    const rateByConfig={k75:0.15,k90:0.18,k150:0.30,k180:0.36};
    const rate=rateByConfig[product.value]??rateByConfig[activeConfig]??0.15;
-   const referencePanel=[...card.querySelectorAll('.dose-reference-panel,.reference-panel,.dose-panel')].find(n=>/漢方の小児参考量/.test(n.textContent||''));
+   const referencePanel=[...card.querySelectorAll('.dose-label-card,.dose-inner-card,.dose-reference-panel,.reference-panel,.dose-panel')].find(n=>/漢方の小児参考量/.test(n.textContent||''));
    if(referencePanel){
      const heading=referencePanel.querySelector('.dose-panel-title,.reference-title,h3,h4');
      if(heading)heading.textContent='漢方の小児参考量①';
