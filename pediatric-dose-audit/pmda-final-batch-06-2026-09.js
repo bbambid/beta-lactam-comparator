@@ -14,8 +14,8 @@
  mark(['lope'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2319001C1080?user=1','急性下痢症0.02～0.04mg/kg/day・分2～3、細粒0.05%換算を突合。');
  mark(['diaSupp'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/1124701J3025?user=1','0.4～0.5mg/kg/回を1日1～2回、1mg/kg/day上限、4/6/10mg坐剤を突合。');
 
-  if(DB.mgo){DB.mgo.indications.lax.referenceOnly=true;DB.mgo.indications.lax.referenceMessage='この数値はPMDA承認小児用量ではなく、小児便秘診療ガイドライン由来の実務参考域です。';DB.mgo.indications.lax.desc='PMDA電子添文に小児承認用量なし。20～80mg/kg/day・分2は小児便秘診療ガイドライン由来の参考域';}
- mark(['mgo'],'https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2344009C1055_4?user=1','各規格・濃度を確認。小児mg/kg用量は電子添文にないため承認用量判定から参考域へ変更。');
+ if(DB.mgo){delete DB.mgo.indications.lax.referenceOnly;delete DB.mgo.indications.lax.referenceMessage;}
+ mark(['mgo'],'https://www.pmda.go.jp/PmdaSearch/iyakuDetail/731040_2344009C1055_4_04','2025年8月改訂電子添文を再突合。1歳以上の小児20～80mg/kg/day・食後分2、開始目安40mg/kg/day、細粒83%は1g中833mg。');
  mark(['mediconCombo'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2249106Q1066?user=1','3か月～7歳3～8mL/day、8～14歳9～16mL/day・分3～4と2成分濃度を突合。');
  mark(['dompSupp'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2399714J3029?user=1','3歳未満10mg/回、3歳以上30mg/回を1日2～3回、坐剤10/30mgを突合。');
 
