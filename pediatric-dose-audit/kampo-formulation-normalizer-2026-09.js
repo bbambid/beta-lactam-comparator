@@ -103,6 +103,19 @@
      if(heading)heading.textContent='漢方の小児参考量①';
      const lead=[...referencePanel.querySelectorAll('p,.sub,.dose-reference-text,div')].find(n=>/成人標準1日量/.test(n.textContent||'')&&/g\/kg\/day/.test(n.textContent||''));
      if(lead)lead.innerHTML='ツムラ医療用漢方の成人標準1日量 <b>'+fmt(adultG,1)+' g/dayタイプ</b><br><span style="display:inline-block;margin-top:8px;font-size:1.55em;font-weight:900;line-height:1.05;color:#173f62">'+fmt(rate,2)+' g/kg/day</span><br><span style="font-size:.92em">がよく用いられる参考量</span>';
+
+     referencePanel.parentElement?.querySelectorAll('.kampo-reference-yellow-2').forEach(n=>n.remove());
+     const yellow2=document.createElement('section');
+     yellow2.className=(referencePanel.className||'dose-panel dose-label-card')+' kampo-reference-yellow-2';
+     yellow2.style.marginTop='10px';
+     yellow2.innerHTML='<div class="dose-panel-title">漢方の小児参考量②</div>'+
+       '<div class="dose-label-main"><b>Augsberger換算</b><br>'+
+       (Number.isFinite(augsG)
+         ? '成人標準1日量 <b>'+fmt(adultG,1)+' g/day</b> ×（年齢×4＋20）/100<br><span style="display:inline-block;margin-top:8px;font-size:1.55em;font-weight:900;line-height:1.05;color:#173f62">'+fmt(augsG/(Number(document.getElementById('wt')?.value)||1),2)+' g/kg/day</span><br><span style="font-size:.92em">年齢ベースの参考量</span>'
+         : 'Augsberger式は2歳以上で算出する参考量です。')+
+       '</div>'+
+       '<div class="dose-label-source">出典：<a href="https://www.mhlw.go.jp/content/10800000/001001698.pdf" target="_blank" rel="noopener">厚生労働省資料 ↗</a>　<a href="https://www.shindan.co.jp/np/isbn/9784787825926/" target="_blank" rel="noopener">新 小児薬用量 改訂第10版 ↗</a></div>';
+     referencePanel.insertAdjacentElement('afterend',yellow2);
    }
    const title=[...card.querySelectorAll('.dose-panel-title')].find(n=>/小児参考量と処方量/.test(n.textContent||''));
    if(title)title.textContent='漢方の小児参考量①・②と処方量';
