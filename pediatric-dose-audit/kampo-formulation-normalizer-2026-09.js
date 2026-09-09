@@ -105,10 +105,20 @@
    const rate=rateByConfig[product.value]??rateByConfig[activeConfig]??0.15;
    const referencePanel=[...card.querySelectorAll('.dose-label-card,.dose-inner-card,.dose-reference-panel,.reference-panel,.dose-panel')].find(n=>/漢方の小児参考量/.test(n.textContent||''));
    if(referencePanel){
+     const wt=Number(document.getElementById('wt')?.value);
+     const daily1=Number.isFinite(wt)?rate*wt:NaN;
+     const rate2=(Number.isFinite(augsG)&&Number.isFinite(wt)&&wt>0)?augsG/wt:NaN;
+
      const heading=referencePanel.querySelector('.dose-panel-title,.reference-title,h3,h4');
      if(heading)heading.textContent='漢方の小児参考量①';
-     const lead=[...referencePanel.querySelectorAll('p,.sub,.dose-reference-text,div')].find(n=>/成人標準1日量/.test(n.textContent||'')&&/g\/kg\/day/.test(n.textContent||''));
-     if(lead)lead.innerHTML='ツムラ医療用漢方の成人標準1日量 <b>'+fmt(adultG,1)+' g/dayタイプ</b><br><span style="display:inline-block;margin-top:8px;font-size:1.55em;font-weight:900;line-height:1.05;color:#173f62">'+fmt(rate,2)+' g/kg/day</span><br><span style="font-size:.92em">がよく用いられる参考量</span>';
+
+     const main1=referencePanel.querySelector('.dose-label-main')||referencePanel;
+     main1.innerHTML='ツムラ医療用漢方の成人標準1日量 <b>'+fmt(adultG,1)+' g/dayタイプ</b><br>'+
+       '<div style="margin-top:10px"><span style="font-size:.9em;font-weight:800;color:#556575">小児でよく用いられる参考量</span><br>'+
+       '<span style="display:inline-block;margin-top:4px;font-size:1.7em;font-weight:900;line-height:1.05;color:#173f62">'+fmt(rate,2)+' g/kg/day</span></div>'+
+       '<div style="text-align:center;margin:9px 0 4px;font-size:1.55em;font-weight:900;color:#556575;line-height:1">↓</div>'+
+       '<div style="text-align:center;font-size:.9em;font-weight:800;color:#556575">今回の体重 '+(Number.isFinite(wt)?fmt(wt,1)+' kg':'—')+' での1日量</div>'+
+       '<div style="text-align:center;margin-top:3px;font-size:1.7em;font-weight:900;line-height:1.1;color:#173f62">'+(Number.isFinite(daily1)?fmt(daily1,2)+' g/day':'—')+'</div>';
 
      referencePanel.parentElement?.querySelectorAll('.kampo-reference-yellow-2').forEach(n=>n.remove());
      const yellow2=document.createElement('section');
@@ -117,7 +127,12 @@
      yellow2.innerHTML='<div class="dose-panel-title">漢方の小児参考量②</div>'+
        '<div class="dose-label-main"><b>Augsberger換算</b><br>'+
        (Number.isFinite(augsG)
-         ? '成人標準1日量 <b>'+fmt(adultG,1)+' g/day</b> ×（年齢×4＋20）/100<br><span style="display:inline-block;margin-top:8px;font-size:1.55em;font-weight:900;line-height:1.05;color:#173f62">'+fmt(augsG/(Number(document.getElementById('wt')?.value)||1),2)+' g/kg/day</span><br><span style="font-size:.92em">年齢ベースの参考量</span>'
+         ? '成人標準1日量 <b>'+fmt(adultG,1)+' g/day</b> ×（年齢×4＋20）/100'+
+           '<div style="margin-top:10px"><span style="font-size:.9em;font-weight:800;color:#556575">年齢ベースの参考量</span><br>'+
+           '<span style="display:inline-block;margin-top:4px;font-size:1.7em;font-weight:900;line-height:1.05;color:#173f62">'+fmt(rate2,2)+' g/kg/day</span></div>'+
+           '<div style="text-align:center;margin:9px 0 4px;font-size:1.55em;font-weight:900;color:#556575;line-height:1">↓</div>'+
+           '<div style="text-align:center;font-size:.9em;font-weight:800;color:#556575">今回の体重 '+(Number.isFinite(wt)?fmt(wt,1)+' kg':'—')+' での1日量</div>'+
+           '<div style="text-align:center;margin-top:3px;font-size:1.7em;font-weight:900;line-height:1.1;color:#173f62">'+fmt(augsG,2)+' g/day</div>'
          : 'Augsberger式は2歳以上で算出する参考量です。')+
        '</div>'+
        '<div class="dose-label-source">出典：<a href="https://www.mhlw.go.jp/content/10800000/001001698.pdf" target="_blank" rel="noopener">厚生労働省資料 ↗</a>　<a href="https://www.shindan.co.jp/np/isbn/9784787825926/" target="_blank" rel="noopener">新 小児薬用量 改訂第10版 ↗</a></div>';
