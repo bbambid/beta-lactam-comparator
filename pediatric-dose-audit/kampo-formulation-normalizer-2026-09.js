@@ -1,4 +1,4 @@
-// Kampo formulation unification + low-priority topical hiding, 2026-09-09.
+// Kampo formulation unification + low-priority topical hiding + dual pediatric references, 2026-09-09.
 (function(){
  if(typeof DB==='undefined')return;
  const sel=document.getElementById('drug'), product=document.getElementById('product');
@@ -50,8 +50,10 @@
    canonical.products[pk]={label:c.label,unit:p.unit||'g',mgPerUnit:p.mgPerUnit||1000,defaultAmount:p.defaultAmount,_kampoConfig:pk};
  });
 
+ let activeConfig='k75';
  function applyConfig(pk){
    const c=configs[pk]||configs.k75;
+   activeConfig=configs[pk]?pk:'k75';
    const s=c.src;
    canonical.indications=s.indications;
    canonical.adult=s.adult;
@@ -72,7 +74,65 @@
    const pk=product.value;
    if(!configs[pk])return;
    applyConfig(pk);
+   setTimeout(augmentKampoResult,0);
  },true);
+
+ // Add two main pediatric reference doses to the Kampo judgment card:
+ // ① Tsumura-linked weight proportional reference already used by this tool.
+ // ② Augsberger (2 years and older): adult dose × ((age × 4 + 20) / 100).
+ // These are reference estimates, not approved pediatric doses.
+ function fmt(v,d=2){return Number.isFinite(v)?Number(v.toFixed(d)).toString():'—';}
+ function augmentKampoResult(){
+   if(sel.value!=='kampo75')return;
+   const out=document.getElementById('out');
+   const age=Number(document.getElementById('age')?.value);
+   const amount=Number(document.getElementById('amount')?.value);
+   if(!out||!Number.isFinite(age))return;
+   const card=out.querySelector('.dose-comparison-card');
+   if(!card)return;
+
+   // Re-running after any calculation should not duplicate the block.
+   card.querySelectorAll('.kampo-augsberger-box,.kampo-dual-note').forEach(n=>n.remove());
+
+   // Rename the existing Tsumura-derived reference so the two methods are visibly parallel.
+   const existingLabel=[...card.querySelectorAll('.dose-compare-label')].find(n=>/体重からみた参考投与量/.test(n.textContent||''));
+   if(existingLabel)existingLabel.textContent='小児参考量①　ツムラ由来の体重比例';
+   const title=[...card.querySelectorAll('.dose-panel-title')].find(n=>/小児参考量と処方量/.test(n.textContent||''));
+   if(title)title.textContent='漢方の小児参考量①・②と処方量';
+   const hero=card.querySelector('.hero');
+   if(hero)hero.innerHTML='参考比較：<span class="pill">2つの指標を併記</span>';
+
+   const cfg=configs[product.value]||configs[activeConfig]||configs.k75;
+   const adultMg=Number(cfg?.src?.adult?.[0]);
+   const adultG=Number.isFinite(adultMg)?adultMg/1000:NaN;
+   const augsG=(age>=2&&Number.isFinite(adultG))?adultG*((age*4+20)/100):NaN;
+   const diff=(Number.isFinite(augsG)&&Number.isFinite(amount))?amount-augsG:NaN;
+
+   const grid=card.querySelector('.dose-comparison-grid');
+   if(grid){
+     grid.classList.remove('single');
+     const box=document.createElement('div');
+     box.className='dose-compare-box kampo-augsberger-box';
+     box.innerHTML='<div class="dose-compare-label">小児参考量②　Augsberger換算</div>'+
+       '<div class="dose-compare-main">'+(Number.isFinite(augsG)?fmt(augsG,2)+' g/day':'2歳未満は算出対象外')+'</div>'+
+       '<div class="dose-compare-sub">'+(Number.isFinite(augsG)?('成人標準 '+fmt(adultG,1)+' g/day × ((年齢×4＋20)/100)'+(Number.isFinite(diff)?'／処方量との差 '+(diff>=0?'+':'')+fmt(diff,2)+' g/day':'')):'Augsberger式は2歳以上の参考換算として表示')+'</div>';
+     grid.appendChild(box);
+   }
+
+   const note=document.createElement('div');
+   note.className='note kampo-dual-note';
+   note.innerHTML='<b>参考量①：</b>ツムラ医療用漢方の成人標準量を基にした体重比例の参考換算。<br>'+
+     '<b>参考量②：</b>Augsberger式（2歳以上）＝成人量×（年齢×4＋20）/100。'+
+     '<br>※①②はいずれも承認小児用量ではなく、処方妥当性を単独で決める基準ではありません。'+
+     '<br><a href="https://www.mhlw.go.jp/content/10800000/001001698.pdf" target="_blank" rel="noopener">Augsberger式：厚生労働省資料 ↗</a>　'+
+     '<a href="https://www.shindan.co.jp/np/isbn/9784787825926/" target="_blank" rel="noopener">新 小児薬用量 改訂第10版（診断と治療社）↗</a>';
+   const gridParent=grid?.parentElement||card;
+   gridParent.appendChild(note);
+ }
+
+ // Re-augment after the app redraws its result for age/weight/amount/frequency changes.
+ document.addEventListener('input',()=>setTimeout(augmentKampoResult,0),true);
+ document.addEventListener('change',()=>setTimeout(augmentKampoResult,0),true);
 
  // Override Kampo search rows after the older global-search renderer to avoid 7.5/9 g duplicate rows.
  function installSearchOverride(){
@@ -98,9 +158,9 @@
      const r=(box._kampoRows||[])[+b.dataset.kampoRow];if(!r)return;
      sel.value='kampo75';applyConfig(r.pk);
      if(typeof loadDrug==='function')loadDrug(false);else sel.dispatchEvent(new Event('change',{bubbles:true}));
-     setTimeout(()=>{product.value=r.pk;product.dispatchEvent(new Event('change',{bubbles:true}));inp.value=r.label;box.style.display='none';},0);
+     setTimeout(()=>{product.value=r.pk;product.dispatchEvent(new Event('change',{bubbles:true}));inp.value=r.label;box.style.display='none';augmentKampoResult();},0);
    },true);
  }
- document.addEventListener('DOMContentLoaded',()=>setTimeout(installSearchOverride,30));
- setTimeout(installSearchOverride,60);
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{installSearchOverride();augmentKampoResult();},30));
+ setTimeout(()=>{installSearchOverride();augmentKampoResult();},60);
 })();
