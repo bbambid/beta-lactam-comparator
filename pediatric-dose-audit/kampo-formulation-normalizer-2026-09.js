@@ -1,4 +1,4 @@
-// Kampo formulation unification + low-priority topical hiding + dual pediatric references, 2026-09-09.
+// Kampo formulation unification + low-priority topical hiding + stacked dual pediatric references, 2026-09-09.
 (function(){
  if(typeof DB==='undefined')return;
  const sel=document.getElementById('drug'), product=document.getElementById('product');
@@ -94,9 +94,16 @@
    // Re-running after any calculation should not duplicate the block.
    card.querySelectorAll('.kampo-augsberger-box,.kampo-dual-note').forEach(n=>n.remove());
 
-   // Rename the existing Tsumura-derived reference so the two methods are visibly parallel.
-   const existingLabel=[...card.querySelectorAll('.dose-compare-label')].find(n=>/体重からみた参考投与量/.test(n.textContent||''));
-   if(existingLabel)existingLabel.textContent='小児参考量①　ツムラ由来の体重比例';
+   // Make the upper Kampo reference card scannable: adult standard and g/kg/day are the visual anchors.
+   const rateByConfig={k75:0.15,k90:0.18,k150:0.30,k180:0.36};
+   const rate=rateByConfig[product.value]??rateByConfig[activeConfig]??0.15;
+   const referencePanel=[...card.querySelectorAll('.dose-reference-panel,.reference-panel,.dose-panel')].find(n=>/漢方の小児参考量/.test(n.textContent||''));
+   if(referencePanel){
+     const heading=referencePanel.querySelector('.dose-panel-title,.reference-title,h3,h4');
+     if(heading)heading.textContent='漢方の小児参考量①';
+     const lead=[...referencePanel.querySelectorAll('p,.sub,.dose-reference-text,div')].find(n=>/成人標準1日量/.test(n.textContent||'')&&/g\/kg\/day/.test(n.textContent||''));
+     if(lead)lead.innerHTML='ツムラ医療用漢方の成人標準1日量 <b>'+fmt(adultG,1)+' g/dayタイプ</b><br><span style="display:inline-block;margin-top:8px;font-size:1.55em;font-weight:900;line-height:1.05;color:#173f62">'+fmt(rate,2)+' g/kg/day</span><br><span style="font-size:.92em">がよく用いられる参考量</span>';
+   }
    const title=[...card.querySelectorAll('.dose-panel-title')].find(n=>/小児参考量と処方量/.test(n.textContent||''));
    if(title)title.textContent='漢方の小児参考量①・②と処方量';
    const hero=card.querySelector('.hero');
@@ -110,10 +117,14 @@
 
    const grid=card.querySelector('.dose-comparison-grid');
    if(grid){
-     grid.classList.remove('single');
+     // Stack the two references vertically. Reuse the first box as reference ① and append ② with identical styling.
+     grid.style.display='grid';grid.style.gridTemplateColumns='1fr';grid.style.gap='12px';
+     const firstBox=grid.querySelector('.dose-compare-box');
+     if(firstBox){firstBox.style.width='100%';const l=firstBox.querySelector('.dose-compare-label');if(l)l.textContent='漢方の小児参考量①　ツムラ由来の体重比例';}
      const box=document.createElement('div');
      box.className='dose-compare-box kampo-augsberger-box';
-     box.innerHTML='<div class="dose-compare-label">小児参考量②　Augsberger換算</div>'+
+     box.style.width='100%';
+     box.innerHTML='<div class="dose-compare-label">漢方の小児参考量②　Augsberger換算</div>'+
        '<div class="dose-compare-main">'+(Number.isFinite(augsG)?fmt(augsG,2)+' g/day':'2歳未満は算出対象外')+'</div>'+
        '<div class="dose-compare-sub">'+(Number.isFinite(augsG)?('成人標準 '+fmt(adultG,1)+' g/day × ((年齢×4＋20)/100)'+(Number.isFinite(diff)?'／処方量との差 '+(diff>=0?'+':'')+fmt(diff,2)+' g/day':'')):'Augsberger式は2歳以上の参考換算として表示')+'</div>';
      grid.appendChild(box);
