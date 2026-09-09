@@ -1,3 +1,61 @@
+// Follow-up corrections: product search identity and PMDA dose reconciliation, 2026-09-09.
+(function(){
+ if(typeof DB==="undefined")return;
+ const tagProduct=(drugKey,productKey,values)=>{const p=DB[drugKey]?.products?.[productKey];if(p)Object.assign(p,values);};
+ const salbutamolIndications={general:{
+   label:"気管支喘息・気管支炎等の気管支攣縮",
+   lo:(w,a)=>a<5?0.3*w:NaN,hi:(w,a)=>a<5?0.3*w:NaN,freq:[3],
+   desc:"乳幼児：ベネトリンシロップ0.04%を0.75mL/kg/day（サルブタモール0.3mg/kg/day）として分3。標準1日量は1歳未満3～6mL、1～3歳未満6～9mL、3～5歳未満9～15mL。"
+ }};
+ ["salbu","salb","imgF13"].forEach(k=>{
+   if(!DB[k])return;
+   DB[k].products={syr004:{label:"ベネトリンシロップ0.04%",unit:"mL",mgPerUnit:0.4,defaultAmount:7.5,defaultAmountByWeight:w=>0.75*w}};
+   DB[k].indications=salbutamolIndications;DB[k].adult=null;
+   DB[k].source="PMDA ベネトリンシロップ0.04%電子添文（2025年8月改訂）";
+   DB[k].sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2254001Q1073_1?user=1";
+   DB[k].auditNote="1mL中サルブタモール0.4mg。乳幼児0.75mL/kg/day（0.3mg/kg/day）・分3と年齢別標準1日量を突合。";
+   DB[k]._familyDisplayName="ベネトリン（サルブタモール）";
+ });
+ const clavBandAmount=w=>{
+   if(!Number.isFinite(w)||w<6||w>=40)return NaN;
+   if(w<11)return 1.01;if(w<17)return 2.02;if(w<24)return 3.03;
+   if(w<31)return 4.04;if(w<37)return 5.05;return 6.06;
+ };
+ if(DB.clav){
+   const strength=(600+42.9)/1.01;
+   DB.clav.products={ds:{label:"クラバモックス小児用配合ドライシロップ（分包製剤）",unit:"g",mgPerUnit:strength,defaultAmount:2.02,defaultAmountByWeight:clavBandAmount}};
+   DB.clav.indications={general:{label:"承認感染症（分包製剤・体重換算表）",lo:w=>clavBandAmount(w)*strength,hi:w=>clavBandAmount(w)*strength,freq:[2],desc:"通常はAMPC/CVA合計96.4mg/kg/day（AMPC 90＋CVA 6.4mg/kg/day）を12時間ごと・分2・食直前。分包製剤の目安1日量：6～10kg 1.01g、11～16kg 2.02g、17～23kg 3.03g、24～30kg 4.04g、31～36kg 5.05g、37～39kg 6.06g。"}};
+   DB.clav.source="PMDA クラバモックス小児用配合ドライシロップ電子添文（2024年10月改訂）";
+   DB.clav.sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6139100R1036_1?user=1";
+   DB.clav.warning="分包製剤はPMDA体重換算表で判定。6kg未満・40kg以上は表の範囲外。12時間ごと・分2・食直前。";
+   DB.clav.weightEvidence={text:"PMDA分包製剤表：6～10kg 1.01g、11～16kg 2.02g、17～23kg 3.03g、24～30kg 4.04g、31～36kg 5.05g、37～39kg 6.06g／day。",url:DB.clav.sourceUrl,label:"PMDA電子添文"};
+ }
+ if(typeof setDefaultAmount==="function")setDefaultAmount=function(p){
+   const mode=$("amountMode")?.value||"product",byWeight=typeof p.defaultAmountByWeight==="function"?p.defaultAmountByWeight(+$("wt").value):NaN,defaultAmount=Number.isFinite(byWeight)?byWeight:p.defaultAmount;
+   $("amountInput").value=mode==="mg"?Number((defaultAmount*p.mgPerUnit*doseScale()).toFixed(3)):defaultAmount;syncAmountValue();
+ };
+ if(DB.imgF19)DB.imgF19.searchExcluded=true;
+ ["cephalex","cefalex"].forEach(k=>{if(DB[k]?.products)Object.values(DB[k].products).forEach(p=>p._familyExclude=true);});
+ if(DB.cephalex)DB.cephalex._familyDisplayName="ケフレックス（セファレキシン）";
+ [
+   ["aud_cephalex100","g","ケフレックス（セファレキシン）","シロップ用細粒100","keflex-100"],
+   ["aud_cephalex200","g","ケフレックス（セファレキシン）","シロップ用細粒200","keflex-200"],
+   ["larixin10","g","ラリキシン（セファレキシン）","ドライシロップ小児用10%","larixin-10"],
+   ["larixin20","g","ラリキシン（セファレキシン）","ドライシロップ小児用20%","larixin-20"],
+   ["aud_lkeflex","g","L-ケフレックス（セファレキシン）","小児用顆粒（1包1g）","l-keflex"]
+ ].forEach(([k,p,name,label,identity])=>{
+   if(!DB[k])return;DB[k]._familyDisplayName=name;
+   DB[k].searchAliases=[...new Set([...(DB[k].searchAliases||[]),"セファレキシン","ケフレックス"] )];
+   tagProduct(k,p,{_familyLabel:label,_dedupeIdentity:identity});
+ });
+ if(DB.cefteram&&DB.aud_tomiron20)DB.aud_tomiron20.indications=DB.cefteram.indications;
+ ["cefteram","aud_tomiron20"].forEach(k=>{
+   if(!DB[k])return;DB[k]._familyDisplayName="トミロン（セフテラム）";
+   DB[k].searchAliases=[...new Set([...(DB[k].searchAliases||[]),"トミロン","セフテラム","セフテラム ピボキシル"] )];
+   Object.values(DB[k].products||{}).forEach(p=>Object.assign(p,{_familyLabel:"細粒小児用20%",_dedupeIdentity:"tomiron-20"}));
+ });
+})();
+
 // Normalize visible audit statuses after documented PMDA final reconciliation completion.
 (function(){
  if(typeof DB==="undefined")return;
@@ -27,10 +85,13 @@
    if(/シロップ|エリキシル/i.test(s))return "syrup";
    if(/OD錠/i.test(s))return "od-tablet";if(/チュアブル|レディタブ/i.test(s))return "chewable";if(/ミニ錠/i.test(s))return "mini-tablet";
    if(/錠/.test(s))return "tablet";if(/カプセル/.test(s))return "capsule";if(/細粒/.test(s))return "fine-granules";if(/顆粒/.test(s))return "granules";if(/散/.test(s))return "powder";
-   if(/坐剤|坐薬|サポ/.test(s))return "suppository";if(/テープ/.test(s))return "tape";if(/吸入/.test(s))return "inhalation";if(/点眼/.test(s))return "eye-drops";if(/点鼻|パウダースプレー/.test(s))return "nasal";if(/軟膏|クリーム/.test(s))return "topical";
+   if(/坐剤|坐薬|サポ/.test(s))return "suppository";if(/テープ|貼付/.test(s))return "tape";if(/吸入|ネブライザ|噴霧/.test(s))return "inhalation";if(/点眼/.test(s))return "eye-drops";if(/点鼻|点耳|パウダースプレー/.test(s))return "nasal";if(/外用|軟膏|クリーム|ゲル|ローション|塗布/.test(s))return "topical";
    return "unit-"+unitKey(unit);
  }
- function formulationSignature(p){return [formulationKind(p.label,p.unit),unitKey(p.unit),Number(p.mgPerUnit).toPrecision(12)].join("|");}
+ const externalKinds=new Set(["suppository","tape","inhalation","eye-drops","nasal","topical"]);
+ const isSearchableProduct=p=>!externalKinds.has(formulationKind(p.label,p.unit));
+ const externalSearchWords=["外用","軟膏","クリーム","ゲル","ローション","塗布","点眼","点鼻","点耳","吸入","ネブライザ","噴霧","テープ","貼付","坐剤","坐薬","サポ"].map(norm);
+ function formulationSignature(p){return [formulationKind(p.label,p.unit),unitKey(p.unit),Number(p.mgPerUnit).toPrecision(12),p._dedupeIdentity||""].join("|");}
  function formulationLabel(p){
    let s=String(p.label||"").normalize("NFKC").replace(/「[^」]+」/g,"").replace(/【[^】]+】/g,"").replace(/相当製剤/g,"").replace(/（1包[^)]*）/g,"").trim();
    const patterns=[/ドライシロップ/i,/DS(?=\d|\s|$)/i,/シロップ用細粒/i,/小児用細粒/i,/細粒/i,/顆粒/i,/散/i,/OD錠/i,/チュアブル錠/i,/レディタブ錠/i,/ミニ錠/i,/錠/i,/カプセル/i,/シロップ/i,/エリキシル/i,/坐剤/i,/坐薬/i,/テープ/i,/吸入/i,/点眼/i,/点鼻/i,/軟膏/i,/クリーム/i];
@@ -119,9 +180,9 @@
    g.members.forEach(k=>{
      const d=DB[k];if(!d?.products)return;
      Object.entries(d.products).forEach(([pk,p])=>{
-       if(pk.startsWith("__grp__")||!p?.label)return;
+       if(pk.startsWith("__grp__")||!p?.label||p._familyExclude)return;
        const signature=formulationSignature(p);if(seen.has(signature))return;seen.add(signature);
-       let label=formulationLabel(p);
+       let label=p._familyLabel||formulationLabel(p);
        if(g.canonical==="pred"){if(formulationKind(p.label,p.unit)==="powder")label="散「タケダ」1%";if(formulationKind(p.label,p.unit)==="tablet")label="錠5mg";}
        rows.push({drug:g.canonical,sourceDrug:k,sourceProduct:pk,signature,label,rawLabel:p.label,productData:Object.assign({},p)});
      });
@@ -129,6 +190,7 @@
    return rows;
  }
  function genericLabel(g){
+   if(DB[g.canonical]?._familyDisplayName)return DB[g.canonical]._familyDisplayName;
    if(displayNames[g.canonical])return displayNames[g.canonical];
    const c=optLabel(g.canonical);
    return dosageWord.test(c)?(DB[g.canonical]?.searchAliases?.find(x=>!dosageWord.test(x))||c):c;
@@ -154,12 +216,14 @@
    const inp=oldInp.cloneNode(true),box=oldBox.cloneNode(false);oldInp.replaceWith(inp);oldBox.replaceWith(box);inp.dataset.globalGroups="1";
    const render=()=>{
      const q=norm(inp.value);if(q.length<2){box.style.display="none";return;}
+     if(externalSearchWords.some(word=>q.includes(word))){box.innerHTML='<div style="padding:9px;font-size:10px;color:#667085">候補なし</div>';box.style.display="block";box._globalRows=[];return;}
      const hits=[];
      groups.forEach(g=>{
        const d=DB[g.canonical],forms=d?._familyFormulations||[];
+       if(g.members.every(k=>DB[k]?.searchExcluded))return;
        const labels=[genericLabel(g),...g.members.map(optLabel),...(d?.searchAliases||[]),...forms.flatMap(x=>[x.label,x.rawLabel])];
        if(!labels.some(x=>norm(x).includes(q)))return;
-       forms.forEach(x=>hits.push({label:genericLabel(g)+" "+x.label,drug:g.canonical,product:x.product}));
+       forms.filter(x=>isSearchableProduct(x.productData)).forEach(x=>hits.push({label:genericLabel(g)+" "+x.label,drug:g.canonical,product:x.product}));
      });
      const seen=new Set();box._globalRows=hits.filter(r=>{const k=r.drug+"|"+r.product;if(seen.has(k))return false;seen.add(k);return true;}).slice(0,20);
      if(!box._globalRows.length){box.innerHTML='<div style="padding:9px;font-size:10px;color:#667085">候補なし</div>';box.style.display="block";return;}
