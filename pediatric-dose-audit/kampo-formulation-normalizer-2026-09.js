@@ -110,7 +110,7 @@
      const rate2=(Number.isFinite(augsG)&&Number.isFinite(wt)&&wt>0)?augsG/wt:NaN;
 
      const heading=referencePanel.querySelector('.dose-panel-title,.reference-title,h3,h4');
-     if(heading){heading.textContent='漢方の小児参考量①';heading.style.fontSize='1.08rem';heading.style.fontWeight='900';}
+     if(heading){heading.textContent='漢方の小児参考量①';heading.style.fontSize='1.45em';heading.style.fontWeight='900';heading.style.lineHeight='1.15';}
 
      const main1=referencePanel.querySelector('.dose-label-main')||referencePanel;
      main1.innerHTML='ツムラ医療用漢方の成人標準1日量 <b>'+fmt(adultG,1)+' g/dayタイプ</b><br>'+
@@ -124,7 +124,7 @@
      const yellow2=document.createElement('section');
      yellow2.className=(referencePanel.className||'dose-panel dose-label-card')+' kampo-reference-yellow-2';
      yellow2.style.marginTop='10px';
-     yellow2.innerHTML='<div class="dose-panel-title" style="font-size:1.08rem;font-weight:900">漢方の小児参考量②</div>'+
+     yellow2.innerHTML='<div class="dose-panel-title" style="font-size:1.45em;font-weight:900;line-height:1.15">漢方の小児参考量②</div>'+
        '<div class="dose-label-main"><b>Augsberger換算</b><br>'+
        (Number.isFinite(augsG)
          ? '成人標準1日量 <b>'+fmt(adultG,1)+' g/day</b> ×（年齢×4＋20）/100'+
