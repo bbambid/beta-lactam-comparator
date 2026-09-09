@@ -144,6 +144,13 @@
    if(hero)hero.innerHTML='参考比較：<span class="pill">2つの指標を併記</span>';
 
 
+   // The yellow reference cards now carry the interpretation needed for Kampo.
+   // Hide only the redundant "処方設計の解釈" card for Kampo; leave other drugs untouched.
+   [...out.querySelectorAll('.dose-inner-card,.dose-panel,.card,section')].forEach(n=>{
+     const h=n.querySelector('h2,h3,h4,.dose-panel-title,.card-title');
+     if(h && /処方設計の解釈/.test(h.textContent||'')) n.style.display='none';
+   });
+
    // The two yellow reference cards above now contain both the reference rate and the calculated daily amount.
    // Hide the older gray comparison section to avoid duplicating the same information.
    const grid=card.querySelector('.dose-comparison-grid');
