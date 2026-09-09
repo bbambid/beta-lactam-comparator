@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-09-08",
+  "checkedAt": "2026-09-09",
   "scope": "小児用経口薬の製品別・メーカー別の味／香り公式資料台帳",
   "displayPolicy": {
     "directStatement": "公式資料に味または香りの直接記載がある場合だけ、その表現を表示する",
@@ -175,6 +175,126 @@
       "detail": "味の直接記載は確認できず。添加物として香料の記載あり",
       "sourceType": "PMDA電子添文",
       "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/650037_3327002Q1062_3_03"
+    },
+    {
+      "ingredient": "アンブロキソール塩酸塩",
+      "product": "小児用ムコソルバンDS1.5%",
+      "manufacturer": "帝人ファーマ",
+      "status": "direct_statement",
+      "taste": "甘い",
+      "aroma": "ヨーグルト様のにおい",
+      "appearance": "白色～微黄色の粒状または粉末",
+      "detail": null,
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/470310_2239001R1072_1_008_1F.pdf"
+    },
+    {
+      "ingredient": "アンブロキソール塩酸塩",
+      "product": "小児用ムコソルバンシロップ0.3%",
+      "manufacturer": "帝人ファーマ",
+      "status": "direct_statement",
+      "taste": "甘い",
+      "aroma": "果実様の香気",
+      "appearance": "無色～微黄色澄明の液",
+      "detail": null,
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/470310_2239001R1072_1_008_1F.pdf"
+    },
+    {
+      "ingredient": "L-カルボシステイン",
+      "product": "ムコダインDS50%",
+      "manufacturer": "杏林製薬",
+      "status": "direct_statement",
+      "taste": null,
+      "aroma": "特異な芳香（桃様）",
+      "appearance": "白色の微粒状",
+      "detail": "製剤性状欄では味・においは『－』。同IFの単剤安定性試験開始時に桃様の芳香を直接記載",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/231099_2233002R2029_2_005_1F.pdf"
+    },
+    {
+      "ingredient": "L-カルボシステイン",
+      "product": "ムコダインシロップ5%",
+      "manufacturer": "杏林製薬",
+      "status": "direct_statement",
+      "taste": "甘い",
+      "aroma": "特異な芳香",
+      "appearance": "褐色の液",
+      "detail": null,
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/231099_2233002R2029_2_005_1F.pdf"
+    },
+    {
+      "ingredient": "L-カルボシステイン",
+      "product": "カルボシステインDS50%「トーワ」",
+      "manufacturer": "東和薬品",
+      "status": "additives_only",
+      "taste": null,
+      "aroma": null,
+      "appearance": "白色の微粒状のドライシロップ",
+      "detail": "味・香りの直接記載は確認できず。添加物としてアスパルテーム、香料等の記載あり",
+      "sourceType": "メーカー医療関係者向けインタビューフォーム",
+      "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=28849&t=0"
+    },
+    {
+      "ingredient": "L-カルボシステイン",
+      "product": "カルボシステインシロップ小児用5%「トーワ」",
+      "manufacturer": "東和薬品",
+      "status": "direct_statement",
+      "taste": "甘い",
+      "aroma": "特異な芳香",
+      "appearance": "褐色の液",
+      "detail": null,
+      "sourceType": "メーカー医療関係者向けインタビューフォーム",
+      "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=28849&t=0"
+    },
+    {
+      "ingredient": "クラリスロマイシン",
+      "product": "クラリスドライシロップ10%小児用",
+      "manufacturer": "大正製薬",
+      "status": "direct_statement",
+      "taste": "甘い（水懸濁時）",
+      "aroma": "芳香あり（水懸濁時）",
+      "appearance": "微赤白色の懸濁液（水懸濁時）",
+      "detail": "酸性飲料などとの混合では苦味が現れることがあるため、配合先にも注意",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/400059_6149003F1031_1_039_1F.pdf"
+    },
+    {
+      "ingredient": "クラリスロマイシン",
+      "product": "クラリスロマイシンDS10%小児用「サワイ」",
+      "manufacturer": "沢井製薬",
+      "status": "additives_only",
+      "taste": null,
+      "aroma": null,
+      "appearance": null,
+      "detail": "味・香りの直接記載は確認できず。添加物としてサッカリンナトリウム、香料等の記載あり",
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/300119_6149003F1090_1_181_1F.pdf"
+    },
+    {
+      "ingredient": "ジメモルファンリン酸塩",
+      "product": "アストミンシロップ0.25%",
+      "manufacturer": "オーファンパシフィック",
+      "status": "direct_statement",
+      "taste": "甘味を有する",
+      "aroma": "芳香を有する",
+      "appearance": "だいだい色澄明の粘稠液",
+      "detail": null,
+      "sourceType": "PMDAインタビューフォーム",
+      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/181251_2229001Q1054_2_2F.pdf"
+    },
+    {
+      "ingredient": "オロパタジン塩酸塩",
+      "product": "オロパタジン塩酸塩顆粒0.5%「トーワ」",
+      "manufacturer": "東和薬品",
+      "status": "direct_statement",
+      "taste": null,
+      "aroma": "においなし",
+      "appearance": "白色の粒を含む帯赤褐色の顆粒剤",
+      "detail": "服薬補助ゼリーとの配合試験で、配合前の試験製剤について『におい：なし』と直接記載",
+      "sourceType": "メーカー医療関係者向けインタビューフォーム",
+      "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=29053&t=0"
     }
   ]
 }
