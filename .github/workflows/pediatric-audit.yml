@@ -1,0 +1,26 @@
+name: Pediatric dose audit regression
+
+on:
+  push:
+    paths:
+      - 'pediatric-dose-audit/**'
+      - 'tools/**'
+      - 'package.json'
+      - '.github/workflows/pediatric-audit.yml'
+  pull_request:
+    paths:
+      - 'pediatric-dose-audit/**'
+      - 'tools/**'
+      - 'package.json'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --ignore-scripts
+      - run: npm test
+      - run: npm run build:standalone -- --output=/tmp/pediatric-dose-audit-index.html

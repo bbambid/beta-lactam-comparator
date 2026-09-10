@@ -1,0 +1,13 @@
+{
+  "name": "pediatric-dose-audit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node pediatric-dose-audit/tests/run-all.mjs",
+    "build:standalone": "node tools/build-pediatric-standalone.mjs",
+    "release:pediatric": "node tools/release-pediatric.mjs"
+  },
+  "devDependencies": {
+    "linkedom": "0.18.12"
+  }
+}
