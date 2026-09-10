@@ -83,7 +83,7 @@
 (function(){
  if(typeof DB==="undefined"||typeof $==="undefined")return;
  const sel=$("drug"),product=$("product"); if(!sel||!product)return;
- const norm=s=>String(s||"").normalize("NFKC").toLowerCase().replace(/[\s　・‐－ー%％()（）「」\[\]【】]/g,"");
+ const norm=s=>String(s||"").normalize("NFKC").toLowerCase().replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60)).replace(/[\s　・‐－ー%％()（）「」\[\]【】]/g,"");
  const dosageWord=/(シロップ|ドライシロップ|DS|細粒|顆粒|散|錠|カプセル|チュアブル|レディタブ|液|吸入|坐剤|テープ|クリーム|軟膏|小児用|mg|μg|%)/i;
  const optLabel=k=>sel.querySelector('option[value="'+CSS.escape(k)+'"]')?.textContent||k;
  const displayNames={cam:"クラリス（クラリスロマイシン）",carbo:"ムコダイン（カルボシステイン）",proc:"メプチン（プロカテロール）",pred:"プレドニゾロン"};
@@ -145,6 +145,19 @@
    if(/イーケプラ|レベチラ|ビムパット|ラコサミド|ガバペン|バルプロ|デパケン|メラトニン|神経/.test(s))return "神経";
    return "その他";
  }
+
+ // Keep Kampo adult-standard types as separate search/formulation choices, while sharing one
+ // stable drug identity. Product changes swap only the matching reference-dose configuration.
+ const kampoLabels={kampo75:"成人標準7.5g/日",kampo90:"成人標準9.0g/日",kampo180:"成人標準18.0g/日（黄耆建中湯）"};
+ const kampoConfigs={};
+ Object.keys(kampoLabels).forEach(k=>{
+   const d=DB[k];if(!d)return;
+   kampoConfigs[k]={indications:d.indications,adult:d.adult,source:d.source,sourceUrl:d.sourceUrl,labelUrl:d.labelUrl};
+   d._familyDisplayName="ツムラ漢方";
+   d.searchAliases=[...new Set([...(d.searchAliases||[]),"ツムラ漢方","つむらかんぽう","かんぽう",kampoLabels[k]])];
+   Object.values(d.products||{}).forEach(p=>{p._familyLabel=kampoLabels[k];p._kampoConfig=k;p._dedupeIdentity=k;});
+ });
+ if(DB.kampo75)Object.keys(kampoConfigs).forEach(k=>{DB[k].indications=DB.kampo75.indications;});
 
  // Group records by shared indication object reference. All clone helpers in this app copy that
  // reference, so this identifies same-ingredient/product variants without merging unrelated drugs.
@@ -218,6 +231,23 @@
    g.members.forEach(k=>{if(k!==g.canonical)sel.querySelector('option[value="'+CSS.escape(k)+'"]')?.remove();});
  });
 
+ const kampoCanonical=groupByKey.kampo75?.canonical;
+ function applyKampoConfig(configKey){
+   if(!kampoCanonical||!kampoConfigs[configKey])return;
+   const d=DB[kampoCanonical],c=kampoConfigs[configKey];
+   d.indications=c.indications;d.adult=c.adult;d.source=c.source;d.sourceUrl=c.sourceUrl;d.labelUrl=c.labelUrl;d.referenceOnly=true;
+ }
+ if(kampoCanonical){
+   const defaultProduct=Object.entries(DB[kampoCanonical].products).find(([,p])=>p._kampoConfig==="kampo75")?.[0];
+   if(defaultProduct)DB[kampoCanonical].preferredProductKey=defaultProduct;
+   const previousLoad=loadDrug;
+   loadDrug=function(reset=true){
+     if(sel.value===kampoCanonical){const selected=DB[kampoCanonical].products[product.value]?._kampoConfig;applyKampoConfig(reset?"kampo75":selected||"kampo75");}
+     return previousLoad(reset);
+   };
+   document.addEventListener("change",e=>{if(e.target===product&&sel.value===kampoCanonical){const config=DB[kampoCanonical].products[product.value]?._kampoConfig;if(config)applyKampoConfig(config);}},true);
+ }
+
  // Search is formulation-specific, but the selected drug field shows only the canonical drug name.
  function installSearch(){
    const oldInp=document.getElementById("drugSearch"),oldBox=document.getElementById("drugSuggest");
@@ -257,7 +287,11 @@
  function installCategorySheet(){
    const sheet=document.getElementById("drugListSheet"),btn=document.getElementById("drugListBtn");if(!sheet||!btn||sheet.dataset.globalCategories==="1")return;
    sheet.dataset.globalCategories="1";let active="すべて";const collator=new Intl.Collator("ja",{usage:"sort",sensitivity:"base"});
-   const visibleGroups=()=>groups.filter(g=>sel.querySelector('option[value="'+CSS.escape(g.canonical)+'"]'));
+   const visibleGroups=()=>groups.filter(g=>{
+     if(!sel.querySelector('option[value="'+CSS.escape(g.canonical)+'"]')||g.members.every(k=>DB[k]?.searchExcluded))return false;
+     const forms=DB[g.canonical]?._familyFormulations||[];
+     return forms.some(x=>isSearchableProduct(x.productData));
+   });
    function draw(){
      const gs=visibleGroups().map(g=>({g,label:genericLabel(g),cat:g.category||"その他"})).sort((a,b)=>collator.compare(a.label,b.label));
      const shown=active==="すべて"?gs:gs.filter(x=>x.cat===active);

@@ -63,7 +63,7 @@
   meto:["プリンペラン","メトクロプラミド"]
  };
  // Include every option label + product labels as searchable aliases.
- const norm=s=>String(s||"").normalize("NFKC").toLowerCase().replace(/[\s　・‐－ー%％()（）「」]/g,"");
+ const norm=s=>String(s||"").normalize("NFKC").toLowerCase().replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60)).replace(/[\s　・‐－ー%％()（）「」]/g,"");
  const rows=()=>[...sel.options].map(o=>{
    const d=DB[o.value],a=[o.textContent].concat(aliases[o.value]||[]);
    if(d&&d.products)Object.values(d.products).forEach(p=>a.push(p.label));
