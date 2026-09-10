@@ -26,6 +26,7 @@
  ];
  const clavBand=w=>Number.isFinite(w)?clavBands.find(x=>w>=x.min&&w<x.max+1)||null:null;
  const clavBandAmount=w=>clavBand(w)?.amount??NaN;
+ const doseTable=(rows,headers=["体重","製剤1日量"])=>'<table class="label-dose-table"><thead><tr>'+headers.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
  if(DB.clav){
    const strength=(600+42.9)/1.01;
    DB.clav.products={ds:{label:"クラバモックス小児用配合ドライシロップ（分包製剤）",unit:"g",mgPerUnit:strength,defaultAmount:2.02,defaultAmountByWeight:clavBandAmount}};
@@ -33,7 +34,7 @@
    DB.clav.productDoseBand=clavBand;
    DB.clav.componentMgPerUnit={amoxicillin:600/1.01,clavulanate:42.9/1.01};
    DB.clav.packetSizes=[1.01,0.505];
-   DB.clav.indications={general:{label:"承認感染症（分包製剤・体重換算表）",lo:w=>clavBandAmount(w)*strength,hi:w=>clavBandAmount(w)*strength,freq:[2],desc:"通常はAMPC/CVA合計96.4mg/kg/day（AMPC 90＋CVA 6.4mg/kg/day）を12時間ごと・分2・食直前。分包製剤の目安1日量：6～10kg 1.01g、11～16kg 2.02g、17～23kg 3.03g、24～30kg 4.04g、31～36kg 5.05g、37～39kg 6.06g。"}};
+   DB.clav.indications={general:{label:"承認感染症（分包製剤・体重換算表）",lo:w=>clavBandAmount(w)*strength,hi:w=>clavBandAmount(w)*strength,freq:[2],desc:"通常はAMPC/CVA合計96.4mg/kg/day（AMPC 90＋CVA 6.4mg/kg/day）を12時間ごと・分2・食直前。分包製剤の目安1日量："+doseTable(clavBands.map(x=>[x.label,x.amount.toFixed(2)+"g"]))}};
    DB.clav.source="PMDA クラバモックス小児用配合ドライシロップ電子添文（2024年10月改訂）";
    DB.clav.sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6139100R1036_1?user=1";
    DB.clav.warning="分包製剤はPMDA体重換算表で判定。6kg未満・40kg以上は表の範囲外。12時間ごと・分2・食直前。";
@@ -44,11 +45,80 @@
    $("amountInput").value=mode==="mg"?Number((defaultAmount*p.mgPerUnit*doseScale()).toFixed(3)):defaultAmount;syncAmountValue();
  };
  if(DB.imgF19)DB.imgF19.searchExcluded=true;
+ if(DB.azi){
+   const packDose=w=>w>=46?500:w>=36?400:w>=26?300:w>=15?200:NaN;
+   const desc="アジスロマイシンとして10mg/kgを1日1回、3日間。最大500mg/day。分包製品では体重換算による服用量の概算が電子添文に示されている："+doseTable([["15～25kg","200mg（2包）"],["26～35kg","300mg（3包）"],["36～45kg","400mg（4包）"],["46kg以上","500mg（5包）"]],["体重","1日量（100mg分包）"]);
+   DB.azi.indications={
+     general:{label:"通常の体重換算",lo:w=>Math.min(10*w,500),hi:w=>Math.min(10*w,500),freq:[1],desc},
+     package:{label:"分包製品の体重換算表",lo:packDose,hi:packDose,freq:[1],desc}
+   };
+   DB.azi.source="PMDA ジスロマック細粒小児用10%電子添文";
+   DB.azi.sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6149004C1030_3?user=1";
+ }
+ if(DB.cdtr){
+   DB.cdtr.indications.general.desc="通常1回3mg/kgを1日3回。肺炎・中耳炎・副鼻腔炎では必要に応じ1回6mg/kgまで増量可。1回200mg、1日600mgを超えない。";
+   DB.cdtr.indications.resp.desc="通常1回3mg/kgを1日3回。必要に応じ1回6mg/kgまで増量可。1回200mg、1日600mgを超えない。";
+ }
+ if(DB.cpdx){
+   const full="通常1回3mg/kgを1日2～3回。重症又は効果不十分の場合は1回4.5mg/kgを1日3回。";
+   DB.cpdx.indications={
+     general:{label:"一般感染症",lo:w=>3*w*(+$('freq').value||2),hi:w=>3*w*(+$('freq').value||2),freq:[2,3],perDoseLo:w=>3*w,perDoseHi:w=>3*w,desc:full},
+     severe:{label:"重症／効果不十分",lo:w=>13.5*w,hi:w=>13.5*w,freq:[3],perDoseLo:w=>4.5*w,perDoseHi:w=>4.5*w,desc:full}
+   };
+ }
+ if(DB.tebi){
+   DB.tebi.indications={
+     general:{label:"肺炎／中耳炎／副鼻腔炎",lo:w=>8*w,hi:w=>8*w,freq:[2],perDoseLo:w=>4*w,perDoseHi:w=>4*w,desc:"通常1回4mg/kgを1日2回、食後。必要に応じ1回6mg/kgまで増量可。"},
+     high:{label:"必要時の増量",lo:w=>12*w,hi:w=>12*w,freq:[2],perDoseLo:w=>6*w,perDoseHi:w=>6*w,desc:"通常1回4mg/kgを1日2回、食後。必要に応じ1回6mg/kgまで増量可。"}
+   };
+   DB.tebi.source="PMDA オラペネム小児用細粒10%電子添文（2026年6月改訂）";
+   DB.tebi.sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6139002C1026_1?user=1";
+   DB.tebi.auditNote="通常4mg/kg/回×2、必要時6mg/kg/回×2。現行電子添文に記載のない1回300mg上限は設定しない。";
+ }
+ if(DB.tosu){
+   DB.tosu.indications={general:{label:"肺炎／中耳炎等",lo:w=>Math.min(12*w,360),hi:w=>Math.min(12*w,360),max:()=>360,freq:[2],perDoseLo:w=>Math.min(6*w,180),perDoseHi:w=>Math.min(6*w,180),desc:"1回6mg/kgを1日2回。1回180mg、1日360mgを上限。"}};
+   DB.tosu._familyDisplayName="トスフロキサシン";
+   DB.tosu.searchAliases=[...new Set([...(DB.tosu.searchAliases||[]),"トスフロキサシン","オゼックス"] )];
+ }
+ if(DB.tosped&&DB.tosu){
+   DB.tosped.indications=DB.tosu.indications;DB.tosped._familyDisplayName="トスフロキサシン";
+   DB.tosped.searchAliases=[...new Set([...(DB.tosped.searchAliases||[]),"トスフロキサシン","トスフロキサシン小児用錠"] )];
+   Object.values(DB.tosped.products||{}).forEach(p=>Object.assign(p,{_familyLabel:"小児用錠75mg",_dedupeIdentity:"tosu-tab75"}));
+ }
+ const cefixConfigs={
+   fine:{
+     general:{label:"一般感染症（細粒）",lo:w=>3*w,hi:w=>6*w,freq:[2],perDoseLo:w=>1.5*w,perDoseHi:w=>3*w,desc:"通常1回1.5～3mg/kgを1日2回。症状に応じて適宜増減する。重症又は効果不十分の場合は1回6mg/kgを1日2回。"},
+     severe:{label:"重症／効果不十分（細粒）",lo:w=>12*w,hi:w=>12*w,freq:[2],perDoseLo:w=>6*w,perDoseHi:w=>6*w,desc:"通常1回1.5～3mg/kgを1日2回。症状に応じて適宜増減する。重症又は効果不十分の場合は1回6mg/kgを1日2回。"}
+   },
+   capsule:{general:{label:"通常量（体重30kg以上）",lo:(w,a)=>w>=30?100:NaN,hi:(w,a)=>w>=30?200:NaN,freq:[2],perDoseLo:()=>50,perDoseHi:()=>100,desc:"成人及び体重30kg以上の小児：通常1回50～100mgを1日2回。"}}
+ };
+ if(DB.cefix){
+   DB.cefix.products={
+     ds5:{label:"セフスパン細粒50mg（5%）",unit:"g",mgPerUnit:50,defaultAmount:1.2,_familyLabel:"細粒50mg（5%）",_cefixConfig:"fine",_dedupeIdentity:"cefix-fine-5"},
+     cap50:{label:"セフスパンカプセル50mg",unit:"カプセル",mgPerUnit:50,defaultAmount:2,_familyLabel:"カプセル50mg",_cefixConfig:"capsule",_dedupeIdentity:"cefix-cap-50"},
+     cap100:{label:"セフスパンカプセル100mg",unit:"カプセル",mgPerUnit:100,defaultAmount:2,_familyLabel:"カプセル100mg",_cefixConfig:"capsule",_dedupeIdentity:"cefix-cap-100"}
+   };
+   DB.cefix.indications=cefixConfigs.fine;DB.cefix._familyDisplayName="セフィキシム（セフスパン）";
+   DB.cefix.searchAliases=[...new Set([...(DB.cefix.searchAliases||[]),"セフィキシム","セフスパン"] )];
+   DB.cefix.source="PMDA セフスパン細粒50mg／カプセル50mg・100mg電子添文";
+ }
+ window.CEFIX_FORMULATION_CONFIGS=cefixConfigs;
+ if(DB.aud_cefrox){
+   DB.aud_cefrox._familyDisplayName="オラスポア（セフロキサジン）";
+   DB.aud_cefrox.searchAliases=[...new Set([...(DB.aud_cefrox.searchAliases||[]),"オラスポア","セフロキサジン"] )];
+   Object.values(DB.aud_cefrox.products||{}).forEach(p=>Object.assign(p,{_familyLabel:"ドライシロップ10%",_dedupeIdentity:"oraspor-ds10"}));
+ }
  ["cephalex","cefalex"].forEach(k=>{if(DB[k]?.products)Object.values(DB[k].products).forEach(p=>p._familyExclude=true);});
- if(DB.cephalex)DB.cephalex._familyDisplayName="ケフレックス（セファレキシン）";
+ if(DB.cephalex){
+   DB.cephalex._familyDisplayName="セファレキシン";
+   const full="通常25～50mg/kg/dayを分割して6時間毎に投与。重症又は感受性が低い場合は50～100mg/kg/dayを同様に分割。";
+   if(DB.cephalex.indications.general)DB.cephalex.indications.general.desc=full;
+   if(DB.cephalex.indications.severe)DB.cephalex.indications.severe.desc=full;
+ }
+ if(DB.cefalex)DB.cefalex.searchExcluded=true;
  [
-   ["aud_cephalex100","g","ケフレックス（セファレキシン）","シロップ用細粒100","keflex-100"],
-   ["aud_cephalex200","g","ケフレックス（セファレキシン）","シロップ用細粒200","keflex-200"],
+   ["aud_cephalex100","g","セファレキシン","ケフレックスシロップ用細粒100","keflex-100"],
+   ["aud_cephalex200","g","セファレキシン","ケフレックスシロップ用細粒200","keflex-200"],
    ["larixin10","g","ラリキシン（セファレキシン）","ドライシロップ小児用10%","larixin-10"],
    ["larixin20","g","ラリキシン（セファレキシン）","ドライシロップ小児用20%","larixin-20"],
    ["aud_lkeflex","g","L-ケフレックス（セファレキシン）","小児用顆粒（1包1g）","l-keflex"]
@@ -63,6 +133,53 @@
    DB[k].searchAliases=[...new Set([...(DB[k].searchAliases||[]),"トミロン","セフテラム","セフテラム ピボキシル"] )];
    Object.values(DB[k].products||{}).forEach(p=>Object.assign(p,{_familyLabel:"細粒小児用20%",_dedupeIdentity:"tomiron-20"}));
  });
+
+ // Follow-up reconciliation: desktop kana aliases, duplicate products, and allergy formulations.
+ if(DB.faro?.indications?.general){
+   const i=DB.faro.indications.general;
+   i.perDoseLo=w=>Math.min(5*w,300);i.perDoseHi=w=>Math.min(10*w,300);i.max=()=>900;
+   i.desc="通常1回5mg/kgを1日3回。年齢・症状に応じ1回10mg/kgまで増量可。成人での上限用量1回300mg、1日3回（1日900mg）を超えない。";
+ }
+ if(DB.fosfo){DB.fosfo.searchExcluded=true;Object.values(DB.fosfo.products||{}).forEach(p=>p._familyExclude=true);}
+ if(DB.fos){
+   DB.fos._familyDisplayName="ホスホマイシン";
+   DB.fos.searchAliases=[...new Set([...(DB.fos.searchAliases||[]),"ホスホマイシン","ホスミシン"] )];
+ }
+ const minoDesc="通常2～4mg/kg/dayを12時間又は24時間ごとに投与。小児は成人量200mg/dayを上限。特に8歳未満では、歯牙の着色・エナメル質形成不全、また、一過性の骨発育不全を起こすことがあるため、他剤が使用できない又は無効の場合に限り投与を考慮する。";
+ if(DB.mino){
+   if(DB.mino.indications?.general)DB.mino.indications.general.desc=minoDesc;
+   DB.mino._familyDisplayName="ミノサイクリン";
+   DB.mino.searchAliases=[...new Set([...(DB.mino.searchAliases||[]),"ミノサイクリン","ミノマイシン"] )];
+   DB.mino.warning="特に8歳未満では、歯牙の着色・エナメル質形成不全、また、一過性の骨発育不全を起こすことがあるため、他剤が使用できない又は無効の場合に限り投与を考慮します。";
+   Object.values(DB.mino.products||{}).forEach(p=>{p._familyLabel="顆粒2%";p._dedupeIdentity="minocycline-granules-2";});
+ }
+ if(DB.minoc){DB.minoc.searchExcluded=true;Object.values(DB.minoc.products||{}).forEach(p=>p._familyExclude=true);}
+ if(DB.aud_fungizone){
+   DB.aud_fungizone._familyDisplayName="ファンギゾン";
+   DB.aud_fungizone.searchAliases=[...new Set([...(DB.aud_fungizone.searchAliases||[]),"ファンギゾン","アムホテリシンB"] )];
+   Object.values(DB.aud_fungizone.products||{}).forEach(p=>{p._familyLabel="シロップ100mg/mL";p._dedupeIdentity="fungizone-syrup-100";});
+ }
+ const hydInd={
+   skin:{label:"蕁麻疹・皮膚疾患に伴うそう痒（成人量）",lo:()=>NaN,hi:()=>NaN,freq:[2,3],referenceOnly:true,desc:"成人量：ヒドロキシジンパモ酸塩として85～128mg/day（ヒドロキシジン塩酸塩として50～75mg/day）を1日2～3回に分割。年齢・症状により適宜増減する。"},
+   neuro:{label:"神経症の不安・緊張・抑うつ（成人量）",lo:()=>NaN,hi:()=>NaN,freq:[3,4],referenceOnly:true,desc:"成人量：ヒドロキシジンパモ酸塩として128～255mg/day（ヒドロキシジン塩酸塩として75～150mg/day）を1日3～4回に分割。年齢・症状により適宜増減する。"}
+ };
+ ["aud_ataraxDS","aud_ataraxPow","aud_ataraxS"].forEach(k=>{if(!DB[k])return;DB[k].indications=hydInd;DB[k].referenceOnly=true;DB[k]._familyDisplayName="ヒドロキシジン（アタラックス-P）";DB[k].searchAliases=[...new Set([...(DB[k].searchAliases||[]),"ヒドロキシジン","アタラックスP","アタラックスピー"] )];});
+ const epiInd={
+     rhinitis:{label:"アレルギー性鼻炎",lo:w=>0.25*w,hi:w=>Math.min(0.5*w,20),max:()=>20,freq:[1],desc:"0.25～0.5mg/kg/dayを1日1回。最大20mg/day。"},
+     skin:{label:"蕁麻疹・皮膚疾患に伴うそう痒",lo:w=>Math.min(0.5*w,20),hi:w=>Math.min(0.5*w,20),max:()=>20,freq:[1],desc:"0.5mg/kg/dayを1日1回。最大20mg/day。"}
+ };
+ ["epi","img02_36","ob01_epi","ob02_epiDS"].forEach(k=>{if(!DB[k])return;DB[k].indications=epiInd;DB[k]._familyDisplayName="エピナスチン";DB[k].searchAliases=[...new Set([...(DB[k].searchAliases||[]),"エピナスチン","アレジオン"] )];});
+ if(DB.img02_37){DB.img02_37.searchExcluded=true;Object.values(DB.img02_37.products||{}).forEach(p=>p._familyExclude=true);}
+ if(DB.ebas){DB.ebas._familyDisplayName="エバスチン（エバステル）";DB.ebas.searchAliases=[...new Set([...(DB.ebas.searchAliases||[]),"エバスチン","エバステル"] )];}
+ if(DB.oxa){
+   DB.oxa.products=Object.assign({},DB.oxa.products||{},{syr02:{label:"オキサトミドシロップ小児用0.2%",unit:"mL",mgPerUnit:2,defaultAmount:9}});
+   DB.oxa._familyDisplayName="オキサトミド";
+   DB.oxa.searchAliases=[...new Set([...(DB.oxa.searchAliases||[]),"オキサトミド","セルテクト"] )];
+ }
+ const clemInd={general:{label:"アレルギー性鼻炎／皮膚疾患／上気道炎症状",lo:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1:a<15?1.3:2,hi:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1:a<15?1.3:2,freq:[2],desc:"幼小児の標準1日量（シロップ0.01%）：1歳以上3歳未満4mL、3歳以上5歳未満5mL、5歳以上8歳未満7mL、8歳以上11歳未満10mL、11歳以上15歳未満13mL。1歳未満は体重・症状などを考慮して適宜投与量を決める。"}};
+ ["clem","aud_clemDS"].forEach(k=>{if(!DB[k])return;DB[k].indications=clemInd;DB[k].referenceOnly=false;DB[k]._familyDisplayName="クレマスチン";DB[k].searchAliases=[...new Set([...(DB[k].searchAliases||[]),"クレマスチン","タベジール"] )];});
+ if(DB.clem)Object.values(DB.clem.products||{}).forEach(p=>{p._familyLabel="シロップ0.01%";p._dedupeIdentity="clemastine-syrup-001";});
+ if(DB.aud_clemDS)Object.values(DB.aud_clemDS.products||{}).forEach(p=>{p._familyLabel="ドライシロップ0.1%";p._dedupeIdentity="clemastine-ds-01";});
 })();
 
 // Normalize visible audit statuses after documented PMDA final reconciliation completion.
@@ -123,7 +240,7 @@
 
  const knownCategory={
   cam:"抗菌薬",amox:"抗菌薬",cfpn:"抗菌薬",cdtr:"抗菌薬",cpdx:"抗菌薬",cfdn:"抗菌薬",ccr:"抗菌薬",sult:"抗菌薬",cephalex:"抗菌薬",ery:"抗菌薬",azi:"抗菌薬",faro:"抗菌薬",tebi:"抗菌薬",fos:"抗菌薬",tosu:"抗菌薬",cfix:"抗菌薬",clav:"抗菌薬",
-  ceti:"抗アレルギー薬",mont:"抗アレルギー薬",desl:"抗アレルギー薬",olop:"抗アレルギー薬",pran:"抗アレルギー薬",lora:"抗アレルギー薬",epi:"抗アレルギー薬",fexo:"抗アレルギー薬",meq:"抗アレルギー薬",keto:"抗アレルギー薬",oxa:"抗アレルギー薬",pemi:"抗アレルギー薬",tran:"抗アレルギー薬",clem:"抗アレルギー薬",rupa:"抗アレルギー薬",cypro:"抗アレルギー薬",
+  ceti:"抗アレルギー薬",mont:"抗アレルギー薬",desl:"抗アレルギー薬",olop:"抗アレルギー薬",pran:"抗アレルギー薬",lora:"抗アレルギー薬",epi:"抗アレルギー薬",fexo:"抗アレルギー薬",meq:"抗アレルギー薬",keto:"抗アレルギー薬",oxa:"抗アレルギー薬",pemi:"抗アレルギー薬",tran:"抗アレルギー薬",clem:"抗アレルギー薬",rupa:"抗アレルギー薬",cypro:"抗アレルギー薬",ebas:"抗アレルギー薬",aud_ataraxPow:"抗アレルギー薬",
   carbo:"呼吸器・鎮咳去痰",ambro:"呼吸器・鎮咳去痰",tipe:"呼吸器・鎮咳去痰",tulo:"呼吸器・鎮咳去痰",theo:"呼吸器・鎮咳去痰",theoS:"呼吸器・鎮咳去痰",proc:"呼吸器・鎮咳去痰",tulooral:"呼吸器・鎮咳去痰",dime:"呼吸器・鎮咳去痰",salb:"呼吸器・鎮咳去痰",fusk:"呼吸器・鎮咳去痰",dextMix:"呼吸器・鎮咳去痰",
   apap:"解熱鎮痛・抗炎症",txa:"解熱鎮痛・抗炎症",
   domp:"消化器",meto:"消化器",movLD:"消化器",movHD:"消化器",lactoR:"消化器",
@@ -234,6 +351,22 @@
  });
 
  const kampoCanonical=groupByKey.kampo75?.canonical;
+ const cefixCanonical=groupByKey.cefix?.canonical;
+ const cefixConfigs=window.CEFIX_FORMULATION_CONFIGS||{};
+ function applyCefixConfig(configKey){
+   if(!cefixCanonical||!cefixConfigs[configKey])return;
+   const d=DB[cefixCanonical],ind=$("ind"),current=ind.value;d.indications=cefixConfigs[configKey];
+   ind.innerHTML=Object.entries(d.indications).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join("");
+   if(d.indications[current])ind.value=current;
+ }
+ if(cefixCanonical){
+   const previousCefixLoad=loadDrug;
+   loadDrug=function(reset=true){
+     if(sel.value===cefixCanonical){const selected=DB[cefixCanonical].products[product.value]?._cefixConfig;applyCefixConfig(reset?"fine":selected||"fine");}
+     return previousCefixLoad(reset);
+   };
+   document.addEventListener("change",e=>{if(e.target===product&&sel.value===cefixCanonical){const config=DB[cefixCanonical].products[product.value]?._cefixConfig;if(config)applyCefixConfig(config);}},true);
+ }
  function applyKampoConfig(configKey){
    if(!kampoCanonical||!kampoConfigs[configKey])return;
    const d=DB[kampoCanonical],c=kampoConfigs[configKey];

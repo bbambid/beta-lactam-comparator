@@ -11,13 +11,13 @@
  mark("aud_eryDSW20","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6141001R1120_3?user=1","エリスロシンドライシロップW20%。200mg/g。小児25～50mg/kg/dayを4～6回に分割、成人量を上限。2026年7月版を確認。");
  mark("aud_eryGran20","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6141001R1120_3?user=1","エリスロシンW顆粒20%。200mg/g。小児25～50mg/kg/dayを4～6回に分割、成人量を上限。2026年7月版を確認。");
 
- // Clemastine: prior age-banded pediatric fixed doses were not PMDA-approved fixed pediatric doses.
- const clemDesc="通常、成人はクレマスチンとして2mg/dayを2回に分割。年齢・症状により適宜増減。小児の固定mg/kg・年齢別承認量は設定されていない。";
- referenceOnly("clem",clemDesc,[2]);
- referenceOnly("aud_clemDS",clemDesc,[2]);
- if(DB.aud_clemDS){DB.aud_clemDS.products={g:{label:"クレマスチンドライシロップ0.1%「あゆみ」",unit:"g",mgPerUnit:1,defaultAmount:2}};}
- mark("clem","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4419008R1128_1?user=1","旧登録の年齢別固定量を撤回。PMDAは成人2mg/day・分2を示し、年齢・症状で適宜増減。小児固定承認量なし。");
- mark("aud_clemDS","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4419008R1128_1?user=1","クレマスチンDS0.1%は1g中クレマスチン1mg。小児固定承認量なしとして区分修正。");
+ // Clemastine syrup has an approved age-banded standard daily volume for children.
+ const clemDesc="幼小児の標準1日量（シロップ0.01%）：1歳以上3歳未満4mL、3歳以上5歳未満5mL、5歳以上8歳未満7mL、8歳以上11歳未満10mL、11歳以上15歳未満13mL。1歳未満は体重・症状などを考慮して適宜投与量を決める。";
+ const clemInd={general:{label:"アレルギー性鼻炎／皮膚疾患／上気道炎症状",lo:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1:a<15?1.3:2,hi:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1:a<15?1.3:2,freq:[2],desc:clemDesc}};
+ if(DB.clem)DB.clem.indications=clemInd;
+ if(DB.aud_clemDS){DB.aud_clemDS.indications=clemInd;DB.aud_clemDS.products={g:{label:"クレマスチンドライシロップ0.1%「あゆみ」",unit:"g",mgPerUnit:1,defaultAmount:0.7}};}
+ mark("clem","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4419008Q1157_1?user=1","シロップ0.01%の幼小児年齢別標準1日量と1歳未満の個別調整を反映。");
+ mark("aud_clemDS","https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4419008R1128_1?user=1","クレマスチンDS0.1%は1g中クレマスチン1mg。シロップと同一成分の剤形違いとして統合。");
 
  // Dextromethorphan tablets/powder: adult label only; do not fabricate pediatric fixed dose.
  const dextDesc="通常、成人はデキストロメトルファン臭化水素酸塩水和物として1回15～30mgを1日1～4回。年齢・症状により適宜増減。小児固定承認量はなく、小児等を対象とした臨床試験は実施されていない。";

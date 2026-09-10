@@ -7,7 +7,7 @@
  mark(['meto','ob01_metoS','ob02_primperan'],'https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530169_2399004Q1090_2_05','0.38～0.53mg/kg/day・分2～3食前、シロップ0.5～0.7mL/kg/dayを突合。');
  mark(['clav'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139100R1036?user=1','AMPC 90＋CVA 6.4mg/kg/day、12時間毎分2、食直前、1.01g中600＋42.9mgを突合。');
 
- apply(['mino'],d=>{const i=d.indications.general;i.lo=w=>Math.min(2*w,200);i.hi=w=>Math.min(4*w,200);i.max=()=>200;i.desc='2～4mg/kg/dayを12時間又は24時間ごと。小児は成人量200mg/dayを上限。特に8歳未満は他剤が使えない場合に限る';});
+ apply(['mino'],d=>{const i=d.indications.general;i.lo=w=>Math.min(2*w,200);i.hi=w=>Math.min(4*w,200);i.max=()=>200;i.desc='2～4mg/kg/dayを12時間又は24時間ごと。小児は成人量200mg/dayを上限。特に8歳未満では歯牙の着色・エナメル質形成不全、一過性の骨発育不全を起こすことがあるため、他剤が使用できない又は無効の場合に限る';});
  mark(['mino'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6152005D1094?user=1','2～4mg/kg/day、成人量上限、8歳未満の歯牙・骨発育上の使用制限を反映。');
  mark(['cypro','img02_01'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/4419005Q1072?user=1','Augsberger式による2～12歳の年齢別1回量、1日1～3回、3剤形換算を突合。');
  mark(['salbu'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2254001Q1073?user=1','乳幼児0.3mg/kg/day・分3、3年齢区分の標準製剤量、0.4mg/mL換算を突合。');

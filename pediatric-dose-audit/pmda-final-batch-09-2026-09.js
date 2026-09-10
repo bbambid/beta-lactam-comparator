@@ -10,7 +10,7 @@
  };
  mark(['cefalex'],'https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/400022_6132002R1168_2_05','10%・20%製剤、通常25～50mg/kg/day、重症等50～100mg/kg/day、6時間毎を突合。');
 
- if(DB.minoc)DB.minoc.indications={general:{label:'承認感染症',lo:w=>Math.min(2*w,200),hi:w=>Math.min(4*w,200),max:()=>200,freq:[1,2],desc:'2～4mg/kg/dayを12時間又は24時間ごと。小児は成人量200mg/dayを上限。特に8歳未満は他剤が使えない又は無効の場合に限る'}};
+ if(DB.minoc)DB.minoc.indications={general:{label:'承認感染症',lo:w=>Math.min(2*w,200),hi:w=>Math.min(4*w,200),max:()=>200,freq:[1,2],desc:'2～4mg/kg/dayを12時間又は24時間ごと。小児は成人量200mg/dayを上限。特に8歳未満では歯牙の着色・エナメル質形成不全、一過性の骨発育不全を起こすことがあるため、他剤が使用できない又は無効の場合に限る'}};
  mark(['minoc'],'https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/672212_6152005D1094_3_07','顆粒2%（20mg/g）、2～4mg/kg/day、成人量上限、8歳未満の使用制限を突合。');
 
  if(DB.balox){
