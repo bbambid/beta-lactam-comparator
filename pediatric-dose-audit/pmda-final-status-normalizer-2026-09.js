@@ -283,6 +283,19 @@
  }
  document.addEventListener("DOMContentLoaded",()=>setTimeout(installSearch,0));setTimeout(installSearch,0);
 
+ function bindDrugSearchClear(){
+   const inp=document.getElementById("drugSearch"),clear=document.getElementById("drugSearchClear");
+   if(!inp||!clear||inp.dataset.clearButtonBound==="1")return;
+   inp.dataset.clearButtonBound="1";
+   const sync=()=>{clear.hidden=!inp.value;};
+   inp.addEventListener("input",sync);
+   sel.addEventListener("change",()=>setTimeout(sync,0));
+   document.addEventListener("click",()=>setTimeout(sync,0));
+   clear.onclick=()=>{inp.value="";inp.dispatchEvent(new Event("input",{bubbles:true}));inp.focus();};
+   sync();
+ }
+ document.addEventListener("DOMContentLoaded",()=>setTimeout(bindDrugSearchClear,1));setTimeout(bindDrugSearchClear,1);
+
  // Re-render the mobile "一覧から選択" sheet with inherited/dynamic categories so clone keys do not fall into "その他".
  function installCategorySheet(){
    const sheet=document.getElementById("drugListSheet"),btn=document.getElementById("drugListBtn");if(!sheet||!btn||sheet.dataset.globalCategories==="1")return;
