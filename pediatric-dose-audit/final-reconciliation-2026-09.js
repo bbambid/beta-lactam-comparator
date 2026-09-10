@@ -12,7 +12,7 @@
  [...$("drug").options].forEach(o=>{if(obsolete.some(x=>o.textContent.includes(x)))o.remove();});
  const prevRender=render;
  render=function(){
-   prevRender(); const d=DB[$("drug").value],out=$("out"); if(!d||!out||!d.practiceReferences)return;
+   prevRender(); const key=$("drug").value,d=DB[key],out=$("out"); if(!d||!out||!d.practiceReferences||["tipe","cypro"].includes(key))return;
    let h='<div class="note"><b>実務目安（承認用量とは別）：</b><br>';
    d.practiceReferences.forEach(r=>{h+='・'+r.dose+' — '+r.source+'［'+r.quality+'］'+(r.url?' <a href="'+r.url+'" target="_blank" rel="noopener">根拠 ↗</a>':'')+'<br>';});
    h+='</div>'; out.insertAdjacentHTML("beforeend",h);

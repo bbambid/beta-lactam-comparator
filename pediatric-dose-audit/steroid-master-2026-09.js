@@ -75,6 +75,18 @@
 
  window.STEROID_PRACTICE=window.STEROID_PRACTICE||{};
  window.STEROID_PRACTICE.pred=[{title:"実務用量｜湘南鎌倉総合病院 小児薬用量",dose:"1～2 mg/kg/day・分2",note:"最大 2 mg/kg/day",source:"湘南鎌倉総合病院『小児薬用量』／参考区分C：小児の薬の選び方・使い方"}];
+ window.STEROID_PRACTICE.tipe=[{
+  title:"実務用量｜治療薬ハンドブック",
+  dose:"2 mg/kg/day・分3",
+  note:"湘南鎌倉総合病院『小児薬用量』では1～2 mg/kg/day・分3。承認用量とは別に照合する実務目安。",
+  source:'治療薬ハンドブック（ユーザー提示）／<a href="https://www.skgh.jp/wp/wp-content/themes/skgh/department/pharmacy/for-pharmacist/pdf/pediatric-dose.pdf" target="_blank" rel="noopener">湘南鎌倉総合病院「小児薬用量」 ↗</a>'
+ }];
+ window.STEROID_PRACTICE.cypro=[{
+  title:"実務用量｜治療薬ハンドブック",
+  dose:"0.25 mg/kg/day・分3",
+  note:"湘南鎌倉総合病院『小児薬用量』でも0.25 mg/kg/dayを確認（同資料は1～3回分割）。承認用量とは別に照合する実務目安。",
+  source:'治療薬ハンドブック（ユーザー提示）／<a href="https://www.skgh.jp/wp/wp-content/themes/skgh/department/pharmacy/for-pharmacist/pdf/pediatric-dose.pdf" target="_blank" rel="noopener">湘南鎌倉総合病院「小児薬用量」 ↗</a>'
+ }];
  window.STEROID_PRACTICE.dexa=[{
   title:"疾患別実務用量｜クループ症候群",
   disease:"承認用量とは別に照合する参考用量",

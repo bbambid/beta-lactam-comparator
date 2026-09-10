@@ -98,7 +98,8 @@
    return "unit-"+unitKey(unit);
  }
  const externalKinds=new Set(["suppository","tape","inhalation","eye-drops","nasal","topical"]);
- const isSearchableProduct=p=>!externalKinds.has(formulationKind(p.label,p.unit));
+ const externalNamePattern=/(点眼|点鼻|点耳|軟膏|クリーム|ゲル|ローション|塗布|吸入|ネブライザ|噴霧|テープ|貼付|坐剤|坐薬|サポ)/;
+ const isSearchableProduct=p=>!externalNamePattern.test(String(p?.label||""))&&!externalKinds.has(formulationKind(p.label,p.unit));
  const externalSearchWords=["外用","軟膏","クリーム","ゲル","ローション","塗布","点眼","点鼻","点耳","吸入","ネブライザ","噴霧","テープ","貼付","坐剤","坐薬","サポ"].map(norm);
  function formulationSignature(p){return [formulationKind(p.label,p.unit),unitKey(p.unit),Number(p.mgPerUnit).toPrecision(12),p._dedupeIdentity||""].join("|");}
  function formulationLabel(p){
@@ -225,6 +226,7 @@
    const rows=formulations(g),merged={};
    rows.forEach((r,i)=>{let key=r.sourceDrug===g.canonical&&!merged[r.sourceProduct]?r.sourceProduct:"form"+String(i+1).padStart(2,"0");while(merged[key])key+="x";merged[key]=Object.assign({},r.productData,{label:r.label,_searchLabel:r.rawLabel,_signature:r.signature});r.product=key;});
    if(rows.length){d.products=merged;d._familyFormulations=rows;d.preferredProductKey=rows[0].product;}
+   d._pickerExcluded=rows.length>0&&!rows.some(r=>isSearchableProduct(r.productData));
    d.familyBase=g.canonical;d.displayName=genericLabel(g);
    d.searchAliases=[...new Set(g.members.flatMap(k=>[optLabel(k),...(DB[k]?.searchAliases||[]),...Object.values(DB[k]?.products||{}).flatMap(p=>[p.label,p._searchLabel].filter(Boolean))]))];
    const option=sel.querySelector('option[value="'+CSS.escape(g.canonical)+'"]');if(option)option.textContent=d.displayName;
@@ -301,7 +303,7 @@
    const sheet=document.getElementById("drugListSheet"),btn=document.getElementById("drugListBtn");if(!sheet||!btn||sheet.dataset.globalCategories==="1")return;
    sheet.dataset.globalCategories="1";let active="すべて";const collator=new Intl.Collator("ja",{usage:"sort",sensitivity:"base"});
    const visibleGroups=()=>groups.filter(g=>{
-     if(!sel.querySelector('option[value="'+CSS.escape(g.canonical)+'"]')||g.members.every(k=>DB[k]?.searchExcluded))return false;
+     if(!sel.querySelector('option[value="'+CSS.escape(g.canonical)+'"]')||DB[g.canonical]?._pickerExcluded||externalNamePattern.test(genericLabel(g))||g.members.every(k=>DB[k]?.searchExcluded))return false;
      const forms=DB[g.canonical]?._familyFormulations||[];
      return forms.some(x=>isSearchableProduct(x.productData));
    });

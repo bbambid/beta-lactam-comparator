@@ -79,7 +79,7 @@
  const oldRender=render;
  render=function(){
   oldRender();
-  const d=DB[$("drug").value],out=$("out");if(!d||!out||!d.clinicalPracticeEvidence)return;
+  const key=$("drug").value,d=DB[key],out=$("out");if(!d||!out||!d.clinicalPracticeEvidence||["tipe","cypro"].includes(key))return;
   const h=d.clinicalPracticeEvidence.map(x=>'・'+x.dose+' — <a href="'+x.url+'" target="_blank" rel="noopener">'+x.source+' ↗</a>（'+x.sourceType+'）').join("<br>");
   out.insertAdjacentHTML("beforeend",'<div class="note"><b>臨床実務資料：</b><br>'+h+'<br><span class="pill">承認用量とは別レイヤー</span></div>');
  };
