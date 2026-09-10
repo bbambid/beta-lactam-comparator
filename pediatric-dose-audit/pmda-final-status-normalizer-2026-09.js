@@ -26,9 +26,9 @@
  ];
  const clavBand=w=>Number.isFinite(w)?clavBands.find(x=>w>=x.min&&w<x.max+1)||null:null;
  const clavBandAmount=w=>clavBand(w)?.amount??NaN;
- const doseTable=(rows,headers=["体重","製剤1日量"])=>{
+ const doseTable=(rows,headers=["体重","製剤1日量"],compact=false)=>{
    const table='<table class="label-dose-table"><thead><tr>'+headers.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
-   return headers.length>=5?'<div class="label-dose-wide">'+table+'</div>':table;
+   return compact?'<div class="label-dose-compact">'+table+'</div>':headers.length>=5?'<div class="label-dose-wide">'+table+'</div>':table;
  };
  if(DB.clav){
    const strength=(600+42.9)/1.01;
@@ -193,11 +193,11 @@
  const tipeDesc=(w,a,p)=>{
    return "小児はチペピジンクエン酸塩として、1歳未満5～20mg/day、1歳以上3歳未満10～25mg/day、3歳以上6歳未満15～40mg/dayを1日3回に分割。年齢・症状により適宜増減する。"+
      doseTable([
-       ["散10%","0.05～0.2g","0.1～0.25g","0.15～0.4g","0.6～1.2g"],
-       ["ドライシロップ2%","0.25～1g","0.5～1.25g","0.75～2g","3～6g"],
-       ["シロップ0.5%","1～4mL","2～5mL","3～8mL","12～24mL"],
-       ["シロップ「調剤用」2%","0.25～1mL","0.5～1.25mL","0.75～2mL","3～6mL"]
-     ],["剤形（1日量）","1歳未満","1～3歳未満","3～6歳未満","成人"]);
+       ["散<br>10%","0.05～<br>0.2g","0.1～<br>0.25g","0.15～<br>0.4g","0.6～<br>1.2g"],
+       ["DS<br>2%","0.25～<br>1g","0.5～<br>1.25g","0.75～<br>2g","3～6g"],
+       ["シロップ<br>0.5%","1～4mL","2～5mL","3～8mL","12～24mL"],
+       ["調剤用<br>シロップ2%","0.25～<br>1mL","0.5～<br>1.25mL","0.75～<br>2mL","3～6mL"]
+     ],["剤形<br>1日量","1歳<br>未満","1～<br>3歳未満","3～<br>6歳未満","成人"],true);
  };
  const tipeInd={general:{label:"咳嗽・喀痰喀出困難",lo:(w,a)=>a<1?5:a<3?10:a<6?15:NaN,hi:(w,a)=>a<1?20:a<3?25:a<6?40:NaN,freq:[3],desc:tipeDesc}};
  ["tipe","img02_02","imgF10","aud_asverinDS","ob01_tipeDS","ob01_tipeS","ob02_asverinPow","ob02_asverinS"].forEach(k=>{if(DB[k])DB[k].indications=tipeInd;});
