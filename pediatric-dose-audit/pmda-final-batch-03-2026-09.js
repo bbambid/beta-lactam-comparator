@@ -13,8 +13,8 @@
   mark(['azi','img02_17'],'https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6149004C1030_3?user=1','10mg/kgを1日1回・3日間、成人量500mg/day上限を突合。');
   mark(['faro','aud_faro','ob01_faro','ob02_farom'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139001R1032?user=1','通常5mg/kg/回×3、増量時10mg/kg/回上限を突合。');
   const tebiKeys=['tebi','aud_tebi','ob01_tebi','ob02_orapenem'];
-  apply(tebiKeys,d=>Object.values(d.indications||{}).forEach(i=>{i.max=()=>600;i.desc+='。1回300mg上限';}));
-  mark(tebiKeys,'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139002C1026?user=1','通常4mg/kg/回×2、必要時6mg/kg/回×2、1回300mg上限を計算へ追加。');
+  apply(tebiKeys,d=>Object.values(d.indications||{}).forEach(i=>{delete i.max;i.desc=i.desc.replace(/[。．]?1回300mg上限[。．]?/g,'。').replace(/。。+/g,'。');}));
+  mark(tebiKeys,'https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6139002C1026_1?user=1','通常4mg/kg/回×2、必要時6mg/kg/回×2を突合。現行電子添文に記載のない1回300mg上限は設定しない。');
   mark(['fos','img02_15','img02_16'],'https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/780009_6135001R1025_1_13','40～120mg/kg/day・分3～4とDS20%・40%換算を突合。');
 
   if(!document.querySelector('script[src="pmda-final-batch-04-2026-09.js"]')){const s=document.createElement('script');s.src='pmda-final-batch-04-2026-09.js';document.head.appendChild(s);}

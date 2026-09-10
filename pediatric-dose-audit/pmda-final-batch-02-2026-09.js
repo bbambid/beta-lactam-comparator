@@ -57,15 +57,17 @@
 
   apply(['cdtr','img02_11','ob01_cdtr','ob02_meiact'],d=>{
     if(d.indications.resp){
-      d.indications.resp.lo=w=>Math.min(18*w,600);
+      d.indications.resp.lo=w=>Math.min(9*w,600);
       d.indications.resp.hi=w=>Math.min(18*w,600);
       d.indications.resp.max=()=>600;
-      d.indications.resp.desc='肺炎・中耳炎・副鼻腔炎：1回6mg/kgを1日3回。1回200mg上限';
+      d.indications.resp.perDoseLo=w=>Math.min(3*w,200);
+      d.indications.resp.perDoseHi=w=>Math.min(6*w,200);
+      d.indications.resp.desc='通常1回3mg/kgを1日3回。必要に応じ1回6mg/kgまで増量可。1回200mg、1日600mgを超えない。';
     }
   });
   mark(['cdtr','img02_11','ob01_cdtr','ob02_meiact'],
     'https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/780009_6132015C1103_1_12',
-    '通常3mg/kg/回×3、肺炎・中耳炎・副鼻腔炎6mg/kg/回×3、1回200mg上限を突合。');
+    '通常3mg/kg/回×3、必要時6mg/kg/回×3、1回200mg・1日600mg上限を突合。');
 
   mark(['cpdx','img02_08','ob01_cpdx','ob02_banan'],
     'https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6132011R1074_1?user=1',

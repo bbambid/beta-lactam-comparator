@@ -3,7 +3,7 @@
  if(typeof DB==='undefined')return;
  const mark=(ks,url,note)=>ks.forEach(k=>{if(DB[k])Object.assign(DB[k],{auditStatus:'PMDA最終突合済み',auditDate:'2026-09-06',sourceUrl:url,auditNote:note});});
  const apply=(ks,fn)=>ks.forEach(k=>{if(DB[k])fn(DB[k]);});
- mark(['tosu','img02_18','ob01_tosu'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6241010F3023?user=1','6mg/kg/回×2、1回180mg上限を突合。');
+ mark(['tosu','img02_18','ob01_tosu'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6241010F3023?user=1','6mg/kg/回×2、1回180mg・1日360mg上限を突合。');
  mark(['keto','img02_35','imgF02','aud_ketoDS','ob01_ketoDS','ob02_ketoS','ob02_ketoDS'],'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/4490003R1309?user=1','0.06mg/kg/day・分2とDS0.1%・シロップ0.02%換算を突合。');
  const ox=['oxa','ob01_oxa'];apply(ox,d=>{const i=d.indications.general;i.lo=w=>w;i.hi=w=>1.5*w;i.max=w=>1.5*w;i.desc='通常1回0.5mg/kgを1日2回。1回最高0.75mg/kg';});
  mark(ox,'https://www.pmda.go.jp/PmdaSearch/rdSearch/02/4490005R1448?user=1','通常0.5mg/kg/回×2、1回最高0.75mg/kgを計算へ追加。');
