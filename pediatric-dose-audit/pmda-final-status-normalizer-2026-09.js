@@ -16,14 +16,23 @@
    DB[k].auditNote="1mL中サルブタモール0.4mg。乳幼児0.75mL/kg/day（0.3mg/kg/day）・分3と年齢別標準1日量を突合。";
    DB[k]._familyDisplayName="ベネトリン（サルブタモール）";
  });
- const clavBandAmount=w=>{
-   if(!Number.isFinite(w)||w<6||w>=40)return NaN;
-   if(w<11)return 1.01;if(w<17)return 2.02;if(w<24)return 3.03;
-   if(w<31)return 4.04;if(w<37)return 5.05;return 6.06;
- };
+ const clavBands=[
+   {min:6,max:10,label:"6～10kg",amount:1.01},
+   {min:11,max:16,label:"11～16kg",amount:2.02},
+   {min:17,max:23,label:"17～23kg",amount:3.03},
+   {min:24,max:30,label:"24～30kg",amount:4.04},
+   {min:31,max:36,label:"31～36kg",amount:5.05},
+   {min:37,max:39,label:"37～39kg",amount:6.06}
+ ];
+ const clavBand=w=>Number.isFinite(w)?clavBands.find(x=>w>=x.min&&w<x.max+1)||null:null;
+ const clavBandAmount=w=>clavBand(w)?.amount??NaN;
  if(DB.clav){
    const strength=(600+42.9)/1.01;
    DB.clav.products={ds:{label:"クラバモックス小児用配合ドライシロップ（分包製剤）",unit:"g",mgPerUnit:strength,defaultAmount:2.02,defaultAmountByWeight:clavBandAmount}};
+   DB.clav.doseBasis="product_band";
+   DB.clav.productDoseBand=clavBand;
+   DB.clav.componentMgPerUnit={amoxicillin:600/1.01,clavulanate:42.9/1.01};
+   DB.clav.packetSizes=[1.01,0.505];
    DB.clav.indications={general:{label:"承認感染症（分包製剤・体重換算表）",lo:w=>clavBandAmount(w)*strength,hi:w=>clavBandAmount(w)*strength,freq:[2],desc:"通常はAMPC/CVA合計96.4mg/kg/day（AMPC 90＋CVA 6.4mg/kg/day）を12時間ごと・分2・食直前。分包製剤の目安1日量：6～10kg 1.01g、11～16kg 2.02g、17～23kg 3.03g、24～30kg 4.04g、31～36kg 5.05g、37～39kg 6.06g。"}};
    DB.clav.source="PMDA クラバモックス小児用配合ドライシロップ電子添文（2024年10月改訂）";
    DB.clav.sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6139100R1036_1?user=1";
