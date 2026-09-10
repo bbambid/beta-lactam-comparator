@@ -397,6 +397,7 @@
    d.familyBase=g.canonical;d.displayName=genericLabel(g);
    d.searchAliases=[...new Set(g.members.flatMap(k=>[optLabel(k),...(DB[k]?.searchAliases||[]),...Object.values(DB[k]?.products||{}).flatMap(p=>[p.label,p._searchLabel].filter(Boolean))]))];
    const option=sel.querySelector('option[value="'+CSS.escape(g.canonical)+'"]');if(option)option.textContent=d.displayName;
+   if(option&&d._pickerExcluded){option.hidden=true;option.disabled=true;option.dataset.externalOnly="1";}
    g.members.forEach(k=>{if(k!==g.canonical)sel.querySelector('option[value="'+CSS.escape(k)+'"]')?.remove();});
  });
 
