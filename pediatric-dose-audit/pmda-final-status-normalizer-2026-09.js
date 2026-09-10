@@ -26,7 +26,10 @@
  ];
  const clavBand=w=>Number.isFinite(w)?clavBands.find(x=>w>=x.min&&w<x.max+1)||null:null;
  const clavBandAmount=w=>clavBand(w)?.amount??NaN;
- const doseTable=(rows,headers=["体重","製剤1日量"])=>'<table class="label-dose-table"><thead><tr>'+headers.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+ const doseTable=(rows,headers=["体重","製剤1日量"])=>{
+   const table='<table class="label-dose-table"><thead><tr>'+headers.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+   return headers.length>=5?'<div class="label-dose-wide">'+table+'</div>':table;
+ };
  if(DB.clav){
    const strength=(600+42.9)/1.01;
    DB.clav.products={ds:{label:"クラバモックス小児用配合ドライシロップ（分包製剤）",unit:"g",mgPerUnit:strength,defaultAmount:2.02,defaultAmountByWeight:clavBandAmount}};
@@ -176,10 +179,57 @@
    DB.oxa._familyDisplayName="オキサトミド";
    DB.oxa.searchAliases=[...new Set([...(DB.oxa.searchAliases||[]),"オキサトミド","セルテクト"] )];
  }
- const clemInd={general:{label:"アレルギー性鼻炎／皮膚疾患／上気道炎症状",lo:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1:a<15?1.3:2,hi:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1:a<15?1.3:2,freq:[2],desc:"幼小児の標準1日量（シロップ0.01%）：1歳以上3歳未満4mL、3歳以上5歳未満5mL、5歳以上8歳未満7mL、8歳以上11歳未満10mL、11歳以上15歳未満13mL。1歳未満は体重・症状などを考慮して適宜投与量を決める。"}};
+ const clemDesc=(w,a,p)=>{
+   const ds=p.unit==="g",amounts=ds?["0.4g","0.5g","0.7g","1.0g","1.3g"]:["4mL","5mL","7mL","10mL","13mL"];
+   return "幼小児に対しては、標準的な1日量を2回に分け"+(ds?"、用時溶解して":"")+"経口投与する。"+doseTable([["1歳以上3歳未満",amounts[0]],["3歳以上5歳未満",amounts[1]],["5歳以上8歳未満",amounts[2]],["8歳以上11歳未満",amounts[3]],["11歳以上15歳未満",amounts[4]]],["年齢",(ds?"ドライシロップ0.1%":"シロップ0.01%")+"の1日量"])+"<div class=\"label-dose-note\">1歳未満は体重・症状などを考慮して適宜投与量を決める。</div>";
+ };
+ const clemInd={general:{label:"アレルギー性鼻炎／皮膚疾患／上気道炎症状",lo:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1:a<15?1.3:2,hi:(w,a)=>a<1?NaN:a<3?0.4:a<5?0.5:a<8?0.7:a<11?1:a<15?1.3:2,freq:[2],desc:clemDesc}};
  ["clem","aud_clemDS"].forEach(k=>{if(!DB[k])return;DB[k].indications=clemInd;DB[k].referenceOnly=false;DB[k]._familyDisplayName="クレマスチン";DB[k].searchAliases=[...new Set([...(DB[k].searchAliases||[]),"クレマスチン","タベジール"] )];});
- if(DB.clem)Object.values(DB.clem.products||{}).forEach(p=>{p._familyLabel="シロップ0.01%";p._dedupeIdentity="clemastine-syrup-001";});
- if(DB.aud_clemDS)Object.values(DB.aud_clemDS.products||{}).forEach(p=>{p._familyLabel="ドライシロップ0.1%";p._dedupeIdentity="clemastine-ds-01";});
+ if(DB.clem)Object.values(DB.clem.products||{}).forEach(p=>{p._familyLabel="シロップ0.01%";p._dedupeIdentity="clemastine-syrup-001";p._source="PMDA クレマスチンシロップ0.01%電子添文";p._sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4419008Q1157_1?user=1";});
+ if(DB.aud_clemDS)Object.values(DB.aud_clemDS.products||{}).forEach(p=>{p._familyLabel="ドライシロップ0.1%";p._dedupeIdentity="clemastine-ds-01";p._source="PMDA クレマスチンドライシロップ0.1%電子添文";p._sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4419008R1128_1?user=1";});
+
+ const fmtDose=n=>Number.isInteger(n)?String(n):String(Number(n.toFixed(3)));
+ const productDose=(mg,p)=>fmtDose(mg/p.mgPerUnit)+(p.unit==="mL"?"mL":"g");
+ const tipeDesc=(w,a,p)=>{
+   return "小児はチペピジンクエン酸塩として、1歳未満5～20mg/day、1歳以上3歳未満10～25mg/day、3歳以上6歳未満15～40mg/dayを1日3回に分割。年齢・症状により適宜増減する。"+
+     doseTable([
+       ["散10%","0.05～0.2g","0.1～0.25g","0.15～0.4g","0.6～1.2g"],
+       ["ドライシロップ2%","0.25～1g","0.5～1.25g","0.75～2g","3～6g"],
+       ["シロップ0.5%","1～4mL","2～5mL","3～8mL","12～24mL"],
+       ["シロップ「調剤用」2%","0.25～1mL","0.5～1.25mL","0.75～2mL","3～6mL"]
+     ],["剤形（1日量）","1歳未満","1～3歳未満","3～6歳未満","成人"]);
+ };
+ const tipeInd={general:{label:"咳嗽・喀痰喀出困難",lo:(w,a)=>a<1?5:a<3?10:a<6?15:NaN,hi:(w,a)=>a<1?20:a<3?25:a<6?40:NaN,freq:[3],desc:tipeDesc}};
+ ["tipe","img02_02","imgF10","aud_asverinDS","ob01_tipeDS","ob01_tipeS","ob02_asverinPow","ob02_asverinS"].forEach(k=>{if(DB[k])DB[k].indications=tipeInd;});
+ if(DB.tipe){DB.tipe.source="PMDA アスベリン錠・散・ドライシロップ・シロップ電子添文（2025年4月改訂）";DB.tipe.sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2249003B1037_3?user=1";}
+
+ const ketoDesc=(w,a,p)=>{
+   const perKg=0.06/p.mgPerUnit,unit=p.unit;
+   const rows=[["6カ月以上3歳未満",productDose(0.8,p)+"（0.8mg）"],["3歳以上7歳未満",productDose(1.2,p)+"（1.2mg）"],["7歳以上",productDose(2,p)+"（2.0mg）"]];
+   return "通常、小児には製剤"+fmtDose(perKg)+unit+"/kg/day（ケトチフェンとして0.06mg/kg/day）を1日2回、朝食後及び就寝前に分けて投与する。年齢・症状により適宜増減する。"+doseTable(rows,["年齢","選択製剤の標準1日量（ケトチフェン量）"])+"<div class=\"label-dose-note\">1歳未満は体重・症状などを考慮して適宜投与量を決める。成人通常量はケトチフェンとして2mg/day・分2。</div>";
+ };
+ const ketoInd={general:{label:"気管支喘息／アレルギー性鼻炎／皮膚疾患",lo:w=>0.06*w,hi:w=>0.06*w,freq:[2],desc:ketoDesc}};
+ ["keto","img02_35","imgF02","aud_ketoDS","ob01_ketoDS","ob02_ketoS","ob02_ketoDS"].forEach(k=>{if(DB[k])DB[k].indications=ketoInd;});
+
+ const meqRows=(p,asthma)=>[["1歳以上2歳未満","8kg以上12kg未満",asthma?1.2:0.6],["2歳以上4歳未満","12kg以上17kg未満",asthma?1.8:0.9],["4歳以上7歳未満","17kg以上25kg未満",asthma?2.4:1.2],["7歳以上11歳未満","25kg以上40kg未満",asthma?3.6:1.8],["11歳以上16歳未満","40kg以上",asthma?6:3]].map(([age,wt,mg])=>[age,wt,productDose(mg,p)+"（"+mg.toFixed(1)+"mg）"]);
+ const meqDesc=asthma=>(w,a,p)=>"通常、小児1回メキタジンとして"+(asthma?"0.12":"0.06")+"mg/kgを1日2回。年齢・症状に応じて適宜増減する。"+doseTable(meqRows(p,asthma),["年齢","標準体重","選択製剤の1回量（メキタジン量）"]);
+ const meqInd={
+   asthma:{label:"気管支喘息",lo:w=>0.24*w,hi:w=>0.24*w,freq:[2],perDoseLo:w=>0.12*w,perDoseHi:w=>0.12*w,desc:meqDesc(true)},
+   allergy:{label:"アレルギー性鼻炎／蕁麻疹・皮膚疾患に伴うそう痒",lo:w=>0.12*w,hi:w=>0.12*w,freq:[2],perDoseLo:w=>0.06*w,perDoseHi:w=>0.06*w,desc:meqDesc(false)}
+ };
+ const meqKeys=["meq","img02_32","img02_33","imgF05","ob01_meq"];
+ meqKeys.forEach(k=>{if(!DB[k])return;DB[k].indications=meqInd;DB[k]._familyDisplayName="メキタジン";DB[k].searchAliases=[...new Set([...(DB[k].searchAliases||[]),"メキタジン","ゼスラン","ニポラジン"] )];Object.values(DB[k].products||{}).forEach(p=>{const s=String(p.label||"");if(/ニポラジン/.test(s)){p._familyLabel="ニポラジン小児用細粒0.6%";p._dedupeIdentity="nipolazin-gran-06";}else if(/ゼスラン/.test(s)&&/シロップ/.test(s)){p._familyLabel="ゼスランシロップ0.03%";p._dedupeIdentity="zeslan-syr-003";}else if(/ゼスラン/.test(s)){p._familyLabel="ゼスラン小児用細粒0.6%";p._dedupeIdentity="zeslan-gran-06";}else p._familyExclude=true;});});
+
+ const tranDesc=(w,a,p)=>"通常、小児には製剤"+fmtDose(5/p.mgPerUnit)+p.unit+"/kg/day（トラニラストとして5mg/kg/day）を1日3回に分けて投与する。年齢・症状により適宜増減する。";
+ const tranInd={general:{label:"気管支喘息／アレルギー性鼻炎／アトピー性皮膚炎",lo:w=>5*w,hi:w=>5*w,freq:[3],desc:tranDesc}};
+ ["tran","aud_riza10","aud_riza5","ob01_tran"].forEach(k=>{if(DB[k])DB[k].indications=tranInd;});
+
+ if(DB.imgF17){
+   DB.imgF17.indications={general:{label:"アレルギー性疾患（小児承認量）",lo:()=>NaN,hi:()=>NaN,freq:[1,2,3,4],referenceOnly:true,desc:"小児には1回5mLを1日1～4回経口投与する。年齢・症状により適宜増減する。配合成分は1mL中ベタメタゾン0.05mg、d-クロルフェニラミンマレイン酸塩0.4mg。"}};
+   DB.imgF17.referenceOnly=false;DB.imgF17._familyDisplayName="セレスタミン";DB.imgF17.searchAliases=[...new Set([...(DB.imgF17.searchAliases||[]),"セレスタミン"] )];
+   Object.values(DB.imgF17.products||{}).forEach(p=>{p._familyLabel="配合シロップ";p._dedupeIdentity="celestamine-syrup";});
+   DB.imgF17.sourceUrl="https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2459100Q1036_1?user=1";
+ }
 })();
 
 // Normalize visible audit statuses after documented PMDA final reconciliation completion.
@@ -387,7 +437,7 @@
  function installSearch(){
    const oldInp=document.getElementById("drugSearch"),oldBox=document.getElementById("drugSuggest");
    if(!oldInp||!oldBox||oldInp.dataset.globalGroups==="1")return;
-   const inp=oldInp.cloneNode(true),box=oldBox.cloneNode(false);oldInp.replaceWith(inp);oldBox.replaceWith(box);inp.dataset.globalGroups="1";
+   const inp=oldInp.cloneNode(true),box=oldBox.cloneNode(false);oldInp.replaceWith(inp);oldBox.replaceWith(box);delete inp.dataset.clearButtonBound;inp.dataset.globalGroups="1";
    const render=()=>{
      const q=norm(inp.value);if(q.length<2){box.style.display="none";return;}
      if(externalSearchWords.some(word=>q.includes(word))){box.innerHTML='<div style="padding:9px;font-size:10px;color:#667085">候補なし</div>';box.style.display="block";box._globalRows=[];return;}
@@ -415,13 +465,14 @@
    });
    sel.addEventListener("change",()=>{inp.value=DB[sel.value]?.displayName||optLabel(sel.value);box.style.display="none";});
    document.addEventListener("click",e=>{if(e.target!==inp&&!box.contains(e.target))box.style.display="none";});
+   setTimeout(bindDrugSearchClear,0);
  }
  document.addEventListener("DOMContentLoaded",()=>setTimeout(installSearch,0));setTimeout(installSearch,0);
 
  function bindDrugSearchClear(){
    const inp=document.getElementById("drugSearch"),clear=document.getElementById("drugSearchClear");
-   if(!inp||!clear||inp.dataset.clearButtonBound==="1")return;
-   inp.dataset.clearButtonBound="1";
+   if(!inp||!clear||clear._boundSearchInput===inp)return;
+   clear._boundSearchInput=inp;
    const sync=()=>{clear.hidden=!inp.value;};
    inp.addEventListener("input",sync);
    sel.addEventListener("change",()=>setTimeout(sync,0));
