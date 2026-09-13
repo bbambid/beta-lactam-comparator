@@ -1,528 +1,2059 @@
 {
-  "schemaVersion": 1,
-  "checkedAt": "2026-09-09",
-  "scope": "小児用経口薬の製品別・メーカー別の味／香り公式資料台帳",
+  "schemaVersion": 2,
+  "masterName": "小児抗菌薬 味・飲みやすさマスター",
+  "sourceVersion": "1.6",
+  "version": "1.6-audited",
+  "checkedDate": "2026-09-13",
+  "scope": "小児用経口抗菌薬の製品別味・香り・食品相性。別製品・別メーカーへ流用しない。",
+  "auditSummary": {
+    "xlsxJsonParity": "43製品・61食品・124 URL監査行・21監査項目が完全一致",
+    "products": 43,
+    "foodEntries": 61,
+    "uniqueCurrentUrls": 60,
+    "replacedVersionedPmdaPdfLinks": 11,
+    "restrictedButIndexedUrls": 1,
+    "removedUnsupportedSensoryClaims": 11,
+    "criticallyRewordedSensoryClaims": 6
+  },
   "displayPolicy": {
-    "directStatement": "公式資料に味または香りの直接記載がある場合だけ、その表現を表示する",
-    "additivesOnly": "香料などの添加物から味・香りを推定せず、『直接記載なし』と表示する",
-    "pending": "公式資料は特定済みだが本文抽出未完了。画面には未掲載とする"
+    "directStatement": "公式一次資料に具体的な味・香りの記載がある項目だけ表示",
+    "noDirectStatement": "添加剤や曖昧な製剤設計表現から味を推定しない",
+    "foodCompatibility": "食品相性はproduct_id単位。別製品・別メーカーには流用しない",
+    "links": "更新で失効するPMDA固定PDFは安定した製品詳細ページへ置換"
   },
   "products": [
     {
+      "id": "ABX-001",
+      "ingredient": "アモキシシリン",
+      "product": "ワイドシリン細粒10%",
+      "manufacturer": "Meiji",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ミックスフルーツ風味",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "服用直前に混ぜる。飲み切れる少量で。",
+      "detail": "10%/20%は規格別レコードで保持。メーカーQ&Aが直接確認できるのはミックスフルーツ風味で、甘味は断定しない。",
+      "auditNotes": [
+        "元マスターの『甘味あり』は到達可能な一次資料で直接確認できないため削除"
+      ],
+      "sourceType": "メーカー患者向け服薬指導資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://meiji-medical-net.com/product/faq/answer/WD-2",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "access": "indexed_access_restricted"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-001",
+          "name": "水",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-002",
+          "name": "牛乳",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-003",
+          "name": "ヨーグルト",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-004",
+          "name": "いちごジャム",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-005",
+          "name": "りんごジュース",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-006",
+          "name": "バニラアイスクリーム",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-007",
+          "name": "スポーツ飲料",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "ABX-002",
+      "ingredient": "アモキシシリン",
+      "product": "ワイドシリン細粒20%",
+      "manufacturer": "Meiji",
+      "formulation": "細粒20%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ミックスフルーツ風味",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "服用直前に混ぜる。飲み切れる少量で。",
+      "detail": "10%/20%は香料が同一とは限らないため別管理。メーカーQ&Aが直接確認できるのはミックスフルーツ風味で、甘味は断定しない。",
+      "auditNotes": [
+        "元マスターの『甘味あり』は到達可能な一次資料で直接確認できないため削除"
+      ],
+      "sourceType": "メーカー患者向け服薬指導資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://meiji-medical-net.com/product/faq/answer/WD-2",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "access": "indexed_access_restricted"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-008",
+          "name": "水",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-009",
+          "name": "牛乳",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-010",
+          "name": "ヨーグルト",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-011",
+          "name": "いちごジャム",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-012",
+          "name": "りんごジュース",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-013",
+          "name": "バニラアイスクリーム",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        },
+        {
+          "id": "FOOD-014",
+          "name": "スポーツ飲料",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水、または水で飲めない場合に混ぜると飲ませやすくなるものとしてメーカー患者資材に掲載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://www.meiji-seika-pharma.co.jp/patients/product/pdf/WD0007.pdf",
+          "note": "混ぜる場合は飲む直前",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "ABX-003",
+      "ingredient": "アモキシシリン",
+      "product": "アモキシシリン細粒10%「TCK」",
+      "manufacturer": "辰巳化学",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジの風味",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "別メーカーのワイドシリン情報は流用しない",
+      "detail": "TCK固有情報のみ採用 / 電子添文3.2は橙赤色の細粒のみで、味・においの記載なし。添加剤から味は推測しない。 / 2025年5月IF p.5（PDF上P8付近）に10%・20%共通で『香料によりオレンジの風味を付けている』と明記。",
+      "auditNotes": [],
+      "sourceType": "メーカー製品情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.tatsumi-kagaku.com/file/file/555_2.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-004",
+      "ingredient": "アモキシシリン",
+      "product": "アモキシシリン細粒20%「TCK」",
+      "manufacturer": "辰巳化学",
+      "formulation": "細粒20%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジの風味",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "別メーカー情報は流用しない",
+      "detail": "TCK固有情報のみ採用 / 電子添文3.2は橙赤色の細粒のみで、味・においの記載なし。添加剤から味は推測しない。 / 2025年5月IF p.5（PDF上P8付近）に10%・20%共通で『香料によりオレンジの風味を付けている』と明記。",
+      "auditNotes": [],
+      "sourceType": "メーカー製品情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.tatsumi-kagaku.com/file/file/555_2.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-005",
+      "ingredient": "アモキシシリン/クラブラン酸",
+      "product": "クラバモックス小児用配合DS",
+      "manufacturer": "GSK",
+      "formulation": "配合DS",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ストロベリークリームの芳香",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "専用資材を優先。別製品の食品相性を流用しない。",
+      "detail": "食品別はGSK一次資料本文を直接確認できたものだけ登録 / 現行電子添文3.2はストロベリークリームの芳香を記載するが、甘味の記載なし。添加剤から推測しない。 / 現行電子添文3.2に苦味の記載なし。",
+      "auditNotes": [],
+      "sourceType": "PMDA電子添文＋メーカー患者資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139100R1036?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://gskpro.com/ja-jp/products-info/clavamox/index",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-006",
+      "ingredient": "アンピシリン",
+      "product": "ビクシリンドライシロップ10%",
+      "manufacturer": "Meiji",
+      "formulation": "ドライシロップ10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ミックスフルーツ臭",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "製品固有情報のみ",
+      "detail": "現行製品として確認 / 電子添文3.2：淡紅色の細粒、芳香、味は甘い。 / IFで製剤性状は芳香・甘味、さらに『本剤のフレーバーは、ミックスフルーツ臭』と明記。",
+      "auditNotes": [],
+      "sourceType": "メーカー製品情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://pins.japic.or.jp/pdf/medical_interview/IF00005835.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-007",
       "ingredient": "セフジトレン ピボキシル",
       "product": "メイアクトMS小児用細粒10%",
-      "manufacturer": "Meiji Seika ファルマ",
-      "status": "direct_statement",
-      "taste": "甘く、わずかに苦い",
-      "aroma": "芳香あり",
-      "appearance": "だいだい色",
-      "detail": "添加物として香料、バニリン、エチルバニリン等の記載あり",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/780009_6132015C1103_1_01A_1F.pdf"
+      "manufacturer": "Meiji",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": null,
+      "sweetness": "水等に混ぜると甘味が増す",
+      "bitterness": "水等に混ぜると感じにくくなる",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "飲ませ方資材を優先。食品名は一次資料で確認したもののみ。",
+      "detail": "酸性食品の具体名はQ&A本文確認後のみUIに出す",
+      "auditNotes": [
+        "メーカー製品ページ本文で、水等に混ぜた場合に甘味が増し苦味を感じにくくなるとの直接記載を確認"
+      ],
+      "sourceType": "メーカーQ&A＋患者向け資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://meiji-medical-net.com/product/cf/pn0167",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://meiji-medical-net.com/product/faq/cf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-052",
+          "name": "水",
+          "rating": "◎",
+          "meaning": "製品固有のメーカー説明で飲みやすさ改善",
+          "evidence": "メーカー製品ページで、粉のままより水などに混ぜた方が甘味が増し、苦味が感じにくくなると明記。",
+          "sourceType": "メーカー製品ページ／患者向け資材",
+          "sourceUrl": "https://meiji-medical-net.com/product/cf/pn0167",
+          "note": "製品固有の比較説明があるため◎。",
+          "verified": true
+        }
+      ]
     },
     {
-      "ingredient": "アモキシシリン水和物",
-      "product": "サワシリン細粒10%",
-      "manufacturer": "LTLファーマ",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "芳香あり",
-      "appearance": "うすいだいだい色",
-      "detail": null,
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/171911_6131001C1210_2_008_1F.pdf"
-    },
-    {
-      "ingredient": "セフカペン ピボキシル塩酸塩水和物",
-      "product": "フロモックス小児用細粒100mg",
-      "manufacturer": "塩野義製薬",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": "赤白色の細粒",
-      "detail": "味・香りの直接記載は確認できず。添加物としてエチルバニリン、l-メントール、バニリン、香料等の記載あり",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/340018_6132016C1027_1_021_1F.pdf"
-    },
-    {
+      "id": "ABX-008",
       "ingredient": "セフジトレン ピボキシル",
       "product": "セフジトレン ピボキシル小児用細粒10%「SW」",
       "manufacturer": "沢井製薬",
-      "status": "direct_statement",
-      "taste": "甘く、わずかに苦い",
-      "aroma": "バナナ様の芳香",
-      "appearance": "だいだい色",
-      "detail": "甘味とわずかな苦味は添加物由来とする記載あり",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/300119_6132015C1146_1_081_1F.pdf"
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "バナナ様芳香",
+      "sweetness": "あり（添加剤由来）",
+      "bitterness": "わずかにあり",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "飲み切れる量に混ぜる",
+      "detail": null,
+      "auditNotes": [],
+      "sourceType": "メーカー製品情報＋患者向け指導箋",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://med.sawai.co.jp/preview.php?prodid=4842",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000074385CD.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-015",
+          "name": "牛乳",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水のほか、混ぜると飲みやすくなることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000074385CD.pdf",
+          "note": "飲み残さないよう飲みきれる量に混ぜる",
+          "verified": true
+        },
+        {
+          "id": "FOOD-016",
+          "name": "ヨーグルト",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水のほか、混ぜると飲みやすくなることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000074385CD.pdf",
+          "note": "飲み残さないよう飲みきれる量に混ぜる",
+          "verified": true
+        },
+        {
+          "id": "FOOD-017",
+          "name": "アイスクリーム",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水のほか、混ぜると飲みやすくなることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000074385CD.pdf",
+          "note": "飲み残さないよう飲みきれる量に混ぜる",
+          "verified": true
+        },
+        {
+          "id": "FOOD-018",
+          "name": "ジュース（約20mL）",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水のほか、混ぜると飲みやすくなることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000074385CD.pdf",
+          "note": "飲み残さないよう飲みきれる量に混ぜる",
+          "verified": true
+        },
+        {
+          "id": "FOOD-019",
+          "name": "お茶（約20mL）",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "水のほか、混ぜると飲みやすくなることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000074385CD.pdf",
+          "note": "飲み残さないよう飲みきれる量に混ぜる",
+          "verified": true
+        }
+      ]
     },
     {
+      "id": "ABX-009",
+      "ingredient": "セフジトレン ピボキシル",
+      "product": "セフジトレン ピボキシル小児用細粒10%「トーワ」",
+      "manufacturer": "東和薬品",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": null,
+      "sweetness": "あり",
+      "bitterness": "あり/残留時に苦味注意",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "混ぜるのは直前。飲ませた後すぐ水を飲ませるとよい。",
+      "detail": "製品固有資料からのみ採用",
+      "auditNotes": [
+        "「製品固有の味・香り情報あり」は具体的な官能表現ではないため味チップから除外"
+      ],
+      "sourceType": "メーカー患者向け指導箋",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=31950&t=0",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-028",
+          "name": "ミルクココア",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、水で飲みにくい場合に混ぜると飲みやすくなるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=31950&t=0",
+          "note": "小さじ2～3杯程度（10cc程度）を目安。混ぜるのは服用直前。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-029",
+          "name": "バニラアイス",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、水で飲みにくい場合に混ぜると飲みやすくなるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=31950&t=0",
+          "note": "小さじ2～3杯程度（10cc程度）を目安。混ぜるのは服用直前。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-030",
+          "name": "加糖ヨーグルト",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、水で飲みにくい場合に混ぜると飲みやすくなるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=31950&t=0",
+          "note": "小さじ2～3杯程度（10cc程度）を目安。混ぜるのは服用直前。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-031",
+          "name": "プリン",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、水で飲みにくい場合に混ぜると飲みやすくなるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=31950&t=0",
+          "note": "小さじ2～3杯程度（10cc程度）を目安。混ぜるのは服用直前。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-032",
+          "name": "スポーツドリンク",
+          "rating": "×",
+          "meaning": "明確な苦味増強",
+          "evidence": "メーカー患者向け指導箋に、一緒に飲むと苦くなり、服用前後に飲んでも苦くなることがあると明記。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=31950&t=0",
+          "note": "味覚上の明確な悪化のため×。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-033",
+          "name": "お茶",
+          "rating": "×",
+          "meaning": "明確な苦味増強",
+          "evidence": "メーカー患者向け指導箋に、一緒に飲むと苦くなり、服用前後に飲んでも苦くなることがあると明記。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=31950&t=0",
+          "note": "味覚上の明確な悪化のため×。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-034",
+          "name": "酸味のあるジュース",
+          "rating": "×",
+          "meaning": "明確な苦味増強",
+          "evidence": "メーカー患者向け指導箋に、一緒に飲むと苦くなり、服用前後に飲んでも苦くなることがあると明記。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=31950&t=0",
+          "note": "味覚上の明確な悪化のため×。",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "ABX-010",
       "ingredient": "セフジトレン ピボキシル",
       "product": "セフジトレン ピボキシル小児用細粒10%「OK」",
       "manufacturer": "大蔵製薬（販売：Meiji Seika ファルマ）",
-      "status": "pending",
-      "taste": null,
-      "aroma": null,
-      "appearance": null,
-      "detail": "公式インタビューフォーム特定済み。味・香りの本文抽出待ち",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/180024_6132015C1138_1_001_1F.pdf"
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "芳香",
+      "sweetness": "あり",
+      "bitterness": "わずかにあり",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "別メーカーの食品情報は流用しない",
+      "detail": "電子添文3.2：芳香、甘味及びわずかな苦味。",
+      "auditNotes": [],
+      "sourceType": "メーカー患者向け資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132015C1138?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://meiji-medical-net.com/product/acf/pn0072",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "セフカペン ピボキシル塩酸塩水和物",
+      "id": "ABX-011",
+      "ingredient": "セフカペン ピボキシル",
+      "product": "フロモックス小児用細粒100mg",
+      "manufacturer": "塩野義製薬",
+      "formulation": "細粒10%相当",
+      "evidenceStatus": "no_direct_statement",
+      "flavor": null,
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "SW情報を流用しない",
+      "detail": "主薬の苦味を防ぐ製剤であることは確認できるが、完成製剤を『苦味なし』とはせず、製剤性状上の苦味は記載なしとする。",
+      "auditNotes": [
+        "「香料・甘味設計あり（特定風味名は公式根拠なし）」は具体的な官能表現ではないため味チップから除外",
+        "香料・甘味剤の配合のみから味を推定せず、具体的な味・香りは「直接記載なし」とした"
+      ],
+      "sourceType": "メーカー製品情報＋PMDA",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132016C1027?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://med.shionogi.co.jp/products/medicine/flomox-pediatric.html",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-012",
+      "ingredient": "セフカペン ピボキシル",
       "product": "セフカペン ピボキシル塩酸塩小児用細粒10%「SW」",
       "manufacturer": "沢井製薬",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": null,
-      "detail": "味・香りの直接記載は確認できず。添加物としてエチルバニリン、l-メントール、バニリン、香料等の記載あり",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/300119_6132016C1159_1_071_1F.pdf"
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ストロベリー様芳香",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "苦味マスキング製剤。顆粒をつぶさず、混ぜたら早めに服用。",
+      "detail": null,
+      "auditNotes": [],
+      "sourceType": "メーカー製品情報＋患者向け資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://med.sawai.co.jp/preview.php?prodid=4840",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "セフカペン ピボキシル塩酸塩水和物",
-      "product": "セフカペン ピボキシル塩酸塩細粒小児用10%「CH」",
-      "manufacturer": "長生堂製薬（販売：日本ジェネリック）",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": "赤白色の細粒（白色の粒を含む）",
-      "detail": "味・香りの直接記載は確認できず。添加物として香料の記載あり",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/450064_6132016C1035_2_017_1F.pdf"
-    },
-    {
-      "ingredient": "セフカペン ピボキシル塩酸塩水和物",
+      "id": "ABX-013",
+      "ingredient": "セフカペン ピボキシル",
       "product": "セフカペン ピボキシル塩酸塩細粒小児用10%「TW」",
       "manufacturer": "東和薬品",
-      "status": "direct_statement",
-      "taste": null,
-      "aroma": "芳香あり",
-      "appearance": "赤白色の細粒",
-      "detail": "ゼリーとの配合試験における通常時のにおいとして芳香の記載あり。添加物としてエチルバニリン、l-メントール、バニリン、香料等の記載あり",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/480235_6132016C1140_1_061_1F.pdf"
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ストロベリー風味",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "SW情報は流用しない",
+      "detail": "2026年7月IF：赤白色の細粒、細粒小児用はストロベリー風味。甘味・苦味は製品性状として明記なし。",
+      "auditNotes": [],
+      "sourceType": "PMDA/メーカー製品情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=80673&t=0",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "クラリスロマイシン",
-      "product": "クラリスロマイシンDS10%小児用「トーワ」",
-      "manufacturer": "東和薬品",
-      "status": "direct_statement",
-      "taste": "甘い。苦味を抑えた製剤設計だが、酸性飲料等との混合で苦味が現れることがある",
-      "aroma": "特異な芳香",
-      "appearance": "白色の懸濁液となるドライシロップ",
-      "detail": null,
-      "sourceType": "メーカー医療関係者向け製品資料",
-      "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=28851&t=0"
-    },
-    {
-      "ingredient": "アモキシシリン水和物",
-      "product": "アモキシシリン細粒10%／20%「TCK」",
-      "manufacturer": "辰巳化学",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": "橙赤色の細粒",
-      "detail": "味・香りの直接記載は確認できず。添加物として白糖、サッカリンナトリウム水和物、香料等の記載あり",
-      "sourceType": "PMDA製品ページ",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6131001C2119?user=1"
-    },
-    {
-      "ingredient": "セフポドキシム プロキセチル",
-      "product": "バナンドライシロップ5%",
-      "manufacturer": "第一三共",
-      "status": "direct_statement",
-      "taste": "原薬の苦味を抑え、小児が服用しやすいよう設計",
-      "aroma": null,
-      "appearance": null,
-      "detail": "製剤開発の経緯に、エステル型セフェムの苦味を抑えたドライシロップである旨の記載あり",
-      "sourceType": "PMDA製品ページ掲載インタビューフォーム",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132011R1078?user=1"
-    },
-    {
+      "id": "ABX-014",
       "ingredient": "セフジニル",
       "product": "セフゾン細粒小児用10%",
       "manufacturer": "LTLファーマ",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "芳香あり",
-      "appearance": "淡赤白色の細粒",
-      "detail": null,
-      "sourceType": "PMDA製品ページ掲載インタビューフォーム",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132013C1031?user=1"
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ストロベリー味",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "粉ミルク/牛乳併用で便が赤色調になることがあるが心配ない旨の患者案内あり",
+      "detail": "メーカー患者資材でストロベリー味/甘味は確認できるが、完成製剤の苦味の明記は確認できないため『記載なし』。",
+      "auditNotes": [
+        "メーカー患者資材の直接表現は『ストロベリー味』であり、独立した『甘味あり』とは断定しない"
+      ],
+      "sourceType": "メーカー患者向け資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.ltl-pharma.com/patients-families/%E3%82%BB%E3%83%95%E3%82%BE%E3%83%B3%E7%B4%B0%E7%B2%92%E5%B0%8F%E5%85%90%E7%94%A8%E3%82%92%E5%87%A6%E6%96%B9%E3%81%95%E3%82%8C%E3%81%9F%E4%BF%9D%E8%AD%B7%E8%80%85%E3%81%AE%E7%9A%86%E3%81%95%E3%81%BE/",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
+      "id": "ABX-015",
+      "ingredient": "セフジニル",
+      "product": "セフジニル細粒小児用10%「SW」",
+      "manufacturer": "沢井製薬",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ストロベリー様芳香",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "飲み切れる量に混ぜる",
+      "detail": null,
+      "auditNotes": [],
+      "sourceType": "メーカー患者向け指導箋",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://med.sawai.co.jp/preview.php?prodid=4801",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c0000000006FA8A24.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-035",
+          "name": "りんごジュース",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、混ぜると飲みやすくなることがあるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c0000000006FA8A24.pdf",
+          "note": "飲み残さないよう、飲みきれる量に混ぜる。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-036",
+          "name": "バニラアイス",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、混ぜると飲みやすくなることがあるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c0000000006FA8A24.pdf",
+          "note": "飲み残さないよう、飲みきれる量に混ぜる。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-037",
+          "name": "カスタードプリン",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、混ぜると飲みやすくなることがあるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c0000000006FA8A24.pdf",
+          "note": "飲み残さないよう、飲みきれる量に混ぜる。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-038",
+          "name": "ミルクココア",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、混ぜると飲みやすくなることがあるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c0000000006FA8A24.pdf",
+          "note": "飲み残さないよう、飲みきれる量に混ぜる。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-039",
+          "name": "緑茶",
+          "rating": "△",
+          "meaning": "飲みにくくなる可能性",
+          "evidence": "メーカー患者向け指導箋で、混ぜると飲みにくくなることがあるものとして掲載（特異な味）。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c0000000006FA8A24.pdf",
+          "note": "『飲みにくくなることがあります』の表現なので△。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-040",
+          "name": "牛乳",
+          "rating": "△",
+          "meaning": "飲みにくくなる可能性",
+          "evidence": "メーカー患者向け指導箋で、混ぜると飲みにくくなることがあるものとして掲載（甘いが特異な味）。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c0000000006FA8A24.pdf",
+          "note": "『飲みにくくなることがあります』の表現なので△。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-041",
+          "name": "オレンジジュース",
+          "rating": "△",
+          "meaning": "飲みにくくなる可能性",
+          "evidence": "メーカー患者向け指導箋で、混ぜると飲みにくくなることがあるものとして掲載（酸味がする）。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c0000000006FA8A24.pdf",
+          "note": "『飲みにくくなることがあります』の表現なので△。",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "ABX-016",
+      "ingredient": "セフジニル",
+      "product": "セフジニル細粒小児用10%「JG」",
+      "manufacturer": "日本ジェネリック",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ストロベリーの芳香",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "製品専用指導箋を優先",
+      "detail": "現行IFはストロベリーの芳香・甘味を明記し、苦味の記載なし。",
+      "auditNotes": [],
+      "sourceType": "メーカー患者向け指導箋",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://medical.nihon-generic.co.jp/medical/6132013C1147/",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://medical.nihon-generic.co.jp/uploadfiles/materials/CEFGX_GUIDE1.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-042",
+          "name": "カスタードプリン",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、ジュースや甘味のある食品と混ぜると飲みやすくなるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://medical.nihon-generic.co.jp/uploadfiles/materials/CEFGX_GUIDE1.pdf",
+          "note": "混ぜた後はできるだけ時間をおかずに服用。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-043",
+          "name": "りんごジュース",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、ジュースや甘味のある食品と混ぜると飲みやすくなるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://medical.nihon-generic.co.jp/uploadfiles/materials/CEFGX_GUIDE1.pdf",
+          "note": "混ぜた後はできるだけ時間をおかずに服用。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-044",
+          "name": "ミルクココア",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、ジュースや甘味のある食品と混ぜると飲みやすくなるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://medical.nihon-generic.co.jp/uploadfiles/materials/CEFGX_GUIDE1.pdf",
+          "note": "混ぜた後はできるだけ時間をおかずに服用。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-045",
+          "name": "バニラアイス",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー患者向け指導箋で、ジュースや甘味のある食品と混ぜると飲みやすくなるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://medical.nihon-generic.co.jp/uploadfiles/materials/CEFGX_GUIDE1.pdf",
+          "note": "混ぜた後はできるだけ時間をおかずに服用。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-046",
+          "name": "緑茶",
+          "rating": "△",
+          "meaning": "飲みにくくなる可能性",
+          "evidence": "メーカー患者向け指導箋で『混ぜると飲みにくくなるもの』として掲載（特異な味）。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://medical.nihon-generic.co.jp/uploadfiles/materials/CEFGX_GUIDE1.pdf",
+          "note": "メーカー表現に合わせ△。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-047",
+          "name": "牛乳",
+          "rating": "△",
+          "meaning": "飲みにくくなる可能性",
+          "evidence": "メーカー患者向け指導箋で『混ぜると飲みにくくなるもの』として掲載（甘いが特異な味）。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://medical.nihon-generic.co.jp/uploadfiles/materials/CEFGX_GUIDE1.pdf",
+          "note": "メーカー表現に合わせ△。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-048",
+          "name": "オレンジジュース",
+          "rating": "△",
+          "meaning": "飲みにくくなる可能性",
+          "evidence": "メーカー患者向け指導箋で『混ぜると飲みにくくなるもの』として掲載（酸味がする）。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://medical.nihon-generic.co.jp/uploadfiles/materials/CEFGX_GUIDE1.pdf",
+          "note": "メーカー表現に合わせ△。",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "ABX-017",
+      "ingredient": "セフジニル",
+      "product": "セフジニル細粒小児用10%「トーワ」",
+      "manufacturer": "東和薬品",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "芳香",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "SW/JG情報は流用しない",
+      "detail": "電子添文3.2は『芳香があり、味は甘い』。苦味の記載なし。",
+      "auditNotes": [],
+      "sourceType": "PMDA/メーカー製品情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132013C1163?user=1",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-018",
+      "ingredient": "セフポドキシム プロキセチル",
+      "product": "バナンドライシロップ5%",
+      "manufacturer": "第一三共",
+      "formulation": "DS5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": null,
+      "sweetness": "あり（水懸濁液）",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "二次情報の『オレンジ味』は正式マスターに採用しない",
+      "detail": "現行一次資料で完成製剤の甘味を直接確認できないため、添加剤等から推測せず『記載なし』。 / 現行の先発製品情報・公開一次資料を確認したが、製品固有の食品との味・飲みやすさ評価は確認できず。 / 第一三共IFの『ドライシロップ水懸濁液の安定性』表で開始時の味を『甘い』と明記。粉末そのものの味ではなく水懸濁液の評価として登録。",
+      "auditNotes": [
+        "「特定風味名は公式一次情報で未確定」は具体的な官能表現ではないため味チップから除外",
+        "ヒト官能研究の直リンクがマスター内にないため、苦味・粉っぽさの研究記載は画面から除外"
+      ],
+      "sourceType": "PMDA＋学術官能研究",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://pins.japic.or.jp/pdf/medical_interview/IF00004498.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-019",
+      "ingredient": "セフポドキシム プロキセチル",
+      "product": "セフポドキシム プロキセチルDS小児用5%「サワイ」",
+      "manufacturer": "沢井製薬",
+      "formulation": "DS5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ様芳香",
+      "sweetness": "あり",
+      "bitterness": "あり",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "製品固有の味情報は明確",
+      "detail": "沢井製薬の製品専用『飲ませ方』で水・プリン・オレンジジュース・スポーツ飲料を確認。",
+      "auditNotes": [],
+      "sourceType": "メーカー製品情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7315.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-053",
+          "name": "水",
+          "rating": "○",
+          "meaning": "メーカーが基本の飲ませ方として案内",
+          "evidence": "メーカー製品専用指導箋で少量の水に混ぜて飲ませるよう案内。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7315.pdf",
+          "note": "混ぜたらすぐ服用。溶け残りに注意。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-054",
+          "name": "プリン",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー製品専用指導箋で、水で飲みにくい場合に混ぜると飲みやすくなることがあるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7315.pdf",
+          "note": "混ぜたらすぐ服用。オレンジジュースでは溶け残りに注意。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-055",
+          "name": "オレンジジュース",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー製品専用指導箋で、水で飲みにくい場合に混ぜると飲みやすくなることがあるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7315.pdf",
+          "note": "混ぜたらすぐ服用。オレンジジュースでは溶け残りに注意。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-056",
+          "name": "スポーツ飲料",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー製品専用指導箋で、水で飲みにくい場合に混ぜると飲みやすくなることがあるものとして掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7315.pdf",
+          "note": "混ぜたらすぐ服用。オレンジジュースでは溶け残りに注意。",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "ABX-020",
+      "ingredient": "セフィキシム",
+      "product": "セフスパン細粒50mg",
+      "manufacturer": "長生堂製薬（販売：日本ジェネリック）",
+      "formulation": "細粒5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "芳香あり",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": null,
+      "detail": null,
+      "auditNotes": [],
+      "sourceType": "PMDA＋メーカー製品情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://medical.nihon-generic.co.jp/medical/6132008C1022/",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-021",
+      "ingredient": "セフテラム ピボキシル",
+      "product": "トミロン細粒小児用20%",
+      "manufacturer": "富士フイルム富山化学",
+      "formulation": "細粒20%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "芳香あり",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": null,
+      "detail": null,
+      "auditNotes": [],
+      "sourceType": "PMDA",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132009C2023?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://hc.fujifilm.com/fftc/ja/products/pharmaceuticals/low-molecular/tmrped",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-022",
       "ingredient": "セファクロル",
       "product": "ケフラール細粒小児用100mg",
       "manufacturer": "共和薬品工業",
-      "status": "direct_statement",
-      "taste": "甘く、わずかに苦い",
-      "aroma": "わずかにオレンジ様のにおい",
-      "appearance": "うすい黄色の細粒",
-      "detail": "添加物として香料の記載あり",
-      "sourceType": "PMDA製品ページ掲載インタビューフォーム／電子添文",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132005C1053?user=1"
+      "formulation": "細粒",
+      "evidenceStatus": "direct_statement",
+      "flavor": "わずかにオレンジ様のにおい",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": null,
+      "detail": "電子添文3.2：うすい黄色の細粒で、わずかにオレンジ様のにおい。味の記載なし。",
+      "auditNotes": [],
+      "sourceType": "PMDA",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132005C1053?user=1",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "トラネキサム酸",
-      "product": "トランサミンシロップ5%",
-      "manufacturer": "ニプロファーマ（販売：ニプロ）",
-      "status": "direct_statement",
-      "taste": null,
-      "aroma": "芳香（オレンジ臭）",
-      "appearance": "淡赤色の溶液",
-      "detail": "味の直接記載は確認できず。添加物として香料の記載あり",
-      "sourceType": "PMDA電子添文",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/650037_3327002Q1062_3_03"
+      "id": "ABX-023",
+      "ingredient": "セファクロル",
+      "product": "セファクロル細粒小児用10%「SW」",
+      "manufacturer": "沢井製薬",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "わずかにオレンジ様芳香",
+      "sweetness": "あり（添加剤由来）",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": null,
+      "detail": "沢井現行製品ページ：わずかにオレンジ様芳香、添加剤由来の甘みを有する。",
+      "auditNotes": [],
+      "sourceType": "PMDA/メーカー",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://med.sawai.co.jp/preview.php?prodid=4800",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://med.sawai.co.jp/file/pr28_4800_1.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "アンブロキソール塩酸塩",
-      "product": "小児用ムコソルバンDS1.5%",
-      "manufacturer": "帝人ファーマ",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "ヨーグルト様のにおい",
-      "appearance": "白色～微黄色の粒状または粉末",
-      "detail": null,
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/470310_2239001R1072_1_008_1F.pdf"
+      "id": "ABX-024",
+      "ingredient": "セファクロル",
+      "product": "セファクロル細粒小児用10%「JG」",
+      "manufacturer": "日本ジェネリック",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "わずかに芳香（オレンジ）",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": null,
+      "detail": "2025年9月IF：わずかに芳香（オレンジ）を有し、味は甘く、特有の味がある。旧v1.0の『わずかに苦い』は採用しない。",
+      "auditNotes": [],
+      "sourceType": "PMDA/メーカー",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://medical.nihon-generic.co.jp/uploadfiles/medicine/CEFACPO_IF.pdf",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://medical.nihon-generic.co.jp/medical/6132005C1240/",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "アンブロキソール塩酸塩",
-      "product": "小児用ムコソルバンシロップ0.3%",
-      "manufacturer": "帝人ファーマ",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "果実様の香気",
-      "appearance": "無色～微黄色澄明の液",
-      "detail": null,
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/470310_2239001R1072_1_008_1F.pdf"
+      "id": "ABX-025",
+      "ingredient": "セファレキシン",
+      "product": "L-ケフレックス小児用顆粒",
+      "manufacturer": "共和薬品工業",
+      "formulation": "顆粒",
+      "evidenceStatus": "direct_statement",
+      "flavor": "わずかにオレンジ様のにおい",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": null,
+      "detail": "電子添文3.2：うすいだいだい色の顆粒で、わずかにオレンジ様のにおい。味の記載なし。",
+      "auditNotes": [],
+      "sourceType": "PMDA",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132002E1034?user=1",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "L-カルボシステイン",
-      "product": "ムコダインDS50%",
-      "manufacturer": "杏林製薬",
-      "status": "direct_statement",
-      "taste": null,
-      "aroma": "特異な芳香（桃様）",
-      "appearance": "白色の微粒状",
-      "detail": "製剤性状欄では味・においは『－』。同IFの単剤安定性試験開始時に桃様の芳香を直接記載",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/231099_2233002R2029_2_005_1F.pdf"
+      "id": "ABX-026",
+      "ingredient": "セファレキシン",
+      "product": "セファレキシン顆粒500mg「JG」",
+      "manufacturer": "日本ジェネリック",
+      "formulation": "顆粒",
+      "evidenceStatus": "no_direct_statement",
+      "flavor": null,
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": null,
+      "detail": "現行製品ページ/IFの製剤性状はごくうすいだいだい色の顆粒。味・においの記載なし。",
+      "auditNotes": [],
+      "sourceType": "PMDA/メーカー",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://medical.nihon-generic.co.jp/medical/6132002E2162/",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://medical.nihon-generic.co.jp/uploadfiles/medicine/CEFAL_IF.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "L-カルボシステイン",
-      "product": "ムコダインシロップ5%",
-      "manufacturer": "杏林製薬",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "特異な芳香",
-      "appearance": "褐色の液",
-      "detail": null,
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/231099_2233002R2029_2_005_1F.pdf"
-    },
-    {
-      "ingredient": "L-カルボシステイン",
-      "product": "カルボシステインDS50%「トーワ」",
-      "manufacturer": "東和薬品",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": "白色の微粒状のドライシロップ",
-      "detail": "味・香りの直接記載は確認できず。添加物としてアスパルテーム、香料等の記載あり",
-      "sourceType": "メーカー医療関係者向けインタビューフォーム",
-      "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=28849&t=0"
-    },
-    {
-      "ingredient": "L-カルボシステイン",
-      "product": "カルボシステインシロップ小児用5%「トーワ」",
-      "manufacturer": "東和薬品",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "特異な芳香",
-      "appearance": "褐色の液",
-      "detail": null,
-      "sourceType": "メーカー医療関係者向けインタビューフォーム",
-      "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=28849&t=0"
-    },
-    {
+      "id": "ABX-027",
       "ingredient": "クラリスロマイシン",
       "product": "クラリスドライシロップ10%小児用",
       "manufacturer": "大正製薬",
-      "status": "direct_statement",
-      "taste": "甘い（水懸濁時）",
-      "aroma": "芳香あり（水懸濁時）",
-      "appearance": "微赤白色の懸濁液（水懸濁時）",
-      "detail": "酸性飲料などとの混合では苦味が現れることがあるため、配合先にも注意",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/400059_6149003F1031_1_039_1F.pdf"
+      "formulation": "DS10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ストロベリー風味",
+      "sweetness": "水懸濁時は甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "混ぜたらすぐ服用。酸性飲料は避ける方向。",
+      "detail": "食品ごとの即時/時間後評価はUI実装時に表データ化",
+      "auditNotes": [
+        "IFの製剤性状に基づきストロベリー風味を採用",
+        "甘味はIFで直接確認できる水懸濁時に限定",
+        "主薬の苦味や添加剤から完成製剤の通常時の苦味を推定しない"
+      ],
+      "sourceType": "メーカーIF・ヒト官能評価",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://pins.japic.or.jp/pdf/medical_interview/IF00009156.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
+      "id": "ABX-028",
       "ingredient": "クラリスロマイシン",
       "product": "クラリスロマイシンDS10%小児用「サワイ」",
       "manufacturer": "沢井製薬",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": null,
-      "detail": "味・香りの直接記載は確認できず。添加物としてサッカリンナトリウム、香料等の記載あり",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/300119_6149003F1090_1_181_1F.pdf"
-    },
-    {
-      "ingredient": "ジメモルファンリン酸塩",
-      "product": "アストミンシロップ0.25%",
-      "manufacturer": "オーファンパシフィック",
-      "status": "direct_statement",
-      "taste": "甘味を有する",
-      "aroma": "芳香を有する",
-      "appearance": "だいだい色澄明の粘稠液",
+      "formulation": "DS10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ストロベリー様芳香",
+      "sweetness": "あり",
+      "bitterness": "酸性飲料との混合で苦く感じることあり",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "酸性飲料は避けることが望ましい",
       "detail": null,
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/181251_2229001Q1054_2_2F.pdf"
+      "auditNotes": [
+        "電子添文の通常性状はストロベリー様芳香・甘味。苦味表示は酸性飲料との混合時に限定"
+      ],
+      "sourceType": "メーカー患者向け指導箋＋Q&A",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://med.sawai.co.jp/file/pr1_1120.pdf",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E71E5.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-020",
+          "name": "プリン",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "混ぜると飲みやすくなることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E71E5.pdf",
+          "note": "牛乳は本来の味と異なるように感じることがある",
+          "verified": true
+        },
+        {
+          "id": "FOOD-021",
+          "name": "牛乳",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "混ぜると飲みやすくなることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E71E5.pdf",
+          "note": "牛乳は本来の味と異なるように感じることがある",
+          "verified": true
+        },
+        {
+          "id": "FOOD-022",
+          "name": "アイスクリーム",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "混ぜると飲みやすくなることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E71E5.pdf",
+          "note": "牛乳は本来の味と異なるように感じることがある",
+          "verified": true
+        },
+        {
+          "id": "FOOD-023",
+          "name": "ミルクココア",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "混ぜると飲みやすくなることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E71E5.pdf",
+          "note": "牛乳は本来の味と異なるように感じることがある",
+          "verified": true
+        },
+        {
+          "id": "FOOD-024",
+          "name": "ヨーグルト",
+          "rating": "△",
+          "meaning": "苦味が出る可能性",
+          "evidence": "酸性のものに混ぜると苦く感じることがあるとメーカー患者資材に記載",
+          "sourceType": "メーカー患者向け服薬指導資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E71E5.pdf",
+          "note": null,
+          "verified": true
+        },
+        {
+          "id": "FOOD-025",
+          "name": "オレンジジュース",
+          "rating": "×",
+          "meaning": "避ける方向のメーカー注意",
+          "evidence": "患者資材では苦く感じることがあり、製品Q&A/電子添文では酸性飲料を避けることが望ましいと記載",
+          "sourceType": "メーカー患者資材＋製品Q&A/電子添文",
+          "sourceUrl": "https://med.sawai.co.jp/file/pr51_1119.pdf",
+          "note": null,
+          "verified": true
+        },
+        {
+          "id": "FOOD-026",
+          "name": "りんごジュース",
+          "rating": "×",
+          "meaning": "避ける方向のメーカー注意",
+          "evidence": "患者資材では苦く感じることがあり、製品Q&A/電子添文では酸性飲料を避けることが望ましいと記載",
+          "sourceType": "メーカー患者資材＋製品Q&A/電子添文",
+          "sourceUrl": "https://med.sawai.co.jp/file/pr51_1119.pdf",
+          "note": null,
+          "verified": true
+        },
+        {
+          "id": "FOOD-027",
+          "name": "スポーツドリンク",
+          "rating": "×",
+          "meaning": "避ける方向のメーカー注意",
+          "evidence": "患者資材では苦く感じることがあり、製品Q&A/電子添文では酸性飲料を避けることが望ましいと記載",
+          "sourceType": "メーカー患者資材＋製品Q&A/電子添文",
+          "sourceUrl": "https://med.sawai.co.jp/file/pr51_1119.pdf",
+          "note": null,
+          "verified": true
+        }
+      ]
     },
     {
-      "ingredient": "オロパタジン塩酸塩",
-      "product": "オロパタジン塩酸塩顆粒0.5%「トーワ」",
-      "manufacturer": "東和薬品",
-      "status": "direct_statement",
-      "taste": null,
-      "aroma": "においなし",
-      "appearance": "白色の粒を含む帯赤褐色の顆粒剤",
-      "detail": "服薬補助ゼリーとの配合試験で、配合前の試験製剤について『におい：なし』と直接記載",
-      "sourceType": "メーカー医療関係者向けインタビューフォーム",
-      "sourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=29053&t=0"
-    },
-    {
-      "ingredient": "アセトアミノフェン",
-      "product": "カロナールシロップ2%",
-      "manufacturer": "あゆみ製薬",
-      "status": "direct_statement",
-      "taste": "わずかに甘い",
-      "aroma": "オレンジ様のにおい",
-      "appearance": "無色～淡黄褐色澄明のシロップ剤",
-      "detail": "製剤の外観及び性状に味・においの直接記載あり",
-      "sourceType": "PMDA製品ページ掲載インタビューフォーム",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/1141007Q1048?user=1"
-    },
-    {
-      "ingredient": "チペピジンヒベンズ酸塩",
-      "product": "アスベリンシロップ0.5%",
-      "manufacturer": "ニプロ",
-      "status": "direct_statement",
-      "taste": "甘味あり",
-      "aroma": "芳香性あり",
-      "appearance": "白色～淡黄灰白色の懸濁液",
-      "detail": "香料にエタノール、バニリン、プロピレングリコールを含有",
-      "sourceType": "メーカー医療関係者向けインタビューフォーム",
-      "sourceUrl": "https://med.nipro.co.jp/sfsites/c/sfc/servlet.shepherd/version/download/068Q800001CgSgUIAV"
-    },
-    {
-      "ingredient": "チペピジンヒベンズ酸塩",
-      "product": "アスベリンドライシロップ2%",
-      "manufacturer": "ニプロ",
-      "status": "direct_statement",
-      "taste": "甘味あり",
-      "aroma": "芳香性あり（果実臭）",
-      "appearance": "橙色の微粒状の散剤",
-      "detail": "香料にバニリン、エチルバニリンを含有。安定性試験には果実臭の記載あり",
-      "sourceType": "メーカー医療関係者向けインタビューフォーム",
-      "sourceUrl": "https://med.nipro.co.jp/sfsites/c/sfc/servlet.shepherd/version/download/068Q800001CgSgUIAV"
-    },
-    {
-      "ingredient": "チペピジンヒベンズ酸塩",
-      "product": "アスベリン散10%",
-      "manufacturer": "ニプロ",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": "橙色の微粒状の散剤",
-      "detail": "公式資料で製剤の味・香りの直接記載は確認できず",
-      "sourceType": "メーカー医療関係者向けインタビューフォーム",
-      "sourceUrl": "https://med.nipro.co.jp/sfsites/c/sfc/servlet.shepherd/version/download/068Q800001CgSgUIAV"
-    },
-    {
-      "ingredient": "アムホテリシンB",
-      "product": "ファンギゾンシロップ100mg/mL",
-      "manufacturer": "チェプラファーム",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "オレンジ様芳香",
-      "appearance": "うすい橙色の濃ちょうな懸濁液",
-      "detail": "製剤の外観及び性状に味・においの直接記載あり",
-      "sourceType": "PMDA製品ページ掲載インタビューフォーム",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6173001Q1047?user=1"
-    },
-    {
-      "ingredient": "シプロヘプタジン塩酸塩水和物",
-      "product": "ペリアクチンシロップ0.04%",
-      "manufacturer": "日医工",
-      "status": "direct_statement",
-      "taste": "強い甘味",
-      "aroma": "果実様のにおい",
-      "appearance": "無色～微黄色澄明の液",
-      "detail": "製品の製剤学的特性にも果実様フレーバー使用の記載あり",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/2/530169_4419005Q1072_2_009_1F.pdf"
-    },
-    {
-      "ingredient": "プロカテロール塩酸塩水和物",
-      "product": "メプチンシロップ5μg/mL",
-      "manufacturer": "大塚製薬",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "オレンジの芳香",
-      "appearance": "無色澄明のやや粘稠な液",
-      "detail": "製剤の性状に味・芳香の直接記載あり",
-      "sourceType": "メーカー医療関係者向け製品資料",
-      "sourceUrl": "https://www.otsuka-elibrary.jp/product/di/m33/index.html"
-    },
-    {
-      "ingredient": "トラネキサム酸",
-      "product": "トラネキサム酸シロップ5%「NIG」",
-      "manufacturer": "日医工岐阜工場（販売：日医工）",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": "だいだい色のシロップ剤",
-      "detail": "味・香りの直接記載は確認できず。添加物として精製白糖、香料、エタノールの記載あり",
-      "sourceType": "PMDA製品ページ掲載インタビューフォーム",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/3327002Q1089?user=1"
-    },
-    {
-      "ingredient": "レボセチリジン塩酸塩",
-      "product": "レボセチリジン塩酸塩シロップ0.05%「ニプロ」",
-      "manufacturer": "ニプロ",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": "無色澄明のシロップ剤",
-      "detail": "味・香りの直接記載は確認できず。添加物として粉末還元麦芽糖水アメ、サッカリンナトリウム、バニリン、香料の記載あり",
-      "sourceType": "メーカー医療関係者向け製品資料",
-      "sourceUrl": "https://med.nipro.co.jp/pharmaceuticals/detail/a0m5g000002fSTL/"
-    },
-    {
-      "ingredient": "ドンペリドン",
-      "product": "ナウゼリンドライシロップ1%",
-      "manufacturer": "協和キリン",
-      "status": "direct_statement",
-      "taste": "甘味",
-      "aroma": "無臭",
-      "appearance": "白色の、粉末を含む微細な粒子",
-      "detail": "製剤の性状に味・においの直接記載あり",
-      "sourceType": "PMDA製品ページ掲載インタビューフォーム／電子添文",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2399005R1163?user=1"
-    },
-    {
-      "ingredient": "プレドニゾロン",
-      "product": "プレドニゾロン散「タケダ」1%",
-      "manufacturer": "T's製薬",
-      "status": "direct_statement",
-      "taste": "にがい",
-      "aroma": "においなし",
-      "appearance": "白色の粉末",
-      "detail": "製剤の性状に味・においの直接記載あり",
-      "sourceType": "メーカー医療関係者向け製品資料",
-      "sourceUrl": "https://www.med.ts-pharma.com/di-net/product/2456002B10620.html"
-    },
-    {
+      "id": "ABX-029",
       "ingredient": "クラリスロマイシン",
-      "product": "クラリスロマイシンDS小児用10%「タカタ」",
+      "product": "クラリスロマイシンDS10%小児用「トーワ」",
+      "manufacturer": "東和薬品",
+      "formulation": "DS10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "いちご風味",
+      "sweetness": null,
+      "bitterness": "主薬の苦味を2層コーティングでマスキング",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "別メーカー食品表は流用しない",
+      "detail": "東和薬品は製品専用『上手な飲ませ方』への導線を公式に公開しているが、今回取得できる公開本文では食品別内容を確認できず。他社情報は流用しない。",
+      "auditNotes": [
+        "甘味料の使用から完成製剤の甘味を推定しない",
+        "苦味は製品の通常味ではなく、主薬に対するマスキング設計として表示"
+      ],
+      "sourceType": "メーカー製品特徴",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://med.towayakuhin.co.jp/medical/property/z_clarithromycin_ds.html",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-030",
+      "ingredient": "クラリスロマイシン",
+      "product": "クラリスロマイシンDS10%「タカタ」",
       "manufacturer": "高田製薬",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "においなし～わずかに特異なにおい（バナナ風味）",
-      "appearance": "微黄白色～微褐色の微粒又は粉末",
-      "detail": "メーカー製品概要にバナナ風味、電子添文の性状に味・においの直接記載あり",
-      "sourceType": "メーカー医療関係者向け製品資料",
-      "sourceUrl": "https://www.takata-seiyaku.co.jp/medical/product/t_6142/6142/index.html"
+      "formulation": "DS10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "バナナ風味",
+      "sweetness": null,
+      "bitterness": "主薬の苦味をコーティングして感知しにくく設計",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "別メーカーの食品表は流用しない",
+      "detail": null,
+      "auditNotes": [
+        "甘味成分の記載だけから完成製剤の甘味を推定しない",
+        "苦味は製品の通常味ではなく、主薬に対するマスキング設計として表示"
+      ],
+      "sourceType": "メーカー/PMDA製品情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.takata-seiyaku.co.jp/medical/product/t_6142/6142/index.html",
+          "access": "verified"
+        },
+        {
+          "label": "製剤設計資料",
+          "url": "https://www.takata-seiyaku.co.jp/general/hs6nik000000062f-att/201312.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "プランルカスト水和物",
-      "product": "プランルカストDS10%「タカタ」",
-      "manufacturer": "高田製薬",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "においなし",
-      "appearance": "白色～微黄色の微粒又は粉末",
-      "detail": "製剤の性状に味・においの直接記載あり",
-      "sourceType": "メーカー医療関係者向け製品資料",
-      "sourceUrl": "https://www.takata-seiyaku.co.jp/medical/product/t_4495/2011122721/index.html"
+      "id": "ABX-031",
+      "ingredient": "クラリスロマイシン",
+      "product": "クラリスロマイシンDS10%小児用「NIG」",
+      "manufacturer": "日医工/NIG",
+      "formulation": "DS10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "サイダーフレーバー、ストロベリーフレーバー使用",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "配合安定性表はUIから完全除外",
+      "detail": "製品IFの製剤学的特性：香料としてサイダーフレーバー、ストロベリーフレーバーを使用。完成製剤の甘味・苦味は明記なし。 / 日医工/NIGには抗菌剤共通の粉薬飲ませ方資材があるが、当該製品固有の食品別味覚評価ではないためマスター食品判定には採用しない。",
+      "auditNotes": [],
+      "sourceType": "メーカー製品情報・患者向け情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.nichiiko.co.jp/medicine/product/73450",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://www.nichiiko.co.jp/medicine/file/73450/interview/73450_interview.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "アモキシシリン水和物",
-      "product": "ワイドシリン細粒20%",
-      "manufacturer": "Meiji Seika ファルマ",
-      "status": "direct_statement",
-      "taste": "甘味",
-      "aroma": "芳香（ミックスフルーツ風味）",
-      "appearance": "桃色の細粒",
-      "detail": "10%製剤とは香料成分が異なる旨の記載あり",
-      "sourceType": "PMDAインタビューフォーム",
-      "sourceUrl": "https://www.info.pmda.go.jp/go/interview/1/780009_6131001C2100_1_000_1F.pdf"
+      "id": "ABX-032",
+      "ingredient": "アジスロマイシン",
+      "product": "ジスロマック細粒小児用10%",
+      "manufacturer": "ファイザー",
+      "formulation": "細粒10%",
+      "evidenceStatus": "no_direct_statement",
+      "flavor": null,
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "苦味・後味は別フィールドで保持",
+      "detail": "現行のメーカー製品ページと電子添文では、完成製剤の具体的な味・香りを直接確認できない。",
+      "auditNotes": [
+        "『オレンジ系の香味設計』『甘味あり』『苦味・後味あり』は到達可能な一次資料で直接確認できないため表示から除外"
+      ],
+      "sourceType": "PMDA/メーカー製品情報",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://labeling.pfizer.com/ShowLabeling.aspx?id=17356",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://www.pfizermedicalinformation.jp/%E3%82%B8%E3%82%B9%E3%83%AD%E3%83%9E%E3%83%83%E3%82%AF%E7%B4%B0%E7%B2%92%E5%B0%8F%E5%85%90%E7%94%A8",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "アンブロキソール塩酸塩",
-      "product": "アンブロキソール塩酸塩シロップ小児用0.3%「タカタ」",
-      "manufacturer": "高田製薬",
-      "status": "direct_statement",
-      "taste": null,
-      "aroma": "芳香あり",
-      "appearance": "無色～微黄色澄明の液",
-      "detail": "味の直接記載は確認できず。製剤の性状に芳香の直接記載あり",
-      "sourceType": "PMDA製品ページ掲載電子添文",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2239001Q1204?user=1"
-    },
-    {
-      "ingredient": "トラネキサム酸",
-      "product": "トランサミン散50%",
-      "manufacturer": "第一三共",
-      "status": "additives_only",
-      "taste": null,
-      "aroma": null,
-      "appearance": "白色の散剤",
-      "detail": "現行の公式資料で製剤の味・香りの直接記載は確認できず。添加物はD-マンニトール、ポリビニルアルコール（部分けん化物）",
-      "sourceType": "PMDA製品ページ掲載電子添文／インタビューフォーム",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/3327002B1027_2?user=1"
-    },
-    {
-      "ingredient": "ピコスルファートナトリウム水和物",
-      "product": "スナイリンドライシロップ1%",
+      "id": "ABX-033",
+      "ingredient": "エリスロマイシン",
+      "product": "エリスロシンドライシロップ10%",
       "manufacturer": "ヴィアトリス・ヘルスケア",
-      "status": "direct_statement",
-      "taste": "甘い",
-      "aroma": "においなし",
-      "appearance": "白色の顆粒",
-      "detail": "製剤の性状に味・においの直接記載あり。添加物は精製白糖",
-      "sourceType": "メーカー医療関係者向け製品資料",
-      "sourceUrl": "https://www.viatris-e-channel.com/viatris-products/di/detail/888171762.html"
+      "formulation": "ドライシロップ10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "わずかに特異な芳香",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "規格ごとに別レコードへ分割推奨",
+      "detail": "v0.9の複数規格1レコードを分割 / ヴィアトリス公式IF：ドライシロップ10%/W20%は『わずかに特異な芳香があり、味は甘い』。 / 公式IFの製剤性状に苦味の記載なし。",
+      "auditNotes": [],
+      "sourceType": "PMDA",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://dev21.viatris-e-channel.com/viatris-products/di/detail/assetfile/Erythrocin_Tab_Dry_Syr_W_Gra_IF.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "耐性乳酸菌",
-      "product": "ビオフェルミンR散",
-      "manufacturer": "ビオフェルミン製薬（販売：大正製薬）",
-      "status": "direct_statement",
-      "taste": "やや甘い",
-      "aroma": "においなし～わずかに特異なにおい",
-      "appearance": "白色～わずかに淡黄褐色の粉末状の散剤",
-      "detail": "製剤の性状に味・においの直接記載あり",
-      "sourceType": "PMDA製品ページ掲載インタビューフォーム",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2316004B1036_1?user=1"
+      "id": "ABX-034",
+      "ingredient": "エリスロマイシン",
+      "product": "エリスロシンW20%",
+      "manufacturer": "ヴィアトリス・ヘルスケア",
+      "formulation": "ドライシロップ20%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "わずかに特異な芳香",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "規格ごとに別レコードへ分割推奨",
+      "detail": "v0.9の複数規格1レコードを分割 / ヴィアトリス公式IF：ドライシロップ10%/W20%は『わずかに特異な芳香があり、味は甘い』。 / 公式IFの製剤性状に苦味の記載なし。",
+      "auditNotes": [],
+      "sourceType": "PMDA",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://dev21.viatris-e-channel.com/viatris-products/di/detail/assetfile/Erythrocin_Tab_Dry_Syr_W_Gra_IF.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
     },
     {
-      "ingredient": "アモキシシリン水和物・クラブラン酸カリウム",
-      "product": "クラバモックス小児用配合ドライシロップ",
-      "manufacturer": "グラクソ・スミスクライン",
-      "status": "direct_statement",
-      "taste": null,
-      "aroma": "ストロベリークリームの芳香",
-      "appearance": "白色～帯黄白色の粉末（用時懸濁で同色の懸濁液）",
-      "detail": "味の直接記載は確認できず。製剤の性状に芳香の直接記載あり",
-      "sourceType": "PMDA製品ページ掲載電子添文／インタビューフォーム",
-      "sourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139100R1036?user=1"
+      "id": "ABX-035",
+      "ingredient": "エリスロマイシン",
+      "product": "エリスロシンW顆粒20%",
+      "manufacturer": "ヴィアトリス・ヘルスケア",
+      "formulation": "顆粒20%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "特異な芳香",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "規格ごとに別レコードへ分割推奨",
+      "detail": "v0.9の複数規格1レコードを分割 / ヴィアトリス公式IF：W顆粒20%は『特異な芳香があり、味は甘い』。 / 公式IFの製剤性状に苦味の記載なし。",
+      "auditNotes": [],
+      "sourceType": "PMDA",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://dev21.viatris-e-channel.com/viatris-products/di/detail/assetfile/Erythrocin_Tab_Dry_Syr_W_Gra_IF.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-036",
+      "ingredient": "ホスホマイシン",
+      "product": "ホスミシンドライシロップ200",
+      "manufacturer": "Meiji",
+      "formulation": "ドライシロップ20%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "芳香",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "別製品の情報を流用しない",
+      "detail": "v0.9の複数規格1レコードを分割 / 電子添文3.2：白色細粒、芳香、味は甘い。",
+      "auditNotes": [],
+      "sourceType": "メーカー患者向け資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://meiji-medical-net.com/product/fo/pn0143",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-037",
+      "ingredient": "ホスホマイシン",
+      "product": "ホスミシンドライシロップ400",
+      "manufacturer": "Meiji",
+      "formulation": "ドライシロップ40%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "芳香",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "別製品の情報を流用しない",
+      "detail": "v0.9の複数規格1レコードを分割 / 電子添文3.2：白色細粒、芳香、味は甘い。",
+      "auditNotes": [],
+      "sourceType": "メーカー患者向け資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://meiji-medical-net.com/product/fo/pn0143",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-038",
+      "ingredient": "ファロペネム",
+      "product": "ファロムドライシロップ小児用10%",
+      "manufacturer": "マルホ",
+      "formulation": "DS10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ味",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "製品特徴として『飲みやすいオレンジ味』",
+      "detail": "マルホ製品専用『ファロムドライシロップ小児用の上手な飲ませ方』本文を確認。",
+      "auditNotes": [
+        "メーカー製品特徴が直接明記する『飲みやすいオレンジ味』のみ採用。甘味・苦味は独立して断定しない"
+      ],
+      "sourceType": "メーカー製品特徴＋患者向け資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.maruho.co.jp/medical/articles/farom/characteristic_ds/index.html",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://www.maruho.co.jp/medical/products/farom/tools.html",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-057",
+          "name": "水",
+          "rating": "○",
+          "meaning": "メーカーが基本の飲ませ方として案内",
+          "evidence": "製品専用指導箋で、服用直前に少量の水（5～10cc）に溶かして飲ませるよう案内。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://www.maruho.co.jp/medical/pdf/farom/5086406002.pdf",
+          "note": "作り置きしない。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-058",
+          "name": "オレンジジュース",
+          "rating": "◎",
+          "meaning": "メーカーが『特に飲みやすい』と明示",
+          "evidence": "製品専用指導箋で、水で溶かして飲めない場合に混ぜるとおいしく飲めるもののうち『特に飲みやすいもの』として掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://www.maruho.co.jp/medical/pdf/farom/5086406002.pdf",
+          "note": "製品固有の一次資料に基づく。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-059",
+          "name": "バニラアイスクリーム",
+          "rating": "◎",
+          "meaning": "メーカーが『特に飲みやすい』と明示",
+          "evidence": "製品専用指導箋で、水で溶かして飲めない場合に混ぜるとおいしく飲めるもののうち『特に飲みやすいもの』として掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://www.maruho.co.jp/medical/pdf/farom/5086406002.pdf",
+          "note": "製品固有の一次資料に基づく。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-060",
+          "name": "牛乳",
+          "rating": "○",
+          "meaning": "メーカーが飲みやすいものとして案内",
+          "evidence": "製品専用指導箋で、水で溶かして飲めない場合に『その他飲みやすいもの』として掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://www.maruho.co.jp/medical/pdf/farom/5086406002.pdf",
+          "note": "製品固有の一次資料に基づく。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-061",
+          "name": "スポーツドリンク",
+          "rating": "○",
+          "meaning": "メーカーが飲みやすいものとして案内",
+          "evidence": "製品専用指導箋で、水で溶かして飲めない場合に『その他飲みやすいもの』として掲載。",
+          "sourceType": "メーカー患者向け指導箋",
+          "sourceUrl": "https://www.maruho.co.jp/medical/pdf/farom/5086406002.pdf",
+          "note": "製品固有の一次資料に基づく。",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "ABX-039",
+      "ingredient": "テビペネム ピボキシル",
+      "product": "オラペネム小児用細粒10%",
+      "manufacturer": "Meiji",
+      "formulation": "細粒10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "芳香",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "専用資材を優先",
+      "detail": "2026年6月電子添文3.2：帯黄淡赤色の細粒、においは芳香。味の記載なし。",
+      "auditNotes": [],
+      "sourceType": "メーカー患者向け資材",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139002C1026?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://meiji-medical-net.com/product/or/pn0035",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-040",
+      "ingredient": "トスフロキサシン",
+      "product": "トスフロキサシントシル酸塩小児用細粒15%「明治」",
+      "manufacturer": "Meiji",
+      "formulation": "細粒15%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "いちご風味",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "飲み切れる少量に混ぜる",
+      "detail": "先発と同一原薬・添加物・製法のAG情報あり / 製品固有資料で甘く飲みやすいイチゴ風味を確認しているが、完成製剤の苦味の明記はないため『記載なし』。",
+      "auditNotes": [],
+      "sourceType": "メーカー患者向け資材/IF",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://pins.japic.or.jp/pdf/medical_interview/IF00002148.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-049",
+          "name": "水",
+          "rating": "○",
+          "meaning": "基本の服用方法",
+          "evidence": "メーカー公式IF掲載の患者向け指導箋で、そのまま水で飲ませるか、水に混ぜて飲ませるよう案内。",
+          "sourceType": "メーカーIF内患者向け指導箋",
+          "sourceUrl": "https://pins.japic.or.jp/pdf/medical_interview/IF00002148.pdf",
+          "note": "甘く飲みやすいイチゴ風味と記載。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-050",
+          "name": "ジャム",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー公式IF掲載の患者向け指導箋で、水で飲めない場合に混ぜると飲ませやすくなるものとして掲載。",
+          "sourceType": "メーカーIF内患者向け指導箋",
+          "sourceUrl": "https://pins.japic.or.jp/pdf/medical_interview/IF00002148.pdf",
+          "note": "アレルギーがある場合は注意。",
+          "verified": true
+        },
+        {
+          "id": "FOOD-051",
+          "name": "ピーナッツバター",
+          "rating": "○",
+          "meaning": "メーカーが飲ませ方として案内",
+          "evidence": "メーカー公式IF掲載の患者向け指導箋で、水で飲めない場合に混ぜると飲ませやすくなるものとして掲載。",
+          "sourceType": "メーカーIF内患者向け指導箋",
+          "sourceUrl": "https://pins.japic.or.jp/pdf/medical_interview/IF00002148.pdf",
+          "note": "アレルギーがある場合は注意。",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "ABX-041",
+      "ingredient": "スルファメトキサゾール/トリメトプリム",
+      "product": "バクタ配合顆粒",
+      "manufacturer": "シオノギファーマ（販売：塩野義製薬）",
+      "formulation": "顆粒",
+      "evidenceStatus": "no_direct_statement",
+      "flavor": null,
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "メイン一覧とは分けて表示推奨",
+      "detail": "電子添文3.2は白色～微褐色を帯びた白色の顆粒剤とのみ記載。白糖含有から甘味を推測しない。 / 有効成分の味と完成製剤の味を混同しない。電子添文3.2に完成製剤の苦味記載なし。 / 電子添文等の公開一次資料を確認したが、製品固有の食品との味・飲みやすさ評価は確認できず。",
+      "auditNotes": [
+        "「その他抗菌薬枠：公式味情報で管理」は具体的な官能表現ではないため味チップから除外",
+        "「その他抗菌薬枠」は味の記述ではないため、具体的な味・香りは「直接記載なし」とした"
+      ],
+      "sourceType": "PMDA",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6290100D1088?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://med.shionogi.co.jp/products/medicine/baktar.html",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-042",
+      "ingredient": "ミノサイクリン",
+      "product": "ミノマイシン顆粒2%",
+      "manufacturer": "ファイザー",
+      "formulation": "顆粒2%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジの香り",
+      "sweetness": "あり",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "年齢・歯牙への注意があるためメイン小児抗菌薬とは分ける",
+      "detail": "2026年6月電子添文3.2：『オレンジの香りと甘味のある淡橙色の顆粒』。 / 電子添文3.2に苦味の記載なし。 / 患者向医薬品ガイドでは水/ぬるま湯による服用方法は確認できるが、食品との味・飲みやすさ評価ではないため食品判定には採用しない。",
+      "auditNotes": [],
+      "sourceType": "PMDA",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6152005D1094?user=1",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    },
+    {
+      "id": "ABX-043",
+      "ingredient": "セフカペン ピボキシル",
+      "product": "セフカペンピボキシル塩酸塩細粒小児用10%「CH」",
+      "manufacturer": "長生堂製薬／日本ジェネリック",
+      "formulation": "細粒小児用10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "芳香",
+      "sweetness": "あり",
+      "bitterness": "主薬の苦味を防ぐ製剤",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": null,
+      "instruction": "主薬の苦味を防ぐ製剤のため、細粒をつぶしたり溶かしたりせず水等で速やかに服用。やむを得ず牛乳・ジュース・水等に懸濁する場合も速やかに服用。",
+      "detail": "現行製品ページに患者向け『飲みやすくするために』資材あり。2013年処方変更時のメーカー資料で現行処方の性状を『芳香があり、味は甘い』と明示。2026年も現行製品として掲載。",
+      "auditNotes": [],
+      "sourceType": "メーカー製品ページ＋メーカー製品変更資料＋電子添文",
+      "sources": [
+        {
+          "label": "一次資料",
+          "url": "https://medical.nihon-generic.co.jp/medical/6132016C1035/",
+          "access": "verified"
+        },
+        {
+          "label": "関連一次資料",
+          "url": "https://medical.nihon-generic.co.jp/uploadfiles/medicine/CEFCP_HENKOU_1307.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": []
+    }
+  ],
+  "linkCorrections": [
+    {
+      "productId": "ABX-005",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139100R1036?user=1",
+        "https://gskpro.com/ja-jp/products-info/clavamox/index"
+      ]
+    },
+    {
+      "productId": "ABX-010",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132015C1138?user=1",
+        "https://meiji-medical-net.com/product/acf/pn0072"
+      ]
+    },
+    {
+      "productId": "ABX-011",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132016C1027?user=1",
+        "https://med.shionogi.co.jp/products/medicine/flomox-pediatric.html"
+      ]
+    },
+    {
+      "productId": "ABX-017",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132013C1163?user=1"
+      ]
+    },
+    {
+      "productId": "ABX-021",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132009C2023?user=1",
+        "https://hc.fujifilm.com/fftc/ja/products/pharmaceuticals/low-molecular/tmrped"
+      ]
+    },
+    {
+      "productId": "ABX-022",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132005C1053?user=1"
+      ]
+    },
+    {
+      "productId": "ABX-025",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132002E1034?user=1"
+      ]
+    },
+    {
+      "productId": "ABX-027",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://pins.japic.or.jp/pdf/medical_interview/IF00009156.pdf"
+      ]
+    },
+    {
+      "productId": "ABX-030",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.takata-seiyaku.co.jp/medical/product/t_6142/6142/index.html",
+        "https://www.takata-seiyaku.co.jp/general/hs6nik000000062f-att/201312.pdf"
+      ]
+    },
+    {
+      "productId": "ABX-039",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139002C1026?user=1",
+        "https://meiji-medical-net.com/product/or/pn0035"
+      ]
+    },
+    {
+      "productId": "ABX-041",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6290100D1088?user=1",
+        "https://med.shionogi.co.jp/products/medicine/baktar.html"
+      ]
+    },
+    {
+      "productId": "ABX-042",
+      "reason": "失効しやすい固定PDFまたは到達不能URLを、確認済みの安定ページへ置換",
+      "to": [
+        "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6152005D1094?user=1"
+      ]
     }
   ]
 }
