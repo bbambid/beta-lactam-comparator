@@ -32,6 +32,9 @@ assert.equal(byId['ABX-001'].sweetness,null,'Widesilin sweetness must not be inf
 assert.equal(byId['ABX-002'].sweetness,null,'Widesilin 20% sweetness must not be inferred beyond the reachable primary text');
 assert.equal(byId['ABX-007'].sweetness,'水等に混ぜると甘味が増す');
 assert.equal(byId['ABX-007'].bitterness,'水等に混ぜると感じにくくなる');
+assert.equal(byId['ABX-009'].flavor,'オレンジ風味','Towa cefditoren patient material explicitly states orange flavor');
+assert.equal(byId['ABX-009'].sweetness,'あり','Towa cefditoren patient material explicitly states added sweetness');
+assert.equal(byId['ABX-009'].bitterness,'口腔内に残ると苦くなることがある','Towa cefditoren bitterness must be limited to oral residue');
 assert.equal(byId['ABX-027'].flavor,'ストロベリー風味');
 assert.equal(byId['ABX-028'].bitterness,'酸性飲料との混合で苦く感じることあり');
 assert.equal(byId['ABX-029'].sweetness,null,'Sweeteners must not be promoted to a direct finished-product taste claim');
