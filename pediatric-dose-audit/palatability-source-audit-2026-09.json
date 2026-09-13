@@ -6,14 +6,14 @@
   "checkedDate": "2026-09-13",
   "scope": "小児用経口抗菌薬の製品別味・香り・食品相性。別製品・別メーカーへ流用しない。",
   "auditSummary": {
-    "xlsxJsonParity": "43製品・61食品・124 URL監査行・21監査項目が完全一致",
+    "xlsxJsonParity": "導入時は43製品・61食品・124 URL監査行・21監査項目が完全一致。正式版は一次資料再監査後7項目を補正",
     "products": 43,
     "foodEntries": 61,
     "uniqueCurrentUrls": 60,
     "replacedVersionedPmdaPdfLinks": 11,
     "restrictedButIndexedUrls": 1,
     "removedUnsupportedSensoryClaims": 11,
-    "criticallyRewordedSensoryClaims": 6
+    "criticallyRewordedSensoryClaims": 7
   },
   "displayPolicy": {
     "directStatement": "公式一次資料に具体的な味・香りの記載がある項目だけ表示",
@@ -492,16 +492,17 @@
       "manufacturer": "東和薬品",
       "formulation": "細粒10%",
       "evidenceStatus": "direct_statement",
-      "flavor": null,
+      "flavor": "オレンジ風味",
       "sweetness": "あり",
-      "bitterness": "あり/残留時に苦味注意",
+      "bitterness": "口腔内に残ると苦くなることがある",
       "sourness": null,
       "aftertaste": null,
       "texture": null,
       "instruction": "混ぜるのは直前。飲ませた後すぐ水を飲ませるとよい。",
-      "detail": "製品固有資料からのみ採用",
+      "detail": "メーカー患者向け指導箋に『甘みをつけたオレンジ風味』と明記。口腔内に残った薬が苦くなることがあるため、服用後はすぐに水を飲ませるよう案内されている。",
       "auditNotes": [
-        "「製品固有の味・香り情報あり」は具体的な官能表現ではないため味チップから除外"
+        "「製品固有の味・香り情報あり」という曖昧な表現を、一次資料本文どおり『オレンジ風味』『甘みあり』へ訂正",
+        "苦味は通常時の味ではなく、口腔内に残留した場合の注意として限定"
       ],
       "sourceType": "メーカー患者向け指導箋",
       "sources": [
