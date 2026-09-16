@@ -10,10 +10,12 @@
 
 1. `pediatric-master-2026-09.js` を編集する。
 2. PMDA由来の用量を変える場合は `PMDA-AUDIT-PROTOCOL.md` に従い、URL、確認日、監査メモ、境界テストを更新する。
-3. `node tools/release-pediatric.mjs` を実行する。
-4. 生成された単体版 `handoff/pediatric-dose-audit/index.html` を確認する。
-5. 本番更新前に GitHub の現行 `main` をバックアップブランチへ保存する。
-6. 本番反映後、公開URLで版表示と代表操作を確認する。
+3. 味・飲みやすさ情報を変える場合は、製品単位で根拠と直リンクを確認し、`palatability-source-audit-2026-09.json` を更新する。別製品へ流用しない。
+4. `node tools/sync-palatability-master.mjs` で監査用JSONを正式マスターへ同期する。
+5. `node tools/release-pediatric.mjs` を実行する。
+6. 生成された単体版 `handoff/pediatric-dose-audit/index.html` を確認する。
+7. 本番更新前に GitHub の現行 `main` をバックアップブランチへ保存する。
+8. 本番反映後、公開URLで版表示と代表操作を確認する。
 
 ## ファイルの役割
 

@@ -17,6 +17,7 @@ export function loadApp(){
  window.matchMedia=()=>({matches:false,addListener(){},removeListener(){},addEventListener(){},removeEventListener(){}});
  window.CSS={escape:s=>String(s).replace(/[^a-zA-Z0-9_-]/g,c=>'\\'+c)};
  window.localStorage={getItem(){return null;},setItem(){},removeItem(){}};
+ const flushTimers=()=>{let count=0;while(timers.length){timers.shift()();if(++count>2000)throw new Error('Timer queue did not settle');}};
  const context=vm.createContext(window);
  for(const [i,script] of [...window.document.querySelectorAll('script')].entries()){
   const src=script.getAttribute('src');
@@ -24,9 +25,8 @@ export function loadApp(){
   if(code.trim())vm.runInContext(code,context,{filename:src||script.id||`inline-${i}.js`});
  }
  window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
- let count=0;
- while(timers.length){timers.shift()();if(++count>2000)throw new Error('Timer queue did not settle');}
- return {app,window,document:window.document,context,DB:vm.runInContext('DB',context)};
+ flushTimers();
+ return {app,window,document:window.document,context,DB:vm.runInContext('DB',context),flushTimers};
 }
 
 export function setPrescription(app,{drug,product,indication,age,weight,amount,mode='product',frequency,days}){
@@ -52,5 +52,6 @@ export function setPrescription(app,{drug,product,indication,age,weight,amount,m
  value('freq',frequency);document.getElementById('freq').dispatchEvent(new window.Event('input',{bubbles:true}));
  if(days!==undefined){value('clavDays',days);document.getElementById('clavDays').dispatchEvent(new window.Event('input',{bubbles:true}));}
  vm.runInContext('render()',context);
+ app.flushTimers();
  return document.getElementById('out').textContent.replace(/\s+/g,' ').trim();
 }

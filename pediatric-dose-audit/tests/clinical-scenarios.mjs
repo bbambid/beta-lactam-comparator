@@ -15,6 +15,17 @@ assert.equal(document.getElementById('productUnitTile').textContent,'mL','Formul
 scenario('アセトアミノフェン・1回量',{drug:'apap',product:/ドライシロップ20%/,indication:'general',age:4,weight:18,amount:1.35,frequency:1},[/判定：ちょうどいい/,/270 mg\/回/,/15 mg\/kg\/回/]);
 scenario('アスベリン・2歳',{drug:'tipe',product:/シロップ0\.5%/,indication:'general',age:2,weight:12,amount:4,frequency:3},[/添付文書の用法・用量/,/1歳以上3歳未満/,/今回の用法・用量/]);
 scenario('ケトチフェン・DS',{drug:'keto',product:/ドライシロップ|DS/,indication:'general',age:2,weight:10,amount:0.6,frequency:2},[/製剤0\.06g\/kg\/day/,/6カ月以上3歳未満/,/成人通常量はケトチフェンとして2mg\/day/]);
+const ketotifenWater=[...document.querySelectorAll('.palatability-food')].find(x=>x.textContent.includes('水（少量）'));
+assert.ok(ketotifenWater,'Ketotifen official water guidance must render as a food chip');
+assert.match(ketotifenWater.getAttribute('href'),/med\.sawai\.co\.jp\/request\/mate_attachement/);
+setPrescription(app,{drug:'carbo',product:/ドライシロップ50%/,indication:'general',age:4,weight:18,amount:1.08,frequency:3});
+const mucodynePractical=[...document.querySelectorAll('.palatability-chip.practical')].find(x=>x.textContent.includes('ピーチの香り'));
+assert.ok(mucodynePractical,'Mucodyne practical peach-flavor evidence must render separately');
+assert.equal(mucodynePractical.getAttribute('href'),'https://www.ncchd.go.jp/hospital/about/section/medicine/nomiawase.pdf');
+setPrescription(app,{drug:'cypro',product:/散1%/,indication:'general',age:2,weight:12,amount:0.24,frequency:2});
+const periactinMilk=[...document.querySelectorAll('.palatability-food')].find(x=>x.textContent.includes('牛乳'));
+assert.ok(periactinMilk&&periactinMilk.textContent.includes('△'),'Periactin milk must retain the source rating');
+assert.equal(periactinMilk.getAttribute('href'),'https://www.ncchd.go.jp/hospital/about/section/medicine/nomiawase.pdf');
 scenario('ファロペネム・増量上限内',{drug:'faro',product:/ドライシロップ/,indication:'general',age:8,weight:30,amount:9,frequency:3},[/900 mg\/day/,/上限用量1回300mg、1日3回（1日900mg）/]);
 scenario('トスフロキサシン・上限',{drug:'tosu',product:/細粒/,indication:'general',age:10,weight:30,amount:2.4,frequency:2},[/360 mg\/day/,/1回180mg/,/1日360mg/]);
 scenario('レボセチリジン・乳児境界',{drug:'levo',product:/シロップ/,indication:'general',age:0.5,weight:7,amount:2.5,frequency:1},[/判定：ちょうどいい/,/1.3 mg\/day/,/6ヵ月以上1歳未満/]);

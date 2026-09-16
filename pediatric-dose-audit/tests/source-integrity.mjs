@@ -18,15 +18,18 @@ assert.doesNotMatch(master,/appendChild\(s\).*pmda-final-batch/s);
 assert.equal((master.match(/Migrated source:/g)||[]).length,40);
 assert.match(master,/window\.PEDIATRIC_PALATABILITY_MASTER=MASTER/);
 assert.doesNotMatch(master,/fetch\(["']palatability-source-audit/,'Standalone must not fetch the palatability master at runtime');
-assert.equal(palatability.products.length,43);
-assert.equal(palatability.products.flatMap(product=>product.foods).length,61);
+assert.equal(palatability.products.length,73);
+assert.equal(palatability.products.flatMap(product=>product.foods).length,90);
+assert.equal(palatability.products.filter(product=>product.practicalEvidence).length,10);
 const sourceUrls=palatability.products.flatMap(product=>[
  ...product.sources.map(source=>source.url),
- ...product.foods.map(food=>food.sourceUrl)
+ ...product.foods.map(food=>food.sourceUrl),
+ ...(product.practicalEvidence?.sources||[]).map(source=>source.url)
 ]);
 assert.ok(sourceUrls.every(url=>url.startsWith('https://')),'Every taste source must use a direct HTTPS link');
 assert.ok(sourceUrls.every(url=>!url.includes('/ResultDataSetPDF/')),'Version-dependent PMDA PDF links must not remain');
-assert.equal(new Set(sourceUrls).size,60);
+assert.equal(new Set(sourceUrls).size,123);
+assert.ok(palatability.products.every(product=>!product.sensorySourceUrl||product.sensorySourceUrl.startsWith('https://')),'Every sensory chip link must use HTTPS');
 const byId=Object.fromEntries(palatability.products.map(product=>[product.id,product]));
 assert.equal(byId['ABX-001'].sweetness,null,'Widesilin sweetness must not be inferred beyond the reachable primary text');
 assert.equal(byId['ABX-002'].sweetness,null,'Widesilin 20% sweetness must not be inferred beyond the reachable primary text');
@@ -41,5 +44,16 @@ assert.equal(byId['ABX-029'].sweetness,null,'Sweeteners must not be promoted to 
 assert.equal(byId['ABX-030'].sweetness,null,'Sweetener ingredients must not be treated as a direct finished-product taste claim');
 assert.equal(byId['ABX-032'].evidenceStatus,'no_direct_statement');
 assert.equal(byId['ABX-038'].sweetness,null,'Farom must stay at the manufacturer wording: palatable orange taste');
+assert.equal(byId['PAL-052'].evidenceStatus,'no_direct_statement');
+assert.equal(byId['PAL-052'].practicalEvidence.evidenceTier,'B');
+assert.match(byId['PAL-052'].practicalEvidence.summary,/甘酸っぱい味、ピーチの香り/);
+assert.equal(byId['PAL-058'].practicalEvidence.status,'conflicting_secondary_sources');
+assert.equal(byId['PAL-058'].foods.length,5);
+assert.equal(byId['PAL-064'].foods.length,6);
+assert.equal(byId['PAL-064'].foods[0].name,'水（少量）');
+assert.equal(byId['PAL-071'].foods.length,8);
+assert.equal(byId['PAL-073'].flavor,'オレンジ香料');
 assert.match(master,/\["苦味・対策",item\.bitterness\]/,'Masking and conditional bitterness need an explicit combined label');
+assert.match(master,/sensoryUrl\?'<a class="palatability-chip"/,'Sensory chips must link directly to their source');
+assert.match(master,/href="'\+esc\(food\.sourceUrl\)/,'Food chips must link directly to their source');
 console.log('Formal master source integrity: OK');

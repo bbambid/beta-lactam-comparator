@@ -1,25 +1,28 @@
 {
-  "schemaVersion": 2,
-  "masterName": "小児抗菌薬 味・飲みやすさマスター",
-  "sourceVersion": "1.6",
-  "version": "1.6-audited",
-  "checkedDate": "2026-09-13",
-  "scope": "小児用経口抗菌薬の製品別味・香り・食品相性。別製品・別メーカーへ流用しない。",
+  "schemaVersion": 3,
+  "masterName": "小児経口薬 味・飲みやすさマスター",
+  "sourceVersion": "2.1",
+  "version": "2.1-audited",
+  "checkedDate": "2026-09-16",
+  "scope": "小児監査ツールに登録された経口薬の製品別味・香り・食品相性。公式一次資料の確定情報と、製品名を明示した実務参考資料を分離し、別製品・別メーカーへ流用しない。",
   "auditSummary": {
     "xlsxJsonParity": "導入時は43製品・61食品・124 URL監査行・21監査項目が完全一致。正式版は一次資料再監査後7項目を補正",
-    "products": 43,
-    "foodEntries": 61,
-    "uniqueCurrentUrls": 60,
+    "products": 73,
+    "foodEntries": 90,
+    "uniqueCurrentUrls": 123,
     "replacedVersionedPmdaPdfLinks": 11,
     "restrictedButIndexedUrls": 1,
     "removedUnsupportedSensoryClaims": 11,
-    "criticallyRewordedSensoryClaims": 7
+    "criticallyRewordedSensoryClaims": 7,
+    "practicalEvidenceProducts": 10,
+    "uiContract": "香味・芳香チップ、評価記号＋食品名チップ、各項目の根拠直リンクを維持"
   },
   "displayPolicy": {
     "directStatement": "公式一次資料に具体的な味・香りの記載がある項目だけ表示",
     "noDirectStatement": "添加剤や曖昧な製剤設計表現から味を推定しない",
     "foodCompatibility": "食品相性はproduct_id単位。別製品・別メーカーには流用しない",
-    "links": "更新で失効するPMDA固定PDFは安定した製品詳細ページへ置換"
+    "links": "香味・芳香、実務参考、食品・飲料の各表示を、該当記載の直リンクへ接続する。",
+    "practicalEvidence": "医療機関資料・査読論文・実務記事は、公式一次資料の確定欄を上書きせず、根拠レベル付きの実務参考として表示する。"
   },
   "products": [
     {
@@ -131,7 +134,9 @@
           "note": "混ぜる場合は飲む直前",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://meiji-medical-net.com/product/faq/answer/WD-2"
     },
     {
       "id": "ABX-002",
@@ -242,7 +247,9 @@
           "note": "混ぜる場合は飲む直前",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://meiji-medical-net.com/product/faq/answer/WD-2"
     },
     {
       "id": "ABX-003",
@@ -268,7 +275,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.tatsumi-kagaku.com/file/file/555_2.pdf"
     },
     {
       "id": "ABX-004",
@@ -294,7 +303,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.tatsumi-kagaku.com/file/file/555_2.pdf"
     },
     {
       "id": "ABX-005",
@@ -325,7 +336,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139100R1036?user=1"
     },
     {
       "id": "ABX-006",
@@ -351,7 +364,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://pins.japic.or.jp/pdf/medical_interview/IF00005835.pdf"
     },
     {
       "id": "ABX-007",
@@ -396,7 +411,9 @@
           "note": "製品固有の比較説明があるため◎。",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://meiji-medical-net.com/product/cf/pn0167"
     },
     {
       "id": "ABX-008",
@@ -483,7 +500,9 @@
           "note": "飲み残さないよう飲みきれる量に混ぜる",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.sawai.co.jp/preview.php?prodid=4842"
     },
     {
       "id": "ABX-009",
@@ -590,7 +609,9 @@
           "note": "味覚上の明確な悪化のため×。",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=31950&t=0"
     },
     {
       "id": "ABX-010",
@@ -621,7 +642,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132015C1138?user=1"
     },
     {
       "id": "ABX-011",
@@ -655,7 +678,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132016C1027?user=1"
     },
     {
       "id": "ABX-012",
@@ -681,7 +706,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.sawai.co.jp/preview.php?prodid=4840"
     },
     {
       "id": "ABX-013",
@@ -707,7 +734,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.towayakuhin.co.jp/medical/product/fileloader.php?id=80673&t=0"
     },
     {
       "id": "ABX-014",
@@ -735,7 +764,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.ltl-pharma.com/patients-families/%E3%82%BB%E3%83%95%E3%82%BE%E3%83%B3%E7%B4%B0%E7%B2%92%E5%B0%8F%E5%85%90%E7%94%A8%E3%82%92%E5%87%A6%E6%96%B9%E3%81%95%E3%82%8C%E3%81%9F%E4%BF%9D%E8%AD%B7%E8%80%85%E3%81%AE%E7%9A%86%E3%81%95%E3%81%BE/"
     },
     {
       "id": "ABX-015",
@@ -844,7 +875,9 @@
           "note": "『飲みにくくなることがあります』の表現なので△。",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.sawai.co.jp/preview.php?prodid=4801"
     },
     {
       "id": "ABX-016",
@@ -953,7 +986,9 @@
           "note": "メーカー表現に合わせ△。",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://medical.nihon-generic.co.jp/medical/6132013C1147/"
     },
     {
       "id": "ABX-017",
@@ -979,7 +1014,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132013C1163?user=1"
     },
     {
       "id": "ABX-018",
@@ -1008,7 +1045,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://pins.japic.or.jp/pdf/medical_interview/IF00004498.pdf"
     },
     {
       "id": "ABX-019",
@@ -1079,7 +1118,9 @@
           "note": "混ぜたらすぐ服用。オレンジジュースでは溶け残りに注意。",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7315.pdf"
     },
     {
       "id": "ABX-020",
@@ -1105,7 +1146,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://medical.nihon-generic.co.jp/medical/6132008C1022/"
     },
     {
       "id": "ABX-021",
@@ -1136,7 +1179,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132009C2023?user=1"
     },
     {
       "id": "ABX-022",
@@ -1162,7 +1207,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132005C1053?user=1"
     },
     {
       "id": "ABX-023",
@@ -1193,7 +1240,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.sawai.co.jp/preview.php?prodid=4800"
     },
     {
       "id": "ABX-024",
@@ -1224,7 +1273,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://medical.nihon-generic.co.jp/uploadfiles/medicine/CEFACPO_IF.pdf"
     },
     {
       "id": "ABX-025",
@@ -1250,7 +1301,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6132002E1034?user=1"
     },
     {
       "id": "ABX-026",
@@ -1281,7 +1334,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://medical.nihon-generic.co.jp/medical/6132002E2162/"
     },
     {
       "id": "ABX-027",
@@ -1311,7 +1366,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://pins.japic.or.jp/pdf/medical_interview/IF00009156.pdf"
     },
     {
       "id": "ABX-028",
@@ -1433,7 +1490,9 @@
           "note": null,
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.sawai.co.jp/file/pr1_1120.pdf"
     },
     {
       "id": "ABX-029",
@@ -1462,7 +1521,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.towayakuhin.co.jp/medical/property/z_clarithromycin_ds.html"
     },
     {
       "id": "ABX-030",
@@ -1496,7 +1557,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.takata-seiyaku.co.jp/medical/product/t_6142/6142/index.html"
     },
     {
       "id": "ABX-031",
@@ -1527,7 +1590,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.nichiiko.co.jp/medicine/product/73450"
     },
     {
       "id": "ABX-032",
@@ -1560,7 +1625,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://labeling.pfizer.com/ShowLabeling.aspx?id=17356"
     },
     {
       "id": "ABX-033",
@@ -1586,7 +1653,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://dev21.viatris-e-channel.com/viatris-products/di/detail/assetfile/Erythrocin_Tab_Dry_Syr_W_Gra_IF.pdf"
     },
     {
       "id": "ABX-034",
@@ -1612,7 +1681,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://dev21.viatris-e-channel.com/viatris-products/di/detail/assetfile/Erythrocin_Tab_Dry_Syr_W_Gra_IF.pdf"
     },
     {
       "id": "ABX-035",
@@ -1638,7 +1709,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://dev21.viatris-e-channel.com/viatris-products/di/detail/assetfile/Erythrocin_Tab_Dry_Syr_W_Gra_IF.pdf"
     },
     {
       "id": "ABX-036",
@@ -1664,7 +1737,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://meiji-medical-net.com/product/fo/pn0143"
     },
     {
       "id": "ABX-037",
@@ -1690,7 +1765,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://meiji-medical-net.com/product/fo/pn0143"
     },
     {
       "id": "ABX-038",
@@ -1779,7 +1856,9 @@
           "note": "製品固有の一次資料に基づく。",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.maruho.co.jp/medical/articles/farom/characteristic_ds/index.html"
     },
     {
       "id": "ABX-039",
@@ -1810,7 +1889,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6139002C1026?user=1"
     },
     {
       "id": "ABX-040",
@@ -1870,7 +1951,9 @@
           "note": "アレルギーがある場合は注意。",
           "verified": true
         }
-      ]
+      ],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://pins.japic.or.jp/pdf/medical_interview/IF00002148.pdf"
     },
     {
       "id": "ABX-041",
@@ -1904,7 +1987,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6290100D1088?user=1"
     },
     {
       "id": "ABX-042",
@@ -1930,7 +2015,9 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/6152005D1094?user=1"
     },
     {
       "id": "ABX-043",
@@ -1961,7 +2048,1611 @@
           "access": "verified"
         }
       ],
-      "foods": []
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://medical.nihon-generic.co.jp/medical/6132016C1035/"
+    },
+    {
+      "id": "PAL-044",
+      "ingredient": "アセトアミノフェン",
+      "product": "カロナールシロップ2%",
+      "manufacturer": "あゆみ製薬株式会社",
+      "formulation": "シロップ2%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ様",
+      "sweetness": "わずかに甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "シロップ剤",
+      "instruction": null,
+      "detail": "無色～淡黄褐色澄明で、オレンジ様のにおいがあり、わずかに甘い。",
+      "auditNotes": [
+        "製品の性状欄に基づく。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/1141007Q1048_5?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/5/172190_1141007Q1048_5_06K_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/5/172190_1141007Q1048_5_06K_1F.pdf"
+    },
+    {
+      "id": "PAL-045",
+      "ingredient": "アセトアミノフェン",
+      "product": "カロナール細粒20%",
+      "manufacturer": "あゆみ製薬株式会社",
+      "formulation": "細粒20%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ様",
+      "sweetness": "甘い",
+      "bitterness": "後に苦い",
+      "sourness": null,
+      "aftertaste": "後に苦味",
+      "texture": "細粒剤",
+      "instruction": null,
+      "detail": "淡橙色で、わずかにオレンジ様のにおいがあり、甘く、後に苦い。",
+      "auditNotes": [
+        "20%規格の製品性状欄に基づく。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/1141007C1075_5?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/5/172190_1141007C1075_5_06C_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/5/172190_1141007C1075_5_06C_1F.pdf"
+    },
+    {
+      "id": "PAL-046",
+      "ingredient": "アセトアミノフェン",
+      "product": "カロナール細粒50%",
+      "manufacturer": "あゆみ製薬株式会社",
+      "formulation": "細粒50%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ様",
+      "sweetness": "甘い",
+      "bitterness": "後に苦い",
+      "sourness": null,
+      "aftertaste": "後に苦味",
+      "texture": "細粒剤",
+      "instruction": null,
+      "detail": "淡橙色で、わずかにオレンジ様のにおいがあり、甘く、後に苦い。",
+      "auditNotes": [
+        "50%規格の製品性状欄に基づく。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/1141007C1075_5?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/5/172190_1141007C1075_5_06C_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/5/172190_1141007C1075_5_06C_1F.pdf"
+    },
+    {
+      "id": "PAL-047",
+      "ingredient": "チペピジンヒベンズ酸塩",
+      "product": "アスベリンシロップ0.5%",
+      "manufacturer": "ニプロ株式会社",
+      "formulation": "シロップ0.5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "種類記載なし（芳香）",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "懸濁性シロップ剤",
+      "instruction": null,
+      "detail": "白色～淡黄灰白色の懸濁性シロップで、芳香があり、味は甘い。",
+      "auditNotes": [
+        "香りの種類は資料に記載がないため特定しない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2249003B1037_3?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/3/530100_2249003B1037_3_002_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/3/530100_2249003B1037_3_002_1F.pdf"
+    },
+    {
+      "id": "PAL-048",
+      "ingredient": "チペピジンヒベンズ酸塩",
+      "product": "アスベリン散10%",
+      "manufacturer": "ニプロ株式会社",
+      "formulation": "散10%",
+      "evidenceStatus": "no_direct_statement",
+      "flavor": null,
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "散剤",
+      "instruction": null,
+      "detail": null,
+      "auditNotes": [
+        "製品は橙色の微粉末と記載。原薬の性状から製品の味を推定しない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2249003B1037_3?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/3/530100_2249003B1037_3_002_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/3/530100_2249003B1037_3_002_1F.pdf"
+    },
+    {
+      "id": "PAL-049",
+      "ingredient": "チペピジンヒベンズ酸塩",
+      "product": "アスベリンドライシロップ2%",
+      "manufacturer": "ニプロ株式会社",
+      "formulation": "ドライシロップ2%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "種類記載なし（芳香）",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "橙色の微粒又は粉末で、芳香があり、味は甘い。",
+      "auditNotes": [
+        "バニリン等の添加剤名からバニラ風味とは推定しない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2249003B1037_3?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/3/530100_2249003B1037_3_002_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/3/530100_2249003B1037_3_002_1F.pdf"
+    },
+    {
+      "id": "PAL-050",
+      "ingredient": "L-カルボシステイン",
+      "product": "ムコダインシロップ5%",
+      "manufacturer": "杏林製薬株式会社",
+      "formulation": "シロップ5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "特異な芳香",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "シロップ剤",
+      "instruction": null,
+      "detail": "褐色の液で、甘く、特異な芳香がある。",
+      "auditNotes": [
+        "芳香の種類は特定されていない。"
+      ],
+      "sourceType": "PMDA製品詳細・メーカー公式インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2233002Q1035?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.kyorin-pharm.co.jp/prodinfo/medicine/pdf/i_mucod.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.kyorin-pharm.co.jp/prodinfo/medicine/pdf/i_mucod.pdf"
+    },
+    {
+      "id": "PAL-051",
+      "ingredient": "L-カルボシステイン",
+      "product": "カルボシステインシロップ小児用5%「トーワ」",
+      "manufacturer": "東和薬品株式会社",
+      "formulation": "シロップ小児用5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ風味",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "シロップ剤",
+      "instruction": null,
+      "detail": "褐色の液で、特異な芳香があり、甘い。メーカー製品情報にオレンジ風味と記載。",
+      "auditNotes": [
+        "味・香りは当該製品の公式製品情報で確認。"
+      ],
+      "sourceType": "PMDA製品詳細・メーカー公式製品情報",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2233002Q1124?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "メーカー製品情報",
+          "url": "https://med.towayakuhin.co.jp/medical/product/print_product.php?id=00000000000000000000162&reset=1",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://med.towayakuhin.co.jp/medical/product/print_product.php?id=00000000000000000000162&reset=1"
+    },
+    {
+      "id": "PAL-052",
+      "ingredient": "L-カルボシステイン",
+      "product": "ムコダインDS50%",
+      "manufacturer": "杏林製薬株式会社",
+      "formulation": "ドライシロップ50%",
+      "evidenceStatus": "no_direct_statement",
+      "flavor": null,
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": null,
+      "auditNotes": [
+        "製品性状表の味・におい欄は記載なし。『なし』とは解釈しない。"
+      ],
+      "sourceType": "PMDA製品詳細・メーカー公式インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2233002R2029?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.kyorin-pharm.co.jp/prodinfo/medicine/pdf/i_mucod.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": {
+        "status": "supported_secondary",
+        "evidenceTier": "B",
+        "evidenceLabel": "医療機関薬剤部資料",
+        "kind": "sensory",
+        "summary": "甘酸っぱい味、ピーチの香り。",
+        "sources": [
+          {
+            "label": "国立成育医療研究センター薬剤部『粉薬と服薬補助食品の飲み合わせ』（2018）",
+            "url": "https://www.ncchd.go.jp/hospital/about/section/medicine/nomiawase.pdf",
+            "access": "verified"
+          }
+        ],
+        "auditNotes": [
+          "メーカー一次資料の確定欄は『記載なし』のまま保持し、実務参考として表示する。"
+        ]
+      },
+      "sensorySourceUrl": "https://www.kyorin-pharm.co.jp/prodinfo/medicine/pdf/i_mucod.pdf"
+    },
+    {
+      "id": "PAL-053",
+      "ingredient": "アンブロキソール塩酸塩",
+      "product": "小児用ムコソルバンDS1.5%",
+      "manufacturer": "帝人ファーマ株式会社",
+      "formulation": "ドライシロップ1.5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ヨーグルト様",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "白色～微黄色の粒又は粉末で、ヨーグルト様のにおいがあり、味は甘い。",
+      "auditNotes": [
+        "製品の性状欄に基づく。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2239001R1072_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/470310_2239001R1072_1_008_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/470310_2239001R1072_1_008_1F.pdf"
+    },
+    {
+      "id": "PAL-054",
+      "ingredient": "アンブロキソール塩酸塩",
+      "product": "アンブロキソール塩酸塩シロップ小児用0.3%「タカタ」",
+      "manufacturer": "高田製薬株式会社",
+      "formulation": "シロップ小児用0.3%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ストロベリー風味",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "シロップ剤",
+      "instruction": null,
+      "detail": "無色～微黄色の液で、芳香があり、甘い。ストロベリー風味。",
+      "auditNotes": [
+        "製品固有のIFに基づく。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2239001Q1204_2?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/2/400186_2239001Q1204_2_001_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/2/400186_2239001Q1204_2_001_1F.pdf"
+    },
+    {
+      "id": "PAL-055",
+      "ingredient": "トラネキサム酸",
+      "product": "トランサミンシロップ5%",
+      "manufacturer": "ニプロファーマ株式会社",
+      "formulation": "シロップ5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ臭",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "シロップ剤",
+      "instruction": null,
+      "detail": "淡赤色の液で、オレンジ臭の芳香がある。味の直接記載は確認できない。",
+      "auditNotes": [
+        "精製白糖の含有から甘味を推定しない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/3327002Q1062_3?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/3/650037_3327002Q1062_3_003_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/3/650037_3327002Q1062_3_003_1F.pdf"
+    },
+    {
+      "id": "PAL-056",
+      "ingredient": "トラネキサム酸",
+      "product": "トラネキサム酸シロップ5%「NIG」",
+      "manufacturer": "日医工岐阜工場株式会社",
+      "formulation": "シロップ5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジフレーバー",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "シロップ剤",
+      "instruction": null,
+      "detail": "香料としてオレンジフレーバーを使用。",
+      "auditNotes": [
+        "原薬の苦味記載は製品の味として転記しない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/3327002Q1089_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/581120_3327002Q1089_1_004_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/581120_3327002Q1089_1_004_1F.pdf"
+    },
+    {
+      "id": "PAL-057",
+      "ingredient": "シプロヘプタジン塩酸塩水和物",
+      "product": "ペリアクチンシロップ0.04%",
+      "manufacturer": "日医工株式会社",
+      "formulation": "シロップ0.04%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "果実様",
+      "sweetness": "強い甘味",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "シロップ剤",
+      "instruction": null,
+      "detail": "無色～微黄色澄明で、果実様のにおいがあり、強い甘味がある。",
+      "auditNotes": [
+        "果実の種類は資料に記載がない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4419005Q1072_2?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/2/530169_4419005Q1072_2_009_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/2/530169_4419005Q1072_2_009_1F.pdf"
+    },
+    {
+      "id": "PAL-058",
+      "ingredient": "シプロヘプタジン塩酸塩水和物",
+      "product": "ペリアクチン散1%",
+      "manufacturer": "日医工株式会社",
+      "formulation": "散1%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "においなし",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "散剤",
+      "instruction": null,
+      "detail": "白色の粉末で、においはない。味の直接記載は確認できない。",
+      "auditNotes": [
+        "原薬の味を製品の味として扱わない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4419005B1045_2?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/2/530169_4419005Q1072_2_009_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-PAL-058-01",
+          "name": "乳酸菌飲料",
+          "rating": "○",
+          "meaning": "飲みやすい",
+          "evidence": "飲みやすい",
+          "evidenceTier": "B",
+          "sourceType": "医療機関薬剤部資料",
+          "sourceUrl": "https://www.ncchd.go.jp/hospital/about/section/medicine/nomiawase.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-058-02",
+          "name": "ココア",
+          "rating": "○",
+          "meaning": "飲みやすい",
+          "evidence": "飲みやすい",
+          "evidenceTier": "B",
+          "sourceType": "医療機関薬剤部資料",
+          "sourceUrl": "https://www.ncchd.go.jp/hospital/about/section/medicine/nomiawase.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-058-03",
+          "name": "プリン",
+          "rating": "○",
+          "meaning": "飲みやすい",
+          "evidence": "飲みやすい",
+          "evidenceTier": "B",
+          "sourceType": "医療機関薬剤部資料",
+          "sourceUrl": "https://www.ncchd.go.jp/hospital/about/section/medicine/nomiawase.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-058-04",
+          "name": "牛乳",
+          "rating": "△",
+          "meaning": "味は変わらない",
+          "evidence": "味は変わらない",
+          "evidenceTier": "B",
+          "sourceType": "医療機関薬剤部資料",
+          "sourceUrl": "https://www.ncchd.go.jp/hospital/about/section/medicine/nomiawase.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-058-05",
+          "name": "アイスクリーム",
+          "rating": "△",
+          "meaning": "味は変わらない",
+          "evidence": "味は変わらない",
+          "evidenceTier": "B",
+          "sourceType": "医療機関薬剤部資料",
+          "sourceUrl": "https://www.ncchd.go.jp/hospital/about/section/medicine/nomiawase.pdf",
+          "note": "",
+          "verified": true
+        }
+      ],
+      "practicalEvidence": {
+        "status": "conflicting_secondary_sources",
+        "evidenceTier": "B",
+        "evidenceLabel": "医療機関薬剤部資料",
+        "kind": "administration",
+        "summary": "国立成育医療研究センター資料では『苦い・無香料』。別の病院薬剤部資料では『わずかに甘い』とされ、味の評価に相違がある。",
+        "sources": [
+          {
+            "label": "国立成育医療研究センター薬剤部資料",
+            "url": "https://www.ncchd.go.jp/hospital/about/section/medicine/nomiawase.pdf",
+            "access": "verified"
+          },
+          {
+            "label": "愛知医科大学病院薬剤部『粉薬と服薬補助食品の飲み合わせ』",
+            "url": "https://aih-net.com/yakuzaibu/kusurinomame/pdf/tekihihtou.pdf",
+            "access": "verified"
+          }
+        ],
+        "auditNotes": [
+          "味の評価は主観・製造時期・条件で変わり得るため、確定欄は上書きしない。",
+          "食品評価は国立成育医療研究センター資料の記号を採用。"
+        ]
+      },
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/2/530169_4419005Q1072_2_009_1F.pdf"
+    },
+    {
+      "id": "PAL-059",
+      "ingredient": "レボセチリジン塩酸塩",
+      "product": "ザイザルシロップ0.05%",
+      "manufacturer": "グラクソ・スミスクライン株式会社",
+      "formulation": "シロップ0.05%",
+      "evidenceStatus": "no_direct_statement",
+      "flavor": null,
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "シロップ剤",
+      "instruction": null,
+      "detail": null,
+      "auditNotes": [
+        "無色澄明なシロップとの記載のみ。香料の添加から風味を推定しない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4490028Q1028_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/340278_4490028Q1028_1_017_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/340278_4490028Q1028_1_017_1F.pdf"
+    },
+    {
+      "id": "PAL-060",
+      "ingredient": "レボセチリジン塩酸塩",
+      "product": "レボセチリジン塩酸塩DS0.5%「タカタ」",
+      "manufacturer": "高田製薬株式会社",
+      "formulation": "ドライシロップ0.5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "いちごミルク風味",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "いちごミルク風味で、味・口当たり・分散性に配慮した製剤。",
+      "auditNotes": [
+        "『配慮』は嗜好性の優劣評価へ変換しない。"
+      ],
+      "sourceType": "PMDA製品詳細・メーカー公式製品情報・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4490028R1058_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "メーカー製品情報",
+          "url": "https://www.takata-seiyaku.co.jp/medical/product/t_1022/1022/index.html",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/400186_4490028R1058_1_004_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/400186_4490028R1058_1_004_1F.pdf"
+    },
+    {
+      "id": "PAL-061",
+      "ingredient": "オロパタジン塩酸塩",
+      "product": "アレロック顆粒0.5%",
+      "manufacturer": "日新製薬株式会社",
+      "formulation": "顆粒0.5%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "無臭",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "顆粒剤",
+      "instruction": null,
+      "detail": "淡黄赤色の顆粒で、無臭。製品の味は記載されていない。",
+      "auditNotes": [
+        "原薬の苦味を製品の苦味として転記しない。2025年11月に製造販売承認承継。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4490025D1022_2?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/2/530113_4490025D1022_2_001_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": {
+        "status": "partially_verified_secondary",
+        "evidenceTier": "C",
+        "evidenceLabel": "薬剤師向け実務記事",
+        "kind": "sensory",
+        "summary": "やや甘く、後味に苦味があるとの実食記事。公開範囲では『やや甘い』を確認できるが、後味の記載は全文で要再確認。",
+        "sources": [
+          {
+            "label": "m3.com薬剤師コラム『味見してみました』",
+            "url": "https://pharmacist.m3.com/column/ajimi/1892",
+            "access": "partially_verified"
+          }
+        ],
+        "auditNotes": [
+          "メーカー一次資料では味の記載がないため、実務参考としてのみ表示する。"
+        ]
+      },
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/2/530113_4490025D1022_2_001_1F.pdf"
+    },
+    {
+      "id": "PAL-062",
+      "ingredient": "プランルカスト水和物",
+      "product": "オノンドライシロップ10%",
+      "manufacturer": "小野薬品工業株式会社",
+      "formulation": "ドライシロップ10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "においなし",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "白色～微黄色の粒又は粉末で、においはなく、味は甘い。",
+      "auditNotes": [
+        "製品の性状欄に基づく。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4490017R1033_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/180188_4490017R1033_1_014_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/180188_4490017R1033_1_014_1F.pdf"
+    },
+    {
+      "id": "PAL-063",
+      "ingredient": "プランルカスト水和物",
+      "product": "プランルカストDS10%「タカタ」",
+      "manufacturer": "高田製薬株式会社",
+      "formulation": "ドライシロップ10%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "においなし",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "白色～微黄色の微粒又は粉末で、においはなく、味は甘い。",
+      "auditNotes": [
+        "製品固有のIFに基づく。"
+      ],
+      "sourceType": "PMDA製品詳細・メーカー公式インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4490017R1157_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.takata-seiyaku.co.jp/medical/product/t_4495/hs6nik0000004mrx-att/PKT-1(12).pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.takata-seiyaku.co.jp/medical/product/t_4495/hs6nik0000004mrx-att/PKT-1(12).pdf"
+    },
+    {
+      "id": "PAL-064",
+      "ingredient": "ケトチフェンフマル酸塩",
+      "product": "ケトチフェンDS小児用0.1%「サワイ」",
+      "manufacturer": "沢井製薬株式会社",
+      "formulation": "ドライシロップ小児用0.1%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "いちご様",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "白色の微粒又は粉末を含む製剤で、いちご様の芳香があり、味は甘い。",
+      "auditNotes": [
+        "製品規格は0.1%。IF中の別箇所の誤記とみられる1%表記を採用しない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/4490003R1309_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/300119_4490003R1309_1_051_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-PAL-064-01",
+          "name": "水（少量）",
+          "rating": "○",
+          "meaning": "基本の飲ませ方",
+          "evidence": "基本の飲ませ方",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7205.pdf",
+          "note": "飲む直前に少量の水でよくかき混ぜる",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-064-02",
+          "name": "牛乳",
+          "rating": "○",
+          "meaning": "飲みやすくなる",
+          "evidence": "飲みやすくなる",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7205.pdf",
+          "note": "牛乳本来の味と異なって感じる場合あり",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-064-03",
+          "name": "プリン",
+          "rating": "○",
+          "meaning": "飲みやすくなる",
+          "evidence": "飲みやすくなる",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7205.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-064-04",
+          "name": "アイスクリーム",
+          "rating": "○",
+          "meaning": "飲みやすくなる",
+          "evidence": "飲みやすくなる",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7205.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-064-05",
+          "name": "オレンジジュース",
+          "rating": "○",
+          "meaning": "飲みやすくなる",
+          "evidence": "飲みやすくなる",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7205.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-064-06",
+          "name": "スポーツ飲料",
+          "rating": "○",
+          "meaning": "飲みやすくなる",
+          "evidence": "飲みやすくなる",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7205.pdf",
+          "note": "",
+          "verified": true
+        }
+      ],
+      "practicalEvidence": {
+        "status": "official_product_guidance",
+        "evidenceTier": "A",
+        "evidenceLabel": "メーカー公式患者向け資材",
+        "kind": "administration",
+        "summary": "少量の水での服用を基本とし、飲みにくい場合は牛乳、プリン、アイスクリーム、オレンジジュース、スポーツ飲料との混和案内あり。混ぜたらすぐ服用する。",
+        "sources": [
+          {
+            "label": "沢井製薬『ケトチフェンDS小児用0.1%「サワイ」の飲ませ方』",
+            "url": "https://med.sawai.co.jp/request/mate_attachement.php?attachment_file=02dfef5e-9b0d-452b-9fd9-be66eb21619c00000000027E7205.pdf",
+            "access": "verified"
+          }
+        ],
+        "auditNotes": [
+          "牛乳は本来の味と異なって感じる場合がある。口内に残ると苦味が出ることがあるため、服用後は水等を飲ませる。"
+        ]
+      },
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/300119_4490003R1309_1_051_1F.pdf"
+    },
+    {
+      "id": "PAL-065",
+      "ingredient": "プロカテロール塩酸塩水和物",
+      "product": "メプチンシロップ5μg/mL",
+      "manufacturer": "大塚製薬株式会社",
+      "formulation": "シロップ5μg/mL",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ様",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "シロップ剤",
+      "instruction": null,
+      "detail": "無色澄明でやや粘稠な液で、オレンジ様の芳香があり、味は甘い。",
+      "auditNotes": [
+        "製品の性状欄に基づく。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2259004Q1111_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/180078_2259004Q1111_1_009_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/180078_2259004Q1111_1_009_1F.pdf"
+    },
+    {
+      "id": "PAL-066",
+      "ingredient": "プロカテロール塩酸塩水和物",
+      "product": "メプチンドライシロップ0.005%",
+      "manufacturer": "大塚製薬株式会社",
+      "formulation": "ドライシロップ0.005%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "においなし",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "白色の粒又は粉末で、においはなく、甘い。",
+      "auditNotes": [
+        "IFに『甘く服用しやすい』旨の記載があるが、嗜好性評価記号には変換しない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdSearch/02/2259004R2024?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/180078_2259004Q1111_1_009_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/180078_2259004Q1111_1_009_1F.pdf"
+    },
+    {
+      "id": "PAL-067",
+      "ingredient": "ドンペリドン",
+      "product": "ナウゼリンドライシロップ1%",
+      "manufacturer": "協和キリン株式会社",
+      "formulation": "ドライシロップ1%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "においなし",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "白色の微粒又は粉末を含む製剤で、においはなく、甘い。",
+      "auditNotes": [
+        "液剤との配合で苦味が生じ得る記載は、通常の製品味とは別の配合変化情報として除外。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2399005R1163_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/230124_2399005R1163_1_015_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-PAL-067-01",
+          "name": "アイスクリーム（バニラ・チョコ）",
+          "rating": "○",
+          "meaning": "相性がよい",
+          "evidence": "相性がよい",
+          "evidenceTier": "C",
+          "sourceType": "医療機関の実務記事",
+          "sourceUrl": "https://caps-clinic.jp/dr365/medicine/drysyrup-syoni/",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-067-02",
+          "name": "プリン",
+          "rating": "○",
+          "meaning": "相性がよい",
+          "evidence": "相性がよい",
+          "evidenceTier": "C",
+          "sourceType": "医療機関の実務記事",
+          "sourceUrl": "https://caps-clinic.jp/dr365/medicine/drysyrup-syoni/",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-067-03",
+          "name": "スポーツ飲料",
+          "rating": "△",
+          "meaning": "相性がよくない／苦味が出る可能性",
+          "evidence": "相性がよくない／苦味が出る可能性",
+          "evidenceTier": "C",
+          "sourceType": "医療機関の実務記事",
+          "sourceUrl": "https://caps-clinic.jp/dr365/medicine/drysyrup-syoni/",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-067-04",
+          "name": "ヨーグルト",
+          "rating": "△",
+          "meaning": "相性がよくない／苦味が出る可能性",
+          "evidence": "相性がよくない／苦味が出る可能性",
+          "evidenceTier": "C",
+          "sourceType": "医療機関の実務記事",
+          "sourceUrl": "https://caps-clinic.jp/dr365/medicine/drysyrup-syoni/",
+          "note": "",
+          "verified": true
+        }
+      ],
+      "practicalEvidence": {
+        "status": "supported_secondary",
+        "evidenceTier": "C",
+        "evidenceLabel": "医療機関の実務記事",
+        "kind": "administration",
+        "summary": "アイスクリームやプリンは相性がよく、酸味のあるスポーツ飲料やヨーグルトは苦味が出る可能性があるため相性△。",
+        "sources": [
+          {
+            "label": "キャップスクリニック『粉薬の上手な飲ませ方』",
+            "url": "https://caps-clinic.jp/dr365/medicine/drysyrup-syoni/",
+            "access": "verified"
+          }
+        ],
+        "auditNotes": [
+          "メーカー一次資料の通常の製品味とは分け、混和時の実務参考として表示する。"
+        ]
+      },
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/230124_2399005R1163_1_015_1F.pdf"
+    },
+    {
+      "id": "PAL-068",
+      "ingredient": "アムホテリシンB",
+      "product": "ファンギゾンシロップ100mg/mL",
+      "manufacturer": "チェプラファーム株式会社",
+      "formulation": "シロップ100mg/mL",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ様",
+      "sweetness": "甘い",
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "粘稠な懸濁液",
+      "instruction": null,
+      "detail": "淡橙色の粘稠な懸濁液で、オレンジ様の芳香があり、味は甘い。",
+      "auditNotes": [
+        "現行製造販売元をPMDAで確認。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6173001Q1047_3?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/3/450900_6173001Q1047_3_100_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": null,
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/3/450900_6173001Q1047_3_100_1F.pdf"
+    },
+    {
+      "id": "PAL-069",
+      "ingredient": "プレドニゾロン",
+      "product": "プレドニゾロン散「タケダ」1%",
+      "manufacturer": "T's製薬株式会社（販売：武田薬品工業株式会社）",
+      "formulation": "散1%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "においなし",
+      "sweetness": null,
+      "bitterness": "苦い",
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "散剤",
+      "instruction": null,
+      "detail": "白色の粉末で、においはなく、味は苦い。",
+      "auditNotes": [
+        "2026-09-15時点のPMDA表示で、製造販売元はT's製薬、販売は武田薬品工業。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2456001F1353_2?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/2/400061_2456001F1353_2_004_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-PAL-069-01",
+          "name": "単シロップ（50%以下の条件）",
+          "rating": "○",
+          "meaning": "苦味抑制・服用性改善",
+          "evidence": "苦味抑制・服用性改善",
+          "evidenceTier": "B",
+          "sourceType": "査読論文",
+          "sourceUrl": "https://www.jstage.jst.go.jp/article/cpb/56/10/56_10_1395/_pdf/-char/ja",
+          "note": "高濃度では粘度上昇により服用性が低下し得る",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-069-02",
+          "name": "オレンジジュース＋単シロップ",
+          "rating": "○",
+          "meaning": "苦味抑制・服用性改善が特に良好",
+          "evidence": "苦味抑制・服用性改善が特に良好",
+          "evidenceTier": "B",
+          "sourceType": "査読論文",
+          "sourceUrl": "https://www.jstage.jst.go.jp/article/cpb/56/10/56_10_1395/_pdf/-char/ja",
+          "note": "オレンジジュース単独の評価ではない",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-069-03",
+          "name": "レモン炭酸飲料＋単シロップ",
+          "rating": "○",
+          "meaning": "苦味抑制・服用性改善が特に良好",
+          "evidence": "苦味抑制・服用性改善が特に良好",
+          "evidenceTier": "B",
+          "sourceType": "査読論文",
+          "sourceUrl": "https://www.jstage.jst.go.jp/article/cpb/56/10/56_10_1395/_pdf/-char/ja",
+          "note": "CCレモンを使用。飲料単独の評価ではない",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-069-04",
+          "name": "アイスクリーム",
+          "rating": "○",
+          "meaning": "苦味を隠す実務案",
+          "evidence": "苦味を隠す実務案",
+          "evidenceTier": "B",
+          "sourceType": "医療機関薬剤部資料",
+          "sourceUrl": "https://aih-net.com/yakuzaibu/kusurinomame/pdf/tekihihtou.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-069-05",
+          "name": "ゼリー",
+          "rating": "○",
+          "meaning": "苦味を隠す実務案",
+          "evidence": "苦味を隠す実務案",
+          "evidenceTier": "B",
+          "sourceType": "医療機関薬剤部資料",
+          "sourceUrl": "https://aih-net.com/yakuzaibu/kusurinomame/pdf/tekihihtou.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-069-06",
+          "name": "チョコレート系クリーム／ゼリー",
+          "rating": "○",
+          "meaning": "濃い味で苦味を隠す実務案",
+          "evidence": "濃い味で苦味を隠す実務案",
+          "evidenceTier": "C",
+          "sourceType": "実務資料・査読論文",
+          "sourceUrl": "https://www.jstage.jst.go.jp/article/cpb/56/10/56_10_1395/_pdf/-char/ja",
+          "note": "論文ではチョコレートゼリーを試験。効果の詳細は条件依存",
+          "verified": true
+        }
+      ],
+      "practicalEvidence": {
+        "status": "peer_reviewed_product_specific",
+        "evidenceTier": "B",
+        "evidenceLabel": "製品を特定した査読論文・医療機関資料",
+        "kind": "administration",
+        "summary": "苦味が強い。単シロップは50%以下の条件で苦味抑制がみられ、単シロップ溶液にオレンジジュース又はレモン炭酸飲料を加えた条件が特に有効。アイスやゼリー等で包む実務案もある。",
+        "sources": [
+          {
+            "label": "Chemical and Pharmaceutical Bulletin 56(10), 1395-1399 (2008)",
+            "url": "https://www.jstage.jst.go.jp/article/cpb/56/10/56_10_1395/_pdf/-char/ja",
+            "access": "verified"
+          },
+          {
+            "label": "愛知医科大学病院薬剤部資料",
+            "url": "https://aih-net.com/yakuzaibu/kusurinomame/pdf/tekihihtou.pdf",
+            "access": "verified"
+          },
+          {
+            "label": "北陸支部実務資料",
+            "url": "https://shibu.pharm.or.jp/hokuriku/ebook/HTML/index120.html",
+            "access": "page_verified_text_recheck"
+          }
+        ],
+        "auditNotes": [
+          "論文の『オレンジジュース／CCレモン』は単独ではなく、単シロップ溶液へ加えた試験条件。",
+          "錠剤粉砕＋単シロップ／乳糖は製剤変更を伴うため、処方・調剤上の個別判断が必要。"
+        ]
+      },
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/2/400061_2456001F1353_2_004_1F.pdf"
+    },
+    {
+      "id": "PAL-070",
+      "ingredient": "耐性乳酸菌",
+      "product": "ビオフェルミンR散",
+      "manufacturer": "ビオフェルミン製薬株式会社",
+      "formulation": "散剤",
+      "evidenceStatus": "no_direct_statement",
+      "flavor": null,
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "散剤",
+      "instruction": null,
+      "detail": null,
+      "auditNotes": [
+        "白色～淡黄褐色の粉末との外観記載のみ。味・においは推定しない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/2316004B1036_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/650006_2316004B1036_1_019_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": {
+        "status": "supported_secondary_low_confidence",
+        "evidenceTier": "B",
+        "evidenceLabel": "病院薬剤部資料（確度注意）",
+        "kind": "sensory",
+        "summary": "甘いとの実務資料あり。メーカー一次資料では味の直接記載を確認できない。",
+        "sources": [
+          {
+            "label": "愛知医科大学病院薬剤部『粉薬と服薬補助食品の飲み合わせ』",
+            "url": "https://aih-net.com/yakuzaibu/kusurinomame/pdf/tekihihtou.pdf",
+            "access": "verified"
+          }
+        ],
+        "auditNotes": [
+          "ユーザー指定どおりエビデンス低めとして表示し、確定欄は上書きしない。",
+          "40℃を超える飲食物は菌の生存性に影響し得るため避ける。"
+        ]
+      },
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/650006_2316004B1036_1_019_1F.pdf"
+    },
+    {
+      "id": "PAL-071",
+      "ingredient": "オセルタミビルリン酸塩",
+      "product": "タミフルドライシロップ3%",
+      "manufacturer": "中外製薬株式会社",
+      "formulation": "ドライシロップ3%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "ミックスフルーツ風味",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "白色～淡黄色の顆粒又は塊で、ミックスフルーツ風味。",
+      "auditNotes": [
+        "甘味・苦味は直接記載がないため空欄。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6250021R1024_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/450045_6250021R1024_1_036_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [
+        {
+          "id": "FOOD-PAL-071-01",
+          "name": "チョコレートアイス",
+          "rating": "○",
+          "meaning": "飲みやすい",
+          "evidence": "飲みやすい",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://chugai-pharm.jp/view-pdf/?file=/content/dam/chugai/product/tam/dsyr/guidance/doc/TAM-000091.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-071-02",
+          "name": "ヨーグルト",
+          "rating": "○",
+          "meaning": "飲みやすい",
+          "evidence": "飲みやすい",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://chugai-pharm.jp/view-pdf/?file=/content/dam/chugai/product/tam/dsyr/guidance/doc/TAM-000091.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-071-03",
+          "name": "ココア",
+          "rating": "○",
+          "meaning": "飲みやすい",
+          "evidence": "飲みやすい",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://chugai-pharm.jp/view-pdf/?file=/content/dam/chugai/product/tam/dsyr/guidance/doc/TAM-000091.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-071-04",
+          "name": "オレンジジュース",
+          "rating": "○",
+          "meaning": "飲みやすい",
+          "evidence": "飲みやすい",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://chugai-pharm.jp/view-pdf/?file=/content/dam/chugai/product/tam/dsyr/guidance/doc/TAM-000091.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-071-05",
+          "name": "スポーツ飲料",
+          "rating": "○",
+          "meaning": "飲みやすい",
+          "evidence": "飲みやすい",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://chugai-pharm.jp/view-pdf/?file=/content/dam/chugai/product/tam/dsyr/guidance/doc/TAM-000091.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-071-06",
+          "name": "バニラアイス",
+          "rating": "×",
+          "meaning": "飲みにくい",
+          "evidence": "飲みにくい",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://chugai-pharm.jp/view-pdf/?file=/content/dam/chugai/product/tam/dsyr/guidance/doc/TAM-000091.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-071-07",
+          "name": "乳酸菌飲料",
+          "rating": "×",
+          "meaning": "飲みにくい",
+          "evidence": "飲みにくい",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://chugai-pharm.jp/view-pdf/?file=/content/dam/chugai/product/tam/dsyr/guidance/doc/TAM-000091.pdf",
+          "note": "",
+          "verified": true
+        },
+        {
+          "id": "FOOD-PAL-071-08",
+          "name": "りんごジュース",
+          "rating": "×",
+          "meaning": "飲みにくい",
+          "evidence": "飲みにくい",
+          "evidenceTier": "A",
+          "sourceType": "メーカー公式患者向け資材",
+          "sourceUrl": "https://chugai-pharm.jp/view-pdf/?file=/content/dam/chugai/product/tam/dsyr/guidance/doc/TAM-000091.pdf",
+          "note": "",
+          "verified": true
+        }
+      ],
+      "practicalEvidence": {
+        "status": "official_product_guidance",
+        "evidenceTier": "A",
+        "evidenceLabel": "メーカー公式患者向け資材",
+        "kind": "administration",
+        "summary": "チョコアイス、ヨーグルト、ココア、オレンジジュース、スポーツ飲料は○。バニラアイス、乳酸菌飲料、りんごジュースは×。",
+        "sources": [
+          {
+            "label": "中外製薬『タミフルドライシロップの飲ませ方』",
+            "url": "https://chugai-pharm.jp/view-pdf/?file=/content/dam/chugai/product/tam/dsyr/guidance/doc/TAM-000091.pdf",
+            "access": "official_link_auth_may_be_required"
+          },
+          {
+            "label": "キャップスクリニック実務記事（内容照合）",
+            "url": "https://caps-clinic.jp/dr365/medicine/drysyrup-syoni/",
+            "access": "verified"
+          }
+        ],
+        "auditNotes": [
+          "混ぜた薬は作り置きせず、すぐに全量を服用する。"
+        ]
+      },
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/450045_6250021R1024_1_036_1F.pdf"
+    },
+    {
+      "id": "PAL-072",
+      "ingredient": "バラシクロビル塩酸塩",
+      "product": "バルトレックス顆粒50%",
+      "manufacturer": "グラクソ・スミスクライン株式会社",
+      "formulation": "顆粒50%",
+      "evidenceStatus": "no_direct_statement",
+      "flavor": null,
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "顆粒剤",
+      "instruction": null,
+      "detail": null,
+      "auditNotes": [
+        "現行IFで製品の味・香りの直接記載を確認できない。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/6250019D1020_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/340278_6250019D1020_1_020_1F.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": {
+        "status": "secondary_only_needs_recheck",
+        "evidenceTier": "D",
+        "evidenceLabel": "専門メディア記事（全文要再確認）",
+        "kind": "administration",
+        "summary": "主薬の苦味が強いため、溶かさず、顆粒を噛まずに飲み込む実務案。",
+        "sources": [
+          {
+            "label": "日経メディカルDI実務記事",
+            "url": "https://medical.nikkeibp.co.jp/leaf/mem/pub/di/column/ganbare/201708/552419.html",
+            "access": "login_or_robots_restricted"
+          }
+        ],
+        "auditNotes": [
+          "現行メーカー一次資料では顆粒の味を確認できない。確定情報としては扱わない。",
+          "服用方法は個別の処方・患者状況に応じ薬剤師が判断する。"
+        ]
+      },
+      "sensorySourceUrl": "https://www.info.pmda.go.jp/go/interview/1/340278_6250019D1020_1_020_1F.pdf"
+    },
+    {
+      "id": "PAL-073",
+      "ingredient": "レベチラセタム",
+      "product": "イーケプラドライシロップ50%",
+      "manufacturer": "ユーシービージャパン株式会社",
+      "formulation": "ドライシロップ50%",
+      "evidenceStatus": "direct_statement",
+      "flavor": "オレンジ香料",
+      "sweetness": null,
+      "bitterness": null,
+      "sourness": null,
+      "aftertaste": null,
+      "texture": "ドライシロップ剤",
+      "instruction": null,
+      "detail": "メーカー公式の香料変更案内でオレンジ香料の使用を確認。製品の甘味・苦味は一次資料の確定欄には収載しない。",
+      "auditNotes": [
+        "2023年の香料変更後もオレンジ香料。実食記事の柑橘系風味・甘味・苦味は実務参考欄へ分離。"
+      ],
+      "sourceType": "PMDA製品詳細・インタビューフォーム・メーカー公式香料変更案内",
+      "sources": [
+        {
+          "label": "PMDA製品詳細",
+          "url": "https://www.pmda.go.jp/PmdaSearch/rdDetail/iyaku/1139010R1020_1?user=1",
+          "access": "verified"
+        },
+        {
+          "label": "インタビューフォーム",
+          "url": "https://www.info.pmda.go.jp/go/interview/1/820110_1139010R1020_1_021_1F.pdf",
+          "access": "verified"
+        },
+        {
+          "label": "メーカー公式香料変更案内",
+          "url": "https://hcp.ucbcares.jp/sites/default/files/2023-11/JP-KP-2300005_%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B%E6%96%87%E6%9B%B8_%E3%82%A4%E3%83%BC%E3%82%B1%E3%83%97%E3%83%A9%E3%83%89%E3%83%A9%E3%82%A4%E3%82%B7%E3%83%AD%E3%83%83%E3%83%97%E9%A6%99%E6%96%99%E5%A4%89%E6%9B%B4%E6%A1%88%E5%86%85.pdf",
+          "access": "verified"
+        }
+      ],
+      "foods": [],
+      "practicalEvidence": {
+        "status": "official_flavor_plus_secondary_tasting",
+        "evidenceTier": "A/C",
+        "evidenceLabel": "メーカー公式香料情報＋薬剤師向け実食記事",
+        "kind": "sensory",
+        "summary": "メーカー資料でオレンジ香料を確認。実食記事ではオレンジ様の柑橘系風味で、甘味と原薬由来の苦味が拮抗するとされる。",
+        "sources": [
+          {
+            "label": "UCBジャパン『イーケプラドライシロップ50% 香料変更のご案内』",
+            "url": "https://hcp.ucbcares.jp/sites/default/files/2023-11/JP-KP-2300005_%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B%E6%96%87%E6%9B%B8_%E3%82%A4%E3%83%BC%E3%82%B1%E3%83%97%E3%83%A9%E3%83%89%E3%83%A9%E3%82%A4%E3%82%B7%E3%83%AD%E3%83%83%E3%83%97%E9%A6%99%E6%96%99%E5%A4%89%E6%9B%B4%E6%A1%88%E5%86%85.pdf",
+            "access": "verified"
+          },
+          {
+            "label": "m3.com薬剤師コラム『味見してみました』",
+            "url": "https://pharmacist.m3.com/column/ajimi/4174",
+            "access": "search_excerpt_verified"
+          }
+        ],
+        "auditNotes": [
+          "『オレンジ香料』は公式一次資料、『柑橘系・甘味と苦味』は実食記事として分離する。"
+        ]
+      },
+      "sensorySourceUrl": "https://hcp.ucbcares.jp/sites/default/files/2023-11/JP-KP-2300005_%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B%E6%96%87%E6%9B%B8_%E3%82%A4%E3%83%BC%E3%82%B1%E3%83%97%E3%83%A9%E3%83%89%E3%83%A9%E3%82%A4%E3%82%B7%E3%83%AD%E3%83%83%E3%83%97%E9%A6%99%E6%96%99%E5%A4%89%E6%9B%B4%E6%A1%88%E5%86%85.pdf"
     }
   ],
   "linkCorrections": [
