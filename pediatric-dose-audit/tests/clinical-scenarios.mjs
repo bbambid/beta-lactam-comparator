@@ -18,6 +18,7 @@ scenario('ケトチフェン・DS',{drug:'keto',product:/ドライシロップ|D
 const ketotifenWater=[...document.querySelectorAll('.palatability-food')].find(x=>x.textContent.includes('水（少量）'));
 assert.ok(ketotifenWater,'Ketotifen official water guidance must render as a food chip');
 assert.match(ketotifenWater.getAttribute('href'),/med\.sawai\.co\.jp\/request\/mate_attachement/);
+scenario('ゼスラン細粒・気管支喘息の年齢別表',{drug:'meq',product:/細粒0\.6%/,indication:'asthma',age:1,weight:10,amount:0.4,frequency:2},[/1歳以上2歳未満/,/8kg以上12kg未満/,/0\.2g（メキタジンとして1\.2mg）/,/0\.3g（メキタジンとして1\.8mg）/,/0\.4g（メキタジンとして2\.4mg）/,/0\.6g（メキタジンとして3\.6mg）/,/1g（メキタジンとして6\.0mg）/]);
 setPrescription(app,{drug:'carbo',product:/ドライシロップ50%/,indication:'general',age:4,weight:18,amount:1.08,frequency:3});
 const mucodynePractical=[...document.querySelectorAll('.palatability-chip.practical')].find(x=>x.textContent.includes('ピーチの香り'));
 assert.ok(mucodynePractical,'Mucodyne practical peach-flavor evidence must render separately');
