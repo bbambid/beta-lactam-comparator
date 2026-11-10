@@ -120,3 +120,40 @@ body.infection-workspace .shell{max-width:900px;padding:12px 14px 40px}
  .drug-organism-table td{font-size:10px}
  .source-value{font-size:10px}
 }
+
+/* Follow-up: compact drug-by-drug spectrum cards and inline allergy notice */
+.infection-workspace .structure-launch{display:none!important}
+.beta-allergy-inline{margin:8px 0 0}
+.infection-context .allergy-field{align-content:start}
+.spectrum-card-groups{gap:6px}
+.guideline-drug-list{gap:5px}
+.guideline-drug-card{padding:7px 8px;border-radius:9px}
+.guideline-drug-head{gap:5px;margin-bottom:5px}
+.guideline-drug-head>div.drug-name-line{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap}
+.guideline-drug-head>div.drug-name-line>b{font-size:12.5px}
+.guideline-drug-head .drug-generic{font-size:10px}
+.guideline-drug-head .drug-status{font-size:9px;padding:3px 6px}
+.drug-organism-table{table-layout:fixed;font-size:10px;line-height:1.25}
+.drug-organism-table th,.drug-organism-table td{padding:4px 3px}
+.drug-organism-table thead th{font-size:9px;line-height:1.2}
+.drug-organism-table tbody th{width:38%;font-size:10px;overflow-wrap:anywhere}
+.drug-organism-table td{width:20.6%;overflow-wrap:anywhere}
+.drug-organism-table .source-value{display:inline-block;font-size:9.5px;line-height:1.2;white-space:normal;padding:3px 4px;border-radius:4px;background:#f0f3f5}
+.drug-organism-table .source-value.pending{background:#fff4df;color:#765a14}
+.guideline-drug-extra{margin-top:4px;border-top:1px solid #e9edef}
+.guideline-drug-extra summary{padding:5px 2px 1px;cursor:pointer;font-size:10px;font-weight:750;color:#5f6e78}
+.guideline-drug-extra-body{padding:5px 0 1px}
+.guideline-drug-extra-body .drug-approval-summary{margin:0 0 4px;padding:4px 5px}
+.guideline-drug-extra-body .guideline-drug-note{margin:2px 0 0;font-size:10.5px;line-height:1.45}
+.sanford-drug-class{border-top:1px solid #e4e8ec}
+.sanford-drug-class>summary{display:flex;justify-content:space-between;gap:8px;padding:9px 2px;cursor:pointer;font-size:12px;font-weight:800}
+.sanford-drug-class>summary small{font-size:10px;font-weight:600;color:#788590}
+.sanford-spectrum-groups{display:grid;gap:1px;margin-top:8px}
+@media(max-width:420px){
+ .guideline-drug-card{padding:6px}
+ .drug-organism-table th,.drug-organism-table td{padding:3px 2px}
+ .drug-organism-table tbody th{width:36%;font-size:9.5px}
+ .drug-organism-table td{width:21.3%}
+ .drug-organism-table .source-value{font-size:9px;padding:2px}
+ .guideline-drug-head .drug-status{max-width:44%;white-space:normal;text-align:center}
+}
