@@ -65,3 +65,12 @@ body.infection-workspace .shell{max-width:900px;padding:12px 14px 40px}
  .infection-tab small{font-size:9px}
  .infection-panel{padding:11px}
 }
+.infection-context-grid .syndrome-select{width:100%;min-height:46px;font-size:14px}
+.infection-context .allergy-field select{width:100%;min-height:46px;border:1px solid #cbd7e5;border-radius:12px;padding:10px 36px 10px 11px;background-color:#fff;font-weight:800;color:#172033}
+.allergy-extra,.candidate-evidence{border:1px solid #e1e7ed;border-radius:12px;background:#fbfcfd;margin-top:10px;overflow:hidden}
+.allergy-extra summary,.candidate-evidence summary{padding:12px 13px;cursor:pointer;font-size:13px;font-weight:850;list-style:none}
+.allergy-extra summary::-webkit-details-marker,.candidate-evidence summary::-webkit-details-marker{display:none}
+.allergy-extra .details-body,.candidate-evidence .details-body{border-top:1px solid #e8edf2;padding:12px}
+.candidate-evidence{margin-bottom:10px}
+.infection-panel .decision-zone{margin-top:0}
+@media(max-width:480px){.infection-context-grid .syndrome-select,.infection-context .allergy-field select{font-size:14px}}
