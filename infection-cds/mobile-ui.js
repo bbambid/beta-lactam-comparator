@@ -49,6 +49,9 @@ function updateContext(){
  if(!has){const n=document.createElement("div");n.className="infection-condition-note";n.textContent=(id==="aom"?"鼓膜所見・年齢・重症度を確認します。評価フローは「ガイドライン」タブにあります。":id==="pyelo"?"上部尿路感染の重症度、妊娠、腎機能、培養結果を確認してください。":id==="cellulitis"||id==="abscess"?"排膿の要否、受傷機序、全身症状、糖尿病などの背景を確認してください。":"この疾患では病態入力を設けていません。臨床情報と培養結果を個別に確認してください。");conditionContent.append(n)}
 }
 function activate(id){names.forEach(([key])=>{const b=$("tab-"+key),p=panels[key];b.setAttribute("aria-selected",key===id?"true":"false");p.hidden=key!==id})}
+function labelSpectrumCells(){panels.spectrum.querySelectorAll(".spectrum-matrix").forEach(table=>{const heads=[...table.querySelectorAll("thead th")].map(h=>h.innerText.trim());table.querySelectorAll("tbody tr").forEach(row=>[...row.children].forEach((cell,i)=>{if(heads[i])cell.setAttribute("data-label",heads[i])}))})}
+const spectrumObserver=new MutationObserver(labelSpectrumCells);const spectrumBody=$("spectrumBody");if(spectrumBody)spectrumObserver.observe(spectrumBody,{childList:true,subtree:true});
+labelSpectrumCells();
 select.addEventListener("change",updateContext);
 updateContext();
 })();
