@@ -1,0 +1,159 @@
+/* Infection CDS mobile-first workspace */
+body.infection-workspace .intro-card,
+body.infection-workspace .reading-path,
+body.infection-workspace .quick-conclusion,
+body.infection-workspace .workspace-tabs,
+body.infection-workspace #pharmacyWorkspace {display:none!important}
+body.infection-workspace .shell{max-width:900px;padding:12px 14px 40px}
+.infection-app{display:grid;gap:12px}
+.infection-context,.infection-panel{background:#fff;border:1px solid #d9e2ea;border-radius:16px;box-shadow:0 3px 12px rgba(22,42,62,.05)}
+.infection-context{padding:14px}
+.infection-context-title{font-size:12px;color:#52687a;font-weight:900;margin-bottom:10px}
+.infection-context-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.infection-context-grid .field{min-width:0}
+.infection-context-grid .field-label{font-size:12px}
+.infection-context-grid select{min-height:46px;font-size:15px}
+#quickTabs{padding-top:9px}
+.infection-condition{margin-top:11px;padding-top:10px;border-top:1px solid #edf1f4}
+.infection-condition-head{font-size:12px;font-weight:900;margin-bottom:7px}
+.infection-condition-note{color:#667085;font-size:12px;line-height:1.55}
+.infection-condition .branch-controls,.infection-condition .sinus-score,.infection-condition .child-check,
+.infection-condition .cap-grid,.infection-condition .ph-qgrid,.infection-condition .ph-test,
+.infection-condition .uti-grid{margin-top:7px}
+.infection-condition .branch-controls{display:grid}
+.infection-condition select{min-height:42px}
+.infection-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:7px;background:#eaf0f5;border-radius:14px;position:sticky;top:58px;z-index:10}
+.infection-tab{border:0;border-radius:10px;background:transparent;padding:11px 6px;color:#46586a;font-size:13px;font-weight:850;line-height:1.25}
+.infection-tab[aria-selected=true]{background:#fff;color:#153c5b;box-shadow:0 2px 7px #18354b1a}
+.infection-tab small{display:block;font-size:10px;font-weight:600;margin-top:3px;color:#667085}
+.infection-panel{padding:13px}
+.infection-panel[hidden]{display:none}
+.infection-panel > *{margin-top:0}
+.infection-panel #summaryHero{margin-bottom:10px}
+.infection-panel #decisionZone{margin-bottom:10px}
+.infection-panel .clinical-flow{display:block;margin:0}
+.infection-panel .step-card{margin-bottom:10px;padding:13px}
+.infection-panel #spectrumDetails{margin:0 0 10px}
+.infection-panel #evidenceDetails{margin:0 0 10px}
+.infection-context #allergyDetails{margin:10px 0 0;box-shadow:none}
+.infection-context #allergyDetails summary{padding:9px 0 2px;font-size:12px}
+.infection-context #allergyDetails .details-body{padding:8px 0 0;border-top:0}
+.infection-context .allergy-message{font-size:12px}
+.infection-panel .workspace-panel-head,.infection-panel .branch-title{margin-top:0}
+.infection-panel .branch-title{font-size:15px}
+.infection-panel .branch-sub{font-size:12px;line-height:1.55}
+.infection-panel .decision-panel{padding:13px}
+.infection-panel .decision-zone{grid-template-columns:1fr}
+.infection-panel .spectrum-scroll,.infection-panel .matrix-scroll{max-width:100%}
+.infection-panel .spectrum-matrix{font-size:12px}
+.infection-panel .evidence-fixed-head{padding:12px}
+.infection-panel .details-body{padding:12px}
+.infection-disclaimer{font-size:11px;color:#667085;line-height:1.55;padding:0 2px}
+@media(min-width:760px){
+ .infection-context-grid{grid-template-columns:1fr 1fr}
+ .infection-panel{padding:18px}
+ .infection-tabs{top:64px}
+ .infection-panel .decision-zone{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:480px){
+ .infection-app{gap:9px}
+ body.infection-workspace .shell{padding:9px 10px 30px}
+ .infection-context{padding:12px}
+ .infection-context-grid{grid-template-columns:1fr}
+ .infection-tabs{top:54px;gap:3px;padding:5px}
+ .infection-tab{font-size:12px;padding:10px 3px}
+ .infection-tab small{font-size:9px}
+ .infection-panel{padding:11px}
+}
+.infection-context-grid .syndrome-select{width:100%;min-height:46px;font-size:14px}
+.infection-context .allergy-field select{width:100%;min-height:46px;border:1px solid #cbd7e5;border-radius:12px;padding:10px 36px 10px 11px;background-color:#fff;font-weight:800;color:#172033}
+.allergy-extra,.candidate-evidence{border:1px solid #e1e7ed;border-radius:12px;background:#fbfcfd;margin-top:10px;overflow:hidden}
+.allergy-extra summary,.candidate-evidence summary{padding:12px 13px;cursor:pointer;font-size:13px;font-weight:850;list-style:none}
+.allergy-extra summary::-webkit-details-marker,.candidate-evidence summary::-webkit-details-marker{display:none}
+.allergy-extra .details-body,.candidate-evidence .details-body{border-top:1px solid #e8edf2;padding:12px}
+.candidate-evidence{margin-bottom:10px}
+.infection-panel .decision-zone{margin-top:0}
+@media(max-width:480px){.infection-context-grid .syndrome-select,.infection-context .allergy-field select{font-size:14px}}
+
+@media(max-width:700px){
+ .infection-panel .matrix-scroll{overflow-x:visible!important;border:0;background:transparent}
+ .infection-panel table.spectrum-matrix{display:block;width:100%;min-width:0!important;border:0;border-spacing:0;font-size:12px}
+ .infection-panel .spectrum-matrix thead{display:none}
+ .infection-panel .spectrum-matrix tbody{display:grid;gap:9px}
+ .infection-panel .spectrum-matrix tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid #dfe6ed;border-radius:12px;overflow:hidden;background:#fff}
+ .infection-panel .spectrum-matrix tbody tr.drug-group-row{display:block;border:0;border-radius:0;background:#edf2f7}
+ .infection-panel .spectrum-matrix tbody tr.drug-group-row th{display:block;width:100%;min-width:0}
+ .infection-panel .spectrum-matrix tbody th,.infection-panel .spectrum-matrix tbody td{position:static;display:block;min-width:0!important;width:auto;padding:8px;border:0;border-right:1px solid #edf0f4;border-bottom:1px solid #edf0f4;text-align:left;white-space:normal;overflow-wrap:anywhere;background:#fff}
+ .infection-panel .spectrum-matrix tbody tr>th:first-child{grid-column:1/-1;background:#eef4f8;font-size:13px;border-bottom:1px solid #dce4ec}
+ .infection-panel .spectrum-matrix tbody td::before{content:attr(data-label);display:block;color:#667085;font-size:10px;line-height:1.3;font-weight:800;margin-bottom:4px}
+ .infection-panel .spectrum-matrix tbody tr>td:last-child{border-right:0}
+ .infection-panel .spectrum-matrix td.split-cell{padding:0;min-width:0!important}
+ .infection-panel .spectrum-matrix .activity-half{padding:7px 6px;min-height:0}
+ .infection-panel .spectrum-matrix .approval-half{padding:5px 6px;display:block}
+ .infection-panel .spectrum-matrix .approval-half small{display:block}
+ .infection-panel .spectrum-matrix .matrix-status{white-space:normal;font-size:10px}
+}
+
+/* Compact per-drug organism matrix */
+.beta-allergy-notice{margin:12px 0 0;padding:10px 11px;border:1px solid #e7d7b8;border-left:4px solid #9a702c;background:#fbf8f1;border-radius:5px}
+.beta-allergy-notice[hidden]{display:none}.beta-allergy-title{font-size:12px;font-weight:850;color:#594a2d;margin-bottom:3px}.beta-allergy-text{font-size:12px;line-height:1.55;color:#4e4940}
+.spectrum-card-groups{display:grid;gap:7px}.guideline-drug-list{display:grid;gap:6px}
+.guideline-drug-card{border:1px solid #d5dde2;border-radius:5px;background:#fff;padding:8px 9px}
+.guideline-drug-head{display:flex;align-items:center;justify-content:space-between;gap:7px}.guideline-drug-head>div{min-width:0;font-size:13px}.guideline-drug-head>div>b{font-size:13px;color:#183247}.drug-generic{font-size:11px;color:#596a75;font-weight:650}.guideline-drug-head .drug-status{flex:0 0 auto;font-size:9px}
+.guideline-drug-note{font-size:10px;line-height:1.4;color:#5c6972;margin:3px 0 5px}
+.drug-approval-summary{display:flex;gap:6px;align-items:flex-start;padding:5px 6px;margin-bottom:4px;background:#f4f6f6;border-radius:3px;font-size:9.5px;line-height:1.4}.drug-approval-summary>b{white-space:nowrap;color:#43535d}.drug-approval-summary>span{color:#4d5d67}
+.drug-organism-table{width:100%;border-collapse:collapse;font-size:10px}.drug-organism-table th,.drug-organism-table td{padding:4px;border-top:1px solid #e4e9eb;text-align:left;vertical-align:middle}.drug-organism-table thead th{font-size:9px;color:#65747d;background:#f8f9f9}.drug-organism-table tbody th{font-weight:750;color:#283d49;width:38%}.drug-organism-table td{width:20%}
+.source-value{font-size:9.5px;line-height:1.25;color:#3f5561}.source-value.pending{color:#8a641d}
+.additional-spectrum-drugs{border:1px solid #d5dde2;border-radius:5px;background:#fafbfa}.additional-spectrum-drugs>summary{cursor:pointer;padding:9px 10px;font-size:11px;font-weight:850}.additional-spectrum-drugs .guideline-drug-list{padding:7px}
+.spectrum-group-title{margin:8px 0 0;font-size:12px;color:#405662}.spectrum-class-note{display:grid;gap:3px;padding:8px 9px;border-left:3px solid #8798a3;background:#f5f7f8;font-size:10px;line-height:1.45}.matrix-legend small{display:block;line-height:1.45}
+@media(max-width:420px){.drug-organism-table th,.drug-organism-table td{padding:3px 2px}.drug-organism-table tbody th{width:35%}.drug-organism-table td{width:21.6%}.guideline-drug-card{padding:7px}.drug-generic{font-size:10px}}
+
+@media(max-width:700px){
+ .drug-organism-table{font-size:10.5px}
+ .drug-organism-table thead th{font-size:10px}
+ .source-value{font-size:10px}
+ .drug-approval-summary{font-size:10px}
+ .guideline-drug-note{font-size:10.5px}
+}
+@media(max-width:420px){
+ .drug-organism-table tbody th{font-size:10.5px}
+ .drug-organism-table td{font-size:10px}
+ .source-value{font-size:10px}
+}
+
+/* Follow-up: compact drug-by-drug spectrum cards and inline allergy notice */
+.infection-workspace .structure-launch{display:none!important}
+.beta-allergy-inline{margin:8px 0 0}
+.infection-context .allergy-field{align-content:start}
+.spectrum-card-groups{gap:6px}
+.guideline-drug-list{gap:5px}
+.guideline-drug-card{padding:7px 8px;border-radius:9px}
+.guideline-drug-head{gap:5px;margin-bottom:5px}
+.guideline-drug-head>div.drug-name-line{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap}
+.guideline-drug-head>div.drug-name-line>b{font-size:12.5px}
+.guideline-drug-head .drug-generic{font-size:10px}
+.guideline-drug-head .drug-status{font-size:9px;padding:3px 6px}
+.drug-organism-table{table-layout:fixed;font-size:10px;line-height:1.25}
+.drug-organism-table th,.drug-organism-table td{padding:4px 3px}
+.drug-organism-table thead th{font-size:9px;line-height:1.2}
+.drug-organism-table tbody th{width:38%;font-size:10px;overflow-wrap:anywhere}
+.drug-organism-table td{width:20.6%;overflow-wrap:anywhere}
+.drug-organism-table .source-value{display:inline-block;font-size:9.5px;line-height:1.2;white-space:normal;padding:3px 4px;border-radius:4px;background:#f0f3f5}
+.drug-organism-table .source-value.pending{background:#fff4df;color:#765a14}
+.guideline-drug-extra{margin-top:4px;border-top:1px solid #e9edef}
+.guideline-drug-extra summary{padding:5px 2px 1px;cursor:pointer;font-size:10px;font-weight:750;color:#5f6e78}
+.guideline-drug-extra-body{padding:5px 0 1px}
+.guideline-drug-extra-body .drug-approval-summary{margin:0 0 4px;padding:4px 5px}
+.guideline-drug-extra-body .guideline-drug-note{margin:2px 0 0;font-size:10.5px;line-height:1.45}
+.sanford-drug-class{border-top:1px solid #e4e8ec}
+.sanford-drug-class>summary{display:flex;justify-content:space-between;gap:8px;padding:9px 2px;cursor:pointer;font-size:12px;font-weight:800}
+.sanford-drug-class>summary small{font-size:10px;font-weight:600;color:#788590}
+.sanford-spectrum-groups{display:grid;gap:1px;margin-top:8px}
+@media(max-width:420px){
+ .guideline-drug-card{padding:6px}
+ .drug-organism-table th,.drug-organism-table td{padding:3px 2px}
+ .drug-organism-table tbody th{width:36%;font-size:9.5px}
+ .drug-organism-table td{width:21.3%}
+ .drug-organism-table .source-value{font-size:9px;padding:2px}
+ .guideline-drug-head .drug-status{max-width:44%;white-space:normal;text-align:center}
+}
