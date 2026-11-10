@@ -5,20 +5,22 @@ if(!select||!main)return;
 document.body.classList.add("infection-workspace");
 const app=document.createElement("div");app.className="infection-app";app.id="infectionApp";
 const context=document.createElement("section");context.className="infection-context";
-context.innerHTML='<div class="infection-context-title">疾患と患者条件</div><div class="infection-context-grid"><div class="field"><label class="field-label" for="syndromeSelect">疾患</label></div></div><div id="infectionCondition" class="infection-condition"><div class="infection-condition-head">病態・臨床情報</div><div class="infection-condition-content"></div></div>';
-const diseaseField=context.querySelector(".field");diseaseField.append(select);
+context.innerHTML='<div class="infection-context-title">疾患と患者条件</div><div class="infection-context-grid"><div class="field disease-field"></div><div class="field allergy-field"><label class="field-label" for="allergySelect">βラクタムアレルギー</label></div></div><div id="infectionCondition" class="infection-condition"><div class="infection-condition-head">病態・臨床情報</div><div class="infection-condition-content"></div></div>';
+const diseaseField=context.querySelector(".disease-field");const diseaseLabel=document.querySelector('label[for="syndromeSelect"]');if(diseaseLabel)diseaseField.append(diseaseLabel);diseaseField.append(select);
 const quick=$("quickTabs"); if(quick)diseaseField.append(quick);
+const allergySelect=$("allergySelect"),allergyLabel=document.querySelector('label[for="allergySelect"]');if(allergyLabel)context.querySelector(".allergy-field").append(allergyLabel);if(allergySelect)context.querySelector(".allergy-field").append(allergySelect);
 const tabs=document.createElement("nav");tabs.className="infection-tabs";tabs.setAttribute("role","tablist");tabs.setAttribute("aria-label","感染症情報");
 const names=[["choices","薬剤候補","選択肢と理由"],["spectrum","標的菌・スペクトル","菌とカバー範囲"],["guideline","ガイドライン","推奨と根拠"]];
 names.forEach(([id,name,sub],i)=>{const b=document.createElement("button");b.type="button";b.className="infection-tab";b.id="tab-"+id;b.setAttribute("role","tab");b.setAttribute("aria-controls","panel-"+id);b.setAttribute("aria-selected",i===0?"true":"false");b.innerHTML=name+"<small>"+sub+"</small>";b.onclick=()=>activate(id);tabs.append(b)});
 const panels={};names.forEach(([id])=>{const p=document.createElement("section");p.className="infection-panel";p.id="panel-"+id;p.setAttribute("role","tabpanel");p.setAttribute("aria-labelledby","tab-"+id);p.hidden=id!=="choices";panels[id]=p;app.append(p)});
 const conditionContent=context.querySelector(".infection-condition-content");
 const move=(node,parent)=>{if(node&&parent)parent.append(node)};
-move(main,panels.choices);move($("decisionZone"),panels.choices);move($("betaCard"),panels.choices);move($("nonBetaCard"),panels.choices);move($("warningCard"),panels.choices);
+move(main,panels.choices);const decision=$("decisionZone");if(decision){const detail=document.createElement("details");detail.className="candidate-evidence";detail.innerHTML="<summary>薬剤ごとの推奨・適応・注意を詳しく確認</summary><div class='details-body'></div>";detail.querySelector(".details-body").append(decision);panels.choices.append(detail)}move($("betaCard"),panels.choices);move($("nonBetaCard"),panels.choices);move($("warningCard"),panels.choices);
 move($("pathogenCard"),panels.spectrum);move($("spectrumDetails"),panels.spectrum);
 move($("learningOverview"),panels.guideline);
 ["sinusBranch","capCds","pharynxCds","aomBranch","utiLearningCds"].forEach(id=>move($(id),panels.guideline));
-move($("evidenceDetails"),panels.guideline);move($("allergyDetails"),context);
+move($("evidenceDetails"),panels.guideline);
+const allergyDetails=$("allergyDetails");if(allergyDetails){const allergyMessage=$("allergyMessage"),compareActions=$("compareActions");const detail=document.createElement("details");detail.className="allergy-extra";detail.innerHTML="<summary>アレルギー時の注意と構造比較</summary><div class='details-body'></div>";const body=detail.querySelector(".details-body");if(allergyMessage)body.append(allergyMessage);if(compareActions)body.append(compareActions);context.append(detail);allergyDetails.remove()}
 const branchPanels=[...panels.guideline.querySelectorAll(".sinus-branch,.cap-cds,.pharynx-cds,.aom-branch,.uti-cds")];
 const mappings={
  sinus:[".branch-controls","#sinusScore","#sinusChildCheck"],
@@ -35,7 +37,7 @@ for(const [disease,selectors] of Object.entries(mappings)){
 }
 const disclaimer=document.createElement("div");disclaimer.className="infection-disclaimer";disclaimer.textContent="診断や処方を自動決定するものではありません。起炎菌・薬剤選択は患者背景、培養結果、地域の耐性状況で変わります。";context.append(disclaimer);
 const shell=document.querySelector("main.shell");const intro=shell.querySelector(".intro-card");intro?.after(context,tabs,app);
-const oldFlow=shell.querySelector(".clinical-flow");if(oldFlow)oldFlow.remove();
+const oldFlow=shell.querySelector(".clinical-flow");if(oldFlow)oldFlow.remove();shell.querySelector(".detail-togglebar")?.remove();shell.querySelector(".guideline-rule")?.remove();
 const branchEls={sinus:$("sinusBranch"),cap:$("capCds"),pharynx:$("pharynxCds"),aom:$("aomBranch"),cystitis:$("utiLearningCds")};
 function diseaseId(){return select.value||""}
 function updateContext(){
