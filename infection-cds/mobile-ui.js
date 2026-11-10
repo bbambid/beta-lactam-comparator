@@ -68,14 +68,14 @@ function makeCard(code,organisms,disease,role,note,indication,extra){
    sd.append(node("span","source-value"+(value==="未登録"||value==="未確認"?" pending":""),value));
    let av="要確認";const approval=(window.APPROVAL_DATA||{})[code];
    if(approval&&approval.verified){
-     const aliases={"肺炎球菌（S. pneumoniae）":"肺炎球菌","インフルエンザ菌（H. influenzae）":"インフルエンザ菌","モラクセラ（M. catarrhalis）":"モラクセラ","大腸菌（E. coli）":"大腸菌","黄色ブドウ球菌（S. aureus）":"ブドウ球菌属","A群溶血性レンサ球菌（GAS）":"レンサ球菌属"};
-     const q=aliases[o.name]||o.name.split("（")[0];av=approval.organisms.some(x=>x.includes(q)||q.includes(x))?"適応菌種あり":"該当記載なし";
+     const aliases={"肺炎球菌（S. pneumoniae）":"肺炎球菌","インフルエンザ菌（H. influenzae）":"インフルエンザ菌","モラクセラ（M. catarrhalis）":"モラクセラ","大腸菌（E. coli）":"大腸菌","黄色ブドウ球菌（S. aureus）":"ブドウ球菌属","黄色ブドウ球菌（MSSA）":"ブドウ球菌属","黄色ブドウ球菌（MRSA）":"ブドウ球菌属","A群溶血性レンサ球菌（GAS）":"レンサ球菌属"};
+     const q=aliases[o.name]||o.name.split("（")[0];av=code==="CEX"&&key==="saMRSA"?"MRSAは適応菌種に含めない":approval.organisms.some(x=>x.includes(q)||q.includes(x))?"適応菌種あり":"該当記載なし";
    }
    ap.append(node("span","source-value",av));row.append(ky,sd,ap);tbody.append(row)
  });table.append(tbody);card.append(table);
  const extraDetails=node("section","guideline-drug-extra"),title=node("h4","guideline-drug-extra-title","適応症・推奨理由・注意"),body=node("div","guideline-drug-extra-body");
  body.append(node("div","drug-approval-summary"),node("p","guideline-drug-note",note||"疾患別の記載を参照。"));
- const appr=body.querySelector(".drug-approval-summary");appr.append(node("b","","国内適応"),node("span","",indication||"適応症：要確認"));
+ const appr=body.querySelector(".drug-approval-summary"),shownIndication=code==="CEX"&&disease==="abscess"?"適応菌種：本剤に感性のブドウ球菌属等。適応症：表在性・深在性皮膚感染症など。":(indication||"適応症：要確認");appr.append(node("b","","国内適応"),node("span","",shownIndication));
  extraDetails.append(title,body);card.append(extraDetails);return card;
 }
 let lastSpectrumTable=null;
