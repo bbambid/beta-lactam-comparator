@@ -59,12 +59,12 @@ function makeCard(code,organisms,disease,role,note,indication,extra){
  const table=node("table","drug-organism-table"),thead=node("thead",""),trh=node("tr","");
  ["菌種","Kyoto 2024","Sanford","適応菌種"].forEach(v=>trh.append(node("th","",v)));thead.append(trh);table.append(thead);
  const tbody=node("tbody",""),kyoto=(window.KYOTO||{})[code]||{},sf=((window.SANFORD_SPECTRUM||{})[disease]||{}).drugs||{};
- const keyMap={"肺炎球菌（S. pneumoniae）":"sp","インフルエンザ菌（H. influenzae）":"hi","モラクセラ（M. catarrhalis）":"mc","A群溶血性レンサ球菌（GAS）":"gas","肺炎マイコプラズマ（M. pneumoniae）":"mp","マイコプラズマ（M. pneumoniae）":"mp","レジオネラ（Legionella spp.）":"leg","大腸菌（E. coli）":"ec","腐生ブドウ球菌（S. saprophyticus）":"ss","ミラビリス変形菌（P. mirabilis）":"pm","黄色ブドウ球菌（S. aureus）":"sa","緑膿菌（P. aeruginosa）":"pa","口腔レンサ球菌群（Streptococcus spp.）":"oralstrep","Prevotella spp.":"prev","Peptostreptococcus spp.":"pepto"};
+ const keyMap={"肺炎球菌（S. pneumoniae）":"sp","インフルエンザ菌（H. influenzae）":"hi","モラクセラ（M. catarrhalis）":"mc","A群溶血性レンサ球菌（GAS）":"gas","肺炎マイコプラズマ（M. pneumoniae）":"mp","マイコプラズマ（M. pneumoniae）":"mp","レジオネラ（Legionella spp.）":"leg","大腸菌（E. coli）":"ec","腐生ブドウ球菌（S. saprophyticus）":"ss","ミラビリス変形菌（P. mirabilis）":"pm","黄色ブドウ球菌（S. aureus）":"sa","黄色ブドウ球菌（MSSA）":"saMSSA","黄色ブドウ球菌（MRSA）":"saMRSA","緑膿菌（P. aeruginosa）":"pa","口腔レンサ球菌群（Streptococcus spp.）":"oralstrep","Prevotella spp.":"prev","Peptostreptococcus spp.":"pepto"};
  organisms.forEach(o=>{
    const row=node("tr",""),ky=node("td",""),sd=node("td",""),ap=node("td","");
    row.append(node("th","",o.name));
    ky.append(node("span","source-value",kyoto[o.name]||"未登録"));
-   const sv=sf[code],key=keyMap[o.name],value=!sv?"未登録":sv.status==="pending"?"未確認":(key&&sv[key]!=null?String(sv[key]):"未登録");
+   const sv=sf[code],common=(window.SANFORD_SPECTRUM_COMMON||{})[code],key=keyMap[o.name],raw=sv&&key&&sv[key]!=null?sv[key]:(common&&key&&common[key]!=null?common[key]:null),value=sv?.status==="pending"?"未確認":raw!=null?String(raw):"未確認";
    sd.append(node("span","source-value"+(value==="未登録"||value==="未確認"?" pending":""),value));
    let av="要確認";const approval=(window.APPROVAL_DATA||{})[code];
    if(approval&&approval.verified){
@@ -73,10 +73,10 @@ function makeCard(code,organisms,disease,role,note,indication,extra){
    }
    ap.append(node("span","source-value",av));row.append(ky,sd,ap);tbody.append(row)
  });table.append(tbody);card.append(table);
- const extraDetails=node("details","guideline-drug-extra"),summary=node("summary","","適応症・推奨理由・注意を確認"),body=node("div","guideline-drug-extra-body");
+ const extraDetails=node("section","guideline-drug-extra"),title=node("h4","guideline-drug-extra-title","適応症・推奨理由・注意"),body=node("div","guideline-drug-extra-body");
  body.append(node("div","drug-approval-summary"),node("p","guideline-drug-note",note||"疾患別の記載を参照。"));
  const appr=body.querySelector(".drug-approval-summary");appr.append(node("b","","国内適応"),node("span","",indication||"適応症：要確認"));
- extraDetails.append(summary,body);card.append(extraDetails);return card;
+ extraDetails.append(title,body);card.append(extraDetails);return card;
 }
 let lastSpectrumTable=null;
 function labelSpectrumCells(){
@@ -89,7 +89,8 @@ function labelSpectrumCells(){
  const seen=new Set(rows.map(getDrug)),pills=[...document.querySelectorAll("#nonBetaCard .pill")].map(p=>p.textContent.trim()),hasCode=(p,c)=>new RegExp("(^|[^A-Z0-9])"+c+"([^A-Z0-9]|$)").test(p.toUpperCase()),found=[...new Set(pills.flatMap(p=>nonbetaCodes.filter(c=>hasCode(p,c))))].filter(c=>!seen.has(c));
  primaryList.append(cardsFor(primary,false));
  const note=document.querySelector("#nonBetaCard .nonbeta-body")?.textContent?.trim()||"疾患別カードに記載された候補です。";
- found.forEach(code=>primaryList.append(makeCard(code,organisms,disease,"非βラクタム候補",note,"適応菌種：要確認　／　適応症：要確認",false)));
+ const drugNote=code=>code==="CLDM"?"Sanford活性表（2020/09/15）ではA群溶血性レンサ球菌にも活性評価があります。皮膚膿瘍での抗MRSA選択肢は、MRSAと感受性が確認された場合に限って検討します。偽膜性大腸炎などの重篤な大腸炎に注意（PMDA電子添文）。":code==="ST"?"厚労省手引き第四版案では、MRSAが疑われる場合の選択肢として記載。ただし経口ST合剤は皮膚軟部組織感染症が国内適応外で、添付文書上の適応菌種に黄色ブドウ球菌・A群溶血性レンサ球菌を含みません。年齢・患者背景も確認してください。":note;
+ found.forEach(code=>primaryList.append(makeCard(code,organisms,disease,"非βラクタム候補",drugNote(code),code==="ST"?"国内適応外：適応菌種・適応症を確認":"適応菌種：要確認　／　適応症：要確認",false)));
  wrap.append(primaryList);
  const classes=pills.filter(p=>!nonbetaCodes.some(c=>hasCode(p,c)));if(classes.length){const c=node("div","spectrum-class-note");c.append(node("b","","薬剤群としての記載"),node("span","",classes.join("、")+"。薬剤別のスペクトル情報は未登録です。"));wrap.append(c)}
  const intro=body.querySelector(".matrix-intro");if(intro){if(intro.querySelector("b"))intro.querySelector("b").textContent="ガイドライン記載薬の標的菌・スペクトル";const p=intro.querySelector("p");if(p)p.textContent="薬剤ごとに菌種を縦に並べ、Kyoto 2024・Sanfordの評価と国内適応を別欄で確認します。感受性とガイドライン上の推奨は別の情報です。"}
