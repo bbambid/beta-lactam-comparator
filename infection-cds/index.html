@@ -1263,12 +1263,12 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       lead:"非膿性ではGAS/MSSAを主に考え、MRSAカバーを全例に広げない。",
       chips:["GAS/MSSA中心","MRSAは状況依存"],
       pathogens:[["A群溶血性レンサ球菌（GAS）","非膿性で重要"],["黄色ブドウ球菌（S. aureus）","MSSAを主に考慮"]],
-      beta:[{name:"CEX / CVA-AMPC / CEZ",status:"推奨",note:"重症度・経口/注射で使い分け。"},{name:"CTRX",status:"代替",note:"中等症等で選択肢。"}],
+      beta:[{name:"CEX",displayName:"ケフレックス（セファレキシン／CEX）",status:"推奨（具体名あり）",note:"厚労省手引き第四版は蜂窩織炎等の深部感染で経口第1世代セフェムを推奨し、蜂窩織炎の範囲が広い場合（5か所以上）にセファレキシンを具体的に記載。国内添付文書の適応菌種は感性のレンサ球菌属・ブドウ球菌属など。GASを含む溶連菌とMSSAを想定する候補。"}, {name:"CVA/AMPC",displayName:"CVA/AMPC（アモキシシリン／クラブラン酸）",status:"条件付き候補",note:"病態・患者背景に応じて検討するβラクタム候補。蜂窩織炎節で手引きが具体名を挙げているのはセファレキシン。"}, {name:"CEZ",displayName:"CEZ（セファゾリン）",status:"条件付き候補",note:"注射用第1世代セファロスポリン。重症度・投与経路に応じて検討。"}, {name:"CTRX",displayName:"CTRX（セフトリアキソン）",status:"代替",note:"中等症等で選択肢。"}],
       nonbeta:{title:"MRSAを考慮するときの候補",body:"非膿性蜂窩織炎では溶連菌を想定した初期治療を基本とし、MRSA薬を一律に追加しない。3〜4日で改善しない場合などはMRSAを考慮し、ST合剤を検討する選択肢がある（国内では皮膚軟部組織感染症に適応外）。ただし適応菌種に黄色ブドウ球菌・A群β溶血性レンサ球菌は含まれず、ST単剤で溶連菌をカバーできるとは扱わない。クリンダマイシンは感受性が確認された場合の候補。",pills:["ST","CLDM"]},
       warning:{title:"MRSA薬の広げすぎに注意",text:"非膿性蜂窩織炎でMRSAを自動的に主標的にしない。膿瘍がある場合は別カードでsource controlを優先。"},
       spectrum:[["CEX × MSSA","Layer 3","標準的な位置づけ","l3"],["CEX × GAS","Layer 3","標準的な位置づけ","l3"]],
       compare:["CEX","CEZ","CTRX"],
-      evidence:[["CELLULITIS-MHLW2026-01","厚生労働省「抗微生物薬適正使用の手引き 第四版 医科・外来編」（2026年1月16日）","p.90 / PDF p.90","蜂窩織炎：第1世代セファロスポリン、初期の抗MRSA薬は原則不要、改善しない場合のST合剤（適応外）と感受性確認時のクリンダマイシン。STの国内適応菌種に黄色ブドウ球菌・A群β溶血性レンサ球菌は含まれない。","https://www.mhlw.go.jp/content/10900000/001630903.pdf#page=90"],["CELLULITIS-JPS2021-02","形成外科診療ガイドライン3 2021年版―創傷疾患","誌面 p.94 / PDF p.110","蜂窩織炎・丹毒の治療アルゴリズム。","https://jsprs.or.jp/member/committee/wp-content/uploads/2023/04/guideline3.pdf#page=110"]]
+      evidence:[["CELLULITIS-MHLW2026-01","厚生労働省「抗微生物薬適正使用の手引き 第四版 医科・外来編」（2026年1月16日）","p.90 / PDF p.90","蜂窩織炎等の深部感染で経口第1世代セフェムを推奨。範囲が広い蜂窩織炎（5か所以上）ではセファレキシンを具体的に記載。初期の抗MRSA薬は原則不要で、改善しない場合にST合剤（適応外）を検討。","https://www.mhlw.go.jp/content/10900000/001630903.pdf#page=90"],["CELLULITIS-KEFLEX-PMDA","PMDA ケフレックスカプセル250mg 電子添文","4.効能又は効果","適応菌種に感性のレンサ球菌属・ブドウ球菌属等、適応症に表在性・深在性皮膚感染症を記載。","https://www.pmda.go.jp/PmdaSearch/iyakuDetail/672173_6132002M2183_3_03"],["CELLULITIS-JPS2021-02","形成外科診療ガイドライン3 2021年版―創傷疾患","誌面 p.94 / PDF p.110","蜂窩織炎・丹毒の治療アルゴリズム。","https://jsprs.or.jp/member/committee/wp-content/uploads/2023/04/guideline3.pdf#page=110"]]
     },
     {
       id:"odonto", short:"歯性感染", name:"歯性感染症",
@@ -2357,7 +2357,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 
   function pharmacyOptions(x){
     if(x.id==="cystitis")return [["none","未選択／まず一覧を見る"],["cva","CVA/AMPC"],["ceph","経口セフェム系"],["fom","FOM"],["frpm","FRPM"],["fq","フルオロキノロン系"],["st","ST合剤"],["other","その他"]];
-    const names=[...x.beta.map(d=>d.name),...(x.nonbeta?.pills||[])];
+    const names=[...x.beta.map(d=>d.displayName||d.name),...(x.nonbeta?.pills||[])];
     return [["none","未選択／まず一覧を見る"],...names.filter((n,i,a)=>n&&a.indexOf(n)===i).map((n,i)=>["drug"+i,n]),["other","その他"]];
   }
 
@@ -2375,7 +2375,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   function renderLearningOverview(x){
     const first=x.beta.filter(d=>/第一選択|推奨|軸/.test(d.status));
     const conditional=x.beta.filter(d=>!first.includes(d));
-    const drugText=arr=>arr.length?arr.map(d=>`${esc(d.name)}｜${esc(d.status)}`).join("<br>"):"第一選択として単純化しない";
+    const drugText=arr=>arr.length?arr.map(d=>`${esc(d.displayName||d.name)}｜${esc(d.status)}`).join("<br>"):"第一選択として単純化しない";
     $("learningOverview").innerHTML=`<div class="workspace-panel-head"><div><h2>${esc(x.name)}｜ガイドラインの読み方</h2><p>入力項目がある疾患では、条件を変えて治療方針の変化を確認できます。</p></div></div><div class="learning-grid"><article class="learning-card"><h3>① 抗菌薬を考える場面</h3><p>${esc(x.lead)}</p></article><article class="learning-card"><h3>② 第一選択・治療の軸</h3><p>${drugText(first)}</p></article><article class="learning-card"><h3>③ 条件付き・代替</h3><p>${drugText(conditional)}</p></article></div><div class="learning-points">${x.chips.map(c=>`<div class="learning-point">${esc(c)}</div>`).join("")}</div>`;
   }
 
@@ -2733,7 +2733,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     if(x.id==="sinus"){
       const d=getSinusDecision(); primary=d.primary; alternatives=d.alt; unranked=[]; source=d.source;
     }
-    const drugRows=(arr,empty)=>arr.length?arr.map(d=>`<div class="dp-item"><div class="dp-main">${esc(d.name)}<span class="dp-tag">${esc(d.status)}</span></div><div class="dp-note">${esc(d.note)}</div></div>`).join(""):`<div class="dp-note">${empty}</div>`;
+    const drugRows=(arr,empty)=>arr.length?arr.map(d=>`<div class="dp-item"><div class="dp-main">${esc(d.displayName||d.name)}<span class="dp-tag">${esc(d.status)}</span></div><div class="dp-note">${esc(d.note)}</div></div>`).join(""):`<div class="dp-note">${empty}</div>`;
     $("decisionZone").innerHTML=`
       <article class="decision-panel primary"><div class="dp-label">FIRST / CORE</div>${drugRows(primary,"ガイドライン上、第一選択として単純化できる薬剤は設定していません。")}${source?`<div class="dp-note" style="margin-top:8px">根拠：${esc(source)}</div>`:""}${x.id==="sinus"?`<div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>`:""}</article>
       <article class="decision-panel alternative"><div class="dp-label">ALTERNATIVE / CONDITIONAL</div>${drugRows([...alternatives,...unranked],"明示された代替・条件付き薬はありません。")}${x.id==="sinus"&&getSinusDecision().conditional?`<div class="conditional-note">${esc(getSinusDecision().conditional)}</div><div class="evidence-jump"><button type="button" onclick="jumpToEvidence()">根拠を見る ↓</button></div>`:""}</article>
@@ -2866,7 +2866,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 
     renderDecisionZone(x);
     $("pathogenCard").innerHTML=`<div class="step-head"><div class="step-num">1</div><div><div class="step-title">主な標的菌</div><div class="step-sub">感染部位・症候から想定</div></div></div><div class="organism-list">${x.pathogens.map(p=>`<div class="organism"><b>${esc(p[0])}</b><small>${esc(p[1])}</small></div>`).join('')}</div>`;
-    $("betaCard").innerHTML=`<div class="step-head"><div class="step-num">2</div><div><div class="step-title">βラクタムの位置づけ</div><div class="step-sub">疾患GL上の役割</div></div></div><div class="drug-list">${x.beta.map(d=>`<div class="drug-item"><b>${esc(d.name)}</b><span class="drug-status${statusClass(d.status)}">${esc(d.status)}</span><small>${esc(d.note)}</small></div>`).join('')}</div><div id="betaAllergyNotice" class="beta-allergy-notice" hidden></div>`;
+    $("betaCard").innerHTML=`<div class="step-head"><div class="step-num">2</div><div><div class="step-title">βラクタムの位置づけ</div><div class="step-sub">疾患GL上の役割</div></div></div><div class="drug-list">${x.beta.map(d=>`<div class="drug-item"><b>${esc(d.displayName||d.name)}</b><span class="drug-status${statusClass(d.status)}">${esc(d.status)}</span><small>${esc(d.note)}</small></div>`).join('')}</div><div id="betaAllergyNotice" class="beta-allergy-notice" hidden></div>`;
     $("nonBetaCard").innerHTML=`<div class="section-label">REFERENCE / NON-β-LACTAM</div><div class="nonbeta-title">${esc(x.nonbeta.title)}</div><div class="nonbeta-body">${esc(x.nonbeta.body)}</div>${x.nonbeta.pills.length?`<div class="nonbeta-pills">${x.nonbeta.pills.map(p=>`<span class="pill">${esc(p)}</span>`).join('')}</div>`:''}`;
     $("warningCard").className="wide-card warning-card"+(x.id==='aspiration'||x.id==='abscess'?" critical":"");
     $("warningCard").innerHTML=`<div class="warning-title">${esc(x.warning.title)}</div><div class="warning-text">${esc(x.warning.text)}</div>`;
