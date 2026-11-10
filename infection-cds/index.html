@@ -1298,13 +1298,13 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       id:"abscess", short:"皮膚膿瘍", name:"皮膚膿瘍・創部感染",
       lead:"抗菌薬より先にsource control。排膿・培養・創開放の要否を確認し、MRSA/MSSAを再評価する。",
       chips:["切開排膿が中心","培養で再評価"],
-      pathogens:[["黄色ブドウ球菌（S. aureus）","MRSA/MSSAの鑑別を培養・臨床経過で評価"],["その他","創部・背景により多菌種感染もあり得る。症候だけで補完しない。"]],
-      beta:[{name:"MSSAが確認/強く疑われる場合",status:"状況依存",note:"βラクタムの位置づけを検討。膿瘍そのもののsource controlを置き換えない。"}],
-      nonbeta:{title:"主要な非βラクタム選択肢",body:"MRSA感染が疑われる場合にST合剤、感受性が確認される場合にCLDMが主要候補。",pills:["ST","CLDM"]},
+      pathogens:[["黄色ブドウ球菌（MSSA）","培養・感受性で確認。感染原因菌かを臨床所見と合わせて評価"],["黄色ブドウ球菌（MRSA）","膿・培養結果、既往、臨床経過などから状況に応じて考慮"],["その他","創部・背景により多菌種感染もあり得る。症候だけで補完しない。"]],
+      beta:[{name:"MSSA（感受性確認）",status:"患者背景・国内適応を確認"},{name:"CEX（セファレキシン／ケフレックス）",status:"厚労省手引き第四版案・乳幼児編に記載",note:"小児の癤・皮下膿瘍では切開排膿・培養に加え、セファレキシン内服を記載（50〜100 mg/kg/日、1日3〜4回、5日間程度）。乳幼児編の記載であり、年齢・病態・感受性・国内適応に応じて確認。膿瘍の排膿を置き換えない。"}],
+      nonbeta:{title:"主要な非βラクタム選択肢",body:"初期治療で抗MRSA薬を一律に使わず、切開排膿・培養を優先。MRSAが疑われる場合にST合剤（経口製剤は皮膚軟部組織感染症に国内適応外）、MRSAで感受性が確認された場合にCLDMを選択肢として検討。",pills:["ST","CLDM"]},
       warning:{title:"最優先はsource control",text:"膿瘍は切開・排膿が中心。単なる保菌と感染原因菌を区別し、抗MRSA薬を全例に自動付与しない。"},
       spectrum:[["MRSA × βラクタム","Clinical principle","通常の抗MSSAβラクタムをMRSA治療として扱わない","l3"]],
       compare:["CEZ","CEX","CTRX"],
-      evidence:[["ABSCESS-MRSA2024-01","MRSA感染症の治療ガイドライン2024","誌面 p.288 / PDF p.38","膿瘍は切開・排膿。MRSAの保菌と感染を区別。","https://www.chemotherapy.or.jp/uploads/files/guideline/mrsa_guideline_2024.pdf#page=38"],["WOUND-MRSA2024-01","MRSA感染症の治療ガイドライン2024","誌面 p.289 / PDF p.39","創部感染で排膿・創開放・培養を重視。","https://www.chemotherapy.or.jp/uploads/files/guideline/mrsa_guideline_2024.pdf#page=39"]]
+      evidence:[["ABSCESS-MRSA2024-01","MRSA感染症の治療ガイドライン2024","誌面 p.288 / PDF p.38","膿瘍は切開・排膿。MRSAの保菌と感染を区別。","https://www.chemotherapy.or.jp/uploads/files/guideline/mrsa_guideline_2024.pdf#page=38"],["WOUND-MRSA2024-01","MRSA感染症の治療ガイドライン2024","誌面 p.289 / PDF p.39","創部感染で排膿・創開放・培養を重視。","https://www.chemotherapy.or.jp/uploads/files/guideline/mrsa_guideline_2024.pdf#page=39"],["MHLW-SSTI-2025DRAFT-01","厚生労働省 抗微生物薬適正使用の手引き 第四版（案）医科・外来編","乳幼児編 p.89 / PDF p.90","癤・皮下膿瘍：切開排膿・培養に加え、セファレキシンを具体的に記載。","https://www.mhlw.go.jp/content/10906000/001582920.pdf#page=90"]]
     }
   ]
 };
@@ -3248,6 +3248,20 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       </div>`).join("") + `</div>`;
   }
 
+  // Sanford Guide 日本語版「抗菌活性スペクトラム表」2020/09/15。ユーザー提供画像で文字・セルを確認できた組合せのみを記録。
+  // +/++/±/0 は原表記。感染部位別推奨や患者個別の感受性結果を示すものではない。
+  const SANFORD_SPECTRUM_COMMON=window.SANFORD_SPECTRUM_COMMON=window.SANFORD_SPECTRUM_COMMON||{
+    AZM:{saMSSA:"±",saMRSA:"0",gas:"±",sp:"±"},
+    CAM:{saMSSA:"±",saMRSA:"0",gas:"±",sp:"±"},
+    CPFX:{saMSSA:"±",saMRSA:"0",gas:"±",sp:"±"},
+    LVFX:{saMSSA:"+",saMRSA:"0",gas:"±",sp:"+"},
+    MFLX:{saMSSA:"+",saMRSA:"0",gas:"±",sp:"+"},
+    GRNX:{saMSSA:"+",saMRSA:"0",gas:"±",sp:"+"},
+    DOXY:{saMSSA:"+",saMRSA:"+",gas:"0",sp:"±"},
+    MINO:{saMSSA:"+",saMRSA:"+",gas:"0",sp:"±"},
+    CLDM:{saMSSA:"+",saMRSA:"0",gas:"+",sp:"+"},
+    ST:{saMSSA:"0",saMRSA:"0",gas:"0",sp:"±"}
+  };
   const SANFORD_NONBETA_DRUGS=[
     {code:"AZM",generic:"アジスロマイシン",group:"マクロライド系"},
     {code:"CAM",generic:"クラリスロマイシン",group:"マクロライド系"},
