@@ -101,6 +101,7 @@ function labelSpectrumCells(){
 const spectrumObserver=new MutationObserver(labelSpectrumCells);const spectrumBody=$("spectrumBody");if(spectrumBody)spectrumObserver.observe(spectrumBody,{childList:true,subtree:true});
 labelSpectrumCells();
 select.addEventListener("change",updateContext);
+if(quick)quick.addEventListener("click",()=>queueMicrotask(updateContext));
 updateContext();
 if(allergySelect)allergySelect.dispatchEvent(new Event("change",{bubbles:true}));
 })();
