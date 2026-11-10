@@ -3226,8 +3226,8 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     return {text:"記載なし",cls:"none",sub:"≠ 無効"};
   }
   function sourceTypeLabel(e){
-    const t=[e[0],e[1],e[3]].filter(Boolean).join(" ");
-    if(/Historical|historical|サーベイ|MIC/.test(t)) return "Historical";
+    const t=[e[0],e[1],e[2],e[3]].filter(Boolean).join(" ");
+    if(/Historical|historical|サーベイ|MIC|2007|2010|2015/.test(t)) return "Historical";
     if(/PMDA|添付文書|インタビューフォーム|IF|審査報告/.test(t)) return "Layer 2｜薬剤情報";
     if(/ガイドライン|手引き/.test(t)) return "Layer 3｜疾患GL";
     return "出典";
@@ -3252,7 +3252,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     const ev=[...x.evidence];
     const hasKyoto=drugs.some(d=>KYOTO[d]);
     const card=e=>`<div class="evidence-card"><div class="evidence-top"><span class="evidence-kind">${esc(sourceTypeLabel(e))}</span><b>${esc(e[1])}</b></div><div class="evidence-meta">${esc(e[0])} ・ ${esc(e[2])}</div><div class="evidence-why">${esc(e[3])}</div><a href="${e[4]}" target="_blank" rel="noopener">該当ページ / 公式資料を開く ↗</a></div>`;
-    const historical=ev.filter(e=>/Historical|SURV|2010/i.test(e[0]) || /Historical|2007年全国サーベイランス/.test(e[3]));
+    const historical=ev.filter(e=>/Historical|historical|SURV|2007|2010|2015|サーベイ|MIC/i.test(e.join(" ")));
     const disease=ev.filter(e=>!historical.includes(e));
     let cards="";
     cards+=`<section class="evidence-group"><div class="evidence-group-title">基本スペクトル｜京都 <span class="evidence-group-sub">菌に対する基本的な活性の参照</span></div>`;
