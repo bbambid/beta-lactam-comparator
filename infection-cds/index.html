@@ -1089,14 +1089,14 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   <section id="warningCard" class="wide-card warning-card"></section>
 
   <details class="deep-card" id="spectrumDetails">
-    <summary><span>βラクタム比較表</span><small>標的菌 × ガイドライン</small></summary>
+    <summary><span>薬剤別スペクトル比較</span><small>ガイドライン記載薬を優先表示</small></summary>
     <div id="spectrumBody" class="details-body"></div>
   </details>
 
   <details class="deep-card" id="allergyDetails">
     <summary><span>アレルギー時の考え方</span><small>構造比較へつなぐ</small></summary>
     <div class="details-body">
-      <label class="field-label" for="allergySelect">過去の反応型</label>
+      <label class="field-label" for="allergySelect">もしβラクタムアレルギーがある場合</label>
       <select id="allergySelect" class="syndrome-select compact">
         <option value="unknown">不明</option>
         <option value="immediate">即時型／アナフィラキシー</option>
@@ -2866,7 +2866,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 
     renderDecisionZone(x);
     $("pathogenCard").innerHTML=`<div class="step-head"><div class="step-num">1</div><div><div class="step-title">主な標的菌</div><div class="step-sub">感染部位・症候から想定</div></div></div><div class="organism-list">${x.pathogens.map(p=>`<div class="organism"><b>${esc(p[0])}</b><small>${esc(p[1])}</small></div>`).join('')}</div>`;
-    $("betaCard").innerHTML=`<div class="step-head"><div class="step-num">2</div><div><div class="step-title">βラクタムの位置づけ</div><div class="step-sub">疾患GL上の役割</div></div></div><div class="drug-list">${x.beta.map(d=>`<div class="drug-item"><b>${esc(d.name)}</b><span class="drug-status${statusClass(d.status)}">${esc(d.status)}</span><small>${esc(d.note)}</small></div>`).join('')}</div>`;
+    $("betaCard").innerHTML=`<div class="step-head"><div class="step-num">2</div><div><div class="step-title">βラクタムの位置づけ</div><div class="step-sub">疾患GL上の役割</div></div></div><div class="drug-list">${x.beta.map(d=>`<div class="drug-item"><b>${esc(d.name)}</b><span class="drug-status${statusClass(d.status)}">${esc(d.status)}</span><small>${esc(d.note)}</small></div>`).join('')}</div><div id="betaAllergyNotice" class="beta-allergy-notice" hidden></div>`;
     $("nonBetaCard").innerHTML=`<div class="section-label">REFERENCE / NON-β-LACTAM</div><div class="nonbeta-title">${esc(x.nonbeta.title)}</div><div class="nonbeta-body">${esc(x.nonbeta.body)}</div>${x.nonbeta.pills.length?`<div class="nonbeta-pills">${x.nonbeta.pills.map(p=>`<span class="pill">${esc(p)}</span>`).join('')}</div>`:''}`;
     $("warningCard").className="wide-card warning-card"+(x.id==='aspiration'||x.id==='abscess'?" critical":"");
     $("warningCard").innerHTML=`<div class="warning-title">${esc(x.warning.title)}</div><div class="warning-text">${esc(x.warning.text)}</div>`;
@@ -3546,12 +3546,13 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   }
 
   function renderAllergy(){
-    const x=D.syndromes.find(s=>s.id===select.value)||D.syndromes[0];
     const val=$("allergySelect").value;
-    $("allergyMessage").textContent=allergyText[val];
-    const actions=x.compare.map((d,i)=>`<a class="action-btn ${i===0?'primary':''}" href="${esc(D.comparatorUrl)}?drugA=${encodeURIComponent(d)}" target="_blank" rel="noopener">${esc(d)}を構造比較へ</a>`).join('');
-    $("compareActions").innerHTML=actions;
+    const notice=$("betaAllergyNotice");
+    if(!notice)return;
+    notice.hidden=val==="unknown";
+    notice.innerHTML=val==="unknown"?"":"<div class='beta-allergy-title'>選択したβラクタムアレルギーへの注意</div><div class='beta-allergy-text'>"+esc(allergyText[val]||"反応歴と患者背景を確認してください。")+"</div>";
   }
+  $("allergySelect").addEventListener("change",renderAllergy);
   init();
 })();
 </script>
