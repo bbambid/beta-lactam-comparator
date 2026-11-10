@@ -608,7 +608,7 @@ body.compact-view .deep-section{display:none}
 
 .alt-cds{margin:0 0 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.alt-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.alt-badge{font-size:8px;font-weight:900;padding:4px 7px;border-radius:999px;background:#eef4fb;color:#405b73}.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.alt-grid label{display:block;font-size:9px;font-weight:900;color:#667085;margin-bottom:4px}.alt-grid select{width:100%;border:1px solid #d6dee8;border-radius:8px;background:#fff;padding:8px;font-size:10px}.alt-result{margin-top:10px;padding:11px;border:1px solid #dce5ed;border-radius:11px;background:#f8fafc;font-size:10px;line-height:1.55}.alt-result>strong{display:block;font-size:13px;margin-bottom:5px}.alt-candidate{margin-top:8px;padding:9px;border-radius:9px;background:#eef6f1;border:1px solid #d3e4d8}.alt-stop{margin-top:8px;padding:9px;border-radius:9px;background:#fff4f2;border:1px solid #e9c4bd}@media(max-width:700px){.alt-grid{grid-template-columns:1fr}}
 </style>
-<link rel="stylesheet" href="./mobile-ui.css">
+<link rel="stylesheet" href="./mobile-ui.css?v=20261110-allergy-spectrum-2">
 
 
 <style id="sanford-spectrum-style">
@@ -3248,6 +3248,21 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
       </div>`).join("") + `</div>`;
   }
 
+  const SANFORD_NONBETA_DRUGS=[
+    {code:"AZM",generic:"アジスロマイシン",group:"マクロライド系"},
+    {code:"CAM",generic:"クラリスロマイシン",group:"マクロライド系"},
+    {code:"LVFX",generic:"レボフロキサシン",group:"フルオロキノロン系"},
+    {code:"CPFX",generic:"シプロフロキサシン",group:"フルオロキノロン系"},
+    {code:"MFLX",generic:"モキシフロキサシン",group:"フルオロキノロン系"},
+    {code:"GRNX",generic:"ガレノキサシン",group:"フルオロキノロン系"},
+    {code:"STFX",generic:"シタフロキサシン",group:"フルオロキノロン系"},
+    {code:"TFLX",generic:"トスフロキサシン",group:"フルオロキノロン系"},
+    {code:"MINO",generic:"ミノサイクリン",group:"テトラサイクリン系"},
+    {code:"DOXY",generic:"ドキシサイクリン",group:"テトラサイクリン系"},
+    {code:"CLDM",generic:"クリンダマイシン",group:"リンコサミド系"},
+    {code:"ST",generic:"スルファメトキサゾール／トリメトプリム",group:"ST合剤"},
+    {code:"FOM",generic:"ホスホマイシン",group:"その他"}
+  ];
   function renderSourceList(x,drugs){
     const ev=[...x.evidence];
     const hasKyoto=drugs.some(d=>KYOTO[d]);
@@ -3267,12 +3282,27 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
     cards+=`<section class="evidence-group"><div class="evidence-group-title">Historical｜旧GL・旧サーベイランス <span class="evidence-group-sub">現在の推奨と混同しない参照資料</span></div>${historical.length?historical.map(card).join(""):`<div class="evidence-empty">Historical資料はありません。</div>`}</section>`;
 
     const sf=(window.SANFORD_SPECTRUM||{})[x.id];
-    cards+=`<section class="evidence-group"><div class="evidence-group-title">Sanford｜独立検証 <span class="evidence-group-sub">既存Layerを上書きしない補助参照</span></div>`;
-    if(sf){
-      const sfRows=drugs.map(d=>{const v=sf.drugs[d];if(!v)return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未登録</span></div>`;if(v.status!=="verified")return `<div class="sanford-drug-row"><b>${esc(d)}</b><span class="sanford-pending">未確認・後日確認</span></div>`;const labels={sp:"S. pneumoniae",hi:"H. influenzae",mc:"M. catarrhalis",gas:"GAS",mp:"M. pneumoniae",leg:"Legionella",ec:"E. coli",ss:"S. saprophyticus",pm:"P. mirabilis",sa:"S. aureus (MSSA)",oralstrep:"Viridans streptococci",prev:"Prevotella",pepto:"Peptostreptococcus"};const vals=["sp","hi","mc","gas","mp","leg","ec","ss","pm","sa","oralstrep","prev","pepto"].filter(k=>v[k]!==undefined&&v[k]!==null).map(k=>`<span>${labels[k]} <strong>${esc(v[k])}</strong></span>`).join("");return `<div class="sanford-drug-row"><b>${esc(d)}</b>${vals}</div>`}).join("");
-      cards+=`<div class="sanford-source-block"><div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford</span><b>${esc(SANFORD_SOURCE.title)}</b></div><div class="evidence-meta">更新 ${esc(SANFORD_SOURCE.updated)}</div><div class="evidence-why">原表の 0 / ± / + / ++ をそのまま保持。Layer 1・2・3の判定は変更・上書きしません。</div><div class="sanford-spectrum-grid">${sfRows}</div><small class="pending-note">${esc(sf.note)}</small></div>`;
-    }else cards+=`<div class="sanford-source-block"><div class="evidence-why">この疾患のSanfordスペクトラムはまだマスタ未登録です。</div></div>`;
-    cards+=`</section>`;
+    const betaSanfordDrugs=[...new Set([...drugs,...EXTRA_DRUGS])];
+    const groups=[["βラクタム｜既存照合マスター",betaSanfordDrugs],...["マクロライド系","フルオロキノロン系","テトラサイクリン系","リンコサミド系","ST合剤","その他"].map(g=>[g,SANFORD_NONBETA_DRUGS.filter(d=>d.group===g).map(d=>d.code)])];
+    const labels={sp:"S. pneumoniae",hi:"H. influenzae",mc:"M. catarrhalis",gas:"GAS",mp:"M. pneumoniae",leg:"Legionella",ec:"E. coli",ss:"S. saprophyticus",pm:"P. mirabilis",sa:"S. aureus (MSSA)",oralstrep:"Viridans streptococci",prev:"Prevotella",pepto:"Peptostreptococcus"};
+    const keys=["sp","hi","mc","gas","mp","leg","ec","ss","pm","sa","oralstrep","prev","pepto"];
+    const drugLabel=d=>{const nb=SANFORD_NONBETA_DRUGS.find(v=>v.code===d);return nb?d+"（"+nb.generic+"）":d};
+    const renderSanfordDrug=d=>{
+      const v=sf&&sf.drugs&&sf.drugs[d];
+      if(!v)return `<div class="sanford-drug-row"><b>${esc(drugLabel(d))}</b><span class="sanford-pending">未登録</span></div>`;
+      const vals=keys.filter(k=>v[k]!==undefined&&v[k]!==null).map(k=>`<span>${labels[k]} <strong>${esc(v[k])}</strong></span>`).join("");
+      const status=v.status==="pending"?"未確認":v.status==="partial"?"一部照合":"";
+      return `<div class="sanford-drug-row"><b>${esc(drugLabel(d))}</b>${vals||'<span class="sanford-pending">未登録</span>'}${status?`<span class="sanford-pending">${status}</span>`:""}</div>`;
+    };
+    cards+=`<section class="evidence-group"><div class="evidence-group-title">Sanford｜抗菌活性スペクトラム <span class="evidence-group-sub">照合済みの原表値と未登録データを区別</span></div>
+      <div class="sanford-source-block">
+        <div class="evidence-top"><span class="evidence-kind sanford-kind">Sanford</span><b>${esc(SANFORD_SOURCE.title)}</b></div>
+        <div class="evidence-meta">ローカル照合マスター更新 ${esc(SANFORD_SOURCE.updated)} ・ 版の異なるSanford値を混在させません。</div>
+        <div class="evidence-why">原表の 0 / ± / + / ++ をそのまま表示します。これは治療ガイドライン上の推奨や患者個別の感受性結果を示すものではありません。マクロライド、キノロン、テトラサイクリンなども薬剤名を追加しましたが、原表未照合の値は「未登録」のままです。</div>
+        <div class="sanford-spectrum-groups">${groups.map(([group,codes])=>`<details class="sanford-drug-class"><summary>${esc(group)} <small>${codes.length}薬剤</small></summary><div class="sanford-spectrum-grid">${codes.map(renderSanfordDrug).join("")}</div></details>`).join("")}</div>
+        <small class="pending-note">${esc(sf?.note||"この疾患のSanford照合値は未登録です。")}</small>
+      </div>
+    </section>`;
     return cards;
   }
 
@@ -3548,9 +3578,10 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   function renderAllergy(){
     const val=$("allergySelect").value;
     const notice=$("betaAllergyNotice");
-    if(!notice)return;
-    notice.hidden=val==="unknown";
-    notice.innerHTML=val==="unknown"?"":"<div class='beta-allergy-title'>選択したβラクタムアレルギーへの注意</div><div class='beta-allergy-text'>"+esc(allergyText[val]||"反応歴と患者背景を確認してください。")+"</div>";
+    const html=val==="unknown"?"":"<div class='beta-allergy-title'>選択したβラクタムアレルギーへの注意</div><div class='beta-allergy-text'>"+esc(allergyText[val]||"反応歴と患者背景を確認してください。")+"</div>";
+    if(notice){notice.hidden=val==="unknown";notice.innerHTML=html;}
+    const inlineNotice=$("allergyInlineNotice");
+    if(inlineNotice){inlineNotice.hidden=val==="unknown";inlineNotice.innerHTML=html;}
   }
   $("allergySelect").addEventListener("change",renderAllergy);
   init();
@@ -3924,6 +3955,6 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
 })();
 </script>
 
-<script src="./mobile-ui.js"></script>
+<script src="./mobile-ui.js?v=20261110-allergy-spectrum-2"></script>
 </body>
 </html>
