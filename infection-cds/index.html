@@ -2321,7 +2321,7 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   const select = $("syndromeSelect"), tabs = $("quickTabs");
   const allergyText = {
     unknown:"反応型が不明な場合は、構造類似性だけで安全と判断しない。可能なら発症時期・症状・処置歴を確認する。",
-    immediate:"即時型／アナフィラキシーでは、側鎖構造は重要でも投与可否を構造だけで決めない。必要に応じ専門的評価を優先する。",
+    immediate:"即時型／アナフィラキシーでは、原因薬を確認し、同一・類似側鎖のβラクタム（セフェムを含む）は避けます。異なる側鎖の薬剤も一律に安全とは判断せず、必要時は専門的評価を優先します。",
     mild:"軽症の遅発疹では、反応歴と必要性を確認しつつ、異なる側鎖のβラクタムが候補になり得る。構造Comparatorを補助に使う。",
     scar:"SCAR（SJS/TEN/DRESS等）では、構造類似度を根拠に再投与や同系統投与を正当化しない。専門的評価を優先する。"
   };
@@ -3578,7 +3578,8 @@ footer{border-top:1px solid #d8dee3;margin-top:18px;padding-top:18px}
   function renderAllergy(){
     const val=$("allergySelect").value;
     const notice=$("betaAllergyNotice");
-    const html=val==="unknown"?"":"<div class='beta-allergy-title'>選択したβラクタムアレルギーへの注意</div><div class='beta-allergy-text'>"+esc(allergyText[val]||"反応歴と患者背景を確認してください。")+"</div>";
+    const source=val==="immediate"?"<a class='allergy-source-link' href='https://www.aaaai.org/Aaaai/media/Media-Library-PDFs/Allergist%20Resources/Statements%20and%20Practice%20Parameters/Drug-Allergy-2022.pdf' target='_blank' rel='noopener'>参照：Drug allergy: A 2022 practice parameter update ↗</a>":"";
+    const html=val==="unknown"?"":"<div class='beta-allergy-title'>選択したβラクタムアレルギーへの注意</div><div class='beta-allergy-text'>"+esc(allergyText[val]||"反応歴と患者背景を確認してください。")+"</div>"+source;
     if(notice){notice.hidden=val==="unknown";notice.innerHTML=html;}
     const inlineNotice=$("allergyInlineNotice");
     if(inlineNotice){inlineNotice.hidden=val==="unknown";inlineNotice.innerHTML=html;}
